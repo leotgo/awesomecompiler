@@ -1,0 +1,7 @@
+int minha_funcao (float f, int i)
+{
+float f;
+        a=5;
+        p=a;
+        if (a==0) then { output x } else
+}

@@ -1,0 +1,130 @@
+#!/bin/sh
+if [[ 1 -ne $# || ! -d "$1/e1/input" ]]; then
+	cat << EOF
+Usage: $0 TEST_DIR
+   where TEST_DIR has the following structure
+.
+├── e1
+│   ├── expected
+│   │   └── *.saida
+│   └── input
+│       └── *.tokens
+├── e2
+│   └── input
+│       ├── certa*.txt
+│       └── errada*.txt
+├── e3
+│   ├── checkdots.py
+│   ├── expected
+│   │   └── *.dot
+│   ├── input
+│   │   └── *.iks
+│   └── verify
+├── e4
+│   └── input
+│       ├── errors.h
+│       └── *.iks
+├── e5
+│   ├── input
+│   │   └── *.iks
+│   └── verify
+└── scripts
+EOF
+	exit 1
+fi
+testdir=$1
+mydir="$( cd "$( dirname "$0" )" && pwd )" 
+
+getoutput (){
+	printf "${testdir}/$1/avaliacao_%.2d.tesh" $2
+}
+
+valgrindtest (){
+	${mydir}/teshfy -m "tests/scripts/valgrindtest ./main" -i "$1" /dev/null "`printf ${testdir}/$2/valgrind_%.2d.tesh $3`"
+}
+
+rebuild_e1 (){
+	path="${testdir}/e1"
+	mkdir -p "${testdir}/e1/expected"
+	i=1
+	for input in ${path}/input/*.tokens; do
+		output=$(basename "$input" | cut -d. -f1)
+		output=${path}/expected/${output}.saida
+		${mydir}/teshfy "$input" "$output" "`getoutput e1 $i`"
+		valgrindtest "$input" e1 $i
+		i=$(( i + 1 ))
+	done
+}
+
+rebuild_e2 (){
+	path="${testdir}/e2/input"
+	i=1
+	for input in ${path}/certa*.txt; do
+		${mydir}/teshfy -i "$input" /dev/null "`getoutput e2 $i`"
+		valgrindtest "$input" e2 $i
+		i=$((i + 1))
+	done
+	for input in ${path}/errada*.txt; do
+		${mydir}/teshfy -r "!= 0" -i "$input" /dev/null "`getoutput e2 $i`"
+		valgrindtest "$input" e2 $i
+		i=$((i + 1))
+	done
+}
+
+rebuild_e3 (){
+	path="${testdir}/e3/"
+	mkdir -p "${testdir}/e3/output"
+	i=1
+	for input in ${path}/input/*.iks; do
+		name=$(basename "$input" | cut -d. -f1)
+		output=${path}/expected/${name}.dot
+		${mydir}/teshfy -m "tests/e3/verify main tests/e3/input/${name}.iks tests/e3/expected/${name}.dot tests/e3/output" -i "$input" /dev/null "`getoutput e3 $i`"
+		valgrindtest "$input" e3 $i
+		i=$((i + 1))
+	done
+}
+
+rebuild_e4 (){
+	path="${testdir}/e4"
+	i=1
+	for input in ${path}/input/*.iks; do
+		retval=`head -n1 "$input" | awk '{ print $2 }'`
+		retval=`grep "#define\ \+$retval\ " "${path}/input/errors.h" | awk '{ print $3 }'`
+		${mydir}/teshfy -r "$retval" -i "$input" /dev/null "`getoutput e4 $i`"
+		valgrindtest "$input" e4 $i
+		i=$((i + 1))
+	done
+}
+
+rebuild_e5 (){
+	path="${testdir}/e5"
+	mkdir -p "${testdir}/e5/expected"
+	i=1
+	for input in ${testdir}/e5/input/*iks; do
+		name=$(basename "$input" | cut -d. -f1)
+		${mydir}/teshfy -m "tests/e5/verify ./main tests/e5/input/${name}.iks" -d "$input" /dev/null "`getoutput e5 $i`"
+		valgrindtest $input e5 $i
+		tmpbin=$(mktemp)
+		${mydir}/iks2c "$input" | gcc -x c - -o "${tmpbin}"
+		"${tmpbin}" > "${testdir}/e5/expected/${name}.out"
+		rm "${tmpbin}"
+		i=$((i + 1))
+	done
+}
+
+for i in $(seq 1 5); do
+	rm -f ${testdir}/e$i/*.tesh
+done
+rm -f $writedir/e5/expected/*
+
+echo rebuilding e1
+rebuild_e1
+echo rebuilding e2
+rebuild_e2
+echo rebuilding e3
+rebuild_e3
+echo rebuilding e4
+rebuild_e4
+echo rebuilding e5
+rebuild_e5
+

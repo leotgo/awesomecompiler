@@ -1,0 +1,7 @@
+#! ./tesh
+
+! timeout 5
+
+$ ./main ./tests/e1/input/nivel12.tokens
+> 1 TK_IDENTIFICADOR [falso]
+> 2 TK_IDENTIFICADOR [verdadeiro]

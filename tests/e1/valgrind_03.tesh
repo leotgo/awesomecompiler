@@ -1,0 +1,6 @@
+#! ./tesh
+
+! timeout 5
+! output ignore
+
+$ ./tests/scripts/valgrindtest ./main ./tests/e1/input/nivel3.tokens

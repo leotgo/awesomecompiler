@@ -1,0 +1,9 @@
+/* IKS_SUCCESS */
+int f()
+{
+  int x;
+  {
+    string x;
+    x = "212";
+  };
+}

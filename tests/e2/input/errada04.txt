@@ -1,0 +1,8 @@
+int minha_funcao ()
+ float local;
+{
+ do output 
+    x (4-1);
+}
+
+

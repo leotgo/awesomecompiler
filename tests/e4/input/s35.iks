@@ -1,0 +1,8 @@
+/* IKS_SUCCESS */
+int f()
+{
+  int x;
+  {
+    int x;
+  }
+}

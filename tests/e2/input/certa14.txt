@@ -1,0 +1,15 @@
+//expressões aritméticas e retorno
+float variavel_flutuante;
+int variavel_inteira;
+char variavel_caractere;
+int minha_funcao (float k, int l) 
+{
+float v1;
+int v2;
+  a=10;
+  v[a+1]=5*b;
+  return v;
+  return v+1;
+  return v[10];
+  return v[v[10]+v[1]];
+}

@@ -1,0 +1,107 @@
+#!/bin/bash
+show_help(){
+	cat << EOF
+Usage: $0 [-m MAIN] [-r RETVAL] [-t TIMEOUT] [-i] TEST_INPUT TEST_CORRECT_OUTPUT [TESH_FILE]
+  -m MAIN              program name. Defaults to "main"
+  -r RETVAL            correct return value for the test. Defaults to 0
+  -t TIMEOUT           maximum test execution time, in seconds. Use 0 for no limit.
+                       Defaults to 5 seconds
+  -i                   ignore output
+  -d                   output displayed but not verified
+  TEST_INPUT           file containing the input for the test
+  TEST_CORRECT_OUTPUT  file containing the correct output for the test
+  TESH_FILE            tesh file to write to. Defaults to stdout
+EOF
+}
+
+main="main"
+testinput=""
+testoutput=""
+teshfile=/dev/stdout
+ignoreoutput=0
+displayoutput=0
+retval=0
+timeout=5
+while getopts ":m:r:t:idh" opt; do
+	case "$opt" in
+		h)
+			show_help
+			exit 0
+			;;
+		m)
+			main=$OPTARG
+			;;
+		r)
+			retval=$OPTARG
+			;;
+		t)
+			timeout=$OPTARG
+			;;
+		i)
+			if [[ 1 -eq $displayoutput ]]; then
+				echo "The options -i and -d cannot be used together"
+				exit 1
+			fi
+			ignoreoutput=1
+			;;
+		d)
+			if [[ 1 -eq $ignoreoutput ]]; then
+				echo "The options -i and -d cannot be used together"
+				exit 1
+			fi
+			displayoutput=1
+			;;
+		:)
+			echo "option -$OPTARG requires an argument"
+			exit 1
+			;;
+		'?')
+			show_help
+			exit 1
+			;;
+	esac
+done
+shift "$((OPTIND-1))"
+if [ $# -lt 2 -o $# -gt 3 ]; then
+	show_help
+	exit 1
+fi
+testinput=$1
+testoutput=$2
+if [ $# -ge 3 ]; then
+	teshfile=$3
+fi
+
+#timeout
+echo "! timeout $timeout" > $teshfile
+
+if [ 1 -eq $ignoreoutput ]; then
+	echo "! output ignore" >> $teshfile
+elif [ 1 -eq $displayoutput ]; then
+	echo "! output display" >> $teshfile
+fi
+
+# return value
+if [[ $retval == 0 || $retval == "" ]]; then
+	# empty
+	echo "\$ ./$main" >> $teshfile
+elif [[ "$retval" =~ ^[0-9]+$ ]]; then
+	# number
+	echo "! expect return $retval" >> $teshfile
+	echo "\$ ./$main" >> $teshfile
+elif [[ $retval =~ ^\ *([<>=]|!=)?=?\ *[0-9]+$ ]]; then
+	# expression
+	echo "\$ sh -c \"./$main ; exit \$(( 1 - ( \$? $retval ) ))\"" >> $teshfile
+#	echo -e "\$ sh -c \'./$main \; exit $((\$? $retval))\'" >> $teshfile
+else
+	echo "invalid retval: $retval" > /dev/stderr
+	exit 1
+fi
+
+# input
+diff $testinput /dev/null | grep -v ^\\\\ | tail -n +2 >> $teshfile
+# output
+diff /dev/null $testoutput | grep -v ^\\\\ | tail -n +2 >> $teshfile
+# blank line
+echo >> $teshfile
+

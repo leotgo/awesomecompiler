@@ -1,0 +1,7 @@
+int x;
+int y;
+int main(){
+	y = 111;
+	x = 222;
+	x = x * y;
+}

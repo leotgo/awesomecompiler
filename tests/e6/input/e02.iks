@@ -1,0 +1,8 @@
+/* variáveis locais e globais */
+int y;
+int main()
+{
+  int x;
+  x = 1;
+  y = 2;
+}
