@@ -19,6 +19,8 @@
 %token TK_PR_INPUT
 %token TK_PR_OUTPUT
 %token TK_PR_RETURN
+%token TK_PR_STATIC
+%token TK_PR_CONST
 %token TK_OC_LE
 %token TK_OC_GE
 %token TK_OC_EQ
