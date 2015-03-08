@@ -1,0 +1,15 @@
+/* passagem de parâmetros */
+int mult (int z, int w)
+{
+  int x;
+  x = z*w;
+  return x;
+}
+
+int main()
+{
+  int x;
+  int y;
+  x = 2;
+  y = mult(x, x);
+}

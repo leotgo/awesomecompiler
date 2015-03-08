@@ -1,0 +1,14 @@
+//com comentário no meio
+int a;
+float b;
+char v[15] ;
+int f2 (int x)
+{
+  return 2* x;
+}
+float my_function ()
+  { 
+  /* a=10; */
+  while (v[a+1] != 4+1) do v[a/*+1*/] = f(2)+1 ;
+
+  } 

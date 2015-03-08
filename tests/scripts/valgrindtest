@@ -1,0 +1,25 @@
+#!/bin/bash
+if [[ $# -lt 1 ]]; then
+	echo "Usage: $0 BINARY PARAMETERS"
+	exit 2
+fi
+output=$(valgrind $* 2>&1 1>/dev/null)
+invalidwrites=$(grep "Invalid write"<<< "$output" | wc -l)
+invalidreads=$(grep "Invalid write"<<< "$output" | wc -l)
+conditional=$(grep "Conditional"<<< "$output" | wc -l)
+lostbytes=$(grep "definitely lost:"<<< "$output" | awk '{ print $4 }' | sed "s/,//g")
+cat << EOF
+invalid writes:
+$invalidwrites
+invalid read:
+$invalidreads
+jumps/moves depending on uninitialized values:
+$conditional
+lost bytes:
+$lostbytes
+EOF
+if [[ 0 -eq $invalidwrites && 0 -eq $invalidreads && 0 -eq $conditional && 0 -eq $lostbytes ]]; then
+	exit 0
+else
+	exit 1
+fi

@@ -1,0 +1,12 @@
+//funções com tipos diferentes e com parâmetros formais
+float f1 () {}
+int f2 () {}
+char f3 () {}
+bool f4 () {}
+string f5 () {}
+
+float f1 (float v1, int v2, char v3, bool v4, string v5) {}
+int f2 (float v1, int v2, char v3, bool v4, string v5) {}
+char f3 (float v1, int v2, char v3, bool v4, string v5) {}
+bool f4 (float v1, int v2, char v3, bool v4, string v5) {}
+string f5 (float v1, int v2, char v3, bool v4, string v5) {}

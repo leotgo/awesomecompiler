@@ -1,0 +1,11 @@
+/* estado da máquina, valor retornado */
+int f()
+{
+  return 99;
+}
+
+int main()
+{
+  int x;
+  x = f();
+}

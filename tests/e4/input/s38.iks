@@ -1,0 +1,11 @@
+/* IKS_ERROR_STRING_TO_X */
+string g()
+{
+  return "212";
+}
+
+int f()
+{
+  int x;
+  x = g();
+}

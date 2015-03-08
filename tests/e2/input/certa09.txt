@@ -1,0 +1,7 @@
+//comando de fluxo de controle if (sem else) e de saída
+int f1 (float k, int l) 
+{
+  a=5;
+  p=a;
+  if (a==0) then output x;
+}

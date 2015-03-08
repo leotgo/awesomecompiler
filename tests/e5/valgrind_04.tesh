@@ -1,0 +1,11 @@
+! timeout 5
+! output ignore
+$ ./tests/scripts/valgrindtest ./main
+< int x;
+< int y;
+< int main(){
+< 	x = 9;
+< 	y = 3;
+< 	x = x * y;
+< }
+

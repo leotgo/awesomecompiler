@@ -1,0 +1,3 @@
+! timeout 10
+! output ignore
+$ ./tests/scripts/valgrindtest ./main tests/e4/input/s32.iks

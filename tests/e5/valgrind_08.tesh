@@ -1,0 +1,17 @@
+! timeout 5
+! output ignore
+$ ./tests/scripts/valgrindtest ./main
+< int i;
+< int j;
+< int x;
+< int main(){
+< 	i = 0;
+< 	j = 64;
+< 	x = 2;
+< 	while ( i < j ) do{
+< 		i = i + 1;
+< 		j = j - 1;
+< 		x = x + i;
+< 	}
+< }
+

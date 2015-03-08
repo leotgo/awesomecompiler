@@ -1,0 +1,13 @@
+//função com atribuição para vetores e chamada de função
+int f1() 
+{
+ a=f1();
+ b=2.4;
+ c="teste";
+ k='l';
+ t[10]='k';
+
+ a[30] = 10;
+ b[a+b] = 2;
+ c[5] = a[2*c+k];
+}

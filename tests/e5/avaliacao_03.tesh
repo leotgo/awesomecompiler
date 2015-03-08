@@ -1,0 +1,19 @@
+! timeout 5
+! output display
+$ ./tests/e5/verify ./main tests/e5/input/02.iks
+< int end;
+< int x;
+< int main(){
+< 	end = 123;
+< 	while( end > end * 1 * 1 * 2 ) do {
+< 	};
+< 	x = 1;
+< 	if( x < 32) then{
+< 		x = x + x;
+< 	};
+< 	if(end < 10 * x) then{
+< 		end = 133 * 7 * end;
+< 	};
+< 	x = 5737 * end / x;
+< }
+

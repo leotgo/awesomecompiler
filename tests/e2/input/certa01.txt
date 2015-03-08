@@ -1,0 +1,7 @@
+//variáveis globais
+float v1;
+int v1;
+char v1;
+bool v1;
+string v1;
+

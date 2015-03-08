@@ -1,0 +1,11 @@
+//chamada de função e retorno
+float variavel_flutuante;
+int variavel_inteira;
+char variavel_caractere;
+int f (int x) { return 2 * function() ; } 
+float function ()
+{
+  a = 10;
+  v[a+1] = f(2);
+  return f(v[a+1*x[v[10]]]);
+}

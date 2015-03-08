@@ -1,0 +1,8 @@
+! timeout 5
+! output display
+$ ./tests/e5/verify ./main tests/e5/input/05.iks
+< int x;
+< int main(){
+< 	x = 123456;
+< }
+

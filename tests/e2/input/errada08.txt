@@ -1,0 +1,8 @@
+int minha_funcao (float f, int i)
+{
+float f;
+c=0;
+}
+x=10;
+}
+char variavel_caractere;
