@@ -41,7 +41,8 @@ $ ./main ./tests/e1/input/nivel0.tokens
 > 36 !
 > 37 &
 > 38 $
-> 39 TK_LIT_INT [-2]
+> 39 -
+> 39 TK_LIT_INT [2]
 > 40 TK_LIT_FLOAT [31794.45]
 > 41 TK_LIT_CHAR ['&']
 > 42 TK_LIT_STRING ["oZ bool S9"]

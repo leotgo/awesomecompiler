@@ -9,9 +9,11 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 1 TK_LIT_CHAR ['!']
 > 1 *
 > 1 TK_LIT_CHAR ['d']
-> 2 TK_LIT_FLOAT [-96.6994641]
+> 2 -
+> 2 TK_LIT_FLOAT [96.6994641]
 > 2 TK_LIT_CHAR ['*']
-> 2 TK_LIT_INT [-8336]
+> 2 -
+> 2 TK_LIT_INT [8336]
 > 3 TK_LIT_STRING ["h int gZ:N<=ki860v+ _5sN&& if Rc<:{2>=R[f4]A9 output A6Y then Vcbk"]
 > 3 /
 > 3 TK_PR_STRING [string]
@@ -37,30 +39,37 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 7 TK_LIT_STRING [" while J> - v,[ND[ / sW char sAN&b - bf7A input OFsn( while f)"]
 > 7 TK_LIT_FLOAT [0105632.17140]
 > 7 TK_LIT_INT [941831591]
-> 7 TK_LIT_INT [-97]
+> 7 -
+> 7 TK_LIT_INT [97]
 > 7 :
 > 8 TK_LIT_STRING ["D bool XvJ8 while  else [ else  * "]
 > 9 TK_IDENTIFICADOR [____bJgnmGs2HN5kcuuQvZPZKIynKji9N25yvTTLV4Ib2u09XS0oo47uicxlI4CRXQMm7F22NHaxb5o]
 > 9 [
 > 9 >
 > 9 TK_LIT_CHAR [':']
-> 9 TK_LIT_INT [-74499494]
+> 9 -
+> 9 TK_LIT_INT [74499494]
 > 9 TK_LIT_CHAR ['[']
 > 9 -
-> 9 TK_LIT_FLOAT [-16891823.88671]
+> 9 -
+> 9 TK_LIT_FLOAT [16891823.88671]
 > 9 {
 > 9 TK_PR_RETURN [return]
 > 10 TK_IDENTIFICADOR [_____hP3ng2AGOz_0QnpiEtZ_gETcj_4slqFkp]
 > 10 TK_PR_CHAR [char]
 > 10 ;
-> 10 TK_LIT_FLOAT [-81029.696169700]
+> 10 -
+> 10 TK_LIT_FLOAT [81029.696169700]
 > 10 TK_LIT_CHAR [']']
 > 10 >
 > 11 TK_IDENTIFICADOR [_YKOIOeIBGHC6uUPcgTNuja6tidVQ6nun3bR7bYwUEoNMEiBxPoFO_yGK5zA1EvTvXw4KLYjtpQBvhuXAx_IzU]
 > 11 }
-> 11 TK_LIT_FLOAT [-090.0666721798]
-> 11 TK_LIT_FLOAT [-6607.93589]
-> 11 TK_LIT_FLOAT [-94083.18]
+> 11 -
+> 11 TK_LIT_FLOAT [090.0666721798]
+> 11 -
+> 11 TK_LIT_FLOAT [6607.93589]
+> 11 -
+> 11 TK_LIT_FLOAT [94083.18]
 > 11 TK_PR_OUTPUT [output]
 > 11 >
 > 11 TK_LIT_CHAR ['Y']
@@ -77,13 +86,16 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 13 $
 > 14 TK_IDENTIFICADOR [__yXlEre77T6LOLns5hqJJyAWceh5Seq6CcJ53inrjOxCnfZsF3hWrzzSeHTOVKoPFrp3vpLnDTfrM8WTQCWhY]
 > 14 -
-> 14 TK_LIT_INT [-1]
+> 14 -
+> 14 TK_LIT_INT [1]
 > 15 TK_IDENTIFICADOR [____RDyuGVvQgCQ9HFfcyLLdubOPHtKb45c0NHyGlXmR6KZYhOEuWXm2g5fkz1XSrMiGIM1]
 > 15 TK_PR_INPUT [input]
-> 15 TK_LIT_FLOAT [-59763791.36227575]
+> 15 -
+> 15 TK_LIT_FLOAT [59763791.36227575]
 > 15 =
 > 15 TK_LIT_INT [64]
-> 15 TK_LIT_FLOAT [-7435873.076]
+> 15 -
+> 15 TK_LIT_FLOAT [7435873.076]
 > 15 TK_PR_BOOL [bool]
 > 16 TK_PR_STRING [string]
 > 16 TK_LIT_CHAR ['Z']
@@ -91,7 +103,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 16 &
 > 17 TK_LIT_STRING ["B - M5"]
 > 17 )
-> 17 TK_LIT_INT [-293193100]
+> 17 -
+> 17 TK_LIT_INT [293193100]
 > 17 TK_LIT_STRING ["8 - zZP: if  char <2+ AH * &8Dzk then + wFV"]
 > 17 )
 > 18 TK_LIT_FLOAT [57639.14]
@@ -105,9 +118,11 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 19 TK_LIT_INT [7165306]
 > 19 TK_LIT_CHAR ['>']
 > 19 TK_PR_ELSE [else]
-> 19 TK_LIT_INT [-278]
+> 19 -
+> 19 TK_LIT_INT [278]
 > 19 TK_IDENTIFICADOR [__input]
-> 19 TK_LIT_FLOAT [-42729.37024056]
+> 19 -
+> 19 TK_LIT_FLOAT [42729.37024056]
 > 20 TK_PR_FLOAT [float]
 > 20 TK_LIT_STRING ["As2E float X$_jb input ==Z if  then Udr = ,Xv0M&&"]
 > 20 /
@@ -134,18 +149,21 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 26 TK_IDENTIFICADOR [_____eWrzV2N0QtY]
 > 26 [
 > 26 TK_LIT_CHAR ['[']
-> 26 TK_LIT_FLOAT [-9207608783.5897040]
+> 26 -
+> 26 TK_LIT_FLOAT [9207608783.5897040]
 > 26 TK_LIT_INT [0684413022]
 > 27 TK_LIT_STRING ["NcE7Ck"]
 > 27 ]
 > 27 }
 > 27 -
-> 27 TK_LIT_FLOAT [-4048.6580826]
+> 27 -
+> 27 TK_LIT_FLOAT [4048.6580826]
 > 28 TK_LIT_STRING ["e[ - IS return  output )w(695}fm>=tM[ char t) bool o$ while X - iw"]
 > 28 TK_LIT_FLOAT [397164189.93927]
 > 28 TK_LIT_INT [7409399840]
 > 28 TK_LIT_FLOAT [4.15]
-> 28 TK_LIT_INT [-4]
+> 28 -
+> 28 TK_LIT_INT [4]
 > 28 >
 > 28 TK_LIT_STRING ["<=DWU!=Z return m$"]
 > 28 TK_LIT_INT [094]
@@ -176,7 +194,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 33 >
 > 34 TK_LIT_STRING ["Wi>XH - >=p&f9 then &$s string QJt<=;Jr]Wa]p while 2r5aKh}Fks / r9k float VS2 output "]
 > 34 TK_LIT_STRING ["m) float pXoQ{(pu * ;t]ri return Sg>"]
-> 34 TK_LIT_INT [-60919706]
+> 34 -
+> 34 TK_LIT_INT [60919706]
 > 34 TK_IDENTIFICADOR [__int]
 > 35 TK_IDENTIFICADOR [_8lqBJoNc0sRou6eK4oylMcScG6N1Koxa57WUm8l3vJtRZV2oYsHrfU9Z3GtCv]
 > 35 TK_LIT_FLOAT [7403.6920105]
@@ -214,14 +233,18 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 41 TK_LIT_INT [62778654]
 > 41 TK_LIT_CHAR ['$']
 > 42 TK_IDENTIFICADOR [_wyXBWiOGzd]
-> 42 TK_LIT_INT [-86916159]
+> 42 -
+> 42 TK_LIT_INT [86916159]
 > 42 :
-> 42 TK_LIT_INT [-904015]
+> 42 -
+> 42 TK_LIT_INT [904015]
 > 43 TK_IDENTIFICADOR [__A9y4d_DLCx3cTgtT0ycwt50CfSwJ7RLSOVf87E6k9cEz2Mtxw6iwVk_S]
 > 43 +
 > 44 TK_IDENTIFICADOR [___3AOOLbFL4CrZOnuq4GMOL7jh15WGfOzbynQFH_TWeTQX8qUP0h6WSgWsIgATtMQ0KU6eln9hz1qG2lE]
-> 44 TK_LIT_INT [-63044851]
-> 44 TK_LIT_FLOAT [-01.533004278]
+> 44 -
+> 44 TK_LIT_INT [63044851]
+> 44 -
+> 44 TK_LIT_FLOAT [01.533004278]
 > 44 }
 > 44 TK_LIT_INT [71705351]
 > 44 TK_LIT_STRING ["&5Q&"]
@@ -231,13 +254,15 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 45 TK_LIT_CHAR ['>']
 > 45 TK_PR_BOOL [bool]
 > 45 TK_LIT_FLOAT [195.3]
-> 45 TK_LIT_INT [-39]
+> 45 -
+> 45 TK_LIT_INT [39]
 > 46 TK_LIT_STRING ["r>=&&t input [fLLt2H return UJy8];W{kDJW while  input WuQirja8gz"]
 > 46 {
 > 46 !
 > 46 TK_LIT_FLOAT [65500453.849416]
 > 46 TK_LIT_INT [1233854651]
-> 46 TK_LIT_INT [-02030321]
+> 46 -
+> 46 TK_LIT_INT [02030321]
 > 46 $
 > 46 {
 > 47 TK_LIT_STRING [">=vMa else M]Js2CFufaXXjZfz7}1n / !_ = SWC86"]
@@ -256,7 +281,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 48 TK_LIT_CHAR ['/']
 > 48 ;
 > 48 TK_LIT_CHAR ['O']
-> 49 TK_LIT_FLOAT [-851332.0157472]
+> 49 -
+> 49 TK_LIT_FLOAT [851332.0157472]
 > 49 TK_LIT_INT [1301992]
 > 49 TK_LIT_STRING ["v5 - }T;)(ujVo7m2hU1==9 / zhPQ35"]
 > 49 TK_LIT_CHAR ['c']
@@ -270,10 +296,12 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 51 =
 > 51 TK_LIT_CHAR ['S']
 > 51 }
-> 51 TK_LIT_FLOAT [-0160024.502173742]
+> 51 -
+> 51 TK_LIT_FLOAT [0160024.502173742]
 > 51 TK_PR_IF [if]
 > 52 TK_LIT_STRING ["xyAI output $J output  do &Cb return  - c9!=1W8$Y int L"]
-> 52 TK_LIT_FLOAT [-6835868684.98119]
+> 52 -
+> 52 TK_LIT_FLOAT [6835868684.98119]
 > 52 +
 > 52 TK_PR_THEN [then]
 > 52 [
@@ -282,7 +310,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 53 [
 > 53 TK_LIT_STRING [""]
 > 53 TK_LIT_STRING ["Eim7Xwc, if N> output 3s&&vTFb else "]
-> 53 TK_LIT_FLOAT [-1023931997.60]
+> 53 -
+> 53 TK_LIT_FLOAT [1023931997.60]
 > 53 =
 > 54 *
 > 54 {
@@ -299,7 +328,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 56 &
 > 56 TK_LIT_CHAR ['i']
 > 56 TK_LIT_FLOAT [2409.93986]
-> 56 TK_LIT_FLOAT [-0.2103]
+> 56 -
+> 56 TK_LIT_FLOAT [0.2103]
 > 56 /
 > 56 TK_LIT_CHAR ['L']
 > 56 -
@@ -325,7 +355,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 60 TK_PR_INT [int]
 > 61 TK_IDENTIFICADOR [_____VfmCtXUN4RP8pxvgSdDCM57Lq14jFQVpJIbBD1pr1LjmRox8vqFYk5Z1Oo5EG9sL]
 > 61 TK_PR_INPUT [input]
-> 61 TK_LIT_INT [-007]
+> 61 -
+> 61 TK_LIT_INT [007]
 > 61 TK_PR_OUTPUT [output]
 > 61 [
 > 61 <
@@ -338,7 +369,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 63 ,
 > 65 TK_IDENTIFICADOR [__8xA5AgexkesAicr8cyNnYiIhBf0bKMLMUirJL1VmeymHvsnMCX3HpvwnVVSWwZLSV88DJlgJJ_YGatw]
 > 65 ]
-> 65 TK_LIT_INT [-900583831]
+> 65 -
+> 65 TK_LIT_INT [900583831]
 > 65 TK_LIT_INT [9340]
 > 65 TK_LIT_FLOAT [17805567.9664]
 > 66 TK_IDENTIFICADOR [_____UTI6SpbILHKM0mNKKBpaFiehE4MfnWHexIC_8o9gwTNyCaDKI]
@@ -362,11 +394,13 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 70 TK_LIT_STRING ["mqGmht&&V>=c1XnB4 / vwN / :X char : if 2 * lsTJee||==koHz = V<"]
 > 70 $
 > 71 TK_LIT_FLOAT [470.5547]
-> 71 TK_LIT_INT [-6212694]
+> 71 -
+> 71 TK_LIT_INT [6212694]
 > 71 TK_LIT_CHAR ['(']
 > 71 TK_LIT_FLOAT [0448.6537990]
 > 71 $
-> 71 TK_LIT_FLOAT [-9786038.00036]
+> 71 -
+> 71 TK_LIT_FLOAT [9786038.00036]
 > 71 TK_LIT_CHAR [';']
 > 72 TK_LIT_STRING ["&& do &z||F} while "]
 > 72 TK_LIT_STRING ["KT if Z do 0< - N; float Ga{w& while M"]
@@ -382,10 +416,12 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 74 TK_LIT_STRING ["7SD"]
 > 74 TK_LIT_FLOAT [3196.491237980]
 > 74 [
-> 74 TK_LIT_FLOAT [-5241496145.0]
+> 74 -
+> 74 TK_LIT_FLOAT [5241496145.0]
 > 74 {
 > 74 TK_PR_RETURN [return]
-> 75 TK_LIT_FLOAT [-33065642.302386233]
+> 75 -
+> 75 TK_LIT_FLOAT [33065642.302386233]
 > 75 TK_LIT_STRING ["U - eK char f1XKpk>xE if cDGms{w_Wat / jgi{8,g)v else  char "]
 > 75 :
 > 76 TK_PR_IF [if]
@@ -395,7 +431,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 76 TK_LIT_CHAR ['k']
 > 76 TK_LIT_CHAR [',']
 > 76 ]
-> 77 TK_LIT_INT [-962401695]
+> 77 -
+> 77 TK_LIT_INT [962401695]
 > 77 TK_LIT_FLOAT [08.4198786256]
 > 77 TK_LIT_CHAR ['<']
 > 77 ,
@@ -408,35 +445,45 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 78 <
 > 79 TK_LIT_STRING [" do  / 4 do kRR[F output O if  output >=3A2 do  else &slMUG0m+ Fv"]
 > 79 TK_LIT_INT [595939]
-> 79 TK_LIT_INT [-8809004]
-> 79 TK_LIT_INT [-970]
+> 79 -
+> 79 TK_LIT_INT [8809004]
+> 79 -
+> 79 TK_LIT_INT [970]
 > 79 [
 > 79 [
 > 79 TK_LIT_FLOAT [839043596.833]
 > 79 TK_LIT_FLOAT [339.95214]
 > 81 TK_LIT_STRING ["$;MKc)Sney8c;X+ 5 then  output  *  string ==! float }Igegs1 = 2P;9jwH char J7;;"]
-> 81 TK_LIT_INT [-7]
+> 81 -
+> 81 TK_LIT_INT [7]
 > 81 }
 > 81 TK_PR_DO [do]
-> 81 TK_LIT_INT [-64830532]
-> 81 TK_LIT_INT [-29969096]
-> 81 TK_LIT_FLOAT [-9868693181.233018]
+> 81 -
+> 81 TK_LIT_INT [64830532]
+> 81 -
+> 81 TK_LIT_INT [29969096]
+> 81 -
+> 81 TK_LIT_FLOAT [9868693181.233018]
 > 81 (
 > 82 TK_LIT_STRING [" while f"]
 > 82 TK_LIT_CHAR ['=']
 > 82 TK_LIT_CHAR ['o']
 > 82 TK_IDENTIFICADOR [___input]
 > 82 TK_LIT_INT [32300]
-> 82 TK_LIT_FLOAT [-0100520915.00942]
+> 82 -
+> 82 TK_LIT_FLOAT [0100520915.00942]
 > 82 <
-> 82 TK_LIT_FLOAT [-660.737]
+> 82 -
+> 82 TK_LIT_FLOAT [660.737]
 > 82 )
-> 83 TK_LIT_INT [-0802367690]
+> 83 -
+> 83 TK_LIT_INT [0802367690]
 > 83 TK_LIT_CHAR ['}']
 > 83 (
 > 83 TK_PR_INT [int]
 > 83 TK_PR_THEN [then]
-> 83 TK_LIT_INT [-562556]
+> 83 -
+> 83 TK_LIT_INT [562556]
 > 83 }
 > 83 =
 > 83 TK_LIT_FLOAT [3080729364.0138893572]
@@ -447,8 +494,10 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 84 TK_IDENTIFICADOR [_____then]
 > 85 TK_IDENTIFICADOR [___RnImIuk7yAG_RlJVukq1XoUFjTU3JNcJbZapCov90bH5Tv]
 > 85 TK_LIT_FLOAT [163846.63]
-> 85 TK_LIT_INT [-676]
-> 85 TK_LIT_FLOAT [-4280253.335]
+> 85 -
+> 85 TK_LIT_INT [676]
+> 85 -
+> 85 TK_LIT_FLOAT [4280253.335]
 > 85 TK_PR_FLOAT [float]
 > 86 TK_IDENTIFICADOR [____LikZrNCpE_ZQRI3gam0GfGs2YQcBNRfwLZFUHn_q3TpJo47yRHvULDqYYW_gUxxmjCQXLELWTqnI5fGOlC_nUpdf8Zye]
 > 86 TK_LIT_FLOAT [72669450.996216000]
@@ -461,7 +510,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 86 TK_LIT_FLOAT [61.4608]
 > 86 [
 > 87 TK_LIT_FLOAT [29535.5815958013]
-> 87 TK_LIT_INT [-9349895]
+> 87 -
+> 87 TK_LIT_INT [9349895]
 > 87 TK_LIT_INT [16943983]
 > 87 {
 > 87 {
@@ -474,7 +524,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 89 TK_LIT_CHAR ['(']
 > 89 TK_IDENTIFICADOR [__se]
 > 89 TK_LIT_CHAR ['i']
-> 89 TK_LIT_INT [-3792060249]
+> 89 -
+> 89 TK_LIT_INT [3792060249]
 > 89 TK_LIT_CHAR ['e']
 > 89 }
 > 90 TK_LIT_STRING ["0oI6DA0YN *  input  float N$qAB9x string j}"]
@@ -510,9 +561,11 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 95 )
 > 95 TK_LIT_CHAR ['J']
 > 95 >
-> 95 TK_LIT_INT [-27]
+> 95 -
+> 95 TK_LIT_INT [27]
 > 95 TK_LIT_CHAR ['6']
-> 95 TK_LIT_FLOAT [-546688791.5931]
+> 95 -
+> 95 TK_LIT_FLOAT [546688791.5931]
 > 95 ]
 > 95 TK_PR_CHAR [char]
 > 96 TK_PR_BOOL [bool]
@@ -527,14 +580,17 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 97 TK_PR_CHAR [char]
 > 97 ]
 > 97 TK_LIT_INT [4973213490]
-> 97 TK_LIT_FLOAT [-21399609.10]
+> 97 -
+> 97 TK_LIT_FLOAT [21399609.10]
 > 97 TK_LIT_INT [19544]
 > 98 ;
 > 98 TK_PR_RETURN [return]
 > 98 TK_PR_INT [int]
-> 98 TK_LIT_INT [-04]
+> 98 -
+> 98 TK_LIT_INT [04]
 > 98 TK_LIT_CHAR ['V']
-> 98 TK_LIT_INT [-64]
+> 98 -
+> 98 TK_LIT_INT [64]
 > 98 TK_PR_OUTPUT [output]
 > 98 (
 > 99 TK_IDENTIFICADOR [___1QG24XKHxwnMZ3qfTkn5rp]
@@ -542,17 +598,20 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 99 TK_LIT_CHAR ['n']
 > 99 TK_LIT_CHAR ['E']
 > 99 /
-> 99 TK_LIT_FLOAT [-42599.12063925]
+> 99 -
+> 99 TK_LIT_FLOAT [42599.12063925]
 > 99 TK_LIT_INT [753]
 > 99 TK_LIT_CHAR [')']
 > 100 TK_LIT_STRING ["Scp+ gF||p& do C>k -  float ==2I_4||Si!=3 else f char b__&R"]
 > 100 {
 > 101 TK_IDENTIFICADOR [___Jv2tI3M47_PseLHsB5L6OMHxH90XphxPouvEwvey9d2OIN1SQ6AVGsRynr7UrOUcoZc28WNo]
 > 101 +
-> 101 TK_LIT_FLOAT [-750217.3]
+> 101 -
+> 101 TK_LIT_FLOAT [750217.3]
 > 101 TK_LIT_INT [4695535553]
 > 101 TK_PR_FLOAT [float]
-> 101 TK_LIT_FLOAT [-1.696]
+> 101 -
+> 101 TK_LIT_FLOAT [1.696]
 > 101 }
 > 101 /
 > 101 TK_PR_STRING [string]
@@ -568,8 +627,10 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 105 TK_PR_RETURN [return]
 > 105 /
 > 105 (
-> 105 TK_LIT_INT [-81026]
-> 105 TK_LIT_INT [-6]
+> 105 -
+> 105 TK_LIT_INT [81026]
+> 105 -
+> 105 TK_LIT_INT [6]
 > 105 TK_LIT_INT [6312]
 > 106 TK_IDENTIFICADOR [_1iCSREiCIVOHwhz32aYJlwzlUlvKuaNDG9qNJ1_iCucleT4xt9JJSUcerGPPoX0vcQd9iaAM32dTF_gwVrQVSLL23D_6u8w]
 > 106 TK_IDENTIFICADOR [_do]
@@ -585,7 +646,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 108 TK_IDENTIFICADOR [__w]
 > 108 ,
 > 109 TK_IDENTIFICADOR [___scuz9eXbZaOiNc4tEKVaErOA1dbF1kNftSJjS3253d8cRsY5PriKCTgNtM1JTW4sW3UmJGQQ7ERML4xj]
-> 109 TK_LIT_INT [-1946953521]
+> 109 -
+> 109 TK_LIT_INT [1946953521]
 > 109 }
 > 109 TK_PR_CHAR [char]
 > 110 TK_IDENTIFICADOR [_____zU1jOF5ebEKPNbozhZFpuirCNOqsvNQcUavsBbJGZS_M4ZlktYj_KrvwouDdLSqMV81nhkwKGplH0O8]
@@ -601,29 +663,36 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 112 TK_LIT_INT [3]
 > 113 TK_IDENTIFICADOR [_____Sl2GbryhsakjK1tQHhIgZspVpen5OnMihIjVlducS3mWPIpNxU9dNpbGt9jIOpYyBcsrlK8dWeH_MH6t9VcYa6iSTF]
 > 113 TK_IDENTIFICADOR [___5xlBw1UikBJRUL8fX6LTb97IDebpGgQ5TZEl8bVZr0Sw17IhsaXJJDhLbx]
-> 114 TK_LIT_FLOAT [-91113719.24115928]
+> 114 -
+> 114 TK_LIT_FLOAT [91113719.24115928]
 > 114 TK_LIT_CHAR ['o']
 > 114 -
 > 114 TK_IDENTIFICADOR [_____float]
 > 114 TK_LIT_INT [1714]
-> 114 TK_LIT_INT [-64894]
+> 114 -
+> 114 TK_LIT_INT [64894]
 > 114 >
 > 114 TK_LIT_STRING ["<"]
 > 114 ;
 > 114 &
 > 114 >
 > 115 TK_IDENTIFICADOR [____t9KaiFkzovoDsQQ4ouOU1FGAqXUyZX9M2w8zfI6GI7SBK]
-> 115 TK_LIT_FLOAT [-7710198996.246420]
+> 115 -
+> 115 TK_LIT_FLOAT [7710198996.246420]
 > 115 TK_LIT_INT [7]
-> 116 TK_LIT_INT [-703]
+> 116 -
+> 116 TK_LIT_INT [703]
 > 116 TK_LIT_FLOAT [242581.4]
 > 116 TK_LIT_CHAR ['*']
 > 116 TK_PR_INT [int]
 > 116 TK_LIT_STRING ["kC;+ 1lFG] int H_p<brhZ"]
 > 117 TK_LIT_STRING ["E<>=G string  -  while oR do  do ga>}R bool LCjuk_yPN"]
-> 117 TK_LIT_INT [-80]
-> 117 TK_LIT_FLOAT [-47951.2842840792]
-> 117 TK_LIT_INT [-036982679]
+> 117 -
+> 117 TK_LIT_INT [80]
+> 117 -
+> 117 TK_LIT_FLOAT [47951.2842840792]
+> 117 -
+> 117 TK_LIT_INT [036982679]
 > 117 TK_LIT_STRING ["j4"]
 > 117 TK_PR_INPUT [input]
 > 118 TK_LIT_STRING ["W}5zD>= /  if j|| int zCr7_J input C_>h+ !=fvoN"]
@@ -634,7 +703,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 119 TK_LIT_CHAR ['R']
 > 119 TK_LIT_INT [5158892]
 > 119 ,
-> 119 TK_LIT_INT [-12764693]
+> 119 -
+> 119 TK_LIT_INT [12764693]
 > 119 -
 > 119 =
 > 119 ,
@@ -645,17 +715,21 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 120 TK_LIT_CHAR ['Q']
 > 120 TK_LIT_CHAR ['/']
 > 121 TK_IDENTIFICADOR [____HTOO00thh32DH2abW5BYlJwdrNl1dYQnZEW3kZZOqPHra6hAYlen2M7tXBIm]
-> 121 TK_LIT_FLOAT [-75603.9]
+> 121 -
+> 121 TK_LIT_FLOAT [75603.9]
 > 122 TK_IDENTIFICADOR [___kDagXC6Js3DrErPV7UOobjZDGSji1Vvdc1RRS0UM66kPLYO1VEN4mg8i37EntvSyTIvuf3AJjXefujApVpue]
 > 122 -
 > 122 &
-> 122 TK_LIT_FLOAT [-4.5722095]
+> 122 -
+> 122 TK_LIT_FLOAT [4.5722095]
 > 123 TK_LIT_STRING ["KtTP+ $[&naa float !=4u&&fpI;,fzVBf! string n< * 1E&&w&&{pbM>=El[FHT"]
 > 123 TK_PR_THEN [then]
 > 123 TK_IDENTIFICADOR [_0bKL9ZNqwSnbAOiCw3eUn7YuPGsJSHLy16LD8FRlwpiZIWgOs]
 > 123 (
-> 124 TK_LIT_INT [-9702026179]
-> 124 TK_LIT_FLOAT [-4.446802]
+> 124 -
+> 124 TK_LIT_INT [9702026179]
+> 124 -
+> 124 TK_LIT_FLOAT [4.446802]
 > 124 TK_LIT_CHAR ['a']
 > 124 TK_LIT_INT [6951529574]
 > 124 TK_LIT_CHAR ['&']
@@ -667,9 +741,11 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 125 TK_LIT_INT [7261433]
 > 125 TK_PR_IF [if]
 > 125 TK_IDENTIFICADOR [_____9PacVxXF_kpXDh3Ngqp7OdLcRTUA0QQSRkcVyY4kWBx3nsSG]
-> 126 TK_LIT_INT [-8129]
+> 126 -
+> 126 TK_LIT_INT [8129]
 > 126 $
-> 126 TK_LIT_FLOAT [-4872072.15352764]
+> 126 -
+> 126 TK_LIT_FLOAT [4872072.15352764]
 > 126 TK_LIT_CHAR ['}']
 > 126 TK_PR_WHILE [while]
 > 126 >
@@ -683,11 +759,14 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 128 TK_LIT_STRING ["R>R4Y:oev(KL6$INh!U string }{yc"]
 > 128 TK_LIT_STRING ["0MCpZ:v output Y"]
 > 128 TK_LIT_CHAR ['a']
-> 129 TK_LIT_INT [-044060250]
+> 129 -
+> 129 TK_LIT_INT [044060250]
 > 129 TK_IDENTIFICADOR [_____ptSgt0bGwD2BRo9tnGuKmMn5FO]
 > 129 TK_LIT_INT [60688]
-> 129 TK_LIT_FLOAT [-3.4]
-> 129 TK_LIT_INT [-36906]
+> 129 -
+> 129 TK_LIT_FLOAT [3.4]
+> 129 -
+> 129 TK_LIT_INT [36906]
 > 130 TK_IDENTIFICADOR [_dTNo6M059i0RO9JEk1b1ETOqLF3CZfPRxp_F5ohzcDwzj1VtmN2vGEZMZ3S8]
 > 130 TK_LIT_CHAR ['Q']
 > 130 +
@@ -696,7 +775,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 130 TK_LIT_CHAR ['g']
 > 131 TK_LIT_STRING ["DzNSVB:5l /  return m74 do 2; input "]
 > 131 TK_PR_DO [do]
-> 131 TK_LIT_FLOAT [-1213360833.3]
+> 131 -
+> 131 TK_LIT_FLOAT [1213360833.3]
 > 131 TK_LIT_FLOAT [8.72]
 > 132 TK_LIT_STRING ["XNdF0Wp;$i_F[S;!=eWZ&&r =  char "]
 > 132 TK_LIT_INT [2083772]
@@ -706,7 +786,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 133 TK_LIT_STRING ["0 input K$aL{Up if <=8{bx float A)<= then he==KXRZ else J"]
 > 133 TK_LIT_STRING ["wwQA if ;(x0Dh"]
 > 134 TK_IDENTIFICADOR [___QpYpIQ8ElqC1d0xqMKlNrnZEuZyKz4rfqUyEASGPpFCmOyuhF6KTH9uYs_MV83FhrqyB_Kylk4U]
-> 134 TK_LIT_FLOAT [-7110689920.28548]
+> 134 -
+> 134 TK_LIT_FLOAT [7110689920.28548]
 > 134 TK_LIT_INT [607]
 > 134 TK_PR_OUTPUT [output]
 > 134 TK_PR_CHAR [char]
@@ -736,7 +817,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 137 TK_PR_RETURN [return]
 > 137 TK_IDENTIFICADOR [___W6DxbzVnTv7efRaZQz4WE7LWt]
 > 137 TK_LIT_CHAR ['}']
-> 137 TK_LIT_INT [-80]
+> 137 -
+> 137 TK_LIT_INT [80]
 > 137 <
 > 137 TK_LIT_FLOAT [435.2866018551]
 > 137 -
@@ -750,16 +832,20 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 139 TK_LIT_CHAR ['{']
 > 139 /
 > 139 TK_PR_INT [int]
-> 139 TK_LIT_FLOAT [-201333.06]
+> 139 -
+> 139 TK_LIT_FLOAT [201333.06]
 > 140 TK_IDENTIFICADOR [_oz1hmLozqlaszpCZdEGpp0XgR24hAxdtwV8j6fcu]
-> 140 TK_LIT_FLOAT [-550.935]
-> 140 TK_LIT_FLOAT [-556000385.961]
+> 140 -
+> 140 TK_LIT_FLOAT [550.935]
+> 140 -
+> 140 TK_LIT_FLOAT [556000385.961]
 > 141 TK_IDENTIFICADOR [_____xuOmp2_vhmPyjSx8T58wb3AqGzBU8UPDyxHPPymfHREGv3khrgjmUh7Wg8gdbXt2rd73mHOUdW_HSF]
 > 141 TK_PR_DO [do]
 > 141 {
 > 141 -
 > 141 ;
-> 141 TK_LIT_INT [-798429]
+> 141 -
+> 141 TK_LIT_INT [798429]
 > 141 TK_LIT_CHAR ['e']
 > 141 ]
 > 142 TK_LIT_STRING ["4( input 1L==H43 while PbS5x4 else 1$ULr int p return K = &<73TF4c float  /  = XYd string d"]
@@ -767,15 +853,18 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 142 TK_LIT_STRING ["G<=DO = }]==, * M+  -  int (Hg$7 char t<a||"]
 > 143 TK_IDENTIFICADOR [___lMwcmfOI4SfFnFpskCWxVjOuF2vQt7At7PRfow9lZ2FdliLNNhkKzh8wquJTBGLihUkYL8xD8JNM2i77nO2MyWt7]
 > 143 TK_PR_BOOL [bool]
-> 143 TK_LIT_FLOAT [-3916977.345704524]
+> 143 -
+> 143 TK_LIT_FLOAT [3916977.345704524]
 > 143 -
 > 144 TK_LIT_STRING ["> - aqMra||wQf then  char x char q) - VE = >=p6 else &&"]
 > 144 TK_LIT_STRING ["dy[7"]
-> 144 TK_LIT_FLOAT [-89587340.429231]
+> 144 -
+> 144 TK_LIT_FLOAT [89587340.429231]
 > 145 TK_IDENTIFICADOR [__ZPWdpgfHgXEBA9zG3uJYspxhzVq3_oX3r4KyzzpKHs5vWsmhuaT3D3mGRhdQ9hNAg5mlOw8JAKSwng]
 > 145 /
 > 145 TK_LIT_STRING [" return Y output zp)DX / b"]
-> 145 TK_LIT_INT [-7321920343]
+> 145 -
+> 145 TK_LIT_INT [7321920343]
 > 145 TK_PR_FLOAT [float]
 > 146 TK_IDENTIFICADOR [_____gHwhTKDqnAQRciW1KYUxXwdjZxnBMSb6tKozk7TYHCUlOxpxtRwRl1qpfB2TE_6T0]
 > 146 TK_IDENTIFICADOR [__do]
@@ -784,11 +873,13 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 147 TK_IDENTIFICADOR [__return]
 > 148 TK_LIT_STRING ["H8q * >=aBuDu7Xim4S+ MaKc char j<=t[ output }I<e$[xMf if LS!= then "]
 > 148 TK_LIT_CHAR ['{']
-> 148 TK_LIT_INT [-8]
+> 148 -
+> 148 TK_LIT_INT [8]
 > 148 TK_PR_THEN [then]
 > 148 &
 > 148 TK_LIT_CHAR ['n']
-> 148 TK_LIT_INT [-84074]
+> 148 -
+> 148 TK_LIT_INT [84074]
 > 148 TK_IDENTIFICADOR [_se]
 > 148 TK_IDENTIFICADOR [_bool]
 > 148 TK_PR_DO [do]
@@ -813,7 +904,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 306 }
 > 306 TK_LIT_CHAR ['i']
 > 307 TK_LIT_STRING [" - F int cx_ / 4F = P< then A{UMl then iO! string  int _>"]
-> 307 TK_LIT_FLOAT [-0160024.502173742]
+> 307 -
+> 307 TK_LIT_FLOAT [0160024.502173742]
 > 307 TK_LIT_CHAR ['g']
 > 307 TK_LIT_INT [7165306]
 > 307 TK_PR_DO [do]
@@ -837,19 +929,23 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 310 TK_IDENTIFICADOR [____LikZrNCpE_ZQRI3gam0GfGs2YQcBNRfwLZFUHn_q3TpJo47yRHvULDqYYW_gUxxmjCQXLELWTqnI5fGOlC_nUpdf8Zye]
 > 310 TK_PR_OUTPUT [output]
 > 310 TK_LIT_CHAR ['Q']
-> 310 TK_LIT_FLOAT [-21399609.10]
+> 310 -
+> 310 TK_LIT_FLOAT [21399609.10]
 > 310 TK_LIT_FLOAT [869827620.433806]
 > 310 -
 > 310 =
-> 311 TK_LIT_INT [-293193100]
+> 311 -
+> 311 TK_LIT_INT [293193100]
 > 311 TK_IDENTIFICADOR [_0bKL9ZNqwSnbAOiCw3eUn7YuPGsJSHLy16LD8FRlwpiZIWgOs]
 > 311 TK_PR_THEN [then]
 > 311 ,
 > 311 TK_LIT_INT [1001]
 > 312 TK_LIT_INT [736889543]
 > 312 (
-> 312 TK_LIT_INT [-7]
-> 312 TK_LIT_FLOAT [-4280253.335]
+> 312 -
+> 312 TK_LIT_INT [7]
+> 312 -
+> 312 TK_LIT_FLOAT [4280253.335]
 > 312 <
 > 312 TK_LIT_INT [01749462]
 > 313 TK_LIT_STRING ["h int gZ:N<=ki860v+ _5sN&& if Rc<:{2>=R[f4]A9 output A6Y then Vcbk"]
@@ -869,7 +965,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 315 TK_LIT_CHAR ['n']
 > 316 TK_LIT_FLOAT [673602349.708132]
 > 316 TK_PR_DO [do]
-> 316 TK_LIT_INT [-3792060249]
+> 316 -
+> 316 TK_LIT_INT [3792060249]
 > 316 $
 > 316 TK_LIT_STRING [" return Y output zp)DX / b"]
 > 316 TK_PR_IF [if]
@@ -886,7 +983,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 318 TK_LIT_CHAR [':']
 > 318 TK_LIT_FLOAT [943253.08]
 > 318 +
-> 318 TK_LIT_FLOAT [-660.737]
+> 318 -
+> 318 TK_LIT_FLOAT [660.737]
 > 318 TK_PR_THEN [then]
 > 319 TK_LIT_STRING ["G<=DO = }]==, * M+  -  int (Hg$7 char t<a||"]
 > 319 TK_LIT_STRING [">=VJ<AnIUV||99c"]
@@ -909,9 +1007,12 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 324 TK_IDENTIFICADOR [___input]
 > 324 TK_LIT_INT [7261433]
 > 324 TK_LIT_CHAR ['d']
-> 324 TK_LIT_FLOAT [-01.533004278]
-> 325 TK_LIT_INT [-36906]
-> 325 TK_LIT_FLOAT [-59763791.36227575]
+> 324 -
+> 324 TK_LIT_FLOAT [01.533004278]
+> 325 -
+> 325 TK_LIT_INT [36906]
+> 325 -
+> 325 TK_LIT_FLOAT [59763791.36227575]
 > 325 +
 > 325 [
 > 325 TK_PR_FLOAT [float]
@@ -920,7 +1021,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 325 TK_LIT_CHAR ['-']
 > 326 TK_LIT_FLOAT [242581.4]
 > 326 TK_LIT_CHAR ['6']
-> 326 TK_LIT_INT [-6]
+> 326 -
+> 326 TK_LIT_INT [6]
 > 326 TK_LIT_CHAR ['J']
 > 326 TK_IDENTIFICADOR [_____rTfCyl0EEJ9fMxJvnnq0m2dssWN]
 > 326 TK_LIT_CHAR ['[']
@@ -930,25 +1032,31 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 327 TK_LIT_FLOAT [8999495.11306]
 > 327 TK_LIT_STRING ["B - M5"]
 > 327 =
-> 327 TK_LIT_FLOAT [-3.4]
+> 327 -
+> 327 TK_LIT_FLOAT [3.4]
 > 327 {
 > 328 TK_LIT_CHAR ['S']
-> 328 TK_LIT_INT [-63044851]
+> 328 -
+> 328 TK_LIT_INT [63044851]
 > 328 TK_LIT_CHAR ['&']
-> 328 TK_LIT_FLOAT [-0.2103]
+> 328 -
+> 328 TK_LIT_FLOAT [0.2103]
 > 328 (
 > 329 TK_LIT_STRING [") bool Tzz$xbY}9!=Pv do ||yr float  bool w3,"]
 > 329 TK_PR_INPUT [input]
 > 329 TK_PR_STRING [string]
 > 330 TK_LIT_STRING ["4( input 1L==H43 while PbS5x4 else 1$ULr int p return K = &<73TF4c float  /  = XYd string d"]
-> 330 TK_LIT_INT [-278]
+> 330 -
+> 330 TK_LIT_INT [278]
 > 330 TK_LIT_CHAR ['O']
-> 330 TK_LIT_INT [-80]
+> 330 -
+> 330 TK_LIT_INT [80]
 > 330 TK_LIT_FLOAT [724.9639098496]
 > 331 TK_LIT_STRING ["xyAI output $J output  do &Cb return  - c9!=1W8$Y int L"]
 > 331 >
 > 331 TK_IDENTIFICADOR [_KCjhA3oMGtNZkXM56BhMoeCjwCk0i44F_4_vVoQwlL_xUoW_wC9tl6316h170JVL4Qa8dL]
-> 332 TK_LIT_FLOAT [-9786038.00036]
+> 332 -
+> 332 TK_LIT_FLOAT [9786038.00036]
 > 332 TK_IDENTIFICADOR [_____do]
 > 332 TK_PR_INT [int]
 > 332 [
@@ -959,11 +1067,13 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 332 *
 > 332 TK_PR_STRING [string]
 > 333 TK_LIT_CHAR ['L']
-> 333 TK_LIT_INT [-9349895]
+> 333 -
+> 333 TK_LIT_INT [9349895]
 > 333 TK_LIT_STRING [" while f"]
 > 333 TK_PR_ELSE [else]
 > 334 TK_IDENTIFICADOR [_____Sl2GbryhsakjK1tQHhIgZspVpen5OnMihIjVlducS3mWPIpNxU9dNpbGt9jIOpYyBcsrlK8dWeH_MH6t9VcYa6iSTF]
-> 334 TK_LIT_FLOAT [-75603.9]
+> 334 -
+> 334 TK_LIT_FLOAT [75603.9]
 > 334 TK_LIT_STRING ["m) float pXoQ{(pu * ;t]ri return Sg>"]
 > 334 $
 > 334 {
@@ -972,7 +1082,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 335 :
 > 335 (
 > 335 TK_IDENTIFICADOR [_YaQPdKIxBKUZsH3pNA975]
-> 335 TK_LIT_FLOAT [-4.5722095]
+> 335 -
+> 335 TK_LIT_FLOAT [4.5722095]
 > 335 TK_LIT_STRING ["0MCpZ:v output Y"]
 > 336 TK_PR_DO [do]
 > 336 -
@@ -992,13 +1103,16 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 340 {
 > 340 -
 > 340 TK_LIT_CHAR ['(']
-> 340 TK_LIT_FLOAT [-090.0666721798]
+> 340 -
+> 340 TK_LIT_FLOAT [090.0666721798]
 > 340 [
-> 340 TK_LIT_INT [-97]
+> 340 -
+> 340 TK_LIT_INT [97]
 > 340 TK_LIT_FLOAT [7190636063.992103]
 > 341 TK_LIT_STRING [" while J> - v,[ND[ / sW char sAN&b - bf7A input OFsn( while f)"]
 > 341 TK_LIT_CHAR ['/']
-> 341 TK_LIT_FLOAT [-201333.06]
+> 341 -
+> 341 TK_LIT_FLOAT [201333.06]
 > 341 TK_LIT_INT [5158892]
 > 341 TK_LIT_STRING ["Eim7Xwc, if N> output 3s&&vTFb else "]
 > 342 TK_IDENTIFICADOR [____ExrbwUNbzOsh]
@@ -1013,7 +1127,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 343 TK_PR_CHAR [char]
 > 343 TK_LIT_CHAR [']']
 > 343 /
-> 344 TK_LIT_FLOAT [-6835868684.98119]
+> 344 -
+> 344 TK_LIT_FLOAT [6835868684.98119]
 > 345 TK_IDENTIFICADOR [___3AOOLbFL4CrZOnuq4GMOL7jh15WGfOzbynQFH_TWeTQX8qUP0h6WSgWsIgATtMQ0KU6eln9hz1qG2lE]
 > 345 <
 > 345 TK_IDENTIFICADOR [___float]
@@ -1022,7 +1137,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 347 TK_LIT_STRING ["$;MKc)Sney8c;X+ 5 then  output  *  string ==! float }Igegs1 = 2P;9jwH char J7;;"]
 > 347 TK_LIT_FLOAT [50813580.1]
 > 347 ,
-> 347 TK_LIT_INT [-676]
+> 347 -
+> 347 TK_LIT_INT [676]
 > 347 TK_LIT_CHAR [',']
 > 347 [
 > 347 TK_IDENTIFICADOR [_se]
@@ -1035,11 +1151,13 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 348 /
 > 348 TK_LIT_FLOAT [435.2866018551]
 > 349 TK_IDENTIFICADOR [_Z40kcaNosyMt6_6e00x7WCPB2Vp8PahMsiw]
-> 349 TK_LIT_FLOAT [-7435873.076]
+> 349 -
+> 349 TK_LIT_FLOAT [7435873.076]
 > 350 TK_LIT_STRING ["&&WhM5!& output a!,{TcIQ}&56Cn float FSA8 float ,;OvGwCS;h<=+ PVq&&"]
 > 350 TK_PR_BOOL [bool]
 > 351 TK_IDENTIFICADOR [__2QK4RNBz3etXPDZpXBqPGF1x5MX9WkhollHE14ZcKs7LelgXSmXtdqwd_TN42L290fX1We3mJEdmYwnZRjoOt3B]
-> 351 TK_LIT_INT [-8809004]
+> 351 -
+> 351 TK_LIT_INT [8809004]
 > 351 TK_LIT_INT [6951529574]
 > 351 >
 > 352 TK_IDENTIFICADOR [__yMJ1V5CFHWosyRmkbW8z_Pk3xJOGWQryUJxZTUXeSOhmN8Iso7noaDZzMFhOztz2ISN2AH5nsAO]
@@ -1057,25 +1175,31 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 353 TK_LIT_CHAR ['o']
 > 354 TK_IDENTIFICADOR [_____FuSp90tyUg57K0oA5AI_UVbIeIDg5ahPHnJ4PNXcn1rxNkcsLnvDmvaHF5Z5]
 > 354 TK_IDENTIFICADOR [_____float]
-> 354 TK_LIT_FLOAT [-16891823.88671]
+> 354 -
+> 354 TK_LIT_FLOAT [16891823.88671]
 > 354 TK_IDENTIFICADOR [___float]
 > 354 TK_LIT_CHAR ['i']
 > 354 TK_IDENTIFICADOR [_CoDI614Y]
 > 355 TK_LIT_INT [460399]
-> 355 TK_LIT_FLOAT [-4.446802]
+> 355 -
+> 355 TK_LIT_FLOAT [4.446802]
 > 355 !
 > 355 TK_LIT_STRING ["8 - zZP: if  char <2+ AH * &8Dzk then + wFV"]
 > 356 TK_PR_DO [do]
 > 356 TK_PR_CHAR [char]
 > 356 ]
 > 356 TK_LIT_FLOAT [9425.49]
-> 356 TK_LIT_INT [-64830532]
-> 356 TK_LIT_INT [-962401695]
-> 356 TK_LIT_INT [-27]
+> 356 -
+> 356 TK_LIT_INT [64830532]
+> 356 -
+> 356 TK_LIT_INT [962401695]
+> 356 -
+> 356 TK_LIT_INT [27]
 > 357 TK_LIT_INT [1233854651]
 > 357 TK_LIT_CHAR ['$']
 > 357 TK_LIT_FLOAT [0105632.17140]
-> 357 TK_LIT_FLOAT [-33065642.302386233]
+> 357 -
+> 357 TK_LIT_FLOAT [33065642.302386233]
 > 357 )
 > 358 TK_IDENTIFICADOR [_dTNo6M059i0RO9JEk1b1ETOqLF3CZfPRxp_F5ohzcDwzj1VtmN2vGEZMZ3S8]
 > 358 TK_IDENTIFICADOR [___Iwe4nwefp4FNkJnCsXqudwX50iGEHcKxI]
@@ -1086,7 +1210,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 359 {
 > 359 =
 > 359 TK_LIT_INT [7]
-> 359 TK_LIT_FLOAT [-550.935]
+> 359 -
+> 359 TK_LIT_FLOAT [550.935]
 > 359 TK_LIT_INT [62778654]
 > 359 TK_LIT_CHAR ['e']
 > 359 TK_PR_THEN [then]
@@ -1096,17 +1221,21 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 360 TK_PR_OUTPUT [output]
 > 360 TK_LIT_CHAR ['>']
 > 360 :
-> 360 TK_LIT_FLOAT [-7110689920.28548]
-> 360 TK_LIT_FLOAT [-91113719.24115928]
+> 360 -
+> 360 TK_LIT_FLOAT [7110689920.28548]
+> 360 -
+> 360 TK_LIT_FLOAT [91113719.24115928]
 > 360 TK_PR_INPUT [input]
 > 361 TK_PR_WHILE [while]
 > 361 TK_IDENTIFICADOR [_Vbw_L_a4MH6DF8jbCXuS607BnG2n0DGOOt3Odyf]
 > 361 >
-> 361 TK_LIT_INT [-74499494]
+> 361 -
+> 361 TK_LIT_INT [74499494]
 > 362 TK_LIT_STRING ["MZ return <=M9||||0Q&e!=wGBeJm8 float 7 bool {b+ ||MD} char  if T}N&v"]
 > 362 TK_LIT_FLOAT [163846.63]
 > 363 TK_LIT_STRING ["KtTP+ $[&naa float !=4u&&fpI;,fzVBf! string n< * 1E&&w&&{pbM>=El[FHT"]
-> 363 TK_LIT_FLOAT [-851332.0157472]
+> 363 -
+> 363 TK_LIT_FLOAT [851332.0157472]
 > 363 )
 > 363 [
 > 363 !
@@ -1114,23 +1243,29 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 363 TK_LIT_INT [3]
 > 364 TK_IDENTIFICADOR [___RnImIuk7yAG_RlJVukq1XoUFjTU3JNcJbZapCov90bH5Tv]
 > 364 TK_LIT_STRING ["j4"]
-> 364 TK_LIT_INT [-64]
+> 364 -
+> 364 TK_LIT_INT [64]
 > 364 TK_LIT_CHAR ['Z']
 > 364 TK_IDENTIFICADOR [__w]
 > 364 TK_PR_INPUT [input]
-> 364 TK_LIT_INT [-81026]
+> 364 -
+> 364 TK_LIT_INT [81026]
 > 364 TK_LIT_CHAR ['}']
 > 364 TK_LIT_STRING ["wwQA if ;(x0Dh"]
 > 365 >
-> 365 TK_LIT_INT [-29969096]
+> 365 -
+> 365 TK_LIT_INT [29969096]
 > 365 TK_PR_DO [do]
 > 365 TK_PR_STRING [string]
 > 365 TK_LIT_INT [6312]
-> 365 TK_LIT_INT [-1946953521]
+> 365 -
+> 365 TK_LIT_INT [1946953521]
 > 366 TK_IDENTIFICADOR [_____KbaKOf6PrLGDKgabfMkqUGgxgDszHtppwHu8iVRDvWtLCEfiHpuE0eq7n_zpxGwQJgTbgZl]
-> 366 TK_LIT_FLOAT [-1213360833.3]
+> 366 -
+> 366 TK_LIT_FLOAT [1213360833.3]
 > 366 {
-> 366 TK_LIT_FLOAT [-89587340.429231]
+> 366 -
+> 366 TK_LIT_FLOAT [89587340.429231]
 > 367 TK_IDENTIFICADOR [_____UTI6SpbILHKM0mNKKBpaFiehE4MfnWHexIC_8o9gwTNyCaDKI]
 > 367 TK_LIT_STRING ["5 if 9 while ) then MD>="]
 > 367 TK_IDENTIFICADOR [____input]
@@ -1153,8 +1288,10 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 371 ;
 > 371 :
 > 371 TK_PR_DO [do]
-> 371 TK_LIT_FLOAT [-7710198996.246420]
-> 371 TK_LIT_INT [-86916159]
+> 371 -
+> 371 TK_LIT_FLOAT [7710198996.246420]
+> 371 -
+> 371 TK_LIT_INT [86916159]
 > 371 TK_LIT_CHAR ['$']
 > 372 TK_LIT_STRING [" return zU *  then "]
 > 372 TK_PR_RETURN [return]
@@ -1166,7 +1303,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 372 ;
 > 373 TK_LIT_STRING ["0 input K$aL{Up if <=8{bx float A)<= then he==KXRZ else J"]
 > 373 TK_LIT_STRING ["23Mt input ;, then d4v"]
-> 373 TK_LIT_INT [-007]
+> 373 -
+> 373 TK_LIT_INT [007]
 > 373 /
 > 373 {
 > 373 -
@@ -1174,8 +1312,10 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 373 TK_IDENTIFICADOR [___bool]
 > 374 TK_LIT_FLOAT [1501.71772]
 > 375 TK_IDENTIFICADOR [__YRbEkOqUczvciWwHGptHQABLmvlBHfhW8SBkX81Cg5ajEQXb90V1mmKX_fjo2H2CdkWiCua4hoBMzAfIRdXWOv5gcI]
-> 375 TK_LIT_FLOAT [-3916977.345704524]
-> 375 TK_LIT_FLOAT [-4048.6580826]
+> 375 -
+> 375 TK_LIT_FLOAT [3916977.345704524]
+> 375 -
+> 375 TK_LIT_FLOAT [4048.6580826]
 > 375 TK_LIT_CHAR [':']
 > 376 TK_IDENTIFICADOR [____bJgnmGs2HN5kcuuQvZPZKIynKji9N25yvTTLV4Ib2u09XS0oo47uicxlI4CRXQMm7F22NHaxb5o]
 > 376 )
@@ -1190,7 +1330,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 377 TK_LIT_CHAR ['o']
 > 377 TK_PR_BOOL [bool]
 > 377 TK_LIT_CHAR ['-']
-> 378 TK_LIT_FLOAT [-81029.696169700]
+> 378 -
+> 378 TK_LIT_FLOAT [81029.696169700]
 > 378 :
 > 379 TK_LIT_STRING ["59FlGA if :vASH8 input h do fuOh return nBnG$ char &PZ string <=YJ1JUjCZ float e while 7SM:"]
 > 379 <
@@ -1204,7 +1345,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 380 TK_LIT_INT [7409399840]
 > 380 TK_LIT_STRING [""]
 > 380 TK_LIT_FLOAT [2409.93986]
-> 380 TK_LIT_FLOAT [-556000385.961]
+> 380 -
+> 380 TK_LIT_FLOAT [556000385.961]
 > 380 TK_LIT_FLOAT [8590.164]
 > 380 *
 > 380 TK_PR_RETURN [return]
@@ -1222,7 +1364,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 383 TK_LIT_STRING ["E4ftmT] output  / W while z then AvbQIlTh>=<=&"]
 > 383 TK_IDENTIFICADOR [____string]
 > 383 *
-> 383 TK_LIT_INT [-970]
+> 383 -
+> 383 TK_LIT_INT [970]
 > 383 TK_LIT_FLOAT [341.83943809]
 > 383 TK_LIT_INT [64]
 > 384 TK_LIT_STRING ["As2E float X$_jb input ==Z if  then Udr = ,Xv0M&&"]
@@ -1236,10 +1379,12 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 385 TK_IDENTIFICADOR [_output]
 > 386 TK_IDENTIFICADOR [__A9y4d_DLCx3cTgtT0ycwt50CfSwJ7RLSOVf87E6k9cEz2Mtxw6iwVk_S]
 > 386 TK_LIT_CHAR ['-']
-> 386 TK_LIT_INT [-703]
+> 386 -
+> 386 TK_LIT_INT [703]
 > 386 TK_LIT_INT [4695535553]
 > 386 TK_LIT_CHAR ['$']
-> 386 TK_LIT_INT [-8336]
+> 386 -
+> 386 TK_LIT_INT [8336]
 > 386 TK_PR_CHAR [char]
 > 386 TK_LIT_CHAR ['S']
 > 387 TK_IDENTIFICADOR [__B0CSDvlFtDDwpyy6zE0f83JOqzMQvwvNI2JDPU23MRC660RpN6Rc5HksQ3t]
@@ -1254,15 +1399,18 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 390 TK_IDENTIFICADOR [_bool]
 > 390 TK_IDENTIFICADOR [____then]
 > 390 TK_PR_STRING [string]
-> 390 TK_LIT_INT [-8]
+> 390 -
+> 390 TK_LIT_INT [8]
 > 390 $
 > 391 TK_LIT_STRING ["mqGmht&&V>=c1XnB4 / vwN / :X char : if 2 * lsTJee||==koHz = V<"]
 > 391 =
-> 391 TK_LIT_INT [-036982679]
+> 391 -
+> 391 TK_LIT_INT [036982679]
 > 391 +
 > 392 TK_LIT_STRING ["l_ char  do dj int t while {==, char  /  while  do ||,Fq,"]
 > 392 TK_IDENTIFICADOR [____while]
-> 392 TK_LIT_INT [-84074]
+> 392 -
+> 392 TK_LIT_INT [84074]
 > 392 TK_LIT_CHAR ['}']
 > 392 TK_LIT_INT [1]
 > 392 TK_LIT_INT [6463130]
@@ -1276,7 +1424,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 393 TK_LIT_STRING [" * _4ZHV9ree==KqqBS<=zpMe7U"]
 > 394 TK_IDENTIFICADOR [_____L28YxIOXAg5oKjATc]
 > 394 TK_LIT_CHAR ['/']
-> 394 TK_LIT_FLOAT [-96.6994641]
+> 394 -
+> 394 TK_LIT_FLOAT [96.6994641]
 > 395 TK_LIT_STRING [" string 8 * hG output nOL$ =  int DlDYbHK if Vb while  char ==>+ ]{Pg:n5v bool v return >=:+  = p1 return 9"]
 > 395 ]
 > 395 TK_LIT_CHAR ['a']
@@ -1293,14 +1442,16 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 399 TK_LIT_FLOAT [45184.0255627584]
 > 399 >
 > 399 TK_LIT_FLOAT [4.15]
-> 399 TK_LIT_FLOAT [-9868693181.233018]
+> 399 -
+> 399 TK_LIT_FLOAT [9868693181.233018]
 > 400 TK_LIT_STRING [" * m if  then y} * Db9m+ V while i!X_)! bool "]
 > 400 TK_LIT_CHAR ['K']
 > 400 +
 > 400 -
 > 400 TK_LIT_CHAR ['}']
 > 400 TK_IDENTIFICADOR [___W6DxbzVnTv7efRaZQz4WE7LWt]
-> 401 TK_LIT_FLOAT [-1023931997.60]
+> 401 -
+> 401 TK_LIT_FLOAT [1023931997.60]
 > 401 TK_LIT_STRING ["gtI)Hk bool p1NZ - 5b2hoH> input m!=(l0r output uV5Io,hs<=EPo"]
 > 401 =
 > 402 TK_PR_DO [do]
@@ -1323,24 +1474,29 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 405 =
 > 405 TK_PR_BOOL [bool]
 > 405 <
-> 405 TK_LIT_FLOAT [-42729.37024056]
+> 405 -
+> 405 TK_LIT_FLOAT [42729.37024056]
 > 405 TK_LIT_FLOAT [8.72]
 > 406 TK_IDENTIFICADOR [_____VfmCtXUN4RP8pxvgSdDCM57Lq14jFQVpJIbBD1pr1LjmRox8vqFYk5Z1Oo5EG9sL]
 > 406 TK_IDENTIFICADOR [___1QG24XKHxwnMZ3qfTkn5rp]
-> 406 TK_LIT_INT [-04]
+> 406 -
+> 406 TK_LIT_INT [04]
 > 406 ;
 > 406 [
 > 407 TK_LIT_STRING ["S do d3O if 79B7Hlny||caW input _"]
-> 407 TK_LIT_INT [-8129]
+> 407 -
+> 407 TK_LIT_INT [8129]
 > 407 TK_LIT_STRING ["O> string w1z else E:]Nc"]
 > 407 }
 > 407 TK_LIT_INT [607]
 > 407 TK_LIT_INT [941831591]
 > 407 -
 > 408 TK_LIT_FLOAT [4.87572111]
-> 408 TK_LIT_FLOAT [-5241496145.0]
+> 408 -
+> 408 TK_LIT_FLOAT [5241496145.0]
 > 408 TK_PR_OUTPUT [output]
-> 408 TK_LIT_INT [-1]
+> 408 -
+> 408 TK_LIT_INT [1]
 > 408 (
 > 408 TK_PR_INT [int]
 > 409 TK_IDENTIFICADOR [____NDkG6RIVx5UbTfYfC6uzl3FvY6dlu86tjsJcKMUan3TfUCImGeZXx0Bslsf4f_s4DVWIiGtJvqLoRiD8JI4Dt]
@@ -1354,10 +1510,13 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 411 /
 > 411 TK_LIT_CHAR [',']
 > 411 &
-> 411 TK_LIT_INT [-39]
+> 411 -
+> 411 TK_LIT_INT [39]
 > 411 TK_LIT_CHAR ['=']
-> 411 TK_LIT_INT [-60919706]
-> 412 TK_LIT_FLOAT [-750217.3]
+> 411 -
+> 411 TK_LIT_INT [60919706]
+> 412 -
+> 412 TK_LIT_FLOAT [750217.3]
 > 412 ]
 > 412 TK_LIT_CHAR ['7']
 > 412 TK_LIT_CHAR ['V']
@@ -1375,18 +1534,22 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 414 >
 > 414 TK_PR_IF [if]
 > 414 TK_LIT_STRING ["<=DWU!=Z return m$"]
-> 414 TK_LIT_INT [-7321920343]
+> 414 -
+> 414 TK_LIT_INT [7321920343]
 > 414 /
 > 415 TK_PR_WHILE [while]
 > 415 !
 > 415 TK_LIT_CHAR [',']
 > 415 $
-> 415 TK_LIT_INT [-4]
+> 415 -
+> 415 TK_LIT_INT [4]
 > 415 TK_LIT_FLOAT [0970094.52845]
 > 415 &
 > 415 TK_LIT_STRING ["PCf string 8<=KG1i"]
-> 416 TK_LIT_INT [-904015]
-> 416 TK_LIT_INT [-798429]
+> 416 -
+> 416 TK_LIT_INT [904015]
+> 416 -
+> 416 TK_LIT_INT [798429]
 > 417 TK_LIT_STRING ["&p}_[ float C(I(]))8 float o2L while  input At input ojTnu"]
 > 417 {
 > 417 ;
@@ -1401,7 +1564,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 419 TK_LIT_STRING [""]
 > 419 /
 > 419 TK_IDENTIFICADOR [_____4j3f9pXIeaTXul2I5AkYIArBhFcy6csQsPApgVpWD9O80J]
-> 420 TK_LIT_FLOAT [-1.696]
+> 420 -
+> 420 TK_LIT_FLOAT [1.696]
 > 420 TK_LIT_CHAR ['a']
 > 420 (
 > 420 TK_LIT_FLOAT [682294760.45960]
@@ -1411,7 +1575,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 421 TK_LIT_CHAR ['}']
 > 421 TK_LIT_STRING ["dy[7"]
 > 421 TK_LIT_INT [04902797]
-> 421 TK_LIT_INT [-9702026179]
+> 421 -
+> 421 TK_LIT_INT [9702026179]
 > 421 TK_LIT_CHAR ['+']
 > 421 TK_IDENTIFICADOR [__bool]
 > 422 TK_LIT_CHAR [':']
@@ -1434,11 +1599,13 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 424 =
 > 424 *
 > 424 TK_LIT_CHAR ['c']
-> 424 TK_LIT_INT [-6212694]
+> 424 -
+> 424 TK_LIT_INT [6212694]
 > 424 TK_PR_STRING [string]
 > 424 TK_LIT_INT [753]
 > 424 ,
-> 424 TK_LIT_INT [-0802367690]
+> 424 -
+> 424 TK_LIT_INT [0802367690]
 > 424 ,
 > 425 TK_LIT_FLOAT [339.95214]
 > 425 TK_PR_CHAR [char]
@@ -1452,8 +1619,10 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 427 TK_LIT_CHAR ['*']
 > 428 TK_LIT_STRING [" int >,fZ}zjSuCl bool U<={LYKOInVAM0AE}Kjy if baX int 6M"]
 > 428 [
-> 428 TK_LIT_INT [-044060250]
-> 428 TK_LIT_INT [-12764693]
+> 428 -
+> 428 TK_LIT_INT [044060250]
+> 428 -
+> 428 TK_LIT_INT [12764693]
 > 428 TK_LIT_CHAR ['/']
 > 428 TK_PR_THEN [then]
 > 429 TK_LIT_CHAR ['Q']
@@ -1469,7 +1638,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 430 TK_LIT_STRING ["oj * "]
 > 430 ;
 > 430 TK_LIT_STRING ["7uc if  then uHpf8 float iRCk"]
-> 430 TK_LIT_FLOAT [-94083.18]
+> 430 -
+> 430 TK_LIT_FLOAT [94083.18]
 > 431 TK_LIT_STRING ["Scp+ gF||p& do C>k -  float ==2I_4||Si!=3 else f char b__&R"]
 > 431 TK_LIT_STRING ["XNdF0Wp;$i_F[S;!=eWZ&&r =  char "]
 > 431 TK_LIT_STRING [", = h - "]
@@ -1497,12 +1667,14 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 435 TK_LIT_STRING ["l3Ax = k>= * != then P=="]
 > 435 TK_PR_CHAR [char]
 > 435 TK_LIT_FLOAT [470.5547]
-> 435 TK_LIT_FLOAT [-47951.2842840792]
+> 435 -
+> 435 TK_LIT_FLOAT [47951.2842840792]
 > 437 TK_IDENTIFICADOR [_k0xaL5LJHbjaoKtdCy7V7xQ2KQFGwm2uAZAqSREgDDfPbZgSBJcLSyvJ1VkCaP1iJqc0yT2aEgANMfCOPEg9XtHb3r]
 > 437 TK_IDENTIFICADOR [_oz1hmLozqlaszpCZdEGpp0XgR24hAxdtwV8j6fcu]
 > 437 TK_LIT_INT [0684413022]
 > 437 }
-> 437 TK_LIT_INT [-900583831]
+> 437 -
+> 437 TK_LIT_INT [900583831]
 > 438 TK_LIT_STRING ["e:==I4}G<=Pd3<[&HW"]
 > 438 TK_LIT_CHAR ['y']
 > 438 ]
@@ -1516,14 +1688,18 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 439 TK_LIT_CHAR [',']
 > 439 TK_LIT_STRING ["&5Q&"]
 > 439 TK_LIT_INT [05214601]
-> 439 TK_LIT_FLOAT [-0100520915.00942]
+> 439 -
+> 439 TK_LIT_FLOAT [0100520915.00942]
 > 439 (
-> 439 TK_LIT_INT [-80]
+> 439 -
+> 439 TK_LIT_INT [80]
 > 440 TK_IDENTIFICADOR [_8lqBJoNc0sRou6eK4oylMcScG6N1Koxa57WUm8l3vJtRZV2oYsHrfU9Z3GtCv]
-> 440 TK_LIT_FLOAT [-6607.93589]
+> 440 -
+> 440 TK_LIT_FLOAT [6607.93589]
 > 440 ]
 > 441 +
-> 441 TK_LIT_INT [-64894]
+> 441 -
+> 441 TK_LIT_INT [64894]
 > 441 TK_LIT_CHAR ['[']
 > 441 TK_PR_FLOAT [float]
 > 441 TK_PR_THEN [then]
@@ -1542,7 +1718,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 443 TK_LIT_INT [4084242]
 > 444 TK_IDENTIFICADOR [__CrqRsr0ubxyeQzhqFfj_5R3yY0OBh8hUAJWT]
 > 444 TK_LIT_INT [1301992]
-> 444 TK_LIT_FLOAT [-546688791.5931]
+> 444 -
+> 444 TK_LIT_FLOAT [546688791.5931]
 > 445 TK_LIT_STRING ["k<=>>s * HZU = LHeD)q&&Y9Y input  input ,c if HeYgFA<t>=uWc8V input q"]
 > 445 TK_LIT_STRING ["0oI6DA0YN *  input  float N$qAB9x string j}"]
 > 446 TK_IDENTIFICADOR [___Jv2tI3M47_PseLHsB5L6OMHxH90XphxPouvEwvey9d2OIN1SQ6AVGsRynr7UrOUcoZc28WNo]
@@ -1565,18 +1742,21 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 449 TK_LIT_CHAR [']']
 > 449 TK_PR_OUTPUT [output]
 > 450 TK_LIT_CHAR ['s']
-> 450 TK_LIT_FLOAT [-42599.12063925]
+> 450 -
+> 450 TK_LIT_FLOAT [42599.12063925]
 > 450 TK_LIT_CHAR ['!']
 > 450 TK_PR_INPUT [input]
 > 450 ]
 > 450 TK_LIT_FLOAT [17805567.9664]
-> 451 TK_LIT_FLOAT [-4872072.15352764]
+> 451 -
+> 451 TK_LIT_FLOAT [4872072.15352764]
 > 451 TK_PR_RETURN [return]
 > 451 TK_LIT_FLOAT [3196.491237980]
 > 451 (
 > 452 TK_IDENTIFICADOR [___scuz9eXbZaOiNc4tEKVaErOA1dbF1kNftSJjS3253d8cRsY5PriKCTgNtM1JTW4sW3UmJGQQ7ERML4xj]
 > 452 TK_LIT_STRING ["t(&Q$y8R float ME>= string 1)!6efkN char jV)kez$1Vc"]
-> 453 TK_LIT_FLOAT [-9207608783.5897040]
+> 453 -
+> 453 TK_LIT_FLOAT [9207608783.5897040]
 > 453 >
 > 453 TK_LIT_CHAR ['=']
 > 453 {
@@ -1584,7 +1764,8 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 453 ]
 > 453 :
 > 453 TK_LIT_STRING ["kC;+ 1lFG] int H_p<brhZ"]
-> 453 TK_LIT_INT [-562556]
+> 453 -
+> 453 TK_LIT_INT [562556]
 > 453 TK_PR_WHILE [while]
 > 454 TK_LIT_CHAR ['/']
 > 455 TK_LIT_STRING [" do  / 4 do kRR[F output O if  output >=3A2 do  else &slMUG0m+ Fv"]
@@ -1600,7 +1781,7 @@ $ ./main ./tests/e1/input/nivel2.tokens
 > 458 TK_LIT_FLOAT [094557462.0654793]
 > 458 TK_LIT_FLOAT [508384.927944990]
 > 458 =
-> 458 TK_LIT_INT [-02030321]
+> 458 -
+> 458 TK_LIT_INT [02030321]
 > 459 TK_IDENTIFICADOR [____HTOO00thh32DH2abW5BYlJwdrNl1dYQnZEW3kZZOqPHra6hAYlen2M7tXBIm]
 > 459 TK_LIT_STRING ["R>R4Y:oev(KL6$INh!U string }{yc"]
-
