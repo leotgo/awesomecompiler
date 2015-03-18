@@ -6,6 +6,7 @@
 %}
 
 white [ \t]+
+newline [\n]
 digit [0-9]
 letter [a-zA-Z]
 signal [+-]
@@ -13,46 +14,49 @@ number {digit}+
 integer {signal}?{number}
 floatamount {signal}?{number}\.{number}
 boolean {"false"}|{"true"}
+char \'[.\n]\'
+string \"{char}*\"
+literal {integer}|{floatamount}|{boolean}|{char}|{string}
 identifier {letter}+({letter}|{digit})*
 
 /* to do: */
-specialchar {","}|{";"}|{":"}|{"("}|{")"}|{"["}|{"]"}|{"{"}|{"}"}|{"+"}|{"-"}|{"*"}|{"/"}|{"<"}|{">"}|{"="}|{"!"}|{"&"}|{"$"}
-comment {"/*"}[.\n]*{"*/"}
+specialchar [\,\;\:\(\)\[\]\{\}\+\-\*\/\<\>\=\!\&\$]
+/*{","}|{";"}|{":"}|{"("}|{")"}|{"["}|{"]"}|{"{"}|{"}"}|{"+"}|{"-"}|{"*"}|{"/"}|{"<"}|{">"}|{"="}|{"!"}|{"&"}|{"$"}*/
+comment "/*"[.\n]*"*/"
 
 %%
+{white} { /* Do nothing */ }
+{comment} { /* Do nothing */ }
+{newline} { /* Do nothing */ }
+{specialchar} { /* Do nothing */ }
 
-/* Regras e acoes */
+{integer} { }
+{floatamount} { }
+{boolean} { }
 
-{white} { }
-{specialchar} { /* retornar codigo ASCII */ }
+{identifier} { }
 
-/* to do - reserved keywords */
-{"int"} { }
-{"float"} { }
-{"bool"} { }
-{"char"} { }
-{"string"} { }
-{"if"} { }
-{"then"} { }
-{"else"} { }
-{"while"} { }
-{"do"} { }
-{"input"} { }
-{"output"} { }
-{"return"} { }
-{"const"} { }
-{"static"} { }
+"int" { }
+"float" { }
+"bool" { }
+"char" { }
+"string" { }
+"if" { }
+"then" { }
+"else" { }
+"while" { }
+"do" { }
+"input" { }
+"output" { }
+"return" { }
+"const" { }
+"static" { }
 
-
-/* also to do - comparers */
-{"<="} { }
-{">="} { }
-{"=="} { }
-{"!="} { }
-{"&&"} { }
-{"||"} { }
+"<=" { }
+">=" { }
+"==" { }
+"!=" { }
+"&&" { }
+"||" { }
 
 %%
-
-/* Funcoes opcionais
-  campo opcional nao utilizado */
