@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+../include/cc_misc.h
+stdio.h
+-
+
 /home/marina/awesomecompiler/build/parser.h
 
 /home/marina/awesomecompiler/build/scanner.c
@@ -23,4 +27,8 @@ parser.h
 /home/marina/awesomecompiler/build/parser.h
 unistd.h
 -
+
+/home/marina/awesomecompiler/src/cc_misc.c
+cc_misc.h
+/home/marina/awesomecompiler/src/cc_misc.h
 

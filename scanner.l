@@ -6,6 +6,8 @@ Integrantes: Alex Gliesch, Leonardo Tagliaro, Marina Fortes Rey
 */
 %{
 #include "parser.h" //arquivo automaticamente gerado pelo bison
+int lineCounter = 1;
+
 %}
 
 white [ \t]+
@@ -30,7 +32,7 @@ comment ("/*"[.\n]*"*/")|\/\/.*\n
 %%
 white
 comment
-newline
+newline			lineCounter++;
 specialchar 	return (int) yytext[0];
 integer			return TK_LIT_INT;
 floatamount		return TK_LIT_FLOAT;

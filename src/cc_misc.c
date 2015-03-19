@@ -2,8 +2,7 @@
 
 int getLineNumber (void)
 {
-  //implemente esta função
-  return -1;
+  //return lineCounter;
 }
 
 void yyerror (char const *mensagem)
