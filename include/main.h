@@ -14,11 +14,11 @@
 
 /*
   Constantes a serem utilizadas como valor de retorno no caso de
-  sucesso (SYNTAX_SUCESS) e erro (SYNTAX_ERRO) do analisador
+  sucesso (SINTATICA_SUCESSO) e erro (SINTATICA_ERRO) do analisador
   sintático.
 */
-#define SYNTAX_SUCESSO 0
-#define SYNTAX_ERRO    1
+#define SINTATICA_SUCESSO 0
+#define SINTATICA_ERRO    1
 
 /*
   Constantes a serem utilizadas para diferenciar os lexemas que estão
