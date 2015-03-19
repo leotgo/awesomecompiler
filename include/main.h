@@ -10,6 +10,7 @@
 #include "cc_list.h"
 #include "cc_tree.h"
 #include "parser.h"
+#include "cc_gv.h"
 
 /*
   Constantes a serem utilizadas como valor de retorno no caso de
