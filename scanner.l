@@ -13,7 +13,7 @@ signal [+-]
 number {digit}+
 integer {signal}?{number}
 floatamount {signal}?{number}\.{number}
-boolean {"false"}|{"true"}
+boolean 'false'|'true'
 char \'[.\n]\'
 string \"{char}*\"
 literal {integer}|{floatamount}|{boolean}|{char}|{string}
@@ -36,27 +36,27 @@ comment "/*"[.\n]*"*/"
 
 {identifier} { }
 
-"int" { }
-"float" { }
-"bool" { }
-"char" { }
-"string" { }
-"if" { }
-"then" { }
-"else" { }
-"while" { }
-"do" { }
-"input" { }
-"output" { }
-"return" { }
-"const" { }
-"static" { }
+'int' { }
+'float' { }
+'bool' { }
+'char' { }
+'string' { }
+'if' { }
+'then' { }
+'else' { }
+'while' { }
+'do' { }
+'input' { }
+'output' { }
+'return' { }
+'const' { }
+'static' { }
 
-"<=" { }
-">=" { }
-"==" { }
-"!=" { }
-"&&" { }
-"||" { }
+'\<\=' { }
+'\>\=' { }
+'\=\=' { }
+'\!\=' { }
+'\&\&' { }
+'\|\|' { }
 
 %%
