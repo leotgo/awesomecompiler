@@ -6,53 +6,55 @@
 %}
 
 white [ \t]+
+newline [\n]
 digit [0-9]
 letter [a-zA-Z]
 signal [+-]
 number {digit}+
 integer {signal}?{number}
 floatamount {signal}?{number}\.{number}
-boolean {"false"}|{"true"}
+boolean 'false'|'true'
+char \'[.\n]\'
+string \"{char}*\"
+literal {integer}|{floatamount}|{boolean}|{char}|{string}
 identifier {letter}+({letter}|{digit})*
 
 /* to do: */
-specialchar {","}|{";"}|{":"}|{"("}|{")"}|{"["}|{"]"}|{"{"}|{"}"}|{"+"}|{"-"}|{"*"}|{"/"}|{"<"}|{">"}|{"="}|{"!"}|{"&"}|{"$"}
-comment {"/*"}[.\n]*{"*/"}
+specialchar [\,\;\:\(\)\[\]\{\}\+\-\*\/\<\>\=\!\&\$]
+/*{","}|{";"}|{":"}|{"("}|{")"}|{"["}|{"]"}|{"{"}|{"}"}|{"+"}|{"-"}|{"*"}|{"/"}|{"<"}|{">"}|{"="}|{"!"}|{"&"}|{"$"}*/
+comment "/*"[.\n]*"*/"
 
 %%
-
-/* Regras e acoes */
-
-{white} { }
-{specialchar} { /* retornar codigo ASCII */ }
-
-/* to do - reserved keywords */
-{"int"} { }
-{"float"} { }
-{"bool"} { }
-{"char"} { }
-{"string"} { }
-{"if"} { }
-{"then"} { }
-{"else"} { }
-{"while"} { }
-{"do"} { }
-{"input"} { }
-{"output"} { }
-{"return"} { }
-{"const"} { }
-{"static"} { }
-
-
-/* also to do - comparers */
-{"<="} { }
-{">="} { }
-{"=="} { }
-{"!="} { }
-{"&&"} { }
-{"||"} { }
+white
+comment
+newline
+specialchar 		return (int) yytext[0];
+integer
+floatamount
+boolean
+char
+string
+identifier
+'int'
+'float'
+'bool'
+'char'
+'string'
+'if'
+'then'
+'else'
+'while'
+'do'
+'input'
+'output'
+'return'
+'const'
+'static'
+'\<\='
+'\>\='
+'\=\='
+'\!\='
+'\&\&'
+'\|\|'
 
 %%
-
-/* Funcoes opcionais
-  campo opcional nao utilizado */
