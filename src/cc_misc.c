@@ -1,8 +1,9 @@
 #include "cc_misc.h"
+extern int lineCounter;
 
 int getLineNumber (void)
 {
-  //return lineCounter;
+  return lineCounter;
 }
 
 void yyerror (char const *mensagem)
