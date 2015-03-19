@@ -4,9 +4,12 @@
 CMakeFiles/main.dir/parser.c.o
  /home/marina/awesomecompiler/build/parser.c
 CMakeFiles/main.dir/scanner.c.o
+ ../include/cc_misc.h
  /home/marina/awesomecompiler/build/parser.h
  /home/marina/awesomecompiler/build/scanner.c
 CMakeFiles/main.dir/src/cc_dict.c.o
+ ../include/cc_dict.h
+ ../include/uthash.h
  /home/marina/awesomecompiler/src/cc_dict.c
 CMakeFiles/main.dir/src/cc_gv.c.o
  ../include/cc_ast.h
@@ -14,14 +17,19 @@ CMakeFiles/main.dir/src/cc_gv.c.o
 CMakeFiles/main.dir/src/cc_list.c.o
  /home/marina/awesomecompiler/src/cc_list.c
 CMakeFiles/main.dir/src/cc_misc.c.o
+ ../include/cc_dict.h
  ../include/cc_misc.h
+ ../include/uthash.h
  /home/marina/awesomecompiler/src/cc_misc.c
 CMakeFiles/main.dir/src/cc_tree.c.o
  /home/marina/awesomecompiler/src/cc_tree.c
 CMakeFiles/main.dir/src/main.c.o
  ../include/cc_dict.h
+ ../include/cc_gv.h
  ../include/cc_list.h
+ ../include/cc_misc.h
  ../include/cc_tree.h
  ../include/main.h
+ ../include/uthash.h
  /home/marina/awesomecompiler/src/main.c
  parser.h

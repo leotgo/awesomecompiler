@@ -6,8 +6,48 @@
 
 #IncludeRegexTransform: 
 
+../include/cc_dict.h
+uthash.h
+../include/uthash.h
+
+../include/cc_gv.h
+
+../include/cc_list.h
+
 ../include/cc_misc.h
 stdio.h
+-
+
+../include/cc_tree.h
+
+../include/main.h
+stdio.h
+-
+cc_dict.h
+../include/cc_dict.h
+cc_list.h
+../include/cc_list.h
+cc_tree.h
+../include/cc_tree.h
+parser.h
+../include/parser.h
+cc_misc.h
+../include/cc_misc.h
+cc_gv.h
+../include/cc_gv.h
+
+../include/uthash.h
+string.h
+-
+stddef.h
+-
+stdlib.h
+-
+stdint.h
+-
+stdint.h
+-
+stdint.h
 -
 
 /home/marina/awesomecompiler/build/parser.h
@@ -25,10 +65,14 @@ inttypes.h
 -
 parser.h
 /home/marina/awesomecompiler/build/parser.h
+cc_misc.h
+/home/marina/awesomecompiler/build/cc_misc.h
 unistd.h
 -
 
-/home/marina/awesomecompiler/src/cc_misc.c
-cc_misc.h
-/home/marina/awesomecompiler/src/cc_misc.h
+/home/marina/awesomecompiler/src/main.c
+main.h
+/home/marina/awesomecompiler/src/main.h
+
+parser.h
 

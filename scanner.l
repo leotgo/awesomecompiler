@@ -13,9 +13,10 @@ white [ \t]+
 digit [0-9]
 letter [a-zA-Z]
 signal [+-]
-number {digit}+
-integer {signal}?{number}
-floatamount {signal}?{number}\.{number}
+integer {digit}+
+floatamount {integer}\.{integer}
+/*integer {signal}?{number}*/
+/*floatamount {signal}?{number}\.{number}*/
 boolean 'false'|'true'
 char \'[.\n]\'
 string \"{char}*\"
