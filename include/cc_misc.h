@@ -7,4 +7,6 @@ void yyerror (char const *mensagem);
 void main_init (int argc, char **argv);
 void main_finalize (void);
 
+int recognize_token(const char* token_text, int token_id);
+
 #endif
