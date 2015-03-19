@@ -11,15 +11,15 @@ int lineCounter = 1;
 %x comment
 white [ \t]+
 digit [0-9]
-letter [a-zA-Z]
+letter [a-zA-Z_]
 signal [+-]
 integer {digit}+
 floatamount {integer}\.{integer}
 /*integer {signal}?{number}*/
 /*floatamount {signal}?{number}\.{number}*/
 boolean 'false'|'true'
-char \'[.\n]\'
-string \"{char}*\"
+char \'(.)\'
+string \"[^"]*\"
 literal {integer}|{floatamount}|{boolean}|{char}|{string}
 identifier {letter}+({letter}|{digit})*
 
@@ -61,8 +61,8 @@ specialchar [,|;|:|(|)|\[|\]|{|}|+|\-|*|/|<|>|=|!|&|$]
 "||"			return recognize_token(yytext, TK_OC_OR);
 {integer}			return recognize_token(yytext, TK_LIT_INT);
 {floatamount}		return recognize_token(yytext, TK_LIT_FLOAT);
-{specialchar}	return recognize_token(yytext, (int) yytext[0]);
 {char}			return recognize_token(yytext, TK_LIT_CHAR);
 {string}			return recognize_token(yytext, TK_LIT_STRING);
+{specialchar}	return recognize_token(yytext, (int) yytext[0]);
 {identifier}		return recognize_token(yytext, TK_IDENTIFICADOR);
 %%
