@@ -25,40 +25,36 @@ specialchar [\,\;\:\(\)\[\]\{\}\+\-\*\/\<\>\=\!\&\$]
 comment "/*"[.\n]*"*/"
 
 %%
-{white} { /* Do nothing */ }
-{comment} { /* Do nothing */ }
-{newline} { /* Do nothing */ }
-{specialchar} { return (int) yytext[0]; }
-
-{integer} { }
-{floatamount} { }
-{boolean} { }
-{char} { }
-{string} { }
-
-{identifier} { }
-
-'int' { }
-'float' { }
-'bool' { }
-'char' { }
-'string' { }
-'if' { }
-'then' { }
-'else' { }
-'while' { }
-'do' { }
-'input' { }
-'output' { }
-'return' { }
-'const' { }
-'static' { }
-
-'\<\=' { }
-'\>\=' { }
-'\=\=' { }
-'\!\=' { }
-'\&\&' { }
-'\|\|' { }
+white
+comment
+newline
+specialchar 		return (int) yytext[0];
+integer
+floatamount
+boolean
+char
+string
+identifier
+'int'
+'float'
+'bool'
+'char'
+'string'
+'if'
+'then'
+'else'
+'while'
+'do'
+'input'
+'output'
+'return'
+'const'
+'static'
+'\<\='
+'\>\='
+'\=\='
+'\!\='
+'\&\&'
+'\|\|'
 
 %%
