@@ -28,11 +28,13 @@ comment "/*"[.\n]*"*/"
 {white} { /* Do nothing */ }
 {comment} { /* Do nothing */ }
 {newline} { /* Do nothing */ }
-{specialchar} { /* Do nothing */ }
+{specialchar} { return (int) yytext[0]; }
 
 {integer} { }
 {floatamount} { }
 {boolean} { }
+{char} { }
+{string} { }
 
 {identifier} { }
 
