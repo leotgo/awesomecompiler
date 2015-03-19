@@ -1,5 +1,8 @@
 /*
-  Coloque aqui o identificador do grupo e dos seus membros
+  Grupo: Knights of the Hash Table
+
+Integrantes: Alex Gliesch, Leonardo Tagliaro, Marina Fortes Rey
+
 */
 %{
 #include "parser.h" //arquivo automaticamente gerado pelo bison
@@ -22,13 +25,13 @@ identifier {letter}+({letter}|{digit})*
 /* to do: */
 specialchar [\,\;\:\(\)\[\]\{\}\+\-\*\/\<\>\=\!\&\$]
 /*{","}|{";"}|{":"}|{"("}|{")"}|{"["}|{"]"}|{"{"}|{"}"}|{"+"}|{"-"}|{"*"}|{"/"}|{"<"}|{">"}|{"="}|{"!"}|{"&"}|{"$"}*/
-comment "/*"[.\n]*"*/"
+comment ("/*"[.\n]*"*/")|\/\/.*\n
 
 %%
 white
 comment
 newline
-specialchar 		return (int) yytext[0];
+specialchar 	return (int) yytext[0];
 integer			return TK_LIT_INT;
 floatamount		return TK_LIT_FLOAT;
 'false'			return TK_LIT_FALSE;
@@ -57,6 +60,6 @@ identifier		return TK_IDENTIFICADOR;
 '\!\='			return TK_OC_NE;
 '\&\&'			return TK_OC_AND;
 '\|\|'			return TK_OC_OR;
-.			return TOKEN_ERRO;
+.				return TOKEN_ERRO;
 
 %%

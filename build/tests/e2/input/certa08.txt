@@ -1,0 +1,16 @@
+//função com blocos e variáveis locais em cada bloco
+int minha_funcao (float k, int l) 
+{
+	int a;
+        a=5;
+        float p;
+        p=a;
+        {
+                int c;
+                c=0;
+                float k;
+                k=3.0;
+        }
+}
+int variavel_k[ 100 ];
+char variavel_x;

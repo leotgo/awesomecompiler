@@ -1,0 +1,49 @@
+Dependências dos testes
+	python2
+	python2-pygraphviz
+	python3
+	graphviz
+	gcc
+
+
+Seguem os passos para criação de novos testes.
+Em todos os casos, ${NAME} é um nome qualquer que não contém espaços ou pontos.
+${TESTDIR} é o diretório deste README. Ou seja, é o diretório que contém os
+diretórios e1, e2, e3, e4, e5 e scripts.
+
+etapa 1:
+	coloque a entrada em ${TESTDIR}/e1/input/${NAME}.tokens
+	coloque a saída em ${TESTDIR}/e1/input/${NAME}.saida
+	execute
+		${TESTDIR}/scripts/rebuild ${TESTDIR}
+
+etapa 2:
+	para casos de aceitação (compilador retorna 0):
+		coloque a entrada em ${TESTDIR}/e2/certa${NAME}.txt
+	para casos de rejeição (compilador retorna não-zero):
+		coloque a entrada em ${TESTDIR}/e2/errada${NAME}.txt
+	execute
+		${TESTDIR}/scripts/rebuild ${TESTDIR}
+
+etapa3:
+	coloque a entrada em ${TESTDIR}/e3/input/${NAME}.iks
+	coloque a saída em ${TESTDIR}/e3/expected/${NAME}.dot
+	execute
+		${TESTDIR}/scripts/rebuild ${TESTDIR}
+
+etapa 4:
+	coloque a entrada em ${TESTDIR}/e4/input/${NAME}.iks
+		a primeira linha do arquivo de entrada deve conter uma linha no formato
+			/* IKS_ERROR */
+		onde IKS_ERROR é o erro que o compilador deve retornar para o teste
+		a lista dos erros encontra-se em ${TESTDIR}/e4/input/errors.h
+	execute
+		${TESTDIR}/scripts/rebuild ${TESTDIR}
+
+etapa 5:
+	coloque a entrada em ${TESTDIR}/e4/input/${NAME}.iks
+		a última função da entrada deve ser a main
+		deve existir uma variável de nome "x", visível na main
+		passa-se no teste se o valor obtido para "x" é o valor correto para a entrada
+	execute
+		${TESTDIR}/scripts/rebuild ${TESTDIR}

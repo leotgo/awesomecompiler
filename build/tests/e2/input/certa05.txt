@@ -1,0 +1,11 @@
+//função com comandos de atribuição simples
+float b;
+string c;
+int f1 ()
+{
+ int a;
+
+ a = 5;
+ b = 0;
+ c= a + b * 0;
+}

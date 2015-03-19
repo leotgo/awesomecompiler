@@ -1,0 +1,4 @@
+! timeout 5
+! output ignore
+! expect return 3
+$ ./main tests/e4/input/s05.iks

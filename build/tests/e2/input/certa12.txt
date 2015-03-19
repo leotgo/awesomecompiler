@@ -1,0 +1,15 @@
+//comando de saída, expressões aritméticas
+float variavel_flutuante;
+int variavel_inteira;
+char variavel_caractere;
+int minha_funcao (float k, int l) 
+{
+  a=1;
+  b=2;
+  c='c';
+  a=a+1;
+  b=a+c;
+  c=c-(1*1);
+  k=1 + 2 + 3 * 5 / 2 + 2 * 5 *  1 / 2 - 3;
+  output a,b,c;
+}

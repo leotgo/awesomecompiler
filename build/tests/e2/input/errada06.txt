@@ -1,0 +1,5 @@
+int minha_funcao ()
+{
+ b = 14;
+ input 5;
+}

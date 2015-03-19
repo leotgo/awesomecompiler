@@ -1,0 +1,15 @@
+#!/usr/bin/env python3
+import sys
+src = sys.argv[1]
+target = 'x'
+if len(sys.argv) > 2:
+	target = sys.argv[2]
+tmp = 'tmp.c'
+
+with open(src) as f:
+	src = f.read()
+src = src.replace('do','').replace('then','')
+src = '#include <stdio.h>\n'+src
+src = src[:src.rfind('}')] + '\tprintf("%%d\\n",%s);\n}\n'%(target)
+
+print(src)

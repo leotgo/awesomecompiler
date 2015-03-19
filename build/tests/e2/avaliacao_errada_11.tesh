@@ -1,0 +1,5 @@
+! timeout 3
+! expect return 1
+! output ignore
+$ ./main ./tests/e2/input/errada11.txt
+

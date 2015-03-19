@@ -1,0 +1,8 @@
+//vetores globais
+float v1[2];
+int v1[3];
+char v1[4];
+bool v1[5];
+string v1[6];
+
+

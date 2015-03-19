@@ -1,0 +1,7 @@
+float variavel_vetor [15];
+int f (int x) { return 2 * x; }
+float function ()
+{
+  a = 10;
+  f(3)=f(2);
+}

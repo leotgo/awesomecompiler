@@ -1,0 +1,4 @@
+! timeout 5
+! output ignore
+! expect return 0
+$ ./main tests/e4/input/s31.iks

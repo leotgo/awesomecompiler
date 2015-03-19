@@ -1,0 +1,5 @@
+int minha_funcao  ()
+{
+        a=10;
+v[a+1]=5[10];
+}

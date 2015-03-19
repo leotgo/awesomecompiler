@@ -1,0 +1,13 @@
+/* endereço de retorno */
+int f()
+{
+  return 99;
+}
+
+int main()
+{
+  int x;
+  x = f();
+  x = 2;
+  return x;
+}
