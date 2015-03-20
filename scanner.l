@@ -15,8 +15,6 @@ letter [a-zA-Z_]
 signal [+-]
 integer {digit}+
 floatamount {integer}\.{integer}
-/*integer {signal}?{number}*/
-/*floatamount {signal}?{number}\.{number}*/
 boolean 'false'|'true'
 char \'(.)\'
 string \"[^"]*\"
@@ -25,8 +23,6 @@ identifier {letter}+({letter}|{digit})*
 
 /* to do: */
 specialchar [,|;|:|(|)|\[|\]|{|}|+|\-|*|/|<|>|=|!|&|$]
-/*specialchar [\,\;\:\(\)\[\]\{\}\+\-\*\/\<\>\=\!\&\$]*/
-/*{","}|{";"}|{":"}|{"("}|{")"}|{"["}|{"]"}|{"{"}|{"}"}|{"+"}|{"-"}|{"*"}|{"/"}|{"<"}|{">"}|{"="}|{"!"}|{"&"}|{"$"}*/
 
 %%
 {white}			;
@@ -65,4 +61,5 @@ specialchar [,|;|:|(|)|\[|\]|{|}|+|\-|*|/|<|>|=|!|&|$]
 {string}			return recognize_token(yytext, TK_LIT_STRING);
 {specialchar}	return recognize_token(yytext, (int) yytext[0]);
 {identifier}		return recognize_token(yytext, TK_IDENTIFICADOR);
+.				return TOKEN_ERRO;
 %%
