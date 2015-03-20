@@ -28,7 +28,7 @@ void free_comp_dict_item_t(comp_dict_item_t* item);
 /* adds an item to the given symbols table, with key 'key', 
  * and returns a pointer to that item. if something went wront, or the item 
  * already exists in the table, returns NULL. */
-comp_dict_item_t* symbols_table_add(const char* key, int line,
+comp_dict_item_t* symbols_table_add(const char* key, int line, 
 	comp_dict_t* table);
 
 /* searches for the symbol with key 'key' in the table. if the item doesn't 

@@ -1,11 +1,13 @@
 #include "cc_dict.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 void free_comp_dict_item_t(comp_dict_item_t* item) {
 	if (item != NULL) {
-		if (item->token != NULL) 
+		if (item->token != NULL) {
 			free(item->token);
+		}
 		free(item);
 	}
 }
@@ -18,12 +20,14 @@ comp_dict_item_t* symbols_table_add(const char* key, int line,
 
 	comp_dict_item_t* item = symbols_table_find(key, table);
 
-	if (item != NULL) 
+	if (item != NULL) {
+		item->line_where_it_last_appeared = line;
 		return NULL;
+	}
 
-	item = (comp_dict_item_t*)malloc(sizeof(comp_dict_item_t));
-	item->token = (char*)malloc(strlen(key) * sizeof(char));
-	strcpy(item->token, key);
+	item = (comp_dict_item_t*) malloc(sizeof(comp_dict_item_t));
+	item->token = (const char*) malloc((strlen(key) + 1) * sizeof(char));
+	strcpy(item->token, key);	
 	item->line_where_it_last_appeared = line;
 	HASH_ADD_KEYPTR(hh, *table, item->token, strlen(item->token), item);
 	return item;
