@@ -50,6 +50,9 @@ int recognize_token(const char* token_text, int token_id) {
 
 		/* add the token to the symbols table. */
 		symbols_table_add(token_text, getLineNumber(), &symbols_table);
+
+		if (token_id == TK_LIT_STRING || token_id == TK_LIT_CHAR)
+			free((void*)token_text);
 	}
 
 	/* then, return the token's identifier. */
