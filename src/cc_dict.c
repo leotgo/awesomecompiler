@@ -6,7 +6,7 @@
 void free_comp_dict_item_t(comp_dict_item_t* item) {
 	if (item != NULL) {
 		if (item->token != NULL) {
-			free(item->token);
+			free((void*)item->token);
 		}
 		free(item);
 	}
@@ -27,7 +27,7 @@ comp_dict_item_t* symbols_table_add(const char* key, int line,
 
 	item = (comp_dict_item_t*) malloc(sizeof(comp_dict_item_t));
 	item->token = (const char*) malloc((strlen(key) + 1) * sizeof(char));
-	strcpy(item->token, key);	
+	strcpy((char*)item->token, key);	
 	item->line_where_it_last_appeared = line;
 	HASH_ADD_KEYPTR(hh, *table, item->token, strlen(item->token), item);
 	return item;
