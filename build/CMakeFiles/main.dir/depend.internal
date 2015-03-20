@@ -21,6 +21,7 @@ CMakeFiles/main.dir/src/cc_misc.c.o
  ../include/cc_misc.h
  ../include/uthash.h
  /home/marina/awesomecompiler/src/cc_misc.c
+ parser.h
 CMakeFiles/main.dir/src/cc_tree.c.o
  /home/marina/awesomecompiler/src/cc_tree.c
 CMakeFiles/main.dir/src/main.c.o

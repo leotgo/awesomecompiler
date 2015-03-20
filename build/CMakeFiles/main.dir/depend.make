@@ -20,6 +20,7 @@ CMakeFiles/main.dir/src/cc_misc.c.o: ../include/cc_dict.h
 CMakeFiles/main.dir/src/cc_misc.c.o: ../include/cc_misc.h
 CMakeFiles/main.dir/src/cc_misc.c.o: ../include/uthash.h
 CMakeFiles/main.dir/src/cc_misc.c.o: ../src/cc_misc.c
+CMakeFiles/main.dir/src/cc_misc.c.o: parser.h
 
 CMakeFiles/main.dir/src/cc_tree.c.o: ../src/cc_tree.c
 

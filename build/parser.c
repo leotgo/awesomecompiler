@@ -62,7 +62,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 4 "parser.y" /* yacc.c:339  */
+#line 3 "parser.y" /* yacc.c:339  */
 
 #include <stdio.h>
 
@@ -449,7 +449,7 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    42,    42
+       0,    41,    41
 };
 #endif
 
@@ -1451,5 +1451,5 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 44 "parser.y" /* yacc.c:1906  */
+#line 43 "parser.y" /* yacc.c:1906  */
 
