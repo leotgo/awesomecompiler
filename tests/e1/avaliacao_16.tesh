@@ -1,0 +1,11 @@
+#! ./tesh
+
+! timeout 5
+
+$ ./main ./tests/e1/input/nivel16.tokens
+> 1 TK_PR_STATIC [static]
+> 1 TK_PR_CONST [const]
+> 2 -
+> 2 TK_LIT_INT [2]
+
+
