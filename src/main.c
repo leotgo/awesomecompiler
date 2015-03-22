@@ -45,6 +45,8 @@ int main_avaliacao_etapa_1 (int argc, char **argv)
     case TK_PR_INPUT: print_nome (TK_PR_INPUT); break;
     case TK_PR_OUTPUT: print_nome (TK_PR_OUTPUT); break;
     case TK_PR_RETURN: print_nome (TK_PR_RETURN); break;
+    case TK_PR_STATIC: print_nome (TK_PR_STATIC); break;
+    case TK_PR_CONST: print_nome (TK_PR_CONST); break;
     case TK_OC_LE: print_nome (TK_OC_LE); break;
     case TK_OC_GE: print_nome (TK_OC_GE); break;
     case TK_OC_EQ: print_nome (TK_OC_EQ); break;
