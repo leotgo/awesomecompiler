@@ -1,6 +1,0 @@
-/* IKS_ERROR_WRONG_TYPE */
-int f()
-{
-  char c;
-  c = 10.2;
-}

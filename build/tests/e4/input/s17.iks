@@ -1,7 +1,0 @@
-/* IKS_ERROR_STRING_TO_X */
-char x;
-string str;
-int f()
-{
-  x = str;
-}

@@ -1,5 +1,0 @@
-/* IKS_ERROR_UNDECLARED */
-int f()
-{
-  g();
-}

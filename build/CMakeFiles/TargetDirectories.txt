@@ -1,1 +1,0 @@
-/home/marina/awesomecompiler/build/CMakeFiles/main.dir

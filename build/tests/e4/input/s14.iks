@@ -1,5 +1,0 @@
-/* IKS_ERROR_WRONG_PAR_INPUT */
-int f()
-{
-  input 10;
-}

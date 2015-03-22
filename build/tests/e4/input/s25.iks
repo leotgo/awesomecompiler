@@ -1,5 +1,0 @@
-/* IKS_SUCCESS */
-char f()
-{
-   return f();
-}

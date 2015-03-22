@@ -1,3 +1,0 @@
-! timeout 3
-$ ./main ./tests/e2/input/certa03.txt
-

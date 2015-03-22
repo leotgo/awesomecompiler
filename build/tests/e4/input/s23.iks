@@ -1,6 +1,0 @@
-/* IKS_ERROR_STRING_TO_X */
-int x[10];
-int f()
-{
-  x["str"] = 3;
-}

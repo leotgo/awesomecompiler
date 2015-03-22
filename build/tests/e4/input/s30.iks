@@ -1,9 +1,0 @@
-/* IKS_ERROR_WRONG_PAR_RETURN */
-char g()
-{
-   return 'c';
-}
-int f()
-{
-   return g();
-}
