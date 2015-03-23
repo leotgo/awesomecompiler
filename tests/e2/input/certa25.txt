@@ -1,0 +1,15 @@
+float fun()
+{
+	const int a <= 10;
+	static const int b <= 20;
+	int c <= 30;
+
+	{
+		int p;
+		{
+			int k
+		};
+
+		int u
+	}
+}

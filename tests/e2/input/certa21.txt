@@ -1,0 +1,6 @@
+static int a[10];
+static int b()
+{
+    const int a <= 4;
+    static const float b <= 5.1;
+}

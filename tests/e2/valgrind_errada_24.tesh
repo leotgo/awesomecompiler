@@ -1,0 +1,4 @@
+! timeout 6
+! output ignore
+$ ./tests/scripts/valgrindtest ./main ./tests/e2/input/errada24.txt
+

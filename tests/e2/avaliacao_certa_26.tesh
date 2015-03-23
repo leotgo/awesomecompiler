@@ -1,0 +1,2 @@
+! timeout 3
+$ ./main ./tests/e2/input/certa26.txt

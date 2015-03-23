@@ -1,0 +1,6 @@
+int vetor[10];
+int funcao(int arg1)
+{
+	const static int b <= 10;
+	int k;
+}
