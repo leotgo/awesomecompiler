@@ -1,5 +1,5 @@
 int vetor[5];
-static float funcao(static int arg1, static float arg2, static char arg3)
+static float funcao(const int arg1, const float arg2, const char arg3)
 {
 	static const int <= 10;
 	{
