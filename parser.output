@@ -3,11 +3,22 @@ Terminals unused in grammar
    TOKEN_ERRO
 
 
+Rules useless in parser due to conflicts
+
+   80 SequenciaDeComandos: Comando
+
+
 State 11 conflicts: 6 shift/reduce
 State 12 conflicts: 6 shift/reduce
+State 58 conflicts: 16 shift/reduce
+State 64 conflicts: 1 shift/reduce
+State 80 conflicts: 16 shift/reduce, 1 reduce/reduce
+State 122 conflicts: 16 shift/reduce
+State 139 conflicts: 16 shift/reduce
 State 151 conflicts: 1 shift/reduce
 State 152 conflicts: 12 shift/reduce
 State 153 conflicts: 12 shift/reduce
+State 164 conflicts: 16 shift/reduce
 
 
 Grammar
@@ -111,44 +122,45 @@ Grammar
 
    69 ChamadaDeFuncao: Identificador '(' Argumentos ')'
 
-   70 Comando: ';'
-   71        | DeclVariavelLocal ';'
-   72        | Atribuicao ';'
-   73        | Entrada ';'
-   74        | Saida ';'
-   75        | Retorno ';'
-   76        | BlocoDeComandos
-   77        | ChamadaDeFuncao ';'
-   78        | ControleDeFluxo
+   70 Comando: %empty
+   71        | ';'
+   72        | DeclVariavelLocal ';'
+   73        | Atribuicao ';'
+   74        | Entrada ';'
+   75        | Saida ';'
+   76        | Retorno ';'
+   77        | BlocoDeComandos
+   78        | ChamadaDeFuncao ';'
+   79        | ControleDeFluxo
 
-   79 SequenciaDeComandos: Comando
-   80                    | Comando SequenciaDeComandos
+   80 SequenciaDeComandos: Comando
+   81                    | Comando SequenciaDeComandos
 
-   81 BlocoDeComandos: '{' SequenciaDeComandos '}'
+   82 BlocoDeComandos: '{' SequenciaDeComandos '}'
 
-   82 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN Comando
-   83            | TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando
+   83 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN Comando
+   84            | TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando
 
-   84 CtrlFluxoWhile: TK_PR_WHILE Expressao TK_PR_DO Comando
+   85 CtrlFluxoWhile: TK_PR_WHILE Expressao TK_PR_DO Comando
 
-   85 CtrlFluxoDoWhile: TK_PR_DO Comando TK_PR_WHILE Expressao
+   86 CtrlFluxoDoWhile: TK_PR_DO Comando TK_PR_WHILE Expressao
 
-   86 ControleDeFluxo: CtrlFluxoIf
-   87                | CtrlFluxoWhile
-   88                | CtrlFluxoDoWhile
+   87 ControleDeFluxo: CtrlFluxoIf
+   88                | CtrlFluxoWhile
+   89                | CtrlFluxoDoWhile
 
-   89 DeclaracoesGlobais: DeclVariavelGlobal
-   90                   | DeclVariavelGlobal DeclaracoesGlobais
+   90 DeclaracoesGlobais: DeclVariavelGlobal
+   91                   | DeclVariavelGlobal DeclaracoesGlobais
 
-   91 DeclaracoesFuncoes: DeclFuncao
-   92                   | DeclFuncao DeclaracoesFuncoes
+   92 DeclaracoesFuncoes: DeclFuncao
+   93                   | DeclFuncao DeclaracoesFuncoes
 
-   93 DeclaracoesOpcionais: DeclaracoesGlobais
-   94                     | DeclaracoesFuncoes
-   95                     | DeclaracoesGlobais DeclaracoesOpcionais
-   96                     | DeclaracoesFuncoes DeclaracoesOpcionais
+   94 DeclaracoesOpcionais: DeclaracoesGlobais
+   95                     | DeclaracoesFuncoes
+   96                     | DeclaracoesGlobais DeclaracoesOpcionais
+   97                     | DeclaracoesFuncoes DeclaracoesOpcionais
 
-   97 Programa: DeclaracoesOpcionais
+   98 Programa: DeclaracoesOpcionais
 
 
 Terminals, with rules where they appear
@@ -162,26 +174,26 @@ $end (0) 0
 ',' (44) 38 60 62 66 68
 '-' (45) 23
 '/' (47) 25
-';' (59) 45 46 47 48 70 71 72 73 74 75 77
+';' (59) 45 46 47 48 71 72 73 74 75 76 78
 '<' (60) 54 55
 '=' (61) 39 40 41 54 55
 '>' (62) 41
 '[' (91) 35 40 44
 ']' (93) 35 40 44
-'{' (123) 81
+'{' (123) 82
 '|' (124) 27
-'}' (125) 81
+'}' (125) 82
 error (256)
 TK_PR_INT (258) 3
 TK_PR_FLOAT (259) 4
 TK_PR_BOOL (260) 5
 TK_PR_CHAR (261) 6
 TK_PR_STRING (262) 7
-TK_PR_IF (263) 82 83
-TK_PR_THEN (264) 82 83
-TK_PR_ELSE (265) 83
-TK_PR_WHILE (266) 84 85
-TK_PR_DO (267) 84 85
+TK_PR_IF (263) 83 84
+TK_PR_THEN (264) 83 84
+TK_PR_ELSE (265) 84
+TK_PR_WHILE (266) 85 86
+TK_PR_DO (267) 85 86
 TK_PR_INPUT (268) 41
 TK_PR_OUTPUT (269) 42
 TK_PR_RETURN (270) 56
@@ -229,27 +241,27 @@ Operador (59)
     on left: 28 29, on right: 31
 Expressao (60)
     on left: 30 31 32 33 34 35 36, on right: 30 31 32 35 37 38 39 40
-    41 56 65 66 67 68 82 83 84 85
+    41 56 65 66 67 68 83 84 85 86
 ListaDeExpressoes (61)
     on left: 37 38, on right: 38 42
 Atribuicao (62)
-    on left: 39 40, on right: 72
+    on left: 39 40, on right: 73
 Entrada (63)
-    on left: 41, on right: 73
+    on left: 41, on right: 74
 Saida (64)
-    on left: 42, on right: 74
+    on left: 42, on right: 75
 Variavel (65)
     on left: 43, on right: 44 45 47 49 50 51 52 57 58
 Vetor (66)
     on left: 44, on right: 46 48
 DeclVariavelGlobal (67)
-    on left: 45 46 47 48, on right: 89 90
+    on left: 45 46 47 48, on right: 90 91
 VariavelLocal (68)
     on left: 49 50 51 52, on right: 53 54 55
 DeclVariavelLocal (69)
-    on left: 53 54 55, on right: 71
+    on left: 53 54 55, on right: 72
 Retorno (70)
-    on left: 56, on right: 75
+    on left: 56, on right: 76
 Parametro (71)
     on left: 57 58, on right: 59 60 61 62
 Parametros (72)
@@ -257,35 +269,36 @@ Parametros (72)
 ParametrosNaoVazio (73)
     on left: 61 62, on right: 60 62
 DeclFuncao (74)
-    on left: 63 64, on right: 91 92
+    on left: 63 64, on right: 92 93
 ArgumentosNaoVazio (75)
     on left: 65 66, on right: 66 68
 Argumentos (76)
     on left: 67 68, on right: 69
 ChamadaDeFuncao (77)
-    on left: 69, on right: 36 77
+    on left: 69, on right: 36 78
 Comando (78)
-    on left: 70 71 72 73 74 75 76 77 78, on right: 79 80 82 83 84 85
+    on left: 70 71 72 73 74 75 76 77 78 79, on right: 80 81 83 84 85
+    86
 SequenciaDeComandos (79)
-    on left: 79 80, on right: 80 81
+    on left: 80 81, on right: 81 82
 BlocoDeComandos (80)
-    on left: 81, on right: 63 64 76
+    on left: 82, on right: 63 64 77
 CtrlFluxoIf (81)
-    on left: 82 83, on right: 86
+    on left: 83 84, on right: 87
 CtrlFluxoWhile (82)
-    on left: 84, on right: 87
-CtrlFluxoDoWhile (83)
     on left: 85, on right: 88
+CtrlFluxoDoWhile (83)
+    on left: 86, on right: 89
 ControleDeFluxo (84)
-    on left: 86 87 88, on right: 78
+    on left: 87 88 89, on right: 79
 DeclaracoesGlobais (85)
-    on left: 89 90, on right: 90 93 95
+    on left: 90 91, on right: 91 94 96
 DeclaracoesFuncoes (86)
-    on left: 91 92, on right: 92 94 96
+    on left: 92 93, on right: 93 95 97
 DeclaracoesOpcionais (87)
-    on left: 93 94 95 96, on right: 95 96 97
+    on left: 94 95 96 97, on right: 96 97 98
 Programa (88)
-    on left: 97, on right: 0
+    on left: 98, on right: 0
 
 
 State 0
@@ -398,8 +411,8 @@ State 10
 
 State 11
 
-   89 DeclaracoesGlobais: DeclVariavelGlobal .
-   90                   | DeclVariavelGlobal . DeclaracoesGlobais
+   90 DeclaracoesGlobais: DeclVariavelGlobal .
+   91                   | DeclVariavelGlobal . DeclaracoesGlobais
 
     TK_PR_INT     shift, and go to state 1
     TK_PR_FLOAT   shift, and go to state 2
@@ -408,13 +421,13 @@ State 11
     TK_PR_STRING  shift, and go to state 5
     TK_PR_STATIC  shift, and go to state 6
 
-    TK_PR_INT     [reduce using rule 89 (DeclaracoesGlobais)]
-    TK_PR_FLOAT   [reduce using rule 89 (DeclaracoesGlobais)]
-    TK_PR_BOOL    [reduce using rule 89 (DeclaracoesGlobais)]
-    TK_PR_CHAR    [reduce using rule 89 (DeclaracoesGlobais)]
-    TK_PR_STRING  [reduce using rule 89 (DeclaracoesGlobais)]
-    TK_PR_STATIC  [reduce using rule 89 (DeclaracoesGlobais)]
-    $default      reduce using rule 89 (DeclaracoesGlobais)
+    TK_PR_INT     [reduce using rule 90 (DeclaracoesGlobais)]
+    TK_PR_FLOAT   [reduce using rule 90 (DeclaracoesGlobais)]
+    TK_PR_BOOL    [reduce using rule 90 (DeclaracoesGlobais)]
+    TK_PR_CHAR    [reduce using rule 90 (DeclaracoesGlobais)]
+    TK_PR_STRING  [reduce using rule 90 (DeclaracoesGlobais)]
+    TK_PR_STATIC  [reduce using rule 90 (DeclaracoesGlobais)]
+    $default      reduce using rule 90 (DeclaracoesGlobais)
 
     Static              go to state 25
     Tipo                go to state 26
@@ -426,8 +439,8 @@ State 11
 
 State 12
 
-   91 DeclaracoesFuncoes: DeclFuncao .
-   92                   | DeclFuncao . DeclaracoesFuncoes
+   92 DeclaracoesFuncoes: DeclFuncao .
+   93                   | DeclFuncao . DeclaracoesFuncoes
 
     TK_PR_INT     shift, and go to state 1
     TK_PR_FLOAT   shift, and go to state 2
@@ -436,13 +449,13 @@ State 12
     TK_PR_STRING  shift, and go to state 5
     TK_PR_STATIC  shift, and go to state 6
 
-    TK_PR_INT     [reduce using rule 91 (DeclaracoesFuncoes)]
-    TK_PR_FLOAT   [reduce using rule 91 (DeclaracoesFuncoes)]
-    TK_PR_BOOL    [reduce using rule 91 (DeclaracoesFuncoes)]
-    TK_PR_CHAR    [reduce using rule 91 (DeclaracoesFuncoes)]
-    TK_PR_STRING  [reduce using rule 91 (DeclaracoesFuncoes)]
-    TK_PR_STATIC  [reduce using rule 91 (DeclaracoesFuncoes)]
-    $default      reduce using rule 91 (DeclaracoesFuncoes)
+    TK_PR_INT     [reduce using rule 92 (DeclaracoesFuncoes)]
+    TK_PR_FLOAT   [reduce using rule 92 (DeclaracoesFuncoes)]
+    TK_PR_BOOL    [reduce using rule 92 (DeclaracoesFuncoes)]
+    TK_PR_CHAR    [reduce using rule 92 (DeclaracoesFuncoes)]
+    TK_PR_STRING  [reduce using rule 92 (DeclaracoesFuncoes)]
+    TK_PR_STATIC  [reduce using rule 92 (DeclaracoesFuncoes)]
+    $default      reduce using rule 92 (DeclaracoesFuncoes)
 
     Static              go to state 28
     Tipo                go to state 29
@@ -452,33 +465,8 @@ State 12
 
 State 13
 
-   93 DeclaracoesOpcionais: DeclaracoesGlobais .
-   95                     | DeclaracoesGlobais . DeclaracoesOpcionais
-
-    TK_PR_INT     shift, and go to state 1
-    TK_PR_FLOAT   shift, and go to state 2
-    TK_PR_BOOL    shift, and go to state 3
-    TK_PR_CHAR    shift, and go to state 4
-    TK_PR_STRING  shift, and go to state 5
-    TK_PR_STATIC  shift, and go to state 6
-
-    $default  reduce using rule 93 (DeclaracoesOpcionais)
-
-    Static                go to state 7
-    Tipo                  go to state 8
-    Variavel              go to state 9
-    Vetor                 go to state 10
-    DeclVariavelGlobal    go to state 11
-    DeclFuncao            go to state 12
-    DeclaracoesGlobais    go to state 13
-    DeclaracoesFuncoes    go to state 14
-    DeclaracoesOpcionais  go to state 31
-
-
-State 14
-
-   94 DeclaracoesOpcionais: DeclaracoesFuncoes .
-   96                     | DeclaracoesFuncoes . DeclaracoesOpcionais
+   94 DeclaracoesOpcionais: DeclaracoesGlobais .
+   96                     | DeclaracoesGlobais . DeclaracoesOpcionais
 
     TK_PR_INT     shift, and go to state 1
     TK_PR_FLOAT   shift, and go to state 2
@@ -497,14 +485,39 @@ State 14
     DeclFuncao            go to state 12
     DeclaracoesGlobais    go to state 13
     DeclaracoesFuncoes    go to state 14
+    DeclaracoesOpcionais  go to state 31
+
+
+State 14
+
+   95 DeclaracoesOpcionais: DeclaracoesFuncoes .
+   97                     | DeclaracoesFuncoes . DeclaracoesOpcionais
+
+    TK_PR_INT     shift, and go to state 1
+    TK_PR_FLOAT   shift, and go to state 2
+    TK_PR_BOOL    shift, and go to state 3
+    TK_PR_CHAR    shift, and go to state 4
+    TK_PR_STRING  shift, and go to state 5
+    TK_PR_STATIC  shift, and go to state 6
+
+    $default  reduce using rule 95 (DeclaracoesOpcionais)
+
+    Static                go to state 7
+    Tipo                  go to state 8
+    Variavel              go to state 9
+    Vetor                 go to state 10
+    DeclVariavelGlobal    go to state 11
+    DeclFuncao            go to state 12
+    DeclaracoesGlobais    go to state 13
+    DeclaracoesFuncoes    go to state 14
     DeclaracoesOpcionais  go to state 32
 
 
 State 15
 
-   97 Programa: DeclaracoesOpcionais .
+   98 Programa: DeclaracoesOpcionais .
 
-    $default  reduce using rule 97 (Programa)
+    $default  reduce using rule 98 (Programa)
 
 
 State 16
@@ -607,9 +620,9 @@ State 26
 
 State 27
 
-   90 DeclaracoesGlobais: DeclVariavelGlobal DeclaracoesGlobais .
+   91 DeclaracoesGlobais: DeclVariavelGlobal DeclaracoesGlobais .
 
-    $default  reduce using rule 90 (DeclaracoesGlobais)
+    $default  reduce using rule 91 (DeclaracoesGlobais)
 
 
 State 28
@@ -636,23 +649,23 @@ State 29
 
 State 30
 
-   92 DeclaracoesFuncoes: DeclFuncao DeclaracoesFuncoes .
+   93 DeclaracoesFuncoes: DeclFuncao DeclaracoesFuncoes .
 
-    $default  reduce using rule 92 (DeclaracoesFuncoes)
+    $default  reduce using rule 93 (DeclaracoesFuncoes)
 
 
 State 31
 
-   95 DeclaracoesOpcionais: DeclaracoesGlobais DeclaracoesOpcionais .
+   96 DeclaracoesOpcionais: DeclaracoesGlobais DeclaracoesOpcionais .
 
-    $default  reduce using rule 95 (DeclaracoesOpcionais)
+    $default  reduce using rule 96 (DeclaracoesOpcionais)
 
 
 State 32
 
-   96 DeclaracoesOpcionais: DeclaracoesFuncoes DeclaracoesOpcionais .
+   97 DeclaracoesOpcionais: DeclaracoesFuncoes DeclaracoesOpcionais .
 
-    $default  reduce using rule 96 (DeclaracoesOpcionais)
+    $default  reduce using rule 97 (DeclaracoesOpcionais)
 
 
 State 33
@@ -887,7 +900,7 @@ State 57
 
 State 58
 
-   81 BlocoDeComandos: '{' . SequenciaDeComandos '}'
+   82 BlocoDeComandos: '{' . SequenciaDeComandos '}'
 
     TK_PR_INT         shift, and go to state 1
     TK_PR_FLOAT       shift, and go to state 2
@@ -905,6 +918,24 @@ State 58
     TK_IDENTIFICADOR  shift, and go to state 20
     ';'               shift, and go to state 68
     '{'               shift, and go to state 58
+
+    TK_PR_INT         [reduce using rule 70 (Comando)]
+    TK_PR_FLOAT       [reduce using rule 70 (Comando)]
+    TK_PR_BOOL        [reduce using rule 70 (Comando)]
+    TK_PR_CHAR        [reduce using rule 70 (Comando)]
+    TK_PR_STRING      [reduce using rule 70 (Comando)]
+    TK_PR_IF          [reduce using rule 70 (Comando)]
+    TK_PR_WHILE       [reduce using rule 70 (Comando)]
+    TK_PR_DO          [reduce using rule 70 (Comando)]
+    TK_PR_INPUT       [reduce using rule 70 (Comando)]
+    TK_PR_OUTPUT      [reduce using rule 70 (Comando)]
+    TK_PR_RETURN      [reduce using rule 70 (Comando)]
+    TK_PR_STATIC      [reduce using rule 70 (Comando)]
+    TK_PR_CONST       [reduce using rule 70 (Comando)]
+    TK_IDENTIFICADOR  [reduce using rule 70 (Comando)]
+    ';'               [reduce using rule 70 (Comando)]
+    '{'               [reduce using rule 70 (Comando)]
+    $default          reduce using rule 70 (Comando)
 
     Static               go to state 69
     Const                go to state 70
@@ -961,8 +992,8 @@ State 61
 
 State 62
 
-   82 CtrlFluxoIf: TK_PR_IF . Expressao TK_PR_THEN Comando
-   83            | TK_PR_IF . Expressao TK_PR_THEN Comando TK_PR_ELSE Comando
+   83 CtrlFluxoIf: TK_PR_IF . Expressao TK_PR_THEN Comando
+   84            | TK_PR_IF . Expressao TK_PR_THEN Comando TK_PR_ELSE Comando
 
     TK_LIT_INT        shift, and go to state 38
     TK_LIT_FLOAT      shift, and go to state 88
@@ -982,7 +1013,7 @@ State 62
 
 State 63
 
-   84 CtrlFluxoWhile: TK_PR_WHILE . Expressao TK_PR_DO Comando
+   85 CtrlFluxoWhile: TK_PR_WHILE . Expressao TK_PR_DO Comando
 
     TK_LIT_INT        shift, and go to state 38
     TK_LIT_FLOAT      shift, and go to state 88
@@ -1002,7 +1033,7 @@ State 63
 
 State 64
 
-   85 CtrlFluxoDoWhile: TK_PR_DO . Comando TK_PR_WHILE Expressao
+   86 CtrlFluxoDoWhile: TK_PR_DO . Comando TK_PR_WHILE Expressao
 
     TK_PR_INT         shift, and go to state 1
     TK_PR_FLOAT       shift, and go to state 2
@@ -1020,6 +1051,8 @@ State 64
     TK_IDENTIFICADOR  shift, and go to state 20
     ';'               shift, and go to state 68
     '{'               shift, and go to state 58
+
+    TK_PR_WHILE  [reduce using rule 70 (Comando)]
 
     Static             go to state 69
     Const              go to state 70
@@ -1104,9 +1137,9 @@ State 67
 
 State 68
 
-   70 Comando: ';' .
+   71 Comando: ';' .
 
-    $default  reduce using rule 70 (Comando)
+    $default  reduce using rule 71 (Comando)
 
 
 State 69
@@ -1153,21 +1186,21 @@ State 71
 
 State 72
 
-   72 Comando: Atribuicao . ';'
+   73 Comando: Atribuicao . ';'
 
     ';'  shift, and go to state 111
 
 
 State 73
 
-   73 Comando: Entrada . ';'
+   74 Comando: Entrada . ';'
 
     ';'  shift, and go to state 112
 
 
 State 74
 
-   74 Comando: Saida . ';'
+   75 Comando: Saida . ';'
 
     ';'  shift, and go to state 113
 
@@ -1192,29 +1225,29 @@ State 76
 
 State 77
 
-   71 Comando: DeclVariavelLocal . ';'
+   72 Comando: DeclVariavelLocal . ';'
 
     ';'  shift, and go to state 115
 
 
 State 78
 
-   75 Comando: Retorno . ';'
+   76 Comando: Retorno . ';'
 
     ';'  shift, and go to state 116
 
 
 State 79
 
-   77 Comando: ChamadaDeFuncao . ';'
+   78 Comando: ChamadaDeFuncao . ';'
 
     ';'  shift, and go to state 117
 
 
 State 80
 
-   79 SequenciaDeComandos: Comando .
-   80                    | Comando . SequenciaDeComandos
+   80 SequenciaDeComandos: Comando .
+   81                    | Comando . SequenciaDeComandos
 
     TK_PR_INT         shift, and go to state 1
     TK_PR_FLOAT       shift, and go to state 2
@@ -1233,7 +1266,25 @@ State 80
     ';'               shift, and go to state 68
     '{'               shift, and go to state 58
 
-    $default  reduce using rule 79 (SequenciaDeComandos)
+    TK_PR_INT         [reduce using rule 70 (Comando)]
+    TK_PR_FLOAT       [reduce using rule 70 (Comando)]
+    TK_PR_BOOL        [reduce using rule 70 (Comando)]
+    TK_PR_CHAR        [reduce using rule 70 (Comando)]
+    TK_PR_STRING      [reduce using rule 70 (Comando)]
+    TK_PR_IF          [reduce using rule 70 (Comando)]
+    TK_PR_WHILE       [reduce using rule 70 (Comando)]
+    TK_PR_DO          [reduce using rule 70 (Comando)]
+    TK_PR_INPUT       [reduce using rule 70 (Comando)]
+    TK_PR_OUTPUT      [reduce using rule 70 (Comando)]
+    TK_PR_RETURN      [reduce using rule 70 (Comando)]
+    TK_PR_STATIC      [reduce using rule 70 (Comando)]
+    TK_PR_CONST       [reduce using rule 70 (Comando)]
+    TK_IDENTIFICADOR  [reduce using rule 70 (Comando)]
+    ';'               [reduce using rule 70 (Comando)]
+    '{'               [reduce using rule 70 (Comando)]
+    '}'               reduce using rule 70 (Comando)
+    '}'               [reduce using rule 80 (SequenciaDeComandos)]
+    $default          reduce using rule 70 (Comando)
 
     Static               go to state 69
     Const                go to state 70
@@ -1258,44 +1309,44 @@ State 80
 
 State 81
 
-   81 BlocoDeComandos: '{' SequenciaDeComandos . '}'
+   82 BlocoDeComandos: '{' SequenciaDeComandos . '}'
 
     '}'  shift, and go to state 119
 
 
 State 82
 
-   76 Comando: BlocoDeComandos .
+   77 Comando: BlocoDeComandos .
 
-    $default  reduce using rule 76 (Comando)
+    $default  reduce using rule 77 (Comando)
 
 
 State 83
 
-   86 ControleDeFluxo: CtrlFluxoIf .
-
-    $default  reduce using rule 86 (ControleDeFluxo)
-
-
-State 84
-
-   87 ControleDeFluxo: CtrlFluxoWhile .
+   87 ControleDeFluxo: CtrlFluxoIf .
 
     $default  reduce using rule 87 (ControleDeFluxo)
 
 
-State 85
+State 84
 
-   88 ControleDeFluxo: CtrlFluxoDoWhile .
+   88 ControleDeFluxo: CtrlFluxoWhile .
 
     $default  reduce using rule 88 (ControleDeFluxo)
 
 
+State 85
+
+   89 ControleDeFluxo: CtrlFluxoDoWhile .
+
+    $default  reduce using rule 89 (ControleDeFluxo)
+
+
 State 86
 
-   78 Comando: ControleDeFluxo .
+   79 Comando: ControleDeFluxo .
 
-    $default  reduce using rule 78 (Comando)
+    $default  reduce using rule 79 (Comando)
 
 
 State 87
@@ -1390,8 +1441,8 @@ State 97
 
    31 Expressao: Expressao . Operador Expressao
    32          | Expressao . Comparador Expressao
-   82 CtrlFluxoIf: TK_PR_IF Expressao . TK_PR_THEN Comando
-   83            | TK_PR_IF Expressao . TK_PR_THEN Comando TK_PR_ELSE Comando
+   83 CtrlFluxoIf: TK_PR_IF Expressao . TK_PR_THEN Comando
+   84            | TK_PR_IF Expressao . TK_PR_THEN Comando TK_PR_ELSE Comando
 
     TK_PR_THEN  shift, and go to state 122
     TK_OC_LE    shift, and go to state 123
@@ -1424,7 +1475,7 @@ State 99
 
    31 Expressao: Expressao . Operador Expressao
    32          | Expressao . Comparador Expressao
-   84 CtrlFluxoWhile: TK_PR_WHILE Expressao . TK_PR_DO Comando
+   85 CtrlFluxoWhile: TK_PR_WHILE Expressao . TK_PR_DO Comando
 
     TK_PR_DO   shift, and go to state 139
     TK_OC_LE   shift, and go to state 123
@@ -1448,7 +1499,7 @@ State 99
 
 State 100
 
-   85 CtrlFluxoDoWhile: TK_PR_DO Comando . TK_PR_WHILE Expressao
+   86 CtrlFluxoDoWhile: TK_PR_DO Comando . TK_PR_WHILE Expressao
 
     TK_PR_WHILE  shift, and go to state 140
 
@@ -1633,23 +1684,23 @@ State 110
 
 State 111
 
-   72 Comando: Atribuicao ';' .
-
-    $default  reduce using rule 72 (Comando)
-
-
-State 112
-
-   73 Comando: Entrada ';' .
+   73 Comando: Atribuicao ';' .
 
     $default  reduce using rule 73 (Comando)
 
 
-State 113
+State 112
 
-   74 Comando: Saida ';' .
+   74 Comando: Entrada ';' .
 
     $default  reduce using rule 74 (Comando)
+
+
+State 113
+
+   75 Comando: Saida ';' .
+
+    $default  reduce using rule 75 (Comando)
 
 
 State 114
@@ -1662,37 +1713,37 @@ State 114
 
 State 115
 
-   71 Comando: DeclVariavelLocal ';' .
+   72 Comando: DeclVariavelLocal ';' .
 
-    $default  reduce using rule 71 (Comando)
+    $default  reduce using rule 72 (Comando)
 
 
 State 116
 
-   75 Comando: Retorno ';' .
+   76 Comando: Retorno ';' .
 
-    $default  reduce using rule 75 (Comando)
+    $default  reduce using rule 76 (Comando)
 
 
 State 117
 
-   77 Comando: ChamadaDeFuncao ';' .
+   78 Comando: ChamadaDeFuncao ';' .
 
-    $default  reduce using rule 77 (Comando)
+    $default  reduce using rule 78 (Comando)
 
 
 State 118
 
-   80 SequenciaDeComandos: Comando SequenciaDeComandos .
+   81 SequenciaDeComandos: Comando SequenciaDeComandos .
 
-    $default  reduce using rule 80 (SequenciaDeComandos)
+    $default  reduce using rule 81 (SequenciaDeComandos)
 
 
 State 119
 
-   81 BlocoDeComandos: '{' SequenciaDeComandos '}' .
+   82 BlocoDeComandos: '{' SequenciaDeComandos '}' .
 
-    $default  reduce using rule 81 (BlocoDeComandos)
+    $default  reduce using rule 82 (BlocoDeComandos)
 
 
 State 120
@@ -1743,8 +1794,8 @@ State 121
 
 State 122
 
-   82 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN . Comando
-   83            | TK_PR_IF Expressao TK_PR_THEN . Comando TK_PR_ELSE Comando
+   83 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN . Comando
+   84            | TK_PR_IF Expressao TK_PR_THEN . Comando TK_PR_ELSE Comando
 
     TK_PR_INT         shift, and go to state 1
     TK_PR_FLOAT       shift, and go to state 2
@@ -1762,6 +1813,24 @@ State 122
     TK_IDENTIFICADOR  shift, and go to state 20
     ';'               shift, and go to state 68
     '{'               shift, and go to state 58
+
+    TK_PR_INT         [reduce using rule 70 (Comando)]
+    TK_PR_FLOAT       [reduce using rule 70 (Comando)]
+    TK_PR_BOOL        [reduce using rule 70 (Comando)]
+    TK_PR_CHAR        [reduce using rule 70 (Comando)]
+    TK_PR_STRING      [reduce using rule 70 (Comando)]
+    TK_PR_IF          [reduce using rule 70 (Comando)]
+    TK_PR_WHILE       [reduce using rule 70 (Comando)]
+    TK_PR_DO          [reduce using rule 70 (Comando)]
+    TK_PR_INPUT       [reduce using rule 70 (Comando)]
+    TK_PR_OUTPUT      [reduce using rule 70 (Comando)]
+    TK_PR_RETURN      [reduce using rule 70 (Comando)]
+    TK_PR_STATIC      [reduce using rule 70 (Comando)]
+    TK_PR_CONST       [reduce using rule 70 (Comando)]
+    TK_IDENTIFICADOR  [reduce using rule 70 (Comando)]
+    ';'               [reduce using rule 70 (Comando)]
+    '{'               [reduce using rule 70 (Comando)]
+    $default          reduce using rule 70 (Comando)
 
     Static             go to state 69
     Const              go to state 70
@@ -1923,7 +1992,7 @@ State 138
 
 State 139
 
-   84 CtrlFluxoWhile: TK_PR_WHILE Expressao TK_PR_DO . Comando
+   85 CtrlFluxoWhile: TK_PR_WHILE Expressao TK_PR_DO . Comando
 
     TK_PR_INT         shift, and go to state 1
     TK_PR_FLOAT       shift, and go to state 2
@@ -1941,6 +2010,24 @@ State 139
     TK_IDENTIFICADOR  shift, and go to state 20
     ';'               shift, and go to state 68
     '{'               shift, and go to state 58
+
+    TK_PR_INT         [reduce using rule 70 (Comando)]
+    TK_PR_FLOAT       [reduce using rule 70 (Comando)]
+    TK_PR_BOOL        [reduce using rule 70 (Comando)]
+    TK_PR_CHAR        [reduce using rule 70 (Comando)]
+    TK_PR_STRING      [reduce using rule 70 (Comando)]
+    TK_PR_IF          [reduce using rule 70 (Comando)]
+    TK_PR_WHILE       [reduce using rule 70 (Comando)]
+    TK_PR_DO          [reduce using rule 70 (Comando)]
+    TK_PR_INPUT       [reduce using rule 70 (Comando)]
+    TK_PR_OUTPUT      [reduce using rule 70 (Comando)]
+    TK_PR_RETURN      [reduce using rule 70 (Comando)]
+    TK_PR_STATIC      [reduce using rule 70 (Comando)]
+    TK_PR_CONST       [reduce using rule 70 (Comando)]
+    TK_IDENTIFICADOR  [reduce using rule 70 (Comando)]
+    ';'               [reduce using rule 70 (Comando)]
+    '{'               [reduce using rule 70 (Comando)]
+    $default          reduce using rule 70 (Comando)
 
     Static             go to state 69
     Const              go to state 70
@@ -1964,7 +2051,7 @@ State 139
 
 State 140
 
-   85 CtrlFluxoDoWhile: TK_PR_DO Comando TK_PR_WHILE . Expressao
+   86 CtrlFluxoDoWhile: TK_PR_DO Comando TK_PR_WHILE . Expressao
 
     TK_LIT_INT        shift, and go to state 38
     TK_LIT_FLOAT      shift, and go to state 88
@@ -2159,13 +2246,13 @@ State 150
 
 State 151
 
-   82 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN Comando .
-   83            | TK_PR_IF Expressao TK_PR_THEN Comando . TK_PR_ELSE Comando
+   83 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN Comando .
+   84            | TK_PR_IF Expressao TK_PR_THEN Comando . TK_PR_ELSE Comando
 
     TK_PR_ELSE  shift, and go to state 164
 
-    TK_PR_ELSE  [reduce using rule 82 (CtrlFluxoIf)]
-    $default    reduce using rule 82 (CtrlFluxoIf)
+    TK_PR_ELSE  [reduce using rule 83 (CtrlFluxoIf)]
+    $default    reduce using rule 83 (CtrlFluxoIf)
 
 
 State 152
@@ -2248,16 +2335,16 @@ State 153
 
 State 154
 
-   84 CtrlFluxoWhile: TK_PR_WHILE Expressao TK_PR_DO Comando .
+   85 CtrlFluxoWhile: TK_PR_WHILE Expressao TK_PR_DO Comando .
 
-    $default  reduce using rule 84 (CtrlFluxoWhile)
+    $default  reduce using rule 85 (CtrlFluxoWhile)
 
 
 State 155
 
    31 Expressao: Expressao . Operador Expressao
    32          | Expressao . Comparador Expressao
-   85 CtrlFluxoDoWhile: TK_PR_DO Comando TK_PR_WHILE Expressao .
+   86 CtrlFluxoDoWhile: TK_PR_DO Comando TK_PR_WHILE Expressao .
 
     TK_OC_LE   shift, and go to state 123
     TK_OC_GE   shift, and go to state 124
@@ -2272,7 +2359,7 @@ State 155
     '&'        shift, and go to state 133
     '|'        shift, and go to state 134
 
-    $default  reduce using rule 85 (CtrlFluxoDoWhile)
+    $default  reduce using rule 86 (CtrlFluxoDoWhile)
 
     Comparador  go to state 135
     MathOp      go to state 136
@@ -2365,7 +2452,7 @@ State 163
 
 State 164
 
-   83 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE . Comando
+   84 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE . Comando
 
     TK_PR_INT         shift, and go to state 1
     TK_PR_FLOAT       shift, and go to state 2
@@ -2383,6 +2470,24 @@ State 164
     TK_IDENTIFICADOR  shift, and go to state 20
     ';'               shift, and go to state 68
     '{'               shift, and go to state 58
+
+    TK_PR_INT         [reduce using rule 70 (Comando)]
+    TK_PR_FLOAT       [reduce using rule 70 (Comando)]
+    TK_PR_BOOL        [reduce using rule 70 (Comando)]
+    TK_PR_CHAR        [reduce using rule 70 (Comando)]
+    TK_PR_STRING      [reduce using rule 70 (Comando)]
+    TK_PR_IF          [reduce using rule 70 (Comando)]
+    TK_PR_WHILE       [reduce using rule 70 (Comando)]
+    TK_PR_DO          [reduce using rule 70 (Comando)]
+    TK_PR_INPUT       [reduce using rule 70 (Comando)]
+    TK_PR_OUTPUT      [reduce using rule 70 (Comando)]
+    TK_PR_RETURN      [reduce using rule 70 (Comando)]
+    TK_PR_STATIC      [reduce using rule 70 (Comando)]
+    TK_PR_CONST       [reduce using rule 70 (Comando)]
+    TK_IDENTIFICADOR  [reduce using rule 70 (Comando)]
+    ';'               [reduce using rule 70 (Comando)]
+    '{'               [reduce using rule 70 (Comando)]
+    $default          reduce using rule 70 (Comando)
 
     Static             go to state 69
     Const              go to state 70
@@ -2489,9 +2594,9 @@ State 168
 
 State 169
 
-   83 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando .
+   84 CtrlFluxoIf: TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando .
 
-    $default  reduce using rule 83 (CtrlFluxoIf)
+    $default  reduce using rule 84 (CtrlFluxoIf)
 
 
 State 170

@@ -145,7 +145,8 @@ Parametro:
 
 Parametros:
 
-		  Parametro
+		  %empty
+		| Parametro
 		| Parametro ',' ParametrosNaoVazio
 
 ParametrosNaoVazio:
@@ -157,7 +158,9 @@ DeclFuncao:
 		| Static Tipo Identificador '(' Parametros ')' BlocoDeComandos
 
 ArgumentosNaoVazio:
-		  Expressao
+
+		%empty		
+		| Expressao
 		| Expressao ',' ArgumentosNaoVazio
 
 Argumentos:
@@ -169,7 +172,8 @@ ChamadaDeFuncao:
 		  Identificador '(' Argumentos ')'
 
 Comando:
-		  ';'
+		%empty
+		| ';'
 		| DeclVariavelLocal ';'
 		| Atribuicao ';'
 		| Entrada ';'
@@ -212,7 +216,8 @@ DeclaracoesFuncoes:
 
 DeclaracoesOpcionais:
 
-		  DeclaracoesGlobais
+		  %empty
+		| DeclaracoesGlobais
 		| DeclaracoesFuncoes
 		| DeclaracoesGlobais DeclaracoesOpcionais
 		| DeclaracoesFuncoes DeclaracoesOpcionais
