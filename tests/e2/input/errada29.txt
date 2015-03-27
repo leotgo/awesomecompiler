@@ -1,0 +1,5 @@
+int func(int arg)
+{
+	float variavel = 10; // inicializacao incorreta de variavel
+	int outraVariavel;
+}

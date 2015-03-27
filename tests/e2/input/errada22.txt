@@ -1,0 +1,5 @@
+int static b;
+int a()
+{
+	float g;
+}

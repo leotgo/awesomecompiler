@@ -1,0 +1,6 @@
+int j;
+int function(int arg1, float arg2, char arg3)
+{
+	const var;
+	int abc;
+}

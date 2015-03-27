@@ -1,0 +1,6 @@
+int b;
+int funcao()
+{
+	int a;
+	a <= 42; // atribuicao incorreta
+}

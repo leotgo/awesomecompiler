@@ -1,0 +1,16 @@
+static int num[10];
+int funcao()
+{
+	float var <= 10;
+	{
+		int a;
+		int b
+	};
+
+	int c
+}
+
+float funcao2()
+{
+    int u;
+}
