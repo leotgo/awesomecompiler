@@ -14,9 +14,14 @@ typedef struct comp_dict_item_t {
 	int line_where_it_last_appeared; /* line where the specific token appeard
 									 last */
 
+	int token_type; /* the type of the token */
+
+	void* value;
+
 	UT_hash_handle hh; /* the handle that must be used by the item types of the
 					   hash table, defined by 'uthash'*/
 } comp_dict_item_t;
+
 
 /* the hash-table library we used defines that the table type must be a 
  * pointer to the element it stores. */
@@ -27,8 +32,21 @@ void free_comp_dict_item_t(comp_dict_item_t* item);
 
 /* adds an item to the given symbols table, with key 'key', 
  * and returns a pointer to that item. if something went wront, or the item 
- * already exists in the table, returns NULL. */
-comp_dict_item_t* symbols_table_add(const char* key, int line, 
+ * already exists in the table, returns NULL. 
+ * 
+ * parameters:
+ * key - the key 
+ * line - line where it last appeared
+ * token_type - the type of token. the types are defined in main.h
+ * token_value - the token value, which will be converted to the appropriate
+ *				 type
+ * table - the hash table.
+ * */
+comp_dict_item_t* symbols_table_add(
+	const char* key, 
+	int line, 
+	int token_type, 
+	const char* token_value, 
 	comp_dict_t* table);
 
 /* searches for the symbol with key 'key' in the table. if the item doesn't 

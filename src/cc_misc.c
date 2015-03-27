@@ -1,6 +1,7 @@
 #include "cc_misc.h"
 #include "cc_dict.h"
 #include "parser.h"
+#include "main.h"
 #include <assert.h>
 
 extern int lineCounter; /* lineCounter is declared in scanner.c, 
@@ -9,52 +10,111 @@ extern int lineCounter; /* lineCounter is declared in scanner.c,
 extern comp_dict_t symbols_table; /* the compiler's symbols table, declared
 								  in cc_dict.c */
 
-int getLineNumber(void) 
-{
+int getLineNumber(void) {
 	return lineCounter;
 }
 
-void yyerror (char const *mensagem)
-{
+void yyerror (char const *mensagem) {
 	int line = getLineNumber();
   	fprintf (stderr, "%s\n in line %d", mensagem, line); 
 }
 
-void main_init (int argc, char **argv)
-{
-  //implemente esta função com rotinas de inicialização, se necessário
+void main_init (int argc, char **argv) {
+
 }
 
 void main_finalize(void) {
 	symbols_table_finalize(&symbols_table);
 }
 
-int recognize_token(const char* token_text, int token_id) {
+int recognize_token(char* token_text, int token_id) {
 
-	/* add the token to symbols table only if it is a literal or an
+	/* add the lexeme to symbols table only if it is a literal or an
 	 * identificator. */
 	if (token_id == TK_IDENTIFICADOR || token_id == TK_LIT_FALSE
 		|| token_id == TK_LIT_TRUE || token_id == TK_LIT_INT
 		|| token_id == TK_LIT_FLOAT || token_id == TK_LIT_CHAR
 		|| token_id == TK_LIT_STRING) {
 
-		/* remove double and single quotes if token is a string or 
-		 * char literal */
-		if (token_id == TK_LIT_STRING || token_id == TK_LIT_CHAR) {			
-			assert(token_text[0] == '"' || token_text[0] == '\'');
-			char* tmp = (char*)	malloc((strlen(token_text) + 1) * sizeof(char));
-			strcpy(tmp, token_text + 1);
-			tmp[strlen(tmp) - 1] = '\0';
-			token_text = tmp;
+		/* defined in main.h, it's used to diferentiate the lexemes in the
+		* symbols table, by concatenating it to the token text. */
+		int token_type_id;
+		switch (token_id) {
+		case TK_IDENTIFICADOR:
+			token_type_id = SIMBOLO_IDENTIFICADOR;
+			break;
+		case TK_LIT_TRUE:
+		case TK_LIT_FALSE:
+			token_type_id = SIMBOLO_LITERAL_BOOL;
+			break;
+		case TK_LIT_INT:
+			token_type_id = SIMBOLO_LITERAL_INT;
+			break;
+		case TK_LIT_FLOAT:
+			token_type_id = SIMBOLO_LITERAL_FLOAT;
+			break;
+		case TK_LIT_CHAR:
+			token_type_id = SIMBOLO_LITERAL_CHAR;
+			break;
+		case TK_LIT_STRING:
+			token_type_id = SIMBOLO_LITERAL_STRING;
+			break;
+		default:
+			printf("Invalid token id (%d) given to "
+				"compute_symbols_table_key()!\n", token_id);
+			assert(0);
 		}
 
-		/* add the token to the symbols table. */
-		symbols_table_add(token_text, getLineNumber(), &symbols_table);
+		/* get the key that refers to that lexeme: */
+		char* symbols_table_key = compute_symbols_table_key(token_text, 
+			token_type_id);
 
-		if (token_id == TK_LIT_STRING || token_id == TK_LIT_CHAR)
-			free((void*)token_text);
+		/* add the lexeme to the symbols table. */
+		symbols_table_add(symbols_table_key, /* key */
+						  getLineNumber(), /* line number */
+						  token_type_id, /* type of token */
+						  token_text, /* token value*/
+						  &symbols_table);
 	}
 
 	/* then, return the token's identifier. */
 	return token_id;
+}
+
+char* remove_quotes(char* token_text) {
+	char* without_quotes = (char*)
+		malloc((strlen(token_text) + 1) * sizeof(char));
+	strcpy(without_quotes, token_text + 1);
+	without_quotes[strlen(without_quotes) - 1] = '\0';
+	return without_quotes;
+}
+
+char* compute_symbols_table_key(char* token_text, int token_type_id) {
+	/* remove double and single quotes if token is a string or
+	* char literal */
+	if (token_type_id == SIMBOLO_LITERAL_STRING || 
+		token_type_id == SIMBOLO_LITERAL_CHAR) {
+		assert(token_text[0] == '"' || token_text[0] == '\'');
+		token_text = remove_quotes(token_text);
+	}
+
+	/* here, we safely assume that the token_type_id's number will never 
+	 * have more more than 20 characters, which is the maximum length of 
+	 * a 64-bit integer. */
+	char* symbols_table_key = (char*)
+		malloc((24 + strlen(token_text)) * sizeof(char));
+
+	/* use something starting with a number and with invalid characters for
+	 * an identifier ('$$') so no conflicts arise */
+	sprintf(symbols_table_key, "%d $$ %s", token_type_id, token_text);
+
+	printf("adding %s as key for %s\n", symbols_table_key, token_text);
+
+	/* deallocate token_text here, because we created a new string when we 
+	 * removed quotes.*/
+	if (token_type_id == SIMBOLO_LITERAL_STRING || 
+		token_type_id == SIMBOLO_LITERAL_CHAR)
+		free((void*)token_text);
+
+	return symbols_table_key;
 }

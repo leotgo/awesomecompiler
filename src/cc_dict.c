@@ -15,8 +15,8 @@ void free_comp_dict_item_t(comp_dict_item_t* item) {
 /* The global symbols table defined in the program. */
 comp_dict_t symbols_table = NULL;
 
-comp_dict_item_t* symbols_table_add(const char* key, int line, 
-	comp_dict_t* table) {
+comp_dict_item_t* symbols_table_add(const char* key, int line,
+	int token_type, const char* token_value, comp_dict_t* table) {
 
 	comp_dict_item_t* item = symbols_table_find(key, table);
 
