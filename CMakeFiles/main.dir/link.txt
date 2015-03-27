@@ -1,0 +1,1 @@
+/usr/bin/cc  -g    CMakeFiles/main.dir/scanner.c.o CMakeFiles/main.dir/parser.c.o CMakeFiles/main.dir/src/main.c.o CMakeFiles/main.dir/src/cc_misc.c.o CMakeFiles/main.dir/src/cc_gv.c.o CMakeFiles/main.dir/src/cc_dict.c.o CMakeFiles/main.dir/src/cc_list.c.o CMakeFiles/main.dir/src/cc_tree.c.o  -o main -rdynamic -lfl 
