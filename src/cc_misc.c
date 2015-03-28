@@ -10,6 +10,9 @@ extern int lineCounter; /* lineCounter is declared in scanner.c,
 extern comp_dict_t symbols_table; /* the compiler's symbols table, declared
 								  in cc_dict.c */
 
+extern YYSTYPE yylval;
+extern char* yytext;
+
 int getLineNumber(void) {
 	return lineCounter;
 }
@@ -27,7 +30,9 @@ void main_finalize(void) {
 	symbols_table_finalize(&symbols_table);
 }
 
-int recognize_token(const char* token_text, int token_id) {
+int recognize_token(int token_id) {
+	const char* token_text = yytext;
+	yylval.valor_simbolo_lexico = NULL;
 
 	/* add the lexeme to symbols table only if it is a literal or an
 	 * identificator. */
@@ -62,7 +67,13 @@ int recognize_token(const char* token_text, int token_id) {
 		default:
 			printf("Invalid token id (%d) given to "
 				"compute_symbols_table_key()!\n", token_id);
-			//assert(0);
+		}
+
+		/* remove double and single quotes if token is a string or
+		* char literal */
+		if (token_type_id == SIMBOLO_LITERAL_STRING ||
+			token_type_id == SIMBOLO_LITERAL_CHAR) {
+			token_text = remove_quotes(token_text);
 		}
 
 		/* get the key that refers to that lexeme: */
@@ -70,12 +81,16 @@ int recognize_token(const char* token_text, int token_id) {
 			token_type_id);
 
 		/* add the lexeme to the symbols table. */
-		symbols_table_add(symbols_table_key, /* key */
-						  getLineNumber(), /* line number */
-						  token_type_id, /* type of token */
-						  token_text, /* token value*/
-						  &symbols_table);
+		yylval.valor_simbolo_lexico = symbols_table_add(symbols_table_key, 
+			getLineNumber(), token_type_id, token_text, &symbols_table);
+
 		free((void*)symbols_table_key);
+
+		/* deallocate token_text here, because we created a new string when we
+		* removed quotes.*/
+		if (token_type_id == SIMBOLO_LITERAL_STRING ||
+			token_type_id == SIMBOLO_LITERAL_CHAR)
+			free((void*)token_text);
 	}
 
 	/* then, return the token's identifier. */
@@ -91,13 +106,6 @@ char* remove_quotes(const char* token_text) {
 }
 
 char* compute_symbols_table_key(const char* token_text, int token_type_id) {
-	/* remove double and single quotes if token is a string or
-	* char literal */
-	if (token_type_id == SIMBOLO_LITERAL_STRING || 
-		token_type_id == SIMBOLO_LITERAL_CHAR) {
-		//assert(token_text[0] == '"' || token_text[0] == '\'');
-		token_text = remove_quotes(token_text);
-	}
 
 	/* here, we safely assume that the token_type_id's number will never 
 	 * have more more than 20 characters, which is the maximum length of 
@@ -108,12 +116,6 @@ char* compute_symbols_table_key(const char* token_text, int token_type_id) {
 	/* use something starting with a number and with invalid characters for
 	 * an identifier ('$$') so no conflicts arise */
 	sprintf(symbols_table_key, "%d $$ %s", token_type_id, token_text);
-
-	/* deallocate token_text here, because we created a new string when we 
-	 * removed quotes.*/
-	if (token_type_id == SIMBOLO_LITERAL_STRING || 
-		token_type_id == SIMBOLO_LITERAL_CHAR)
-		free((void*)token_text);
 
 	return symbols_table_key;
 }

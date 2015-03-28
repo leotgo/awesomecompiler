@@ -2,6 +2,8 @@
 #define __MISC_H
 #include <stdio.h>
 
+struct comp_dict_item_t;
+
 int getLineNumber (void);
 
 void yyerror (char const *mensagem);
@@ -12,7 +14,7 @@ void main_finalize (void);
 
 /* receives a token, and, if it needs to be added to the symbols table, add it.
  * return its token id at the end. */
-int recognize_token(const char* token_text, int token_id);
+int recognize_token(int token_id);
 
 /* given a lexeme and it's type, computes the key that will be used for that
 * lexeme in the symbols table, and returns a pointer to it. note: the string

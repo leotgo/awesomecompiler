@@ -51,7 +51,7 @@ void free_comp_dict_item_t(comp_dict_item_t* item);
  * */
 comp_dict_item_t* symbols_table_add(
 	const char* key, 
-	int line, 
+	int line_number, 
 	int token_type, 
 	const char* token_value, 
 	comp_dict_t* table);
@@ -74,6 +74,6 @@ void symbols_table_finalize(comp_dict_t* table);
 /* given a text and the token type, computes the value corresponding to that
  * text, puts it in an allocated void*, and returns it. 
  * see comp_dict_item_t::value for more info. */
-void* interpret_token_value(const char* text, int token_type);
+void* interpret_token_value(const char* text, int token_type, int line_number);
 
 #endif
