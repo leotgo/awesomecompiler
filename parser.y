@@ -35,7 +35,7 @@
 %token TOKEN_ERRO
 
 %left TK_OC_OR TK_OC_AND
-%nonassoc TK_OC_LE TK_OC_GE TK_OC_EQ TK_OC_NE
+%nonassoc TK_OC_LE TK_OC_GE TK_OC_EQ TK_OC_NE '<' '>'
 %left '+' '-'
 %left '*' '/'
 
@@ -84,6 +84,8 @@ Comparador:
 		| TK_OC_NE
 		| TK_OC_AND
 		| TK_OC_OR
+		| '<'
+		| '>'
 		;
 
 MathOp:
@@ -149,13 +151,13 @@ VariavelLocal:
 		  Variavel
 		| Const Variavel
 		| Static Variavel
-		| Const Static Variavel
+		| Static Const Variavel
 		;
 
 DeclVariavelLocal:
 		  VariavelLocal
-		| VariavelLocal '<' '=' Literal
-		| VariavelLocal '<' '=' Identificador
+		| VariavelLocal TK_OC_LE Literal
+		| VariavelLocal TK_OC_LE Identificador
 		;
 
 Retorno:
@@ -203,9 +205,9 @@ Comando:
 		| DeclVariavelLocal ';'
 		| Atribuicao ';'
 		| Entrada ';'
-		| Saida ';'
+		| Saida
 		| Retorno ';'
-		//| BlocoDeComandos 
+		| BlocoDeComandos 
 		| ChamadaDeFuncao ';'
 		| ControleDeFluxo
 		;
