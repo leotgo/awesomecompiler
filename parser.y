@@ -45,6 +45,7 @@
 %left '+' '-'
 %left '*' '/'
 %left '&' '|'
+%left '!'
 %right TK_PR_THEN TK_PR_ELSE
 
 %start Programa
@@ -85,34 +86,6 @@ Identificador:
 		  TK_IDENTIFICADOR
 		;
 
-Comparador:
-		  TK_OC_LE
-		| TK_OC_GE
-		| TK_OC_EQ
-		| TK_OC_NE
-		| TK_OC_AND
-		| TK_OC_OR
-		| '<'
-		| '>'
-		;
-
-MathOp:
-		  '+'
-		| '-'
-		| '*'
-		| '/'
-		;
-
-BinaryOp:
-		  '&'
-		| '|'
-		;
-
-Operador:
-		  MathOp
-		| BinaryOp
-		;
-
 Expressao:
 		'(' Expressao ')'
 		| '+' Expressao
@@ -122,8 +95,20 @@ Expressao:
 		| Identificador
 		| Identificador '[' Expressao ']'
 		| ChamadaDeFuncao
-		| Expressao Operador Expressao
-		| Expressao Comparador Expressao
+		| Expressao '+' Expressao
+		| Expressao '-' Expressao
+		| Expressao '*' Expressao
+		| Expressao '/' Expressao
+		| Expressao '&' Expressao
+		| Expressao '|' Expressao
+		| Expressao '>' Expressao
+		| Expressao '<' Expressao
+		| Expressao TK_OC_OR Expressao
+		| Expressao TK_OC_AND Expressao
+		| Expressao TK_OC_NE Expressao
+		| Expressao TK_OC_EQ Expressao
+		| Expressao TK_OC_LE Expressao
+		| Expressao TK_OC_GE Expressao
 		| Literal '[' Inteiro ']'		{yyerror("Identificador invalido"); YYERROR;}	
 		;
 
