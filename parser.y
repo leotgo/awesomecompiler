@@ -95,7 +95,7 @@ MathOp:
 
 BinaryOp:
 		  '&'
-		  '|'
+		| '|'
 		;
 
 Operador:
@@ -250,7 +250,7 @@ Declaracoes:
 		;
 
 Programa:
-		|  Declaracoes
+		|  Declaracoes	{printf("OI");}
 		;
 /*
 	Itens:

@@ -44,6 +44,26 @@ cc_misc.h
 unistd.h
 -
 
+/home/marina/awesomecompiler/src/cc_dict.c
+cc_dict.h
+/home/marina/awesomecompiler/src/cc_dict.h
+stdlib.h
+-
+string.h
+-
+stdio.h
+-
+
+/home/marina/awesomecompiler/src/cc_gv.c
+stdio.h
+-
+stdlib.h
+-
+cc_ast.h
+/home/marina/awesomecompiler/src/cc_ast.h
+
+/home/marina/awesomecompiler/src/cc_list.c
+
 /home/marina/awesomecompiler/src/cc_misc.c
 cc_misc.h
 /home/marina/awesomecompiler/src/cc_misc.h
@@ -51,12 +71,18 @@ cc_dict.h
 /home/marina/awesomecompiler/src/cc_dict.h
 parser.h
 /home/marina/awesomecompiler/src/parser.h
+main.h
+/home/marina/awesomecompiler/src/main.h
 assert.h
 -
+
+/home/marina/awesomecompiler/src/cc_tree.c
 
 /home/marina/awesomecompiler/src/main.c
 main.h
 /home/marina/awesomecompiler/src/main.h
+
+include/cc_ast.h
 
 include/cc_dict.h
 uthash.h
