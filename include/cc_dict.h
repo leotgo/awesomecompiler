@@ -16,12 +16,19 @@ typedef struct comp_dict_item_t {
 
 	int token_type; /* the type of the token */
 
-	void* value;
+	void* value; /* the value of the token; the type will depend on what
+				 token_type is:
+				 SIMBOLO_LITERAL_INT - int
+				 SIMBOLO_LITERAL_FLOAT - float
+				 SIMBOLO_LITERAL_CHAR - char
+				 SIMBOLO_LITERAL_STRING - char*
+				 SIMBOLO_LITERAL_BOOL - int (0 or 1)
+				 SIMBOLO_IDENTIFICADOR - the pointer will be NULL				 
+				 */
 
 	UT_hash_handle hh; /* the handle that must be used by the item types of the
 					   hash table, defined by 'uthash'*/
 } comp_dict_item_t;
-
 
 /* the hash-table library we used defines that the table type must be a 
  * pointer to the element it stores. */
@@ -63,5 +70,10 @@ int symbols_table_count(comp_dict_t* table);
 /* delete all the elements in the table, deallocating their memory, and
  * finalizes the table. */
 void symbols_table_finalize(comp_dict_t* table);
+
+/* given a text and the token type, computes the value corresponding to that
+ * text, puts it in an allocated void*, and returns it. 
+ * see comp_dict_item_t::value for more info. */
+void* interpret_token_value(const char* text, int token_type);
 
 #endif

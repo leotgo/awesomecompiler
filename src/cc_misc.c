@@ -27,7 +27,7 @@ void main_finalize(void) {
 	symbols_table_finalize(&symbols_table);
 }
 
-int recognize_token(char* token_text, int token_id) {
+int recognize_token(const char* token_text, int token_id) {
 
 	/* add the lexeme to symbols table only if it is a literal or an
 	 * identificator. */
@@ -62,7 +62,7 @@ int recognize_token(char* token_text, int token_id) {
 		default:
 			printf("Invalid token id (%d) given to "
 				"compute_symbols_table_key()!\n", token_id);
-			assert(0);
+			//assert(0);
 		}
 
 		/* get the key that refers to that lexeme: */
@@ -75,13 +75,14 @@ int recognize_token(char* token_text, int token_id) {
 						  token_type_id, /* type of token */
 						  token_text, /* token value*/
 						  &symbols_table);
+		free((void*)symbols_table_key);
 	}
 
 	/* then, return the token's identifier. */
 	return token_id;
 }
 
-char* remove_quotes(char* token_text) {
+char* remove_quotes(const char* token_text) {
 	char* without_quotes = (char*)
 		malloc((strlen(token_text) + 1) * sizeof(char));
 	strcpy(without_quotes, token_text + 1);
@@ -89,12 +90,12 @@ char* remove_quotes(char* token_text) {
 	return without_quotes;
 }
 
-char* compute_symbols_table_key(char* token_text, int token_type_id) {
+char* compute_symbols_table_key(const char* token_text, int token_type_id) {
 	/* remove double and single quotes if token is a string or
 	* char literal */
 	if (token_type_id == SIMBOLO_LITERAL_STRING || 
 		token_type_id == SIMBOLO_LITERAL_CHAR) {
-		assert(token_text[0] == '"' || token_text[0] == '\'');
+		//assert(token_text[0] == '"' || token_text[0] == '\'');
 		token_text = remove_quotes(token_text);
 	}
 
@@ -107,8 +108,6 @@ char* compute_symbols_table_key(char* token_text, int token_type_id) {
 	/* use something starting with a number and with invalid characters for
 	 * an identifier ('$$') so no conflicts arise */
 	sprintf(symbols_table_key, "%d $$ %s", token_type_id, token_text);
-
-	printf("adding %s as key for %s\n", symbols_table_key, token_text);
 
 	/* deallocate token_text here, because we created a new string when we 
 	 * removed quotes.*/
