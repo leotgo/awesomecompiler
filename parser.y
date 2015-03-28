@@ -109,6 +109,9 @@ Expressao:
 		'(' Expressao ')'
 		| Expressao Operador Expressao
 		| Expressao Comparador Expressao
+		| '+' Expressao
+		| '-' Expressao
+		| '!' Expressao
 		| Literal
 		| Identificador
 		| Identificador '[' Expressao ']'
@@ -202,20 +205,21 @@ ChamadaDeFuncao:
 		;
 Comando:
 		  ';'
-		| DeclVariavelLocal ';'
-		| Atribuicao ';'
-		| Entrada ';'
+		| DeclVariavelLocal
+		| Atribuicao
+		| Entrada
 		| Saida
-		| Retorno ';'
+		| Retorno
 		| BlocoDeComandos 
-		| ChamadaDeFuncao ';'
+		| ChamadaDeFuncao
 		| ControleDeFluxo
 		;
 
 SequenciaDeComandos:
 
 		 Comando
-		| Comando SequenciaDeComandos
+		| Comando ';'
+		| Comando ';' SequenciaDeComandos
 		;
 
 BlocoDeComandos:
