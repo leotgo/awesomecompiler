@@ -250,7 +250,7 @@ Declaracoes:
 		;
 
 Programa:
-		|  Declaracoes	{printf("OI");}
+		|  Declaracoes	
 		;
 /*
 	Itens:
