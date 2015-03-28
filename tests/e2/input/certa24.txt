@@ -1,7 +1,7 @@
 int vetor[5];
 static float funcao(const int arg1, const float arg2, const char arg3)
 {
-	static const int <= 10;
+	static const int v <= 10;
 	{
 		const int u <= 25
 	};
