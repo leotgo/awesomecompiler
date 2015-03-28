@@ -1,6 +1,8 @@
 
 %{
 #include <stdio.h>
+#include "cc_dict.h" /* we must add this so we can specify comp_dict_item_t 
+					  * in yylval's union */
 %}
 
 /* Declaração dos tokens da linguagem */
@@ -33,6 +35,10 @@
 %token TK_LIT_STRING
 %token TK_IDENTIFICADOR
 %token TOKEN_ERRO
+
+%union {
+    comp_dict_item_t* valor_simbolo_lexico;
+}
 
 %left TK_OC_OR TK_OC_AND
 %nonassoc TK_OC_LE TK_OC_GE TK_OC_EQ TK_OC_NE '<' '>'

@@ -26,11 +26,14 @@ extern int yylex(void);
   Constantes a serem utilizadas para diferenciar os lexemas que estão
   registrados na tabela de símbolos.
 */
-#define SIMBOLO_LITERAL_INT    1
-#define SIMBOLO_LITERAL_FLOAT  2
-#define SIMBOLO_LITERAL_CHAR   3
-#define SIMBOLO_LITERAL_STRING 4
-#define SIMBOLO_LITERAL_BOOL   5
-#define SIMBOLO_IDENTIFICADOR  6
+enum { 
+	SIMBOLO_LITERAL_INT = 1,
+	SIMBOLO_LITERAL_FLOAT,
+	SIMBOLO_LITERAL_CHAR,
+	SIMBOLO_LITERAL_STRING,
+	SIMBOLO_LITERAL_BOOL,
+	SIMBOLO_IDENTIFICADOR,
+	SIMBOLO_ERRO
+};
 
 #endif
