@@ -19,7 +19,7 @@ int getLineNumber(void) {
 
 void yyerror (char const *mensagem) {
 	int line = getLineNumber();
-  	fprintf (stderr, "%s\n in line %d", mensagem, line); 
+  	fprintf (stderr, "%s in line %d \n", mensagem, line); 
 }
 
 void main_init (int argc, char **argv) {

@@ -44,6 +44,8 @@
 %nonassoc TK_OC_LE TK_OC_GE TK_OC_EQ TK_OC_NE '<' '>'
 %left '+' '-'
 %left '*' '/'
+%left '&' '|'
+%right TK_PR_THEN TK_PR_ELSE
 
 %start Programa
 
@@ -113,8 +115,6 @@ Operador:
 
 Expressao:
 		'(' Expressao ')'
-		| Expressao Operador Expressao
-		| Expressao Comparador Expressao
 		| '+' Expressao
 		| '-' Expressao
 		| '!' Expressao
@@ -122,6 +122,9 @@ Expressao:
 		| Identificador
 		| Identificador '[' Expressao ']'
 		| ChamadaDeFuncao
+		| Expressao Operador Expressao
+		| Expressao Comparador Expressao
+		| Literal '[' Inteiro ']'		{yyerror("Identificador invalido"); YYERROR;}	
 		;
 
 ListaDeExpressoes:
@@ -192,6 +195,8 @@ ParametrosNaoVazio:
 DeclFuncao:
 		  Tipo Identificador '(' Parametros ')' BlocoDeComandos
 		| Static Tipo Identificador '(' Parametros ')' BlocoDeComandos
+		| Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos 					{yyerror(" retirar ; ");YYERROR;}
+		| Static Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos 			{yyerror(" retirar ; ");YYERROR;}
 		;
 
 ArgumentosNaoVazio:
@@ -236,6 +241,7 @@ BlocoDeComandos:
 CtrlFluxoIf:
 		  TK_PR_IF Expressao TK_PR_THEN Comando
 		| TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando
+		| TK_PR_IF TK_PR_THEN Comando									{yyerror("Comando de Fluxo IF sem condicao ");YYERROR;}
 		;
 
 CtrlFluxoWhile:
