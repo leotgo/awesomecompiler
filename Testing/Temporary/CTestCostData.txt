@@ -1,12 +1,12 @@
-e2_avaliacao_certa_01 1 0.162238
-e2_avaliacao_certa_02 1 0.152183
+e2_avaliacao_certa_01 2 0
+e2_avaliacao_certa_02 2 0
 e2_avaliacao_certa_03 0 0
 e2_avaliacao_certa_04 0 0
 e2_avaliacao_certa_05 0 0
 e2_avaliacao_certa_06 0 0
 e2_avaliacao_certa_07 0 0
 e2_avaliacao_certa_08 0 0
-e2_avaliacao_certa_09 1 0.153995
+e2_avaliacao_certa_09 1 0
 e2_avaliacao_certa_10 0 0
 e2_avaliacao_certa_11 0 0
 e2_avaliacao_certa_12 0 0
@@ -24,99 +24,102 @@ e2_avaliacao_certa_23 0 0
 e2_avaliacao_certa_24 0 0
 e2_avaliacao_certa_25 0 0
 e2_avaliacao_certa_26 0 0
-e2_avaliacao_errada_01 1 0.155396
-e2_avaliacao_errada_02 1 0.175134
-e2_avaliacao_errada_03 1 0.160919
-e2_avaliacao_errada_04 1 0.150752
-e2_avaliacao_errada_05 1 0.15808
-e2_avaliacao_errada_06 1 0.164981
-e2_avaliacao_errada_07 1 0.152109
-e2_avaliacao_errada_08 1 0.155701
-e2_avaliacao_errada_09 1 0.151915
+e2_avaliacao_errada_01 2 0
+e2_avaliacao_errada_02 3 0.0158727
+e2_avaliacao_errada_03 2 0
+e2_avaliacao_errada_04 2 0
+e2_avaliacao_errada_05 2 0
+e2_avaliacao_errada_06 2 0
+e2_avaliacao_errada_07 2 0
+e2_avaliacao_errada_08 1 0
+e2_avaliacao_errada_09 2 0
 e2_avaliacao_errada_10 0 0
-e2_avaliacao_errada_11 1 0.148553
-e2_avaliacao_errada_12 1 0.161825
-e2_avaliacao_errada_13 1 0.153693
-e2_avaliacao_errada_14 1 0.160724
-e2_avaliacao_errada_15 1 0.149339
-e2_avaliacao_errada_16 1 0.152927
-e2_avaliacao_errada_17 1 0.159703
-e2_avaliacao_errada_18 1 0.158504
-e2_avaliacao_errada_19 1 0.152353
-e2_avaliacao_errada_20 1 0.157809
-e2_avaliacao_errada_21 1 0.172548
-e2_avaliacao_errada_22 1 0.17544
-e2_avaliacao_errada_23 1 0.154927
-e2_avaliacao_errada_24 1 0.157811
-e2_avaliacao_errada_25 1 0.150462
-e2_avaliacao_errada_26 1 0.163039
-e2_avaliacao_errada_27 1 0.164329
-e2_avaliacao_errada_28 1 0.169395
-e2_avaliacao_errada_29 1 0.150451
-e2_avaliacao_errada_30 1 0.148917
-e2_valgrind_certa_01 1 1.70816
-e2_valgrind_certa_02 1 1.68295
-e2_valgrind_certa_03 1 1.71046
-e2_valgrind_certa_04 1 1.67679
-e2_valgrind_certa_05 1 1.71
-e2_valgrind_certa_06 1 1.6862
-e2_valgrind_certa_07 1 1.69878
-e2_valgrind_certa_08 1 1.73418
-e2_valgrind_certa_09 1 1.68799
-e2_valgrind_certa_10 1 1.72855
-e2_valgrind_certa_11 1 1.74375
-e2_valgrind_certa_12 1 1.7282
-e2_valgrind_certa_13 1 1.72986
-e2_valgrind_certa_14 1 1.90428
-e2_valgrind_certa_15 1 1.7799
-e2_valgrind_certa_16 1 1.71295
-e2_valgrind_certa_17 1 1.70084
-e2_valgrind_certa_18 1 1.715
-e2_valgrind_certa_19 1 1.73949
-e2_valgrind_certa_20 1 1.72252
-e2_valgrind_certa_21 1 1.71233
-e2_valgrind_certa_22 1 1.71155
-e2_valgrind_certa_23 1 1.711
-e2_valgrind_certa_24 1 1.73197
-e2_valgrind_certa_25 1 1.67256
-e2_valgrind_certa_26 1 1.6674
-e2_valgrind_errada_01 1 1.68201
-e2_valgrind_errada_02 1 1.63305
-e2_valgrind_errada_03 1 1.69071
-e2_valgrind_errada_04 1 1.67027
-e2_valgrind_errada_05 1 1.70522
-e2_valgrind_errada_06 1 1.72917
-e2_valgrind_errada_07 1 1.72953
-e2_valgrind_errada_08 1 1.76575
-e2_valgrind_errada_09 1 1.97283
-e2_valgrind_errada_10 1 1.76936
-e2_valgrind_errada_11 1 1.92856
-e2_valgrind_errada_12 1 1.75145
-e2_valgrind_errada_13 1 1.91351
-e2_valgrind_errada_14 1 1.96228
-e2_valgrind_errada_15 1 1.82329
-e2_valgrind_errada_16 1 1.75817
-e2_valgrind_errada_17 1 1.74008
-e2_valgrind_errada_18 1 1.84303
-e2_valgrind_errada_19 1 1.84435
-e2_valgrind_errada_20 1 1.75074
-e2_valgrind_errada_21 1 1.72835
-e2_valgrind_errada_22 1 1.70055
-e2_valgrind_errada_23 1 1.82451
-e2_valgrind_errada_24 1 1.98021
-e2_valgrind_errada_25 1 1.92342
-e2_valgrind_errada_26 1 1.70366
-e2_valgrind_errada_27 1 1.70987
-e2_valgrind_errada_28 1 1.68897
-e2_valgrind_errada_29 1 1.80881
-e2_valgrind_errada_30 1 1.89429
+e2_avaliacao_errada_11 1 0
+e2_avaliacao_errada_12 2 0
+e2_avaliacao_errada_13 2 0
+e2_avaliacao_errada_14 2 0
+e2_avaliacao_errada_15 2 0
+e2_avaliacao_errada_16 2 0
+e2_avaliacao_errada_17 2 0
+e2_avaliacao_errada_18 2 0
+e2_avaliacao_errada_19 2 0
+e2_avaliacao_errada_20 1 0
+e2_avaliacao_errada_21 3 0.0151423
+e2_avaliacao_errada_22 3 0.0156067
+e2_avaliacao_errada_23 2 0
+e2_avaliacao_errada_24 2 0
+e2_avaliacao_errada_25 2 0
+e2_avaliacao_errada_26 2 0
+e2_avaliacao_errada_27 2 0
+e2_avaliacao_errada_28 2 0
+e2_avaliacao_errada_29 2 0
+e2_avaliacao_errada_30 2 0
+e2_valgrind_certa_01 3 0.165171
+e2_valgrind_certa_02 3 0.162262
+e2_valgrind_certa_03 3 0.158729
+e2_valgrind_certa_04 3 0.164587
+e2_valgrind_certa_05 3 0.157509
+e2_valgrind_certa_06 3 0.161378
+e2_valgrind_certa_07 3 0.159022
+e2_valgrind_certa_08 3 0.162123
+e2_valgrind_certa_09 3 0.159357
+e2_valgrind_certa_10 3 0.159392
+e2_valgrind_certa_11 3 0.156428
+e2_valgrind_certa_12 3 0.156198
+e2_valgrind_certa_13 3 0.156592
+e2_valgrind_certa_14 3 0.158397
+e2_valgrind_certa_15 3 0.156201
+e2_valgrind_certa_16 3 0.155666
+e2_valgrind_certa_17 3 0.155297
+e2_valgrind_certa_18 3 0.156331
+e2_valgrind_certa_19 3 0.157603
+e2_valgrind_certa_20 3 0.156846
+e2_valgrind_certa_21 3 0.155479
+e2_valgrind_certa_22 3 0.156215
+e2_valgrind_certa_23 3 0.154231
+e2_valgrind_certa_24 3 0.156691
+e2_valgrind_certa_25 3 0.154849
+e2_valgrind_certa_26 3 0.156291
+e2_valgrind_errada_01 3 0.154692
+e2_valgrind_errada_02 3 0.165087
+e2_valgrind_errada_03 3 0.158506
+e2_valgrind_errada_04 3 0.160793
+e2_valgrind_errada_05 3 0.155807
+e2_valgrind_errada_06 3 0.159708
+e2_valgrind_errada_07 3 0.155077
+e2_valgrind_errada_08 3 0.159227
+e2_valgrind_errada_09 3 0.156821
+e2_valgrind_errada_10 3 0.155091
+e2_valgrind_errada_11 3 0.162721
+e2_valgrind_errada_12 3 0.16482
+e2_valgrind_errada_13 3 0.15578
+e2_valgrind_errada_14 3 0.166695
+e2_valgrind_errada_15 3 0.179396
+e2_valgrind_errada_16 3 0.172344
+e2_valgrind_errada_17 3 0.156764
+e2_valgrind_errada_18 3 0.160462
+e2_valgrind_errada_19 3 0.161325
+e2_valgrind_errada_20 3 0.155999
+e2_valgrind_errada_21 3 0.158279
+e2_valgrind_errada_22 3 0.162637
+e2_valgrind_errada_23 3 0.164682
+e2_valgrind_errada_24 3 0.159917
+e2_valgrind_errada_25 3 0.157869
+e2_valgrind_errada_26 3 0.154972
+e2_valgrind_errada_27 3 0.154824
+e2_valgrind_errada_28 3 0.164274
+e2_valgrind_errada_29 3 0.156259
+e2_valgrind_errada_30 3 0.155943
 ---
+e2_avaliacao_certa_01
+e2_avaliacao_certa_02
 e2_avaliacao_certa_03
 e2_avaliacao_certa_04
 e2_avaliacao_certa_05
 e2_avaliacao_certa_06
 e2_avaliacao_certa_07
 e2_avaliacao_certa_08
+e2_avaliacao_certa_09
 e2_avaliacao_certa_10
 e2_avaliacao_certa_11
 e2_avaliacao_certa_12
@@ -134,4 +137,30 @@ e2_avaliacao_certa_23
 e2_avaliacao_certa_24
 e2_avaliacao_certa_25
 e2_avaliacao_certa_26
+e2_avaliacao_errada_01
+e2_avaliacao_errada_03
+e2_avaliacao_errada_04
+e2_avaliacao_errada_05
+e2_avaliacao_errada_06
+e2_avaliacao_errada_07
+e2_avaliacao_errada_08
+e2_avaliacao_errada_09
 e2_avaliacao_errada_10
+e2_avaliacao_errada_11
+e2_avaliacao_errada_12
+e2_avaliacao_errada_13
+e2_avaliacao_errada_14
+e2_avaliacao_errada_15
+e2_avaliacao_errada_16
+e2_avaliacao_errada_17
+e2_avaliacao_errada_18
+e2_avaliacao_errada_19
+e2_avaliacao_errada_20
+e2_avaliacao_errada_23
+e2_avaliacao_errada_24
+e2_avaliacao_errada_25
+e2_avaliacao_errada_26
+e2_avaliacao_errada_27
+e2_avaliacao_errada_28
+e2_avaliacao_errada_29
+e2_avaliacao_errada_30
