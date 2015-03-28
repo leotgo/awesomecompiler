@@ -36,11 +36,6 @@
 %token TK_IDENTIFICADOR
 %token TOKEN_ERRO
 
-%left TK_OC_OR TK_OC_AND
-%nonassoc TK_OC_LE TK_OC_GE TK_OC_EQ TK_OC_NE
-%left '+' '-'
-%left '*' '/'
-
 %start Programa
 
 %%
@@ -48,11 +43,9 @@
 
 Static:
 		  TK_PR_STATIC
-		;
 
 Const:
 		  TK_PR_CONST
-		;
 
 Tipo:
 		  TK_PR_INT
@@ -60,11 +53,9 @@ Tipo:
 		| TK_PR_BOOL
 		| TK_PR_CHAR
 		| TK_PR_STRING
-		;
 
 Inteiro:
 		  TK_LIT_INT
-		;
 
 Literal:
 		  Inteiro
@@ -73,11 +64,9 @@ Literal:
 		| TK_LIT_FALSE
 		| TK_LIT_CHAR
 		| TK_LIT_STRING
-		;
 
 Identificador:
 		  TK_IDENTIFICADOR
-		;
 
 Comparador:
 		  TK_OC_LE
@@ -86,24 +75,20 @@ Comparador:
 		| TK_OC_NE
 		| TK_OC_AND
 		| TK_OC_OR
-		;
 
 MathOp:
 		  '+'
 		| '-'
 		| '*'
 		| '/'
-		;
 
 BinaryOp:
 		  '&'
-		  '|'
-		;
+		| '|'
 
 Operador:
 		  MathOp
 		| BinaryOp
-		;
 
 Expressao:
 		'(' Expressao ')'
@@ -113,147 +98,132 @@ Expressao:
 		| Identificador
 		| Identificador '[' Expressao ']'
 		| ChamadaDeFuncao
-		;
 
 ListaDeExpressoes:
 		  Expressao
 		| Expressao ',' ListaDeExpressoes
-		;
 
 Atribuicao:
 		  Identificador '=' Expressao
 		| Identificador '[' Expressao ']' '=' Expressao
-		;
 
 Entrada:
 		  TK_PR_INPUT Expressao '=' '>' Expressao
-		;
 
 Saida:
 		  TK_PR_OUTPUT ListaDeExpressoes
-		;
+
 Variavel:
 		  Tipo Identificador
-		;
 
 Vetor:
 		Variavel '[' Inteiro ']'
-		;
 
 DeclVariavelGlobal:
 		  Variavel ';'
 		| Vetor ';'
 		| Static Variavel ';'
 		| Static Vetor ';'
-		;
 
 VariavelLocal:
 		  Variavel
 		| Const Variavel
 		| Static Variavel
 		| Const Static Variavel
-		;
 
 DeclVariavelLocal:
 		  VariavelLocal
 		| VariavelLocal '<' '=' Literal
 		| VariavelLocal '<' '=' Identificador
-		;
 
 Retorno:
 		  TK_PR_RETURN Expressao
-		;
 
 Parametro:
 		  Variavel
 		| Const Variavel
-		;
 
 Parametros:
 
+		  %empty
 		| Parametro
 		| Parametro ',' ParametrosNaoVazio
-		;
 
 ParametrosNaoVazio:
 		  Parametro
 		| Parametro ',' ParametrosNaoVazio
-		;
 
 DeclFuncao:
 		  Tipo Identificador '(' Parametros ')' BlocoDeComandos
 		| Static Tipo Identificador '(' Parametros ')' BlocoDeComandos
-		;
 
 ArgumentosNaoVazio:
-		  Expressao
+
+		%empty		
+		| Expressao
 		| Expressao ',' ArgumentosNaoVazio
-		;
 
 Argumentos:
 
-		| Expressao
+		  Expressao
 		| Expressao ',' ArgumentosNaoVazio
-		;
 
 ChamadaDeFuncao:
+		  Identificador '(' Argumentos ')'
 
-		 Identificador '(' Argumentos ')'
-		;
 Comando:
-		  ';'
+		%empty
+		| ';'
 		| DeclVariavelLocal ';'
 		| Atribuicao ';'
 		| Entrada ';'
 		| Saida ';'
 		| Retorno ';'
-		//| BlocoDeComandos 
+		| BlocoDeComandos 
 		| ChamadaDeFuncao ';'
 		| ControleDeFluxo
-		;
-
+		
 SequenciaDeComandos:
 
-		 Comando
+		  Comando 
 		| Comando SequenciaDeComandos
-		;
 
 BlocoDeComandos:
 		  '{' SequenciaDeComandos '}'
-		| '{' '}'
-		;
 
 CtrlFluxoIf:
 		  TK_PR_IF Expressao TK_PR_THEN Comando
 		| TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando
-		;
 
 CtrlFluxoWhile:
 		  TK_PR_WHILE Expressao TK_PR_DO Comando
-		;
 
 CtrlFluxoDoWhile:
 		  TK_PR_DO Comando TK_PR_WHILE Expressao
-		;
 
 ControleDeFluxo:
 		  CtrlFluxoIf
 		| CtrlFluxoWhile
 		| CtrlFluxoDoWhile
-		;
-Declaracao:
-		DeclVariavelGlobal
-		| DeclFuncao
-		;
-Declaracoes:
 
-		Declaracao
-		| Declaracao Declaracoes
-		;
+DeclaracoesGlobais:
+		  DeclVariavelGlobal
+		| DeclVariavelGlobal DeclaracoesGlobais
+
+DeclaracoesFuncoes:
+		  DeclFuncao
+		| DeclFuncao DeclaracoesFuncoes
+
+DeclaracoesOpcionais:
+
+		  %empty
+		| DeclaracoesGlobais
+		| DeclaracoesFuncoes
+		| DeclaracoesGlobais DeclaracoesOpcionais
+		| DeclaracoesFuncoes DeclaracoesOpcionais
 
 Programa:
-		|  Declaracoes
-		;
+		  DeclaracoesOpcionais
 /*
 	Itens:
 	2.1 Declarações de variáveis globais 	- OK
@@ -274,5 +244,3 @@ Programa:
 */
 
 %%
-
-
