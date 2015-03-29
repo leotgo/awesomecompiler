@@ -109,7 +109,7 @@ Expressao:
 		| Expressao TK_OC_EQ Expressao
 		| Expressao TK_OC_LE Expressao
 		| Expressao TK_OC_GE Expressao
-		| Literal '[' Inteiro ']'		{yyerror("Identificador invalido"); YYERROR;}	
+		| Literal '[' Inteiro ']'		{yyerror("Erro: Identificador invalido"); YYERROR;}	
 		;
 
 ListaDeExpressoes:
@@ -120,6 +120,7 @@ ListaDeExpressoes:
 Atribuicao:
 		  Identificador '=' Expressao
 		| Identificador '[' Expressao ']' '=' Expressao
+		| Literal '=' Expressao								{yyerror("Erro: Identificador invalido"); YYERROR;}	
 		;
 
 Entrada:
@@ -180,8 +181,8 @@ ParametrosNaoVazio:
 DeclFuncao:
 		  Tipo Identificador '(' Parametros ')' BlocoDeComandos
 		| Static Tipo Identificador '(' Parametros ')' BlocoDeComandos
-		| Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos 					{yyerror(" retirar ; ");YYERROR;}
-		| Static Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos 			{yyerror(" retirar ; ");YYERROR;}
+		| Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos 					{yyerror(" Erro: definicao de funcao seguida de ; ");YYERROR;}
+		| Static Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos 			{yyerror(" Erro: definicao de funcao seguida de ; ");YYERROR;}
 		;
 
 ArgumentosNaoVazio:
@@ -226,7 +227,7 @@ BlocoDeComandos:
 CtrlFluxoIf:
 		  TK_PR_IF Expressao TK_PR_THEN Comando
 		| TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando
-		| TK_PR_IF TK_PR_THEN Comando									{yyerror("Comando de Fluxo IF sem condicao ");YYERROR;}
+		| TK_PR_IF TK_PR_THEN Comando									{yyerror("Erro: Comando de Fluxo IF sem condicao ");YYERROR;}
 		;
 
 CtrlFluxoWhile:
