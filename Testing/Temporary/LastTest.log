@@ -1,22 +1,20 @@
-Start testing: Mar 27 22:51 BRT
+Start testing: Mar 28 23:23 BRT
 ----------------------------------------------------------
 34/345 Testing: e2_avaliacao_certa_01
 34/345 Test: e2_avaliacao_certa_01
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_01.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_01" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_01" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_01'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_01:2] ./main ./tests/e2/input/certa01.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_01.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_01.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_01.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_01' OK
 <end of output>
-Test time =   0.06 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_01" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_01" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_01" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -24,19 +22,17 @@ Test Failed.
 35/345 Test: e2_avaliacao_certa_02
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_02.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_02" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_02" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_02'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_02:2] ./main ./tests/e2/input/certa02.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_02.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_02.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_02.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_02' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_02" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_02" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_02" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -44,19 +40,17 @@ Test Failed.
 36/345 Test: e2_avaliacao_certa_03
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_03.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_03" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_03" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_03'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_03:2] ./main ./tests/e2/input/certa03.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_03.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_03.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_03.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_03' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_03" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_03" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_03" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -64,19 +58,17 @@ Test Failed.
 37/345 Test: e2_avaliacao_certa_04
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_04.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_04" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_04" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_04'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_04:2] ./main ./tests/e2/input/certa04.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_04.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_04.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_04.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_04' OK
 <end of output>
-Test time =   0.06 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_04" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_04" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_04" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -84,19 +76,17 @@ Test Failed.
 38/345 Test: e2_avaliacao_certa_05
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_05.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_05" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_05" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_05'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_05:2] ./main ./tests/e2/input/certa05.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_05.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_05.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_05.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_05' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_05" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_05" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_05" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -104,19 +94,17 @@ Test Failed.
 39/345 Test: e2_avaliacao_certa_06
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_06.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_06" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_06" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_06'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_06:2] ./main ./tests/e2/input/certa06.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_06.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_06.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_06.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_06' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_06" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_06" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_06" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -124,19 +112,17 @@ Test Failed.
 40/345 Test: e2_avaliacao_certa_07
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_07.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_07" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_07" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_07'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_07:2] ./main ./tests/e2/input/certa07.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_07.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_07.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_07.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_07' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_07" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_07" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_07" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -144,19 +130,17 @@ Test Failed.
 41/345 Test: e2_avaliacao_certa_08
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_08.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_08" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_08" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_08'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_08:2] ./main ./tests/e2/input/certa08.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_08.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_08.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_08.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_08' OK
 <end of output>
-Test time =   0.06 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_08" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_08" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_08" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -164,19 +148,17 @@ Test Failed.
 42/345 Test: e2_avaliacao_certa_09
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_09.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_09" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_09" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_09'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_09:2] ./main ./tests/e2/input/certa09.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_09.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_09.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_09.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_09' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_09" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_09" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_09" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -184,19 +166,17 @@ Test Failed.
 43/345 Test: e2_avaliacao_certa_10
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_10.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_10" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_10" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_10'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_10:2] ./main ./tests/e2/input/certa10.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_10.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_10.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_10.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_10' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_10" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_10" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_10" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -204,19 +184,17 @@ Test Failed.
 44/345 Test: e2_avaliacao_certa_11
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_11.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_11" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_11" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_11'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_11:2] ./main ./tests/e2/input/certa11.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_11.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_11.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_11.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_11' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_11" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_11" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -224,19 +202,17 @@ Test Failed.
 45/345 Test: e2_avaliacao_certa_12
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_12.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_12" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_12" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_12'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_12:2] ./main ./tests/e2/input/certa12.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_12.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_12.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_12.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_12' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_12" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_12" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_12" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -244,19 +220,17 @@ Test Failed.
 46/345 Test: e2_avaliacao_certa_13
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_13.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_13" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_13" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_13'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_13:2] ./main ./tests/e2/input/certa13.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_13.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_13.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_13.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_13' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.04 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_13" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_13" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_13" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -264,19 +238,17 @@ Test Failed.
 47/345 Test: e2_avaliacao_certa_14
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_14.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_14" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_14" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_14'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_14:2] ./main ./tests/e2/input/certa14.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_14.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_14.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_14.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_14' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_14" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_14" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_14" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -284,19 +256,17 @@ Test Failed.
 48/345 Test: e2_avaliacao_certa_15
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_15.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_15" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_15" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_15'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_15:2] ./main ./tests/e2/input/certa15.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_15.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_15.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_15.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_15' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_15" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_15" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_15" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -304,19 +274,17 @@ Test Failed.
 49/345 Test: e2_avaliacao_certa_16
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_16.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_16" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_16" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_16'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_16:2] ./main ./tests/e2/input/certa16.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_16.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_16.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_16.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_16' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_16" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_16" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_16" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -324,19 +292,17 @@ Test Failed.
 50/345 Test: e2_avaliacao_certa_17
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_17.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_17" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_17" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_17'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_17:2] ./main ./tests/e2/input/certa17.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_17.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_17.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_17.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_17' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_17" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_17" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_17" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -344,19 +310,17 @@ Test Failed.
 51/345 Test: e2_avaliacao_certa_18
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_18.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_18" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_18" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_18'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_18:2] ./main ./tests/e2/input/certa18.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_18.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_18.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_18.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_18' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_18" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_18" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_18" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -364,19 +328,17 @@ Test Failed.
 52/345 Test: e2_avaliacao_certa_19
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_19.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_19" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_19" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_19'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_19:2] ./main ./tests/e2/input/certa19.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_19.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_19.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_19.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_19' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_19" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_19" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_19" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -384,19 +346,17 @@ Test Failed.
 53/345 Test: e2_avaliacao_certa_20
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_20.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_20" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_20" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_20'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_20:2] ./main ./tests/e2/input/certa20.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_20.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_20.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_20.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_20' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.07 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_20" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_20" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_20" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -404,19 +364,17 @@ Test Failed.
 54/345 Test: e2_avaliacao_certa_21
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_21.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_21" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_21" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_21'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_21:2] ./main ./tests/e2/input/certa21.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_21.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_21.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_21.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_21' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_21" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_21" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_21" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -424,19 +382,17 @@ Test Failed.
 55/345 Test: e2_avaliacao_certa_22
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_22.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_22" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_22" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_22'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_22:2] ./main ./tests/e2/input/certa22.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_22.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_22.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_22.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_22' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_22" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_22" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_22" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -444,19 +400,17 @@ Test Failed.
 56/345 Test: e2_avaliacao_certa_23
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_23.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_23" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_23" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_23'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_23:2] ./main ./tests/e2/input/certa23.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_23.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_23.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_23.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_23' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.07 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_23" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_23" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_23" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -464,19 +418,17 @@ Test Failed.
 57/345 Test: e2_avaliacao_certa_24
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_24.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_24" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_24" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_24'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_24:2] ./main ./tests/e2/input/certa24.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_24.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_24.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_24.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_24' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_24" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_24" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_24" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -484,19 +436,17 @@ Test Failed.
 58/345 Test: e2_avaliacao_certa_25
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_25.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_25" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_25" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_25'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_25:2] ./main ./tests/e2/input/certa25.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_25.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_25.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_25.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_25' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_25" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_25" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_25" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -504,19 +454,17 @@ Test Failed.
 59/345 Test: e2_avaliacao_certa_26
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_certa_26.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_certa_26" start time: Mar 27 22:51 BRT
+"e2_avaliacao_certa_26" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_26'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_certa_26:2] ./main ./tests/e2/input/certa26.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_26.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_certa_26.tesh:2> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_certa_26.tesh:2> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_certa_26' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_certa_26" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_certa_26" end time: Mar 28 23:23 BRT
 "e2_avaliacao_certa_26" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -524,20 +472,18 @@ Test Failed.
 60/345 Test: e2_avaliacao_errada_01
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_01.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_01" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_01" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_01'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_01:4] ./main ./tests/e2/input/errada01.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_01.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_01.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_01.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_01.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_01' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_01" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_01" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_01" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -545,7 +491,7 @@ Test Failed.
 61/345 Test: e2_avaliacao_errada_02
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_02.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_02" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_02" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_02'
@@ -556,7 +502,7 @@ Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_02' OK
 Test time =   0.05 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_avaliacao_errada_02" end time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_02" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_02" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -564,20 +510,18 @@ Test Passed.
 62/345 Test: e2_avaliacao_errada_03
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_03.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_03" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_03" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_03'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_03:4] ./main ./tests/e2/input/errada03.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_03.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_03.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_03.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_03.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_03' OK
 <end of output>
-Test time =   0.04 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_03" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_03" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_03" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -585,20 +529,18 @@ Test Failed.
 63/345 Test: e2_avaliacao_errada_04
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_04.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_04" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_04" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_04'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_04:4] ./main ./tests/e2/input/errada04.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_04.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_04.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_04.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_04.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_04' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_04" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_04" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_04" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -606,20 +548,18 @@ Test Failed.
 64/345 Test: e2_avaliacao_errada_05
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_05.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_05" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_05" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_05'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_05:4] ./main ./tests/e2/input/errada05.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_05.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_05.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_05.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_05.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_05' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_05" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_05" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_05" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -627,20 +567,18 @@ Test Failed.
 65/345 Test: e2_avaliacao_errada_06
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_06.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_06" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_06" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_06'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_06:4] ./main ./tests/e2/input/errada06.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_06.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_06.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_06.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_06.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_06' OK
 <end of output>
-Test time =   0.04 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_06" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_06" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_06" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -648,20 +586,18 @@ Test Failed.
 66/345 Test: e2_avaliacao_errada_07
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_07.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_07" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_07" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_07'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_07:4] ./main ./tests/e2/input/errada07.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_07.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_07.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_07.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_07.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_07' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_07" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_07" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_07" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -669,20 +605,18 @@ Test Failed.
 67/345 Test: e2_avaliacao_errada_08
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_08.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_08" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_08" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_08'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_08:4] ./main ./tests/e2/input/errada08.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_08.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_08.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_08.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_08.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_08' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_08" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_08" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_08" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -690,20 +624,18 @@ Test Failed.
 68/345 Test: e2_avaliacao_errada_09
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_09.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_09" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_09" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_09'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_09:4] ./main ./tests/e2/input/errada09.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_09.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_09.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_09.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_09.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_09' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_09" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_09" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_09" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -711,20 +643,18 @@ Test Failed.
 69/345 Test: e2_avaliacao_errada_10
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_10.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_10" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_10" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_10'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_10:4] ./main ./tests/e2/input/errada10.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_10.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_10.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_10.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_10.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_10' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_10" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_10" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_10" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -732,20 +662,18 @@ Test Failed.
 70/345 Test: e2_avaliacao_errada_11
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_11.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_11" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_11" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_11'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_11:4] ./main ./tests/e2/input/errada11.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_11.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_11.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_11.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_11.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_11' OK
 <end of output>
-Test time =   0.04 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_11" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_11" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -753,20 +681,18 @@ Test Failed.
 71/345 Test: e2_avaliacao_errada_12
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_12.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_12" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_12" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_12'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_12:4] ./main ./tests/e2/input/errada12.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_12.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_12.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_12.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_12.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_12' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_12" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_12" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_12" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -774,20 +700,18 @@ Test Failed.
 72/345 Test: e2_avaliacao_errada_13
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_13.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_13" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_13" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_13'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_13:4] ./main ./tests/e2/input/errada13.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_13.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_13.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_13.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_13.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_13' OK
 <end of output>
 Test time =   0.04 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_13" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_13" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_13" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -795,20 +719,18 @@ Test Failed.
 73/345 Test: e2_avaliacao_errada_14
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_14.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_14" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_14" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_14'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_14:4] ./main ./tests/e2/input/errada14.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_14.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_14.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_14.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_14.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_14' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_14" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_14" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_14" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -816,20 +738,18 @@ Test Failed.
 74/345 Test: e2_avaliacao_errada_15
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_15.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_15" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_15" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_15'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_15:4] ./main ./tests/e2/input/errada15.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_15.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_15.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_15.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_15.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_15' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_15" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_15" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_15" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -837,20 +757,18 @@ Test Failed.
 75/345 Test: e2_avaliacao_errada_16
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_16.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_16" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_16" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_16'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_16:4] ./main ./tests/e2/input/errada16.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_16.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_16.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_16.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_16.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_16' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.06 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_16" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_16" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_16" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -858,20 +776,18 @@ Test Failed.
 76/345 Test: e2_avaliacao_errada_17
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_17.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_17" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_17" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_17'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_17:4] ./main ./tests/e2/input/errada17.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_17.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_17.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_17.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_17.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_17' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_17" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_17" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_17" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -879,20 +795,18 @@ Test Failed.
 77/345 Test: e2_avaliacao_errada_18
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_18.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_18" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_18" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_18'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_18:4] ./main ./tests/e2/input/errada18.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_18.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_18.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_18.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_18.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_18' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.07 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_18" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_18" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_18" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -900,20 +814,18 @@ Test Failed.
 78/345 Test: e2_avaliacao_errada_19
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_19.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_19" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_19" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_19'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_19:4] ./main ./tests/e2/input/errada19.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_19.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_19.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_19.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_19.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_19' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_19" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_19" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_19" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -921,20 +833,18 @@ Test Failed.
 79/345 Test: e2_avaliacao_errada_20
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_20.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_20" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_20" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_20'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_20:4] ./main ./tests/e2/input/errada20.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_20.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_20.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_20.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_20.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_20' OK
 <end of output>
-Test time =   0.06 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_20" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_20" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_20" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -942,7 +852,7 @@ Test Failed.
 80/345 Test: e2_avaliacao_errada_21
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_21.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_21" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_21" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_21'
@@ -953,7 +863,7 @@ Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_21' OK
 Test time =   0.05 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_avaliacao_errada_21" end time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_21" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_21" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -961,7 +871,7 @@ Test Passed.
 81/345 Test: e2_avaliacao_errada_22
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_22.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_22" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_22" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_22'
@@ -972,7 +882,7 @@ Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_22' OK
 Test time =   0.05 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_avaliacao_errada_22" end time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_22" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_22" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -980,20 +890,18 @@ Test Passed.
 82/345 Test: e2_avaliacao_errada_23
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_23.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_23" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_23" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_23'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_23:4] ./main ./tests/e2/input/errada23.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_23.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_23.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_23.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_23.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_23' OK
 <end of output>
-Test time =   0.04 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_23" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_23" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_23" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1001,20 +909,18 @@ Test Failed.
 83/345 Test: e2_avaliacao_errada_24
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_24.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_24" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_24" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_24'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_24:4] ./main ./tests/e2/input/errada24.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_24.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_24.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_24.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_24.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_24' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_24" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_24" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_24" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1022,20 +928,18 @@ Test Failed.
 84/345 Test: e2_avaliacao_errada_25
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_25.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_25" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_25" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_25'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_25:4] ./main ./tests/e2/input/errada25.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_25.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_25.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_25.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_25.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_25' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.04 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_25" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_25" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_25" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1043,20 +947,18 @@ Test Failed.
 85/345 Test: e2_avaliacao_errada_26
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_26.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_26" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_26" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_26'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_26:4] ./main ./tests/e2/input/errada26.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_26.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_26.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_26.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_26.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_26' OK
 <end of output>
-Test time =   0.06 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_26" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_26" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_26" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1064,20 +966,18 @@ Test Failed.
 86/345 Test: e2_avaliacao_errada_27
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_27.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_27" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_27" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_27'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_27:4] ./main ./tests/e2/input/errada27.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_27.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_27.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_27.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_27.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_27' OK
 <end of output>
-Test time =   0.06 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_27" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_27" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_27" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1085,20 +985,18 @@ Test Failed.
 87/345 Test: e2_avaliacao_errada_28
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_28.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_28" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_28" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_28'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_28:4] ./main ./tests/e2/input/errada28.txt
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_28.tesh:4> as requested)
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_28.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_28.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_28.tesh:4> so far:
-||
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_28' OK
 <end of output>
 Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_28" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_28" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_28" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1106,20 +1004,18 @@ Test Failed.
 88/345 Test: e2_avaliacao_errada_29
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_29.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_29" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_29" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_29'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_29:4] ./main ./tests/e2/input/errada29.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_29.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_29.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_29.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_29.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_29' OK
 <end of output>
-Test time =   0.05 sec
+Test time =   0.04 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_29" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_29" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_29" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1127,20 +1023,18 @@ Test Failed.
 89/345 Test: e2_avaliacao_errada_30
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//avaliacao_errada_30.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_avaliacao_errada_30" start time: Mar 27 22:51 BRT
+"e2_avaliacao_errada_30" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_30'
 [/home/marina/awesomecompiler/tests/e2//avaliacao_errada_30:4] ./main ./tests/e2/input/errada30.txt
-Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_30.tesh': NOK (</home/marina/awesomecompiler/tests/e2//avaliacao_errada_30.tesh:4> got signal SIGSEGV)
-Output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_30.tesh:4> so far:
-||
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//avaliacao_errada_30.tesh:4> as requested)
+Test suite `/home/marina/awesomecompiler/tests/e2//avaliacao_errada_30' OK
 <end of output>
-Test time =   0.04 sec
+Test time =   0.05 sec
 ----------------------------------------------------------
-Test Failed.
-"e2_avaliacao_errada_30" end time: Mar 27 22:51 BRT
+Test Passed.
+"e2_avaliacao_errada_30" end time: Mar 28 23:23 BRT
 "e2_avaliacao_errada_30" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1148,7 +1042,7 @@ Test Failed.
 90/345 Test: e2_valgrind_certa_01
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_01.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_01" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_01" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_01'
@@ -1156,10 +1050,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_01'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_01.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_01' OK
 <end of output>
-Test time =   0.50 sec
+Test time =   0.49 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_01" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_01" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_01" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1167,7 +1061,7 @@ Test Passed.
 91/345 Test: e2_valgrind_certa_02
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_02.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_02" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_02" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_02'
@@ -1175,10 +1069,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_02'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_02.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_02' OK
 <end of output>
-Test time =   0.49 sec
+Test time =   0.50 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_02" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_02" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_02" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1186,7 +1080,7 @@ Test Passed.
 92/345 Test: e2_valgrind_certa_03
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_03.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_03" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_03" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_03'
@@ -1194,10 +1088,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_03'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_03.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_03' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.50 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_03" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_03" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_03" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1205,7 +1099,7 @@ Test Passed.
 93/345 Test: e2_valgrind_certa_04
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_04.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_04" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_04" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_04'
@@ -1216,7 +1110,7 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_04' OK
 Test time =   0.49 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_04" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_04" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_04" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1224,7 +1118,7 @@ Test Passed.
 94/345 Test: e2_valgrind_certa_05
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_05.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_05" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_05" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_05'
@@ -1232,10 +1126,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_05'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_05.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_05' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.50 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_05" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_05" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_05" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1243,7 +1137,7 @@ Test Passed.
 95/345 Test: e2_valgrind_certa_06
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_06.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_06" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_06" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_06'
@@ -1251,10 +1145,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_06'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_06.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_06' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.52 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_06" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_06" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_06" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1262,7 +1156,7 @@ Test Passed.
 96/345 Test: e2_valgrind_certa_07
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_07.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_07" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_07" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_07'
@@ -1270,10 +1164,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_07'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_07.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_07' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.52 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_07" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_07" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_07" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1281,7 +1175,7 @@ Test Passed.
 97/345 Test: e2_valgrind_certa_08
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_08.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_08" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_08" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_08'
@@ -1289,10 +1183,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_08'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_08.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_08' OK
 <end of output>
-Test time =   0.49 sec
+Test time =   0.52 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_08" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_08" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_08" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1300,7 +1194,7 @@ Test Passed.
 98/345 Test: e2_valgrind_certa_09
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_09.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_09" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_09" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_09'
@@ -1308,10 +1202,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_09'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_09.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_09' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.50 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_09" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_09" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_09" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1319,7 +1213,7 @@ Test Passed.
 99/345 Test: e2_valgrind_certa_10
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_10.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_10" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_10" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_10'
@@ -1327,10 +1221,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_10'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_10.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_10' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.52 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_10" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_10" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_10" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1338,7 +1232,7 @@ Test Passed.
 100/345 Test: e2_valgrind_certa_11
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_11.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_11" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_11" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_11'
@@ -1346,10 +1240,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_11'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_11.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_11' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.53 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_11" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_11" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1357,7 +1251,7 @@ Test Passed.
 101/345 Test: e2_valgrind_certa_12
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_12.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_12" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_12" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_12'
@@ -1365,10 +1259,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_12'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_12.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_12' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.52 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_12" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_12" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_12" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1376,7 +1270,7 @@ Test Passed.
 102/345 Test: e2_valgrind_certa_13
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_13.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_13" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_13" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_13'
@@ -1384,10 +1278,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_13'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_13.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_13' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.53 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_13" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_13" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_13" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1395,7 +1289,7 @@ Test Passed.
 103/345 Test: e2_valgrind_certa_14
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_14.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_14" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_14" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_14'
@@ -1403,10 +1297,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_14'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_14.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_14' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.58 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_14" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_14" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_14" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1414,7 +1308,7 @@ Test Passed.
 104/345 Test: e2_valgrind_certa_15
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_15.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_15" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_15" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_15'
@@ -1422,10 +1316,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_15'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_15.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_15' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.58 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_15" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_15" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_15" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1433,7 +1327,7 @@ Test Passed.
 105/345 Test: e2_valgrind_certa_16
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_16.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_16" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_16" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_16'
@@ -1441,10 +1335,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_16'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_16.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_16' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.60 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_16" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_16" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_16" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1452,7 +1346,7 @@ Test Passed.
 106/345 Test: e2_valgrind_certa_17
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_17.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_17" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_17" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_17'
@@ -1460,10 +1354,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_17'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_17.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_17' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.65 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_17" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_17" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_17" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1471,7 +1365,7 @@ Test Passed.
 107/345 Test: e2_valgrind_certa_18
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_18.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_18" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_18" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_18'
@@ -1479,10 +1373,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_18'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_18.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_18' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.73 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_18" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_18" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_18" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1490,7 +1384,7 @@ Test Passed.
 108/345 Test: e2_valgrind_certa_19
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_19.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_19" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_19" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_19'
@@ -1498,10 +1392,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_19'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_19.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_19' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.64 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_19" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_19" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_19" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1509,7 +1403,7 @@ Test Passed.
 109/345 Test: e2_valgrind_certa_20
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_20.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_20" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_20" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_20'
@@ -1517,10 +1411,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_20'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_20.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_20' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.64 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_20" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_20" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_20" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1528,7 +1422,7 @@ Test Passed.
 110/345 Test: e2_valgrind_certa_21
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_21.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_21" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_21" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_21'
@@ -1536,10 +1430,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_21'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_21.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_21' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.62 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_21" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_21" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_21" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1547,7 +1441,7 @@ Test Passed.
 111/345 Test: e2_valgrind_certa_22
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_22.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_22" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_22" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_22'
@@ -1555,10 +1449,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_22'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_22.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_22' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.55 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_22" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_22" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_22" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1566,7 +1460,7 @@ Test Passed.
 112/345 Test: e2_valgrind_certa_23
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_23.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_23" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_23" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_23'
@@ -1574,10 +1468,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_23'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_23.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_23' OK
 <end of output>
-Test time =   0.46 sec
+Test time =   0.56 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_23" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_23" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_23" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1585,7 +1479,7 @@ Test Passed.
 113/345 Test: e2_valgrind_certa_24
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_24.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_24" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_24" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_24'
@@ -1593,10 +1487,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_24'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_24.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_24' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.55 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_24" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_24" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_24" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1604,7 +1498,7 @@ Test Passed.
 114/345 Test: e2_valgrind_certa_25
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_25.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_25" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_25" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_25'
@@ -1612,10 +1506,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_25'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_25.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_25' OK
 <end of output>
-Test time =   0.46 sec
+Test time =   0.53 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_25" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_25" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_25" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1623,7 +1517,7 @@ Test Passed.
 115/345 Test: e2_valgrind_certa_26
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_certa_26.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_certa_26" start time: Mar 27 22:51 BRT
+"e2_valgrind_certa_26" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_26'
@@ -1631,10 +1525,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_26'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_certa_26.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_certa_26' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.55 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_certa_26" end time: Mar 27 22:51 BRT
+"e2_valgrind_certa_26" end time: Mar 28 23:23 BRT
 "e2_valgrind_certa_26" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1642,7 +1536,7 @@ Test Passed.
 116/345 Test: e2_valgrind_errada_01
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_01.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_01" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_01" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_01'
@@ -1650,10 +1544,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_01'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_01.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_01' OK
 <end of output>
-Test time =   0.46 sec
+Test time =   0.49 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_01" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_01" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_01" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1661,7 +1555,7 @@ Test Passed.
 117/345 Test: e2_valgrind_errada_02
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_02.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_02" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_02" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_02'
@@ -1669,10 +1563,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_02'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_02.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_02' OK
 <end of output>
-Test time =   0.50 sec
+Test time =   0.48 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_02" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_02" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_02" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1680,7 +1574,7 @@ Test Passed.
 118/345 Test: e2_valgrind_errada_03
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_03.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_03" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_03" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_03'
@@ -1688,10 +1582,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_03'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_03.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_03' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.50 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_03" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_03" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_03" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1699,7 +1593,7 @@ Test Passed.
 119/345 Test: e2_valgrind_errada_04
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_04.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_04" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_04" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_04'
@@ -1707,10 +1601,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_04'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_04.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_04' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.49 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_04" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_04" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_04" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1718,7 +1612,7 @@ Test Passed.
 120/345 Test: e2_valgrind_errada_05
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_05.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_05" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_05" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_05'
@@ -1726,10 +1620,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_05'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_05.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_05' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.50 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_05" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_05" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_05" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1737,7 +1631,7 @@ Test Passed.
 121/345 Test: e2_valgrind_errada_06
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_06.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_06" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_06" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_06'
@@ -1745,10 +1639,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_06'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_06.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_06' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.51 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_06" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_06" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_06" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1756,7 +1650,7 @@ Test Passed.
 122/345 Test: e2_valgrind_errada_07
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_07.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_07" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_07" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_07'
@@ -1764,10 +1658,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_07'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_07.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_07' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.52 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_07" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_07" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_07" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1775,7 +1669,7 @@ Test Passed.
 123/345 Test: e2_valgrind_errada_08
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_08.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_08" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_08" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_08'
@@ -1783,10 +1677,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_08'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_08.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_08' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.54 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_08" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_08" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_08" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1794,7 +1688,7 @@ Test Passed.
 124/345 Test: e2_valgrind_errada_09
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_09.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_09" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_09" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_09'
@@ -1802,10 +1696,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_09'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_09.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_09' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.65 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_09" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_09" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_09" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1813,7 +1707,7 @@ Test Passed.
 125/345 Test: e2_valgrind_errada_10
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_10.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_10" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_10" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_10'
@@ -1821,10 +1715,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_10'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_10.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_10' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.65 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_10" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_10" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_10" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1832,7 +1726,7 @@ Test Passed.
 126/345 Test: e2_valgrind_errada_11
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_11.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_11" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_11" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_11'
@@ -1840,10 +1734,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_11'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_11.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_11' OK
 <end of output>
-Test time =   0.49 sec
+Test time =   0.62 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_11" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_11" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_11" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1851,7 +1745,7 @@ Test Passed.
 127/345 Test: e2_valgrind_errada_12
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_12.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_12" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_12" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_12'
@@ -1859,10 +1753,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_12'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_12.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_12' OK
 <end of output>
-Test time =   0.49 sec
+Test time =   0.66 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_12" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_12" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_12" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1870,7 +1764,7 @@ Test Passed.
 128/345 Test: e2_valgrind_errada_13
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_13.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_13" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_13" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_13'
@@ -1878,10 +1772,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_13'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_13.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_13' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.63 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_13" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_13" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_13" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1889,7 +1783,7 @@ Test Passed.
 129/345 Test: e2_valgrind_errada_14
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_14.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_14" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_14" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_14'
@@ -1897,10 +1791,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_14'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_14.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_14' OK
 <end of output>
-Test time =   0.50 sec
+Test time =   0.53 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_14" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_14" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_14" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1908,7 +1802,7 @@ Test Passed.
 130/345 Test: e2_valgrind_errada_15
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_15.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_15" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_15" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_15'
@@ -1916,10 +1810,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_15'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_15.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_15' OK
 <end of output>
-Test time =   0.54 sec
+Test time =   0.72 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_15" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_15" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_15" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1927,7 +1821,7 @@ Test Passed.
 131/345 Test: e2_valgrind_errada_16
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_16.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_16" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_16" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_16'
@@ -1935,10 +1829,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_16'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_16.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_16' OK
 <end of output>
-Test time =   0.52 sec
+Test time =   0.56 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_16" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_16" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_16" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1946,7 +1840,7 @@ Test Passed.
 132/345 Test: e2_valgrind_errada_17
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_17.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_17" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_17" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_17'
@@ -1954,10 +1848,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_17'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_17.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_17' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.63 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_17" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_17" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_17" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1965,7 +1859,7 @@ Test Passed.
 133/345 Test: e2_valgrind_errada_18
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_18.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_18" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_18" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_18'
@@ -1973,10 +1867,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_18'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_18.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_18' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.54 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_18" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_18" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_18" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -1984,7 +1878,7 @@ Test Passed.
 134/345 Test: e2_valgrind_errada_19
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_19.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_19" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_19" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_19'
@@ -1992,10 +1886,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_19'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_19.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_19' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.51 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_19" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_19" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_19" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2003,7 +1897,7 @@ Test Passed.
 135/345 Test: e2_valgrind_errada_20
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_20.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_20" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_20" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_20'
@@ -2011,10 +1905,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_20'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_20.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_20' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.55 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_20" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_20" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_20" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2022,7 +1916,7 @@ Test Passed.
 136/345 Test: e2_valgrind_errada_21
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_21.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_21" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_21" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_21'
@@ -2033,7 +1927,7 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_21' OK
 Test time =   0.47 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_21" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_21" end time: Mar 28 23:23 BRT
 "e2_valgrind_errada_21" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2041,7 +1935,7 @@ Test Passed.
 137/345 Test: e2_valgrind_errada_22
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_22.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_22" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_22" start time: Mar 28 23:23 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_22'
@@ -2049,10 +1943,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_22'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_22.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_22' OK
 <end of output>
-Test time =   0.49 sec
+Test time =   0.48 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_22" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_22" end time: Mar 28 23:24 BRT
 "e2_valgrind_errada_22" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2060,7 +1954,7 @@ Test Passed.
 138/345 Test: e2_valgrind_errada_23
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_23.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_23" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_23" start time: Mar 28 23:24 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_23'
@@ -2068,10 +1962,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_23'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_23.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_23' OK
 <end of output>
-Test time =   0.49 sec
+Test time =   0.53 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_23" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_23" end time: Mar 28 23:24 BRT
 "e2_valgrind_errada_23" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2079,7 +1973,7 @@ Test Passed.
 139/345 Test: e2_valgrind_errada_24
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_24.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_24" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_24" start time: Mar 28 23:24 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_24'
@@ -2087,10 +1981,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_24'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_24.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_24' OK
 <end of output>
-Test time =   0.48 sec
+Test time =   0.59 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_24" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_24" end time: Mar 28 23:24 BRT
 "e2_valgrind_errada_24" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2098,7 +1992,7 @@ Test Passed.
 140/345 Test: e2_valgrind_errada_25
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_25.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_25" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_25" start time: Mar 28 23:24 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_25'
@@ -2106,10 +2000,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_25'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_25.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_25' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.54 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_25" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_25" end time: Mar 28 23:24 BRT
 "e2_valgrind_errada_25" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2117,7 +2011,7 @@ Test Passed.
 141/345 Test: e2_valgrind_errada_26
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_26.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_26" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_26" start time: Mar 28 23:24 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_26'
@@ -2125,10 +2019,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_26'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_26.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_26' OK
 <end of output>
-Test time =   0.46 sec
+Test time =   0.54 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_26" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_26" end time: Mar 28 23:24 BRT
 "e2_valgrind_errada_26" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2136,7 +2030,7 @@ Test Passed.
 142/345 Test: e2_valgrind_errada_27
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_27.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_27" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_27" start time: Mar 28 23:24 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_27'
@@ -2144,10 +2038,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_27'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_27.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_27' OK
 <end of output>
-Test time =   0.46 sec
+Test time =   0.57 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_27" end time: Mar 27 22:51 BRT
+"e2_valgrind_errada_27" end time: Mar 28 23:24 BRT
 "e2_valgrind_errada_27" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2155,7 +2049,7 @@ Test Passed.
 143/345 Test: e2_valgrind_errada_28
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_28.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_28" start time: Mar 27 22:51 BRT
+"e2_valgrind_errada_28" start time: Mar 28 23:24 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_28'
@@ -2163,10 +2057,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_28'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_28.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_28' OK
 <end of output>
-Test time =   0.49 sec
+Test time =   0.51 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_28" end time: Mar 27 22:52 BRT
+"e2_valgrind_errada_28" end time: Mar 28 23:24 BRT
 "e2_valgrind_errada_28" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2174,7 +2068,7 @@ Test Passed.
 144/345 Test: e2_valgrind_errada_29
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_29.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_29" start time: Mar 27 22:52 BRT
+"e2_valgrind_errada_29" start time: Mar 28 23:24 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_29'
@@ -2182,10 +2076,10 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_29'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_29.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_29' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.52 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_29" end time: Mar 27 22:52 BRT
+"e2_valgrind_errada_29" end time: Mar 28 23:24 BRT
 "e2_valgrind_errada_29" time elapsed: 00:00:00
 ----------------------------------------------------------
 
@@ -2193,7 +2087,7 @@ Test Passed.
 145/345 Test: e2_valgrind_errada_30
 Command: "/usr/bin/perl" "-I" "./tests/scripts" "./tests/scripts/tesh" "/home/marina/awesomecompiler/tests/e2//valgrind_errada_30.tesh"
 Directory: /home/marina/awesomecompiler
-"e2_valgrind_errada_30" start time: Mar 27 22:52 BRT
+"e2_valgrind_errada_30" start time: Mar 28 23:24 BRT
 Output:
 ----------------------------------------------------------
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_30'
@@ -2201,11 +2095,11 @@ Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_30'
 (ignoring the output of </home/marina/awesomecompiler/tests/e2//valgrind_errada_30.tesh:3> as requested)
 Test suite `/home/marina/awesomecompiler/tests/e2//valgrind_errada_30' OK
 <end of output>
-Test time =   0.47 sec
+Test time =   0.51 sec
 ----------------------------------------------------------
 Test Passed.
-"e2_valgrind_errada_30" end time: Mar 27 22:52 BRT
+"e2_valgrind_errada_30" end time: Mar 28 23:24 BRT
 "e2_valgrind_errada_30" time elapsed: 00:00:00
 ----------------------------------------------------------
 
-End testing: Mar 27 22:52 BRT
+End testing: Mar 28 23:24 BRT

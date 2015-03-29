@@ -9,6 +9,8 @@
 /home/marina/awesomecompiler/parser.c
 stdio.h
 -
+cc_dict.h
+/home/marina/awesomecompiler/cc_dict.h
 stddef.h
 -
 libintl.h
@@ -37,6 +39,8 @@ stdlib.h
 -
 inttypes.h
 -
+cc_dict.h
+/home/marina/awesomecompiler/cc_dict.h
 parser.h
 /home/marina/awesomecompiler/parser.h
 cc_misc.h
@@ -47,22 +51,18 @@ unistd.h
 /home/marina/awesomecompiler/src/cc_dict.c
 cc_dict.h
 /home/marina/awesomecompiler/src/cc_dict.h
+main.h
+/home/marina/awesomecompiler/src/main.h
 stdlib.h
 -
 string.h
 -
 stdio.h
 -
-
-/home/marina/awesomecompiler/src/cc_gv.c
-stdio.h
+errno.h
 -
-stdlib.h
+assert.h
 -
-cc_ast.h
-/home/marina/awesomecompiler/src/cc_ast.h
-
-/home/marina/awesomecompiler/src/cc_list.c
 
 /home/marina/awesomecompiler/src/cc_misc.c
 cc_misc.h
@@ -76,13 +76,9 @@ main.h
 assert.h
 -
 
-/home/marina/awesomecompiler/src/cc_tree.c
-
 /home/marina/awesomecompiler/src/main.c
 main.h
 /home/marina/awesomecompiler/src/main.h
-
-include/cc_ast.h
 
 include/cc_dict.h
 uthash.h

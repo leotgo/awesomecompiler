@@ -547,13 +547,15 @@ char *yytext;
 /* Grupo: Knights of the Hash Table
 Integrantes: Alex Gliesch, Leonardo Tagliaro, Marina Fortes Rey */
 #line 5 "scanner.l"
+
+#include "cc_dict.h"
 #include "parser.h" /* arquivo automaticamente gerado pelo bison */
 #include "cc_misc.h" /* for the recognize_token function. */
 int lineCounter = 1;
 
 
 /* to do: */
-#line 557 "/home/marina/awesomecompiler/scanner.c"
+#line 559 "/home/marina/awesomecompiler/scanner.c"
 
 #define INITIAL 0
 #define comment 1
@@ -741,9 +743,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 27 "scanner.l"
+#line 29 "scanner.l"
 
-#line 747 "/home/marina/awesomecompiler/scanner.c"
+#line 749 "/home/marina/awesomecompiler/scanner.c"
 
 	if ( !(yy_init) )
 		{
@@ -828,198 +830,198 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 28 "scanner.l"
+#line 30 "scanner.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 29 "scanner.l"
+#line 31 "scanner.l"
 BEGIN(comment);
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 30 "scanner.l"
+#line 32 "scanner.l"
 ;
 	YY_BREAK
 case 4:
 /* rule 4 can match eol */
 YY_RULE_SETUP
-#line 31 "scanner.l"
+#line 33 "scanner.l"
 ;lineCounter++;
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 32 "scanner.l"
+#line 34 "scanner.l"
 BEGIN(INITIAL);
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 33 "scanner.l"
+#line 35 "scanner.l"
 ;
 	YY_BREAK
 case 7:
 /* rule 7 can match eol */
 YY_RULE_SETUP
-#line 34 "scanner.l"
+#line 36 "scanner.l"
 ;lineCounter++;
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 35 "scanner.l"
-return recognize_token(yytext, TK_LIT_FALSE);
+#line 37 "scanner.l"
+return recognize_token(TK_LIT_FALSE);
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 36 "scanner.l"
-return recognize_token(yytext, TK_LIT_TRUE);
+#line 38 "scanner.l"
+return recognize_token(TK_LIT_TRUE);
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 37 "scanner.l"
-return recognize_token(yytext, TK_PR_INT);
+#line 39 "scanner.l"
+return recognize_token(TK_PR_INT);
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 38 "scanner.l"
-return recognize_token(yytext, TK_PR_FLOAT);
+#line 40 "scanner.l"
+return recognize_token(TK_PR_FLOAT);
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 39 "scanner.l"
-return recognize_token(yytext, TK_PR_BOOL);
+#line 41 "scanner.l"
+return recognize_token(TK_PR_BOOL);
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 40 "scanner.l"
-return recognize_token(yytext, TK_PR_CHAR);
+#line 42 "scanner.l"
+return recognize_token(TK_PR_CHAR);
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 41 "scanner.l"
-return recognize_token(yytext, TK_PR_STRING);
+#line 43 "scanner.l"
+return recognize_token(TK_PR_STRING);
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 42 "scanner.l"
-return recognize_token(yytext, TK_PR_IF);
+#line 44 "scanner.l"
+return recognize_token(TK_PR_IF);
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 43 "scanner.l"
-return recognize_token(yytext, TK_PR_THEN);
+#line 45 "scanner.l"
+return recognize_token(TK_PR_THEN);
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 44 "scanner.l"
-return recognize_token(yytext, TK_PR_ELSE);
+#line 46 "scanner.l"
+return recognize_token(TK_PR_ELSE);
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 45 "scanner.l"
-return recognize_token(yytext, TK_PR_WHILE);
+#line 47 "scanner.l"
+return recognize_token(TK_PR_WHILE);
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 46 "scanner.l"
-return recognize_token(yytext, TK_PR_DO);
+#line 48 "scanner.l"
+return recognize_token(TK_PR_DO);
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 47 "scanner.l"
-return recognize_token(yytext, TK_PR_INPUT);
+#line 49 "scanner.l"
+return recognize_token(TK_PR_INPUT);
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 48 "scanner.l"
-return recognize_token(yytext, TK_PR_OUTPUT);
+#line 50 "scanner.l"
+return recognize_token(TK_PR_OUTPUT);
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 49 "scanner.l"
-return recognize_token(yytext, TK_PR_RETURN);
+#line 51 "scanner.l"
+return recognize_token(TK_PR_RETURN);
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 50 "scanner.l"
-return recognize_token(yytext, TK_PR_CONST);
+#line 52 "scanner.l"
+return recognize_token(TK_PR_CONST);
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 51 "scanner.l"
-return recognize_token(yytext, TK_PR_STATIC);
+#line 53 "scanner.l"
+return recognize_token(TK_PR_STATIC);
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 52 "scanner.l"
-return recognize_token(yytext, TK_OC_LE);
+#line 54 "scanner.l"
+return recognize_token(TK_OC_LE);
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 53 "scanner.l"
-return recognize_token(yytext, TK_OC_GE);
+#line 55 "scanner.l"
+return recognize_token(TK_OC_GE);
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 54 "scanner.l"
-return recognize_token(yytext, TK_OC_EQ);
+#line 56 "scanner.l"
+return recognize_token(TK_OC_EQ);
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 55 "scanner.l"
-return recognize_token(yytext, TK_OC_NE);
+#line 57 "scanner.l"
+return recognize_token(TK_OC_NE);
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 56 "scanner.l"
-return recognize_token(yytext, TK_OC_AND);
+#line 58 "scanner.l"
+return recognize_token(TK_OC_AND);
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 57 "scanner.l"
-return recognize_token(yytext, TK_OC_OR);
+#line 59 "scanner.l"
+return recognize_token(TK_OC_OR);
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 58 "scanner.l"
-return recognize_token(yytext, TK_LIT_INT);
+#line 60 "scanner.l"
+return recognize_token(TK_LIT_INT);
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 59 "scanner.l"
-return recognize_token(yytext, TK_LIT_FLOAT);
+#line 61 "scanner.l"
+return recognize_token(TK_LIT_FLOAT);
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 60 "scanner.l"
-return recognize_token(yytext, TK_LIT_CHAR);
+#line 62 "scanner.l"
+return recognize_token(TK_LIT_CHAR);
 	YY_BREAK
 case 34:
 /* rule 34 can match eol */
 YY_RULE_SETUP
-#line 61 "scanner.l"
-return recognize_token(yytext, TK_LIT_STRING);
+#line 63 "scanner.l"
+return recognize_token(TK_LIT_STRING);
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 62 "scanner.l"
-return recognize_token(yytext, (int) yytext[0]);
+#line 64 "scanner.l"
+return recognize_token((int) yytext[0]);
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 63 "scanner.l"
-return recognize_token(yytext, TK_IDENTIFICADOR);
+#line 65 "scanner.l"
+return recognize_token(TK_IDENTIFICADOR);
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 64 "scanner.l"
+#line 66 "scanner.l"
 return TOKEN_ERRO;
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 65 "scanner.l"
+#line 67 "scanner.l"
 ECHO;
 	YY_BREAK
-#line 1023 "/home/marina/awesomecompiler/scanner.c"
+#line 1025 "/home/marina/awesomecompiler/scanner.c"
 case YY_STATE_EOF(INITIAL):
 case YY_STATE_EOF(comment):
 	yyterminate();
@@ -2018,7 +2020,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 65 "scanner.l"
+#line 67 "scanner.l"
 
 
 

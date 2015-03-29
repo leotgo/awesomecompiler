@@ -10,6 +10,7 @@ float my_function ()
   { 
   /* a=10; */
   while (v[a-1] != 4-1) do v[a-f(2)] = f(v[2])-1 ;
+  /* a=10; */
   a=-3.2;
   {
   ;

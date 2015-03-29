@@ -3,14 +3,24 @@
 
 CMakeFiles/main.dir/parser.c.o
  /home/marina/awesomecompiler/parser.c
+ include/cc_dict.h
+ include/uthash.h
 CMakeFiles/main.dir/scanner.c.o
  /home/marina/awesomecompiler/parser.h
  /home/marina/awesomecompiler/scanner.c
+ include/cc_dict.h
  include/cc_misc.h
+ include/uthash.h
 CMakeFiles/main.dir/src/cc_dict.c.o
  /home/marina/awesomecompiler/src/cc_dict.c
  include/cc_dict.h
+ include/cc_gv.h
+ include/cc_list.h
+ include/cc_misc.h
+ include/cc_tree.h
+ include/main.h
  include/uthash.h
+ parser.h
 CMakeFiles/main.dir/src/cc_gv.c.o
  /home/marina/awesomecompiler/src/cc_gv.c
  include/cc_ast.h

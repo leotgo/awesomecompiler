@@ -79,7 +79,15 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE YYSTYPE;
+union YYSTYPE
+{
+#line 39 "parser.y" /* yacc.c:1909  */
+
+    comp_dict_item_t* valor_simbolo_lexico;
+
+#line 90 "/home/marina/awesomecompiler/parser.h" /* yacc.c:1909  */
+};
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
