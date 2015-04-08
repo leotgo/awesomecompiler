@@ -84,7 +84,6 @@ int symbols_table_count(comp_dict_t* table) {
 }
 
 void* interpret_token_value(const char* text, int token_type, int line_number) {
-	//printf("text %s interpreted as %d -> ", text, token_type);
 	void* value = NULL;
 	if (token_type == SIMBOLO_LITERAL_INT) {
 		value = malloc(sizeof(int));
@@ -94,18 +93,15 @@ void* interpret_token_value(const char* text, int token_type, int line_number) {
 			printf("warning: line %d: integer value %s is off limits. "
 				"defaulting to %d\n", line_number, text, *((int*)value));
 		}
-		//printf("%d\n", *((int*)value));
 	} else if (token_type == SIMBOLO_LITERAL_CHAR) {
 		value = malloc(sizeof(char));
 		*((char*)value) = text[0];
-		//printf("%c\n", *((char*)value));
 	} else if (token_type == SIMBOLO_LITERAL_BOOL) {
 		value = malloc(sizeof(int));		
 		*((int*)value) = strcmp(text, "false"); /* strcmp returns 0 if strings 
 										are equal, and different than 0 
 										otherwise. so, if it's false, we'll get 
 										0 anyway :) */
-		//printf("%d\n", *((int*)value));
 	} else if (token_type == SIMBOLO_LITERAL_FLOAT) {
 		value = malloc(sizeof(float));
 		*((float*)value) = strtof(text, NULL);
@@ -114,11 +110,9 @@ void* interpret_token_value(const char* text, int token_type, int line_number) {
 			printf("warning: line %d: float value %s is off limits. "
 				"defaulting to %.2f\n", line_number, text, *((float*)value));
 		}
-		//printf("%f\n", *((float*)value));
 	} else if (token_type == SIMBOLO_LITERAL_STRING) {
 		value = malloc((strlen(text) + 1) * sizeof(char));
 		strcpy(value, text);
-		//printf("%s\n", (char*)value);
 	} else if (token_type == SIMBOLO_IDENTIFICADOR) {
 		/* if the token is an identifier, it has no value associated to it
 		 * for now. */

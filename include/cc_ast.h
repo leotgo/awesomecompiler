@@ -5,6 +5,7 @@
 */
 #ifndef __CC_AST_H
 #define __CC_AST_H
+
 #define AST_PROGRAMA             0
 #define AST_FUNCAO               1
 #define AST_IF_ELSE              2
