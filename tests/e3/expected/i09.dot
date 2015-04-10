@@ -1,9 +1,12 @@
 digraph G {
-node_0x95aa890 [label="x"]
-node_0x95aa8a8 [label="input"]
-node_0x95aa8a8 -> node_0x95aa890
-node_0x95aa8d8 [label="f"]
-node_0x95aa8d8 -> node_0x95aa8a8
-node_0x95aa8f0 [label="programa"]
-node_0x95aa8f0 -> node_0x95aa8d8
+node_0x25f6670 [label="f"]
+node_0x25f66f0 [label="x"]
+node_0x25f6770 [label="y"]
+node_0x25f67a0 -> node_0x25f66f0
+node_0x25f67a0 [label="input"]
+node_0x25f67a0 -> node_0x25f6770
+node_0x25f6670 -> node_0x25f67a0
+node_0x25f67d0 -> node_0x25f6670
+node_0x25f67d0 [label="programa"]
 }
+
