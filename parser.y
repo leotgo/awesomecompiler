@@ -63,6 +63,7 @@
 %type <ast_node> Identificador
 %type <ast_node> Literal
 %type <ast_node> Inteiro
+%type <ast_node> BlocoDeComandosFuncao
 
 %union 
 {
@@ -231,13 +232,13 @@ ParametrosNaoVazio:
 		;
 
 DeclFuncao:
-		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandos { 
+		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 
 		  	$$ = ast_create(AST_FUNCAO, $2, $6); }
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandos { 
-			$$ = ast_create(AST_FUNCAO, $3, $7); }
-		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandos {
+		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 
+			{ $$ = ast_create(AST_FUNCAO, $3, $7); }
+		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {
 			yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandos { 
+		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { 
 			yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		;
 
@@ -273,6 +274,11 @@ SequenciaDeComandos:
 		 Comando { }
 		| Comando ';' { }
 		| Comando ';' SequenciaDeComandos { $$ = ast_list($1, $3); }
+		;
+
+BlocoDeComandosFuncao:
+		  '{' SequenciaDeComandos '}' { $$ = $2; }
+		| '{' '}' { $$ = NULL; }
 		;
 
 BlocoDeComandos:
@@ -316,7 +322,8 @@ Declaracoes:
 		;
 
 Programa:
-		   { }
+		   { $$ = ast_create(AST_PROGRAMA, NULL); 
+				              ast_generate_dot_graph(global_syntax_tree); }
 		|  Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); 
 				              ast_generate_dot_graph(global_syntax_tree); }
 		;
