@@ -68,65 +68,8 @@ comp_tree_t* ast_list(comp_tree_t* first, comp_tree_t* next);
  * num_children elements, and that their values are comp_tree_t* (ast nodes). */
 void ast_create_children(comp_tree_t* t, int num_children, va_list args);
 
+/* declares the node t and adds all it's children and the 'next' to the 
+ * current .dot graph to be generated. */ 
 void ast_generate_dot_graph(comp_tree_t* t);
 
 #endif
-
-/* - porque 'Inteiro' é uma regra separada?
- * 
- * - porque agente reconhece tanto & quanto &&, e | quanto ||? alguma diferença
- * entre elas?
- * 
- * - não entendi a regra de 'Entrada'. no pdf da etapa 3, diz que input tem só
- * 1 filho: o identificador pra onde o input vai. pq então tem 2 expressões na 
- * regra? 
- * 
- * - qual a diferença entre o 'Argumentos' e o 'ArgumentosNaoVazio'? eles são
- * exatamente iguais...
- * 
- * - Em 'Declaracoes', acho que vai dar problema. Porque a declaração de 
- * variáveis não deve constar na AST, então não posso colocar elas na lista...
- * ou agente ignora elas, ou então coloca e depois faz um pós-processamento da
- * árvore pra remover elas, o que funcionaria mas acho meio chinelagem
- * */
-
-/*  
- * ----------------------------------------------------------------------------
- * ListaDeExpressoes:
- * | Expressao {  $$ = $1; }
- * | Expressao ',' ListaDeExpressoes { $$ = ast_list($1, $3); }
- * 
- * ----------------------------------------------------------------------------
- * 
- * Atribuicao:
- * | Identificador '=' Expressao { 
- *		$$ = ast_create(AST_ATRIBUICAO, $1, $3); }
- * 
- * Neste segundo caso acho melhor criar uma nova regra na gramática pra vetor 
- * indexado...
- * 
- * | Identificador '[' Expressao ']' '=' Expressao { 
- *		$$ = ast_create(AST_ATRIBUICAO, 
- *						ast_create(AST_VETOR_INDEXADO, $1, $3), $6); } 
- *						  
- *-----------------------------------------------------------------------------
- *	
- *	Saida:
- *	| TK_PR_OUTPUT ListaDeExpressoes {
- *		$$ = $2; }
- *
- * ----------------------------------------------------------------------------
- * 
- * SequenciaDeComandos:
- *
- *   Comando { $$ = $1; }
- * | Comando ';' { $$ = $1; }
- *  | Comando ';' SequenciaDeComandos { $$ = ast_list($1, $3); }
- * ;
- * 
- * CtrlFluxoIf:
- * TK_PR_IF Expressao TK_PR_THEN Comando { $$ = ast_create(AST_IF_ELSE, $2, $4, NULL); }
- * | TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando { $$ = ast_create(AST_IF_ELSE, $2, $4, $6); }
- * | TK_PR_IF TK_PR_THEN Comando {yyerror("Erro: Comando de Fluxo IF sem condicao ");YYERROR;}
- * ;
- */

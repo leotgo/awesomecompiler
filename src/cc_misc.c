@@ -1,5 +1,6 @@
 #include "cc_misc.h"
 #include "cc_dict.h"
+#include "cc_tree.h"
 #include "parser.h"
 #include "main.h"
 #include <assert.h>
@@ -27,7 +28,12 @@ void main_init (int argc, char **argv) {
 }
 
 void main_finalize(void) {
-	symbols_table_finalize(&symbols_table);
+	/* generate the .dot graph: */ 
+	ast_generate_dot_graph(global_syntax_tree);
+
+	/* free data structures */
+	symbols_table_finalize(&symbols_table);	
+	free_tree_node(global_syntax_tree);
 }
 
 int recognize_token(int token_id) {

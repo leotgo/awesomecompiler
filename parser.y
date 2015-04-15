@@ -342,9 +342,9 @@ SequenciaDeComandos:
 		;
 
 BlocoDeComandos:
-		  '{' SequenciaDeComandos '}' { $$ = $2; }
+		  '{' SequenciaDeComandos '}' { $$ = ast_create(AST_BLOCO, $2); }
 
-		| '{' '}' { /* what should I put here? NULL? */ }
+		| '{' '}' { $$ = ast_create(AST_BLOCO, NULL); }
 		;
 
 CtrlFluxoIf:
@@ -384,7 +384,7 @@ Declaracao:
 
 Declaracoes:
 		Declaracao 
-		
+
 		| Declaracao Declaracoes { $$ = ast_list($1, $2); }
 		;
 

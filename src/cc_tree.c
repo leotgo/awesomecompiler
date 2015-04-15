@@ -1,4 +1,6 @@
 #include "cc_tree.h"
+#include "cc_gv.h"
+#include <stdio.h>
 
 comp_tree_t* global_syntax_tree = NULL;
 
@@ -38,15 +40,15 @@ comp_tree_t* ast_createv(int type, va_list args) {
 		 * if that child is NULL, it is an empty program. */
 		ast_create_children(t, 1, args);
 	} else if (type == AST_FUNCAO) {
+		/* the first argument of an AST_FUNCAO node is the pointer to the 
+		 * symbols table, which will contain the name of the function being 
+		 * declared.*/ 
+		t->sym_table_ptr 
+		 	= (comp_dict_item_t*) va_arg(args, comp_dict_item_t*);		
 		/* function has 1 child: the first command of the block of commands
 		 * that it contains. the subsequent commands to that will be 'nexts'
 		 * of that function. */
 		ast_create_children(t, 1, args);
-
-		/* IMPORTANT: we have to add somehow the function identifier here, so
-		 * that we can show the functions name in the .dot format. maybe store 
-		 * a pointer to the symbols table? */
-		
 	} else if (type == AST_IF_ELSE) {
 		/* if-else has 3 children: 1. the test, 2. the true case, 3. the false
 		 * case. if there is no 'else', the false case must be passed as NULL,
@@ -75,14 +77,14 @@ comp_tree_t* ast_createv(int type, va_list args) {
 		/* return has 1 child: the expression that is being returned. */
 		ast_create_children(t, 1, args);
 	} else if (type == AST_BLOCO) {
-		/* block isn't being used right now. the reason for this is that
-		 * this node will not be shown in the ast graphical representation, and 
-		 * we're already representing a command block (or list) through the
-		 * 'next' field. */
+		/* a block has 1 child: the first statement in the block that is being
+		 * created.  */
+		ast_create_children(t, 1, args);
 	} else if (type == AST_IDENTIFICADOR || type == AST_LITERAL) {
-		/* */
-
-
+		/* these contain 0 children. the first and only argument is the 
+		 * pointer to the symbols table. */
+		t->sym_table_ptr 
+			= (comp_dict_item_t*) va_arg(args, comp_dict_item_t*);
 
 	} else if (type == AST_ARIM_DIVISAO || type == AST_ARIM_MULTIPLICACAO
 		|| type == AST_ARIM_SOMA || type == AST_ARIM_SUBTRACAO 
@@ -133,10 +135,31 @@ void ast_create_children(comp_tree_t* t, int num_children, va_list args)
 		t->children[i] = va_arg(args, comp_tree_t*);
 }
 
-void ast_generate_dot_graph(comp_tree_t* t) 
-{
-	/* todo: read the documentation on the dot format and the
-	 * given gv_declare and gv_connect.
-	 * 
-	 * implement this. */
+void ast_generate_dot_graph(comp_tree_t* t) {
+	if (t == NULL)
+		return;
+
+	if (t->type == AST_LITERAL || t->type == AST_FUNCAO 
+		|| t->type == AST_IDENTIFICADOR) {
+		if (t->sym_table_ptr == NULL) {
+			/* There was an error in the creation function. */
+			printf("Error: sym table ptr for tree node is NULL, where it"
+				"shouldn't be.");
+			abort();
+		}
+		gv_declare(t->type, t, (void*)t->sym_table_ptr->token);
+	} else { /* anything else that doesn't have a name */
+		gv_declare(t->type, t, NULL);
+	}
+
+	int i;
+	for (i = 0; i < t->num_children; ++i) {
+		ast_generate_dot_graph(t->children[i]);
+		gv_connect(t, t->children[i]);
+	}
+
+	if (t->next != NULL) {
+		ast_generate_dot_graph(t->next);
+		gv_connect(t, t->next);
+	}
 }
