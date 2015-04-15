@@ -92,208 +92,305 @@
 /* Regras (e ações) da gramática */
 
 Static:
-		  TK_PR_STATIC 											{}
+		  TK_PR_STATIC { }
 		;
 
 Const:
-		  TK_PR_CONST											{}
+		  TK_PR_CONST { }
 		;
 
 Tipo:
-		  TK_PR_INT												{}
-		| TK_PR_FLOAT											{}
-		| TK_PR_BOOL											{}
-		| TK_PR_CHAR											{}
-		| TK_PR_STRING											{}
+		  TK_PR_INT { }
+
+		| TK_PR_FLOAT { }
+
+		| TK_PR_BOOL { }
+
+		| TK_PR_CHAR { }
+
+		| TK_PR_STRING { }
 		;
 
 Inteiro:
-		  TK_LIT_INT 											{ $$ = ast_create(AST_LITERAL, $1); }
+		  TK_LIT_INT { $$ = ast_create(AST_LITERAL, $1); }
 		;
 
 Literal:
-		  Inteiro												{}
-		| TK_LIT_FLOAT 											{ $$ = ast_create(AST_LITERAL, $1); }
-		| TK_LIT_TRUE 											{ $$ = ast_create(AST_LITERAL, $1); }
-		| TK_LIT_FALSE 											{ $$ = ast_create(AST_LITERAL, $1); }
-		| TK_LIT_CHAR 											{ $$ = ast_create(AST_LITERAL, $1); }
-		| TK_LIT_STRING 										{ $$ = ast_create(AST_LITERAL, $1); }
+		  Inteiro { }
+
+		| TK_LIT_FLOAT { $$ = ast_create(AST_LITERAL, $1); }
+
+		| TK_LIT_TRUE { $$ = ast_create(AST_LITERAL, $1); }
+
+		| TK_LIT_FALSE { $$ = ast_create(AST_LITERAL, $1); }
+
+		| TK_LIT_CHAR { $$ = ast_create(AST_LITERAL, $1); }
+
+		| TK_LIT_STRING { $$ = ast_create(AST_LITERAL, $1); }
 		;
 
 Identificador:
-		  TK_IDENTIFICADOR										{ $$ = ast_create(AST_IDENTIFICADOR, $1); }
+		  TK_IDENTIFICADOR { $$ = ast_create(AST_IDENTIFICADOR, $1); }
 		;
 
 Expressao:
-		'(' Expressao ')' 										{ $$ = $2; }
-		| '+' Expressao 										{ $$ = $2; }
-		| '-' Expressao 										{ $$ = $2; }
-		| '!' Expressao 										{ $$ = $2; }
-		| Literal 												{}
-		| Identificador											{}
-		| Identificador '[' Expressao ']'  						{ $$ = ast_create(AST_VETOR_INDEXADO, $1, $3); }
-		| ChamadaDeFuncao 										{}
-		| Expressao '+' Expressao 								{ $$ = ast_create(AST_ARIM_SOMA, $1, $3); }
-		| Expressao '-' Expressao								{ $$ = ast_create(AST_ARIM_SUBTRACAO, $1, $3); }
-		| Expressao '*' Expressao 								{ $$ = ast_create(AST_ARIM_MULTIPLICACAO, $1, $3); } 
-		| Expressao '/' Expressao 								{ $$ = ast_create(AST_ARIM_DIVISAO, $1, $3); }
-		| Expressao '&' Expressao 								{ $$ = ast_create(AST_LOGICO_E, $1, $3); }
-		| Expressao '|' Expressao 								{ $$ = ast_create(AST_LOGICO_OU, $1, $3); }
-		| Expressao '>' Expressao 								{ $$ = ast_create(AST_LOGICO_COMP_L, $1, $3); }
-		| Expressao '<' Expressao 								{ $$ = ast_create(AST_LOGICO_COMP_G, $1, $3); }
-		| Expressao TK_OC_OR Expressao							{ $$ = ast_create(AST_LOGICO_OU, $1, $3); }
-		| Expressao TK_OC_AND Expressao 						{ $$ = ast_create(AST_LOGICO_E, $1, $3); }
-		| Expressao TK_OC_NE Expressao 							{ $$ = ast_create(AST_LOGICO_COMP_DIF, $1, $3); }
-		| Expressao TK_OC_EQ Expressao 							{ $$ = ast_create(AST_LOGICO_COMP_IGUAL, $1, $3); }
-		| Expressao TK_OC_LE Expressao 							{ $$ = ast_create(AST_LOGICO_COMP_LE, $1, $3); }
-		| Expressao TK_OC_GE Expressao 							{ $$ = ast_create(AST_LOGICO_COMP_GE, $1, $3); }
-		| Literal '[' Inteiro ']'								{yyerror("Erro: Identificador invalido"); YYERROR;}	
+		'(' Expressao ')' { $$ = $2; }
+
+		| '+' Expressao { $$ = $2; }
+
+		| '-' Expressao { $$ = $2; }
+
+		| '!' Expressao { $$ = $2; }
+
+		| Literal { }
+
+		| Identificador{ }
+
+		| Identificador '[' Expressao ']' { 
+			$$ = ast_create(AST_VETOR_INDEXADO, $1, $3); }
+
+		| ChamadaDeFuncao { }
+
+		| Expressao '+' Expressao { $$ = ast_create(AST_ARIM_SOMA, $1, $3); }
+
+		| Expressao '-' Expressao { 
+			$$ = ast_create(AST_ARIM_SUBTRACAO, $1, $3); }
+
+		| Expressao '*' Expressao { 
+			$$ = ast_create(AST_ARIM_MULTIPLICACAO, $1, $3); } 
+
+		| Expressao '/' Expressao { 
+			$$ = ast_create(AST_ARIM_DIVISAO, $1, $3); }
+
+		| Expressao '&' Expressao { $$ = ast_create(AST_LOGICO_E, $1, $3); }
+
+		| Expressao '|' Expressao { $$ = ast_create(AST_LOGICO_OU, $1, $3); }
+
+		| Expressao '>' Expressao { 
+			$$ = ast_create(AST_LOGICO_COMP_L, $1, $3); }
+
+		| Expressao '<' Expressao { 
+			$$ = ast_create(AST_LOGICO_COMP_G, $1, $3); }
+
+		| Expressao TK_OC_OR Expressao { 
+			$$ = ast_create(AST_LOGICO_OU, $1, $3); }
+
+		| Expressao TK_OC_AND Expressao { 
+			$$ = ast_create(AST_LOGICO_E, $1, $3); }
+
+		| Expressao TK_OC_NE Expressao { 
+			$$ = ast_create(AST_LOGICO_COMP_DIF, $1, $3); }
+
+		| Expressao TK_OC_EQ Expressao { 
+			$$ = ast_create(AST_LOGICO_COMP_IGUAL, $1, $3); }
+
+		| Expressao TK_OC_LE Expressao { 
+			$$ = ast_create(AST_LOGICO_COMP_LE, $1, $3); }
+
+		| Expressao TK_OC_GE Expressao { 
+			$$ = ast_create(AST_LOGICO_COMP_GE, $1, $3); }
+
+		| Literal '[' Inteiro ']' {
+			yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
 
 ListaDeExpressoes:
-		  Expressao												{}
-		| Expressao ',' ListaDeExpressoes 						{ $$ = ast_list($1, $3); }
+		  Expressao { }		  
+
+		| Expressao ',' ListaDeExpressoes { $$ = ast_list($1, $3); }
 		;
 
 Atribuicao:
-		  Identificador '=' Expressao 							{ $$ = ast_create(AST_ATRIBUICAO, $1, $3); }
-		| Identificador '[' Expressao ']' '=' Expressao 		{ $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); }
-		| Literal '=' Expressao									{yyerror("Erro: Identificador invalido"); YYERROR;}	
+		  Identificador '=' Expressao { 
+		  	$$ = ast_create(AST_ATRIBUICAO, $1, $3); }
+
+		| Identificador '[' Expressao ']' '=' Expressao { 
+			$$ = ast_create(AST_ATRIBUICAO, 
+							ast_create(AST_VETOR_INDEXADO, $1, $3), $6); }
+
+		| Literal '=' Expressao {
+			yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
 
 Entrada:
-		  TK_PR_INPUT Expressao '=' '>' Expressao 				{ $$ = ast_create(AST_INPUT, $2); }
+		  TK_PR_INPUT Expressao '=' '>' Expressao { 
+		  $$ = ast_create(AST_INPUT, $2); }
 		;
 
 Saida:
-		  TK_PR_OUTPUT ListaDeExpressoes 						{ $$ =  ast_create(AST_OUTPUT, $2); }
+		  TK_PR_OUTPUT ListaDeExpressoes { $$ =  ast_create(AST_OUTPUT, $2); }
 		;
 Variavel:
-		  Tipo Identificador 									{}
+		  Tipo Identificador { }
 		;
 
 Vetor:
-		Variavel '[' Inteiro ']'  								{}
+		Variavel '[' Inteiro ']' { }
 		;
 
 DeclVariavelGlobal: 
-		  Variavel ';'											{}
-		| Vetor ';'												{}
-		| Static Variavel ';'									{}
-		| Static Vetor ';'										{}
+		  Variavel ';' { }
+
+		| Vetor ';' { }
+
+		| Static Variavel ';' { }
+
+		| Static Vetor ';' { }
 		;
 
 VariavelLocal:
-		  Variavel												{}
-		| Const Variavel										{}
-		| Static Variavel										{}
-		| Static Const Variavel									{}
+		  Variavel { }
+
+		| Const Variavel { }
+
+		| Static Variavel { }
+
+		| Static Const Variavel { }
 		;
 
 DeclVariavelLocal:
-		  VariavelLocal											{}
-		| VariavelLocal TK_OC_LE Literal						{}
-		| VariavelLocal TK_OC_LE Identificador					{}
+		  VariavelLocal { }
+
+		| VariavelLocal TK_OC_LE Literal { }
+
+		| VariavelLocal TK_OC_LE Identificador { }
 		;
 
 Retorno:
-		  TK_PR_RETURN Expressao 								{ $$ = ast_create(AST_RETURN, $2); }
+		  TK_PR_RETURN Expressao { $$ = ast_create(AST_RETURN, $2); }
 		;
 
 Parametro:
-		  Variavel												{}
-		| Const Variavel										{}
+		  Variavel { }
+
+		| Const Variavel { }
 		;
 
 Parametros:
-																{}
-		| Parametro												{}
-		| Parametro ',' ParametrosNaoVazio						{}
+ 		  { }
+
+		| Parametro { }
+
+		| Parametro ',' ParametrosNaoVazio { }
 		;
 
 ParametrosNaoVazio:
-		  Parametro												{}
-		| Parametro ',' ParametrosNaoVazio						{}
+		  Parametro { }
+
+		| Parametro ',' ParametrosNaoVazio { }
 		;
 
 DeclFuncao:
-		  Tipo Identificador '(' Parametros ')' BlocoDeComandos { $$ = ast_create(AST_FUNCAO, $2, $6); }
-		| Static Tipo Identificador '(' Parametros ')' BlocoDeComandos { $$ = ast_create(AST_FUNCAO, $3, $7); }
-		| Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos 					{yyerror(" Erro: definicao de funcao seguida de ; ");YYERROR;}
-		| Static Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos 			{yyerror(" Erro: definicao de funcao seguida de ; ");YYERROR;}
+		  Tipo Identificador '(' Parametros ')' BlocoDeComandos { 
+		  	$$ = ast_create(AST_FUNCAO, $2, $6); }
+
+		| Static Tipo Identificador '(' Parametros ')' BlocoDeComandos { 
+			$$ = ast_create(AST_FUNCAO, $3, $7); }
+
+		| Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos {
+			yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
+
+		| Static Tipo Identificador '(' Parametros ')' ';'	BlocoDeComandos { 
+			yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		;
 
 ArgumentosNaoVazio:
-		  Expressao												{}
-		| Expressao ',' ArgumentosNaoVazio 						{ $$ = ast_list($1, $3); }
+		  Expressao { }
+
+		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3); }
 		;
 
 Argumentos:
-																{}
-		| Expressao												{}
-		| Expressao ',' ArgumentosNaoVazio 						{ $$ = ast_list($1, $3); }
+	      { }
+
+		| Expressao { }
+
+		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3); }
 		;
 
 ChamadaDeFuncao:
-
-		 Identificador '(' Argumentos ')' 						{ $$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); }
+		 Identificador '(' Argumentos ')' { 
+		 	$$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); }
 		;
+
 Comando:
-		  ';'													{}
-		| DeclVariavelLocal										{}
-		| Atribuicao											{}
-		| Entrada												{}
-		| Saida													{}
-		| Retorno												{}
-		| BlocoDeComandos 										{}
-		| ChamadaDeFuncao										{}
-		| ControleDeFluxo										{}
+		  ';' { }
+
+		| DeclVariavelLocal { }
+
+		| Atribuicao { }
+
+		| Entrada { }
+
+		| Saida { }
+
+		| Retorno { }
+
+		| BlocoDeComandos { }
+
+		| ChamadaDeFuncao { }
+
+		| ControleDeFluxo { }
 		;
 
 SequenciaDeComandos:
+		 Comando { }
 
-		 Comando												{}
-		| Comando ';'											{}
-		| Comando ';' SequenciaDeComandos 						{ $$ = ast_list($1, $3); }
+		| Comando ';' { }
+
+		| Comando ';' SequenciaDeComandos { $$ = ast_list($1, $3); }
 		;
 
 BlocoDeComandos:
-		  '{' SequenciaDeComandos '}' 							{ $$ = $2; }
-		| '{' '}' 												{ /* what should I put here? NULL? */}
+		  '{' SequenciaDeComandos '}' { $$ = $2; }
+
+		| '{' '}' { /* what should I put here? NULL? */ }
 		;
 
 CtrlFluxoIf:
-		  TK_PR_IF Expressao TK_PR_THEN Comando 				{ $$ = ast_create(AST_IF_ELSE, $2, $4, NULL); }
-		| TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando { $$ = ast_create(AST_IF_ELSE, $2, $4, $6); }
-		| TK_PR_IF TK_PR_THEN Comando									{yyerror("Erro: Comando de Fluxo IF sem condicao ");YYERROR;}
+		  TK_PR_IF Expressao TK_PR_THEN Comando { 
+		  	$$ = ast_create(AST_IF_ELSE, $2, $4, NULL); }
+
+		| TK_PR_IF Expressao TK_PR_THEN Comando TK_PR_ELSE Comando { 
+			$$ = ast_create(AST_IF_ELSE, $2, $4, $6); }
+
+		| TK_PR_IF TK_PR_THEN Comando { 
+			yyerror("Erro: Comando de Fluxo IF sem condicao ");YYERROR; }
 		;
 
 CtrlFluxoWhile:
-		  TK_PR_WHILE Expressao TK_PR_DO Comando 				{ $$ = ast_create(AST_WHILE_DO, $2, $4); }
+		  TK_PR_WHILE Expressao TK_PR_DO Comando { 
+		  	$$ = ast_create(AST_WHILE_DO, $2, $4); }
 		;
 
 CtrlFluxoDoWhile:
-		  TK_PR_DO Comando TK_PR_WHILE Expressao 				{ $$ = ast_create(AST_DO_WHILE, $2, $4); }
+		  TK_PR_DO Comando TK_PR_WHILE Expressao { $$ = ast_create(
+		  	AST_DO_WHILE, $2, $4); }
 		;
 
 ControleDeFluxo:
-		  CtrlFluxoIf											{}
-		| CtrlFluxoWhile										{}
-		| CtrlFluxoDoWhile										{}
-		;
-Declaracao:
-		DeclVariavelGlobal 										{}
-		| DeclFuncao 											{}
-		;
-Declaracoes:
+		  CtrlFluxoIf { }
 
+		| CtrlFluxoWhile { }
+
+		| CtrlFluxoDoWhile { }
+		;
+
+Declaracao:
+		DeclVariavelGlobal { }
+
+		| DeclFuncao { }
+		;
+
+Declaracoes:
 		Declaracao 
-		| Declaracao Declaracoes 								{ $$ = ast_list($1, $2); }
+		
+		| Declaracao Declaracoes { $$ = ast_list($1, $2); }
 		;
 
 Programa:
-																{}
-		|  Declaracoes 											{ $$ = ast_create(AST_PROGRAMA, $1); }
+		   { }
+		|  Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); }
 		;
 /*
 	Itens:
