@@ -4,8 +4,10 @@ comp_tree_t* global_syntax_tree = NULL;
 
 void free_tree_node(comp_tree_t* t) {
 	if (t == NULL) return;
-	if (t->children != NULL && t->num_children > 0) {
-		for (int i = 0; i < t->num_children; ++i)
+	if (t->children != NULL && t->num_children > 0) 
+	{
+		int i;
+		for (i = 0; i < t->num_children; ++i)
 			free_tree_node(t->children[i]);
 	}
 	if (t->next) free_tree_node(t->next);
@@ -115,16 +117,24 @@ comp_tree_t* ast_createv(int type, va_list args) {
 
 	return t;
 }
+comp_tree_t* ast_list(comp_tree_t* first, comp_tree_t* next) {
+	if (first != NULL && next != NULL)
+		first->next = next;
+	return first;
+}
 
-void ast_create_children(comp_tree_t* t, int num_children, va_list args) {
+void ast_create_children(comp_tree_t* t, int num_children, va_list args) 
+{
 	t->num_children = num_children;
 	t->children = (comp_tree_t**)
 		malloc(t->num_children * sizeof(comp_tree_t*));
-	for (int i = 0; i < num_children; ++i)
+	int i;
+	for (i = 0; i < num_children; ++i)
 		t->children[i] = va_arg(args, comp_tree_t*);
 }
 
-void ast_generate_dot_graph(comp_tree_t* t) {
+void ast_generate_dot_graph(comp_tree_t* t) 
+{
 	/* todo: read the documentation on the dot format and the
 	 * given gv_declare and gv_connect.
 	 * 

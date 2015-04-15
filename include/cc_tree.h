@@ -61,11 +61,7 @@ comp_tree_t* ast_createv(int type, va_list args);
  * | Expressao = { return eval($1) } 
  * | Expressao , ListaDeExpressoes = { return ast_list(eval($1), eval($2); }
  * */
-comp_tree_t* ast_list(comp_tree_t* first, comp_tree_t* next) {
-	if (first != NULL && next != NULL)
-		first->next = next;
-	return first;
-}
+comp_tree_t* ast_list(comp_tree_t* first, comp_tree_t* next);
 
 /* allocates num_children children for the node t, and adds the arguments in 
  * 'va_list args' as children. it is expected that args has at least 
