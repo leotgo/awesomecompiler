@@ -28,9 +28,6 @@ void main_init (int argc, char **argv) {
 }
 
 void main_finalize(void) {
-	/* generate the .dot graph: */ 
-	ast_generate_dot_graph(global_syntax_tree);
-
 	/* free data structures */
 	symbols_table_finalize(&symbols_table);	
 	free_tree_node(global_syntax_tree);

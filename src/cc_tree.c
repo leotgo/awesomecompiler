@@ -6,15 +6,18 @@ comp_tree_t* global_syntax_tree = NULL;
 
 void free_tree_node(comp_tree_t* t) {
 	if (t == NULL) return;
-	if (t->children != NULL && t->num_children > 0) 
-	{
-		int i;
-		for (i = 0; i < t->num_children; ++i)
+	
+	int i;
+	for (i = 0; i < t->num_children; ++i)
+		if (t->children[i] != NULL)
 			free_tree_node(t->children[i]);
-	}
-	if (t->next) free_tree_node(t->next);
+
 	if (t->children)
 		free(t->children);
+
+	if (t->next) 
+		free_tree_node(t->next);
+
 	free(t);
 }
 
@@ -119,7 +122,10 @@ comp_tree_t* ast_createv(int type, va_list args) {
 
 	return t;
 }
+
 comp_tree_t* ast_list(comp_tree_t* first, comp_tree_t* next) {
+	if (first == NULL && next != NULL)
+		return next;	
 	if (first != NULL && next != NULL)
 		first->next = next;
 	return first;
@@ -154,8 +160,10 @@ void ast_generate_dot_graph(comp_tree_t* t) {
 
 	int i;
 	for (i = 0; i < t->num_children; ++i) {
-		ast_generate_dot_graph(t->children[i]);
-		gv_connect(t, t->children[i]);
+		if (t->children[i] != NULL) {
+			ast_generate_dot_graph(t->children[i]);
+			gv_connect(t, t->children[i]);
+		}		
 	}
 
 	if (t->next != NULL) {

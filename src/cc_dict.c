@@ -12,6 +12,8 @@ void free_comp_dict_item_t(comp_dict_item_t* item) {
 			free((void*)item->token);					
 		if (item->value != NULL)
 			free((void*)item->value);
+		if (item->key != NULL)
+			free((void*)item->key);
 		free(item);
 	}
 }
@@ -44,13 +46,19 @@ comp_dict_item_t* symbols_table_add(const char* key, int line_number,
 
 	item = (comp_dict_item_t*) malloc(sizeof(comp_dict_item_t));
 
-	item->token = (const char*) malloc((strlen(key) + 1) * sizeof(char));
-	strcpy((char*)item->token, key);	
+	item->token = (const char*) 
+		malloc((strlen(token_value) + 1) * sizeof(char));
+	strcpy((char*)item->token, token_value);	
+
+	item->key = (const char*) 
+		malloc((strlen(key) + 1) * sizeof(char));
+	strcpy((char*)item->key, key);	
+
 	item->line_where_it_last_appeared = line_number;
 	item->value = interpret_token_value(token_value, token_type, line_number);
 	item->token_type = token_type;
 
-	HASH_ADD_KEYPTR(hh, *table, item->token, strlen(item->token), item);
+	HASH_ADD_KEYPTR(hh, *table, item->key, strlen(item->key), item);
 
 	return item;
 }

@@ -8,8 +8,9 @@
 /* The structure defining the elements that the symbols table will store, as
  * defined by the requirements. */
 typedef struct comp_dict_item_t {
-	const char* token; /* a 0-terminated string representing the matched token. 
-					   */
+	const char* token; /* a 0-terminated string representing the matched token. */
+
+	const char* key; /* the key used for this iten in the symbols table. */
 
 	int line_where_it_last_appeared; /* line where the specific token appeard
 									 last */
