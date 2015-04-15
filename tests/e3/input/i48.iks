@@ -10,7 +10,7 @@ int main()
 {
 	int numero;
 	output "Insira um numero: ";
-	input numero;
+	input 10 => numero;
 	output "O valor fibonacci eh: ", fibonacci(numero);
 
 }
