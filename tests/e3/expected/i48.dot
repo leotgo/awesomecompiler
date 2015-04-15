@@ -60,6 +60,8 @@ node_0x91d75d0 [label="input"]
 node_0x91d7590 -> node_0x91d75d0
 node_0x91d75b0 [label="numero"]
 node_0x91d75d0 -> node_0x91d75b0
+node_0x91lucas [label="10"]
+node_0x91d75d0 -> node_0x91lucas
 node_0x91d76b8 [label="output"]
 node_0x91d75d0 -> node_0x91d76b8
 node_0x91d7638 [label="O valor fibonacci eh: "]
