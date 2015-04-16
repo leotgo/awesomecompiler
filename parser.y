@@ -140,9 +140,9 @@ Expressao:
 		| Expressao '|' Expressao { 
 			$$ = ast_create(AST_LOGICO_OU, $1, $3); }
 		| Expressao '>' Expressao { 
-			$$ = ast_create(AST_LOGICO_COMP_L, $1, $3); }
-		| Expressao '<' Expressao { 
 			$$ = ast_create(AST_LOGICO_COMP_G, $1, $3); }
+		| Expressao '<' Expressao { 
+			$$ = ast_create(AST_LOGICO_COMP_L, $1, $3); }
 		| Expressao TK_OC_OR Expressao { 
 			$$ = ast_create(AST_LOGICO_OU, $1, $3); }
 		| Expressao TK_OC_AND Expressao { 
