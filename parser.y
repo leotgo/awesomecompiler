@@ -71,7 +71,8 @@
 	struct comp_tree_t* ast_node;
 }
 
-%left TK_OC_OR TK_OC_AND
+%left TK_OC_OR 
+%left TK_OC_AND
 %nonassoc TK_OC_LE TK_OC_GE TK_OC_EQ TK_OC_NE '<' '>'
 %left '+' '-'
 %left '*' '/'
@@ -120,8 +121,8 @@ Identificador:
 Expressao:
 		'(' Expressao ')' { $$ = $2; }
 		| '+' Expressao { $$ = $2; }
-		| '-' Expressao { $$ = $2; }
-		| '!' Expressao { $$ = $2; }
+		| '-' Expressao { $$ = ast_create(AST_ARIM_INVERSAO, $2); }	//todo
+		| '!' Expressao { $$ = ast_create(AST_LOGICO_COMP_NEGACAO, $2); }	//todo
 		| Literal { }
 		| Identificador { }
 		| Identificador '[' Expressao ']' { 
@@ -176,7 +177,7 @@ Atribuicao:
 
 Entrada:
 		  TK_PR_INPUT Expressao '=' '>' Expressao { 
-		  $$ = ast_create(AST_INPUT, $2); }
+		  $$ = ast_create(AST_INPUT, $2,$5); }
 		;
 
 Saida:
