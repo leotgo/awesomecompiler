@@ -67,7 +67,7 @@ comp_tree_t* ast_createv(int type, va_list args) {
 		ast_create_children(t, 2, args);
 	} else if (type == AST_INPUT) {
 		/* input has 1 child: the identifier that the input is directed to. */
-		ast_create_children(t, 1, args);
+		ast_create_children(t, 2, args);
 	} else if (type == AST_OUTPUT) {
 		/* output has 1 child: the expression list that is being output. 
 		 * each element of the list will be 'next' of the previous element. */
