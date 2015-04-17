@@ -1,9 +1,0 @@
-digraph G {
-node_0x14cb520 [label="programa"]
-node_0x14cb4d0 [label="f"]
-node_0x14cb480 [label="return"]
-node_0x14cb090 [label="10"]
-node_0x14cb480 -> node_0x14cb090
-node_0x14cb4d0 -> node_0x14cb480
-node_0x14cb520 -> node_0x14cb4d0
-}

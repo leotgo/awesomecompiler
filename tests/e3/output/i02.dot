@@ -1,5 +1,0 @@
-digraph G {
-node_0x124d3e0 [label="programa"]
-node_0x124d090 [label="xis"]
-node_0x124d3e0 -> node_0x124d090
-}
