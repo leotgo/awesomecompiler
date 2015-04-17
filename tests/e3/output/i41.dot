@@ -1,0 +1,61 @@
+digraph G {
+node_0x1f41400 [label="programa"]
+node_0x1f413b0 [label="f"]
+node_0x1f40770 [label="="]
+node_0x1f40090 [label="x"]
+node_0x1f40770 -> node_0x1f40090
+node_0x1f40720 [label="+"]
+node_0x1f40460 [label="a"]
+node_0x1f40720 -> node_0x1f40460
+node_0x1f406d0 [label="*"]
+node_0x1f40530 [label="b"]
+node_0x1f406d0 -> node_0x1f40530
+node_0x1f40600 [label="c"]
+node_0x1f406d0 -> node_0x1f40600
+node_0x1f40720 -> node_0x1f406d0
+node_0x1f40770 -> node_0x1f40720
+node_0x1f40b00 [label="="]
+node_0x1f407c0 [label="y"]
+node_0x1f40b00 -> node_0x1f407c0
+node_0x1f40ab0 [label="-"]
+node_0x1f40a30 [label="/"]
+node_0x1f40890 [label="d"]
+node_0x1f40a30 -> node_0x1f40890
+node_0x1f40960 [label="e"]
+node_0x1f40a30 -> node_0x1f40960
+node_0x1f40ab0 -> node_0x1f40a30
+node_0x1f40a80 [label="f"]
+node_0x1f40ab0 -> node_0x1f40a80
+node_0x1f40b00 -> node_0x1f40ab0
+node_0x1f40f30 [label="="]
+node_0x1f40b50 [label="z"]
+node_0x1f40f30 -> node_0x1f40b50
+node_0x1f40ee0 [label="*"]
+node_0x1f40dc0 [label="+"]
+node_0x1f40c20 [label="g"]
+node_0x1f40dc0 -> node_0x1f40c20
+node_0x1f40cf0 [label="h"]
+node_0x1f40dc0 -> node_0x1f40cf0
+node_0x1f40ee0 -> node_0x1f40dc0
+node_0x1f40e10 [label="i"]
+node_0x1f40ee0 -> node_0x1f40e10
+node_0x1f40f30 -> node_0x1f40ee0
+node_0x1f41360 [label="="]
+node_0x1f40f80 [label="w"]
+node_0x1f41360 -> node_0x1f40f80
+node_0x1f41310 [label="/"]
+node_0x1f41050 [label="j"]
+node_0x1f41310 -> node_0x1f41050
+node_0x1f412c0 [label="-"]
+node_0x1f41120 [label="k"]
+node_0x1f412c0 -> node_0x1f41120
+node_0x1f411f0 [label="l"]
+node_0x1f412c0 -> node_0x1f411f0
+node_0x1f41310 -> node_0x1f412c0
+node_0x1f41360 -> node_0x1f41310
+node_0x1f40f30 -> node_0x1f41360
+node_0x1f40b00 -> node_0x1f40f30
+node_0x1f40770 -> node_0x1f40b00
+node_0x1f413b0 -> node_0x1f40770
+node_0x1f41400 -> node_0x1f413b0
+}

@@ -1,0 +1,17 @@
+digraph G {
+node_0x2399800 [label="programa"]
+node_0x23997b0 [label="f"]
+node_0x2399550 [label="="]
+node_0x2399090 [label="iks"]
+node_0x2399550 -> node_0x2399090
+node_0x2399460 [label="false"]
+node_0x2399550 -> node_0x2399460
+node_0x2399760 [label="="]
+node_0x23995a0 [label="caps"]
+node_0x2399760 -> node_0x23995a0
+node_0x2399670 [label="true"]
+node_0x2399760 -> node_0x2399670
+node_0x2399550 -> node_0x2399760
+node_0x23997b0 -> node_0x2399550
+node_0x2399800 -> node_0x23997b0
+}

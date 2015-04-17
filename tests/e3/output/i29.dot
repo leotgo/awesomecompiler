@@ -1,0 +1,15 @@
+digraph G {
+node_0xa876f0 [label="programa"]
+node_0xa876a0 [label="f"]
+node_0xa87650 [label="="]
+node_0xa87090 [label="x"]
+node_0xa87650 -> node_0xa87090
+node_0xa87600 [label="=="]
+node_0xa87460 [label="a"]
+node_0xa87600 -> node_0xa87460
+node_0xa87530 [label="b"]
+node_0xa87600 -> node_0xa87530
+node_0xa87650 -> node_0xa87600
+node_0xa876a0 -> node_0xa87650
+node_0xa876f0 -> node_0xa876a0
+}

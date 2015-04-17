@@ -1,0 +1,9 @@
+digraph G {
+node_0x22e9500 [label="programa"]
+node_0x22e94b0 [label="f"]
+node_0x22e9460 [label="call"]
+node_0x22e9090 [label="k"]
+node_0x22e9460 -> node_0x22e9090
+node_0x22e94b0 -> node_0x22e9460
+node_0x22e9500 -> node_0x22e94b0
+}

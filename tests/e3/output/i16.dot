@@ -1,0 +1,11 @@
+digraph G {
+node_0xbca5f0 [label="programa"]
+node_0xbca5a0 [label="f"]
+node_0xbca570 [label="="]
+node_0xbca090 [label="iks"]
+node_0xbca570 -> node_0xbca090
+node_0xbca480 [label="teste"]
+node_0xbca570 -> node_0xbca480
+node_0xbca5a0 -> node_0xbca570
+node_0xbca5f0 -> node_0xbca5a0
+}
