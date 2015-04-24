@@ -16,6 +16,8 @@ ADD_EXECUTABLE(main
   src/cc_dict.c
   src/cc_list.c
   src/cc_tree.c
+  src/cc_type.c
+  src/cc_context.c
 )
 TARGET_LINK_LIBRARIES(main ${FLEX_LIBRARIES})
 
