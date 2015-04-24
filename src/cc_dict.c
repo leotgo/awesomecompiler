@@ -1,4 +1,6 @@
 #include "cc_dict.h"
+#include "cc_type.h"
+#include "cc_misc.h"
 #include "main.h"
 #include <stdlib.h>
 #include <string.h>
@@ -19,7 +21,7 @@ void free_comp_dict_item_t(comp_dict_item_t* item) {
 }
 
 /* The global symbols table defined in the program. */
-comp_dict_t symbols_table = NULL;
+comp_dict_t global_symbols_table = NULL;
 
 comp_dict_item_t* symbols_table_add(const char* key, int line_number,
 	int token_type, const char* token_value, comp_dict_t* table) {

@@ -10,7 +10,7 @@
 typedef struct comp_dict_item_t {
 	const char* token; /* a 0-terminated string representing the matched token. */
 
-	const char* key; /* the key used for this iten in the symbols table. */
+	const char* key; /* the key used for this item in the symbols table. */
 
 	int line_where_it_last_appeared; /* line where the specific token appeard
 									 last */
@@ -77,6 +77,6 @@ void symbols_table_finalize(comp_dict_t* table);
  * see comp_dict_item_t::value for more info. */
 void* interpret_token_value(const char* text, int token_type, int line_number);
 
-extern comp_dict_t symbols_table;
+extern comp_dict_t global_symbols_table;
 
 #endif
