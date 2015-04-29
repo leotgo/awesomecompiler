@@ -15,7 +15,7 @@ typedef struct comp_context_symbol_t {
 
 typedef comp_context_symbol_t* comp_context_symbols_table_t;
 
-/* deallocates al the resources for a context table. */
+/* deallocates all the resources for a context table. */
 void context_symbol_free(comp_context_symbol_t* s);
 
 typedef struct comp_context_t {

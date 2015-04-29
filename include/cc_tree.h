@@ -3,6 +3,7 @@
 
 #include "cc_ast.h"
 #include "cc_dict.h"
+#include "cc_type.h"
 #include <stdarg.h>
 
 typedef struct comp_tree_t {
@@ -14,6 +15,7 @@ typedef struct comp_tree_t {
 									 that symbol. otherwise, it is NULL. */
 
 	int num_children; /* the number of children pertaining to that node. */
+	
 
 	struct comp_tree_t** children; /* a list of node pointers to the children
 								   of this node. if num_children == 0, this
@@ -28,6 +30,10 @@ typedef struct comp_tree_t {
 							  
 							  in the .dot format, this node will be drawn as 
 							  the last child on the list. */
+	
+	type_list* expectedTypes; /* A list of expected types for this node's children.
+				     This list is used as part of the type checking process. */
+
 } comp_tree_t;
 
 /* the global syntax tree, which will be declared in cc_tree.c.  */

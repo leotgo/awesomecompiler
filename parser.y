@@ -2,6 +2,7 @@
 %{
 #include <stdio.h>
 
+#include "cc_context.h"
 #include "cc_tree.h"
 #include "cc_dict.h" 
 
@@ -283,7 +284,7 @@ BlocoDeComandosFuncao:
 		;
 
 BlocoDeComandos:
-		  '{' SequenciaDeComandos '}' { $$ = ast_create(AST_BLOCO, $2); }
+		  '{' { $$ = context_push_new(); } SequenciaDeComandos { $$ = context_pop(); } '}' { $$ = ast_create(AST_BLOCO, $2); }
 		| '{' '}' { $$ = ast_create(AST_BLOCO, NULL); }
 		;
 
