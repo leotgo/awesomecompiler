@@ -63,7 +63,7 @@ bool type_check(comp_tree_t* ast)
 		if(type_check(ast->children[i]))
 			return false;
 		else {
-			childrenTypes = type_list_Add(childrenTypes, type_retrieve(ast->children[i]));
+			childrenTypes = type_list_Add(childrenTypes, get_type(ast->children[i]));
 		}
 		
 	}
@@ -71,7 +71,6 @@ bool type_check(comp_tree_t* ast)
 	// Typecheck current tree node - verify if children's types agree to expected types
 	bool agreedTypes = type_list_Compare(ast->expectedTypes, childrenTypes);
 	free(&childrenTypes);
-
 	return agreedTypes;
 }
 
@@ -90,7 +89,7 @@ int get_type(comp_tree_t* node)
 	else if(node->type == AST_LITERAL)
 	{
 		comp_context_symbol_t* node_symbol;
-		node_symbol = context_find_identifier(current_context, node->sym_table_ptr->token);
+		node_symbol = context_find_identifier(current_context, node->sym_table_ptr->key);
 		if(node_symbol == NULL)
 		{
 			/* Literal not found in current context (why would this happen?) */
