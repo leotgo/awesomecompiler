@@ -75,13 +75,27 @@ bool type_check(comp_tree_t* ast)
 	return agreedTypes;
 }
 
-int lookup_symbols_table(char* token)
+int get_type(comp_tree_t* node)
 {
-	// Look for the token in the symbol's table in the current context
-}
-
-// Retrieve the type for a tree node. Can be part of the type inference system
-int type_retrieve(comp_tree_t* exp)
-{
-	
+	if(node->type == AST_IDENTIFICADOR)
+	{
+		comp_context_symbol_t* node_symbol;
+		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->key);
+		if(node_symbol == NULL)
+		{
+			/* Literal not found in current context or in any of its parents */
+			exit(IKS_ERROR_UNDECLARED);
+		} else return node_symbol->type;
+	}
+	else if(node->type == AST_LITERAL)
+	{
+		comp_context_symbol_t* node_symbol;
+		node_symbol = context_find_identifier(current_context, node->sym_table_ptr->token);
+		if(node_symbol == NULL)
+		{
+			/* Literal not found in current context (why would this happen?) */
+			exit(IKS_ERROR_UNDECLARED);
+		} else return node_symbol->type;
+	}
+	else return node->type;
 }
