@@ -12,14 +12,14 @@
 // node's children agree to expected types.
 typedef struct type_list {
 	int type;
-	t_list* next;
+	struct type_list* next;
 } type_list;
 
 // Adds a type to the specified type list
-type_list* type_list_Add(type_list* list);
+type_list* type_list_Add(type_list* list, int addedType);
 
 // Compares two type lists and returns true if they are 
 // identical - same elements in same order
-bool type_list_Compare(type_list* list_a, type_list* list_b);
+int type_list_Compare(type_list* list_a, type_list* list_b);
 
 #endif

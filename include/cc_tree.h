@@ -30,9 +30,8 @@ typedef struct comp_tree_t {
 							  
 							  in the .dot format, this node will be drawn as 
 							  the last child on the list. */
-	
-	type_list* expectedTypes; /* A list of expected types for this node's children.
-				     This list is used as part of the type checking process. */
+
+	type_list* expectedTypes;
 
 } comp_tree_t;
 

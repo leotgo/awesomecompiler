@@ -284,7 +284,7 @@ BlocoDeComandosFuncao:
 		;
 
 BlocoDeComandos:
-		  '{' { $$ = context_push_new(); } SequenciaDeComandos { $$ = context_pop(); } '}' { $$ = ast_create(AST_BLOCO, $2); }
+		  '{' { context_push_new(); } SequenciaDeComandos '}' { $$ = ast_create(AST_BLOCO, $3);context_pop(); }
 		| '{' '}' { $$ = ast_create(AST_BLOCO, NULL); }
 		;
 

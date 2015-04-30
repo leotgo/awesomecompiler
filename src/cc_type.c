@@ -1,5 +1,11 @@
 #include "cc_type.h"
+#include "cc_tree.h"
 #include "cc_context.h"
+#include "cc_error.h"
+
+#define bool int
+#define true 1
+#define false 0
 
 // Adds a type to the specified type list, at the end
 // If list is null, memory is allocated for the list
@@ -58,7 +64,8 @@ bool type_check(comp_tree_t* ast)
 
 	// Recursive DFS to verify typing for basic expressions
 	// Iterate for each child and typecheck	them
-	for(int i = 0; i < ast->num_children; i++)
+	int i;
+	for(i = 0; i < ast->num_children; i++)
 	{
 		if(type_check(ast->children[i]))
 			return false;
@@ -69,8 +76,7 @@ bool type_check(comp_tree_t* ast)
 	}
 
 	// Typecheck current tree node - verify if children's types agree to expected types
-	bool agreedTypes = type_list_Compare(ast->expectedTypes, childrenTypes);
-	free(&childrenTypes);
+	int agreedTypes = type_list_Compare(ast->expectedTypes, childrenTypes);
 	return agreedTypes;
 }
 
