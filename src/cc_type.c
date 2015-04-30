@@ -33,13 +33,13 @@ type_list* type_list_Add(type_list* list, int addedType)
 
 // Compares two type lists and returns true if they are identical
 // (same elements in same order)
-bool type_list_Compare(type_list* list_a, type_list* list_b)
+int type_list_Compare(type_list* list_a, type_list* list_b)
 {
 	// Compare each element
 	while(list_a != NULL && list_b != NULL)
 	{
 		if(list_a->type != list_b->type)
-			return false;
+			return 0;
 		else
 		{
 			list_a = list_a->next;
@@ -49,16 +49,16 @@ bool type_list_Compare(type_list* list_a, type_list* list_b)
 	/* In case there are no elements left in any of the lists, 	 |
 	| we begin to check whether they have same size 		*/
 	if(list_a == NULL && list_b == NULL) 
-		return true;
+		return 1;
 	else if(list_a == NULL && list_b != NULL)
-		return false;
+		return 0;
 	else if(list_a != NULL && list_b == NULL)
-		return false;
+		return 0;
 	else
-		return true;
+		return 1;
 }
 
-bool type_check(comp_tree_t* ast)
+int type_check(comp_tree_t* ast)
 {
 	type_list* childrenTypes = NULL;
 
@@ -68,7 +68,7 @@ bool type_check(comp_tree_t* ast)
 	for(i = 0; i < ast->num_children; i++)
 	{
 		if(type_check(ast->children[i]))
-			return false;
+			return 0;
 		else {
 			childrenTypes = type_list_Add(childrenTypes, get_type(ast->children[i]));
 		}
