@@ -82,13 +82,17 @@ int type_check(comp_tree_t* ast)
 
 int get_type(comp_tree_t* node)
 {
+	
 	if(node->type == AST_IDENTIFICADOR)
 	{
 		comp_context_symbol_t* node_symbol;
-		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->key);
+		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
+		//node_symbol = context_find_identifier(current_context, node->sym_table_ptr->key);
+		
 		if(node_symbol == NULL)
-		{
+		{	
 			/* Literal not found in current context or in any of its parents */
+			yyerror("Error: Undeclared variable or function");
 			exit(IKS_ERROR_UNDECLARED);
 		} else return node_symbol->type;
 	}
@@ -104,3 +108,4 @@ int get_type(comp_tree_t* node)
 	}
 	else return node->type;
 }
+

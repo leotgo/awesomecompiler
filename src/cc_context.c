@@ -63,22 +63,32 @@ void context_pop() {
 }
 
 comp_context_symbol_t* context_add_identifier_to_current(
-		const char* identifier, int type) {
-	if (current_context == NULL || identifier == NULL || type == IKS_INVALID) {
+		const char* identifier, int type) 
+{
+	if (current_context == NULL )
+	{
+		current_context = context_push_new();
+	}
+	if ( identifier == NULL || type == IKS_INVALID) 
+	{
 		/* error */
 		return NULL;
 	}
-
-	if (context_find_identifier(current_context, identifier) != NULL) {
+	
+	if (context_find_identifier(current_context, identifier) != NULL) 
+	{
+		
+		yyerror("Error: Variable or function already declared in scope");
 		/* error: variable was already declared in this scope */
 		exit(IKS_ERROR_DECLARED);
 	}
-
+	
 	comp_context_symbol_t* sym = (comp_context_symbol_t*)
 		malloc(sizeof(comp_context_symbol_t));
 	sym->type = type;
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	strcpy((char*)sym->key, identifier);
+	printf("Adding Identifier: %s1\n",identifier);
 
 	HASH_ADD_KEYPTR(hh, current_context->symbols_table, sym->key,
 		strlen(sym->key), sym);
@@ -86,8 +96,10 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	return sym;
 }
 
-void context_symbol_free(comp_context_symbol_t* s) {
-	if (s != NULL) {
+void context_symbol_free(comp_context_symbol_t* s) 
+{
+	if (s != NULL) 
+	{
 		if (s->key != NULL)
 			free((char*)s->key);
 		free(s);
@@ -96,6 +108,7 @@ void context_symbol_free(comp_context_symbol_t* s) {
 
 comp_context_symbol_t* context_find_identifier(comp_context_t* context, 
 		const char* identifier) {
+printf("Adding Identifier: %s1\n",identifier);
 	comp_context_symbol_t* item = NULL;
 	HASH_FIND_STR(context->symbols_table, identifier, item);
 	return item;
@@ -103,6 +116,7 @@ comp_context_symbol_t* context_find_identifier(comp_context_t* context,
 
 comp_context_symbol_t* context_find_identifier_multilevel(
 		comp_context_t* context, const char* identifier) {
+
 	if (context == NULL) return NULL;	
 	comp_context_t* c = context;
 	while (c != NULL) {

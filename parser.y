@@ -5,7 +5,7 @@
 #include "cc_context.h"
 #include "cc_tree.h"
 #include "cc_dict.h" 
-
+  
 %}
 
 /* Declaração dos tokens da linguagem */
@@ -167,13 +167,9 @@ ListaDeExpressoes:
 		;
 
 Atribuicao:
-		  Identificador '=' Expressao { 
-		  	$$ = ast_create(AST_ATRIBUICAO, $1, $3); }
-		| Identificador '[' Expressao ']' '=' Expressao { 
-			$$ = ast_create(AST_ATRIBUICAO, 
-							ast_create(AST_VETOR_INDEXADO, $1, $3), $6); }
-		| Literal '=' Expressao {
-			yyerror("Erro: Identificador invalido"); YYERROR; }	
+		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1); }
+		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); get_type($1);}
+		| Literal '=' Expressao { yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
 
 Entrada:
@@ -186,7 +182,7 @@ Saida:
 		;
 
 Variavel:
-		  Tipo TK_IDENTIFICADOR { }
+		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,AST_IDENTIFICADOR);} // tipo errado, precisa se adequar de quando for vetor ou quando for apenas umas variavel
 		;
 
 Vetor:
@@ -234,14 +230,10 @@ ParametrosNaoVazio:
 		;
 
 DeclFuncao:
-		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 
-		  	$$ = ast_create(AST_FUNCAO, $2, $6); }
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 
-			{ $$ = ast_create(AST_FUNCAO, $3, $7); }
-		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {
-			yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { 
-			yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
+		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6); context_add_identifier_to_current($2->token,AST_FUNCAO);}
+		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 	{ $$ = ast_create(AST_FUNCAO, $3, $7);  context_add_identifier_to_current($3->token,AST_FUNCAO);}
+		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {	yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
+		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		;
 
 ArgumentosNaoVazio:
@@ -256,8 +248,7 @@ Argumentos:
 		;
 
 ChamadaDeFuncao:
-		 Identificador '(' Argumentos ')' { 
-		 	$$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); }
+		 Identificador '(' Argumentos ')' { $$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); get_type($1);}
 		;
 
 Comando:
@@ -279,7 +270,7 @@ SequenciaDeComandos:
 		;
 
 BlocoDeComandosFuncao:
-		  '{' SequenciaDeComandos '}' { $$ = $2; }
+		  '{' { context_push_new(); } SequenciaDeComandos '}' { $$ = $3; context_pop();}
 		| '{' '}' { $$ = NULL; }
 		;
 
@@ -325,9 +316,10 @@ Declaracoes:
 
 Programa:
 		   { $$ = ast_create(AST_PROGRAMA, NULL); 
-				              ast_generate_dot_graph(global_syntax_tree); }
-		|  Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); 
-				              ast_generate_dot_graph(global_syntax_tree); }
+				              /*ast_generate_dot_graph(global_syntax_tree);*/
+								context_pop(); }
+		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); 
+				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();}
 		;
 /*
 	Itens:
