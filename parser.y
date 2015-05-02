@@ -65,6 +65,9 @@
 %type <ast_node> Literal
 %type <ast_node> Inteiro
 %type <ast_node> BlocoDeComandosFuncao
+%type <valor_simbolo_lexico> Variavel
+%type <valor_simbolo_lexico> Tipo
+
 
 %union 
 {
@@ -182,11 +185,11 @@ Saida:
 		;
 
 Variavel:
-		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,AST_IDENTIFICADOR);} // tipo errado, precisa se adequar de quando for vetor ou quando for apenas umas variavel
+		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type);} // pra parar com o seg fault eh soh nao passar o $1->token_type como parametro
 		;
 
 Vetor:
-		Variavel '[' Inteiro ']' { }
+		Tipo TK_IDENTIFICADOR '[' Inteiro ']' { context_add_identifier_to_current($2->token,AST_VETOR_INDEXADO);}
 		;
 
 DeclVariavelGlobal: 
