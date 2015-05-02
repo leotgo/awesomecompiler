@@ -2,6 +2,8 @@
 #include "cc_tree.h"
 #include "cc_context.h"
 #include "cc_error.h"
+#include "../parser.h"
+#include "main.h"
 
 #define bool int
 #define true 1
@@ -80,21 +82,47 @@ int type_check(comp_tree_t* ast)
 	return agreedTypes;
 }
 
-int get_type(comp_tree_t* node)
-{
+int get_type(comp_tree_t* node, comp_tree_t* expression)
+{	
 	
 	if(node->type == AST_IDENTIFICADOR)
 	{
+		getchar();
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
 		//node_symbol = context_find_identifier(current_context, node->sym_table_ptr->key);
-		
+	
 		if(node_symbol == NULL)
 		{	
 			/* Literal not found in current context or in any of its parents */
 			yyerror("Error: Undeclared variable or function");
 			exit(IKS_ERROR_UNDECLARED);
-		} else return node_symbol->type;
+		}
+		else
+		{
+
+			if(check_types(node_symbol->type, expression->sym_table_ptr->token_type ) == -1)
+			{
+				yyerror("Error: Wrong type");
+				
+				if(expression->sym_table_ptr->token_type == SIMBOLO_LITERAL_CHAR)
+				{
+					exit(IKS_ERROR_CHAR_TO_X);
+				}
+				else
+				{
+					if(expression->sym_table_ptr->token_type == SIMBOLO_LITERAL_STRING)
+					{
+						exit(IKS_ERROR_STRING_TO_X);
+					}
+					else
+					{
+						exit(IKS_ERROR_WRONG_TYPE);
+					}
+				}
+			} 
+			return node_symbol->type;
+		}
 	}
 	else if(node->type == AST_LITERAL)
 	{
@@ -107,5 +135,71 @@ int get_type(comp_tree_t* node)
 		} else return node_symbol->type;
 	}
 	else return node->type;
+}
+
+int check_types(int variable_type, int expression_type)
+{
+	if( variable_type == TK_PR_INT && expression_type == SIMBOLO_LITERAL_INT)
+	{
+		return TK_PR_INT;
+	}
+
+	if( variable_type == TK_PR_CHAR && expression_type == SIMBOLO_LITERAL_CHAR)
+	{
+		return TK_PR_CHAR;
+	}
+
+	if( variable_type == TK_PR_FLOAT && expression_type == SIMBOLO_LITERAL_FLOAT)
+	{
+		return TK_PR_FLOAT;
+	}
+
+	if( variable_type == TK_PR_BOOL && expression_type == SIMBOLO_LITERAL_BOOL)
+	{
+		return TK_PR_BOOL;
+	}
+
+	if( variable_type == TK_PR_STRING && expression_type == SIMBOLO_LITERAL_STRING)
+	{
+		return TK_PR_STRING;
+	}
+	
+	// conversao implicita de int pra float
+	if( variable_type == TK_PR_FLOAT && expression_type == SIMBOLO_LITERAL_INT)
+	{
+		return TK_PR_FLOAT;
+	}
+
+	// conversao implicita de int pra bool
+	if( variable_type == TK_PR_BOOL && expression_type == SIMBOLO_LITERAL_INT)
+	{
+		return TK_PR_BOOL;
+	}
+
+	// conversao implicita de bool pra int
+	if( variable_type == TK_PR_INT && expression_type == SIMBOLO_LITERAL_BOOL)
+	{
+		return TK_PR_INT;
+	}
+
+	// conversao implicita de bool pra float
+	if( variable_type == TK_PR_FLOAT && expression_type == SIMBOLO_LITERAL_BOOL)
+	{
+		return TK_PR_FLOAT;
+	}
+
+	// conversao implicita de float pra int
+	if( variable_type == TK_PR_INT && expression_type == SIMBOLO_LITERAL_FLOAT)
+	{
+		return TK_PR_INT;
+	}
+
+	// conversao implicita de float pra bool
+	if( variable_type == TK_PR_BOOL && expression_type == SIMBOLO_LITERAL_FLOAT)
+	{
+		return TK_PR_BOOL;
+	}
+
+	return -1;
 }
 

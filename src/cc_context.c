@@ -88,7 +88,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	sym->type = type;
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	strcpy((char*)sym->key, identifier);
-	printf("Adding Identifier: %d\n",type);
+
 
 	HASH_ADD_KEYPTR(hh, current_context->symbols_table, sym->key,
 		strlen(sym->key), sym);
@@ -107,15 +107,17 @@ void context_symbol_free(comp_context_symbol_t* s)
 }
 
 comp_context_symbol_t* context_find_identifier(comp_context_t* context, 
-		const char* identifier) {
-printf("Adding Identifier: %s\n",identifier);
+		const char* identifier) 
+{
+
 	comp_context_symbol_t* item = NULL;
 	HASH_FIND_STR(context->symbols_table, identifier, item);
 	return item;
 }
 
 comp_context_symbol_t* context_find_identifier_multilevel(
-		comp_context_t* context, const char* identifier) {
+		comp_context_t* context, const char* identifier) 
+{
 
 	if (context == NULL) return NULL;	
 	comp_context_t* c = context;
