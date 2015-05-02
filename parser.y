@@ -98,11 +98,11 @@ Const:
 		;
 
 Tipo:
-		  TK_PR_INT { }
-		| TK_PR_FLOAT { }
-		| TK_PR_BOOL { }
-		| TK_PR_CHAR { }
-		| TK_PR_STRING { }
+		  TK_PR_INT { $$ = $1; }
+		| TK_PR_FLOAT { $$ = $1; }
+		| TK_PR_BOOL { $$ = $1; }
+		| TK_PR_CHAR { $$ = $1; }
+		| TK_PR_STRING { $$ = $1; }
 		;
 
 Inteiro:
@@ -170,7 +170,7 @@ ListaDeExpressoes:
 		;
 
 Atribuicao:
-		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1); }
+		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3); }
 		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); get_type($1);}
 		| Literal '=' Expressao { yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
@@ -185,7 +185,7 @@ Saida:
 		;
 
 Variavel:
-		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type);} // pra parar com o seg fault eh soh nao passar o $1->token_type como parametro
+		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type);}
 		;
 
 Vetor:
@@ -233,8 +233,8 @@ ParametrosNaoVazio:
 		;
 
 DeclFuncao:
-		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6); context_add_identifier_to_current($2->token,AST_FUNCAO);}
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 	{ $$ = ast_create(AST_FUNCAO, $3, $7);  context_add_identifier_to_current($3->token,AST_FUNCAO);}
+		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6);  context_add_identifier_to_current($2->token,$1->token_type); printf("func\n");}
+		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 	{ $$ = ast_create(AST_FUNCAO, $3, $7);  context_add_identifier_to_current($3->token,$2->token_type);}
 		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {	yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		;
