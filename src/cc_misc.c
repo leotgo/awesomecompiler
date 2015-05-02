@@ -42,12 +42,14 @@ int recognize_token(int token_id) {
 	if (token_id == TK_IDENTIFICADOR || token_id == TK_LIT_FALSE
 		|| token_id == TK_LIT_TRUE || token_id == TK_LIT_INT
 		|| token_id == TK_LIT_FLOAT || token_id == TK_LIT_CHAR
-		|| token_id == TK_LIT_STRING) {
+		|| token_id == TK_LIT_STRING) 
+	{
 
 		/* defined in main.h, it's used to diferentiate the lexemes in the
 		* symbols table, by concatenating it to the token text. */
 		int token_type_id;
-		switch (token_id) {
+		switch (token_id) 
+		{
 		case TK_IDENTIFICADOR:
 			token_type_id = SIMBOLO_IDENTIFICADOR;
 			break;
@@ -75,7 +77,8 @@ int recognize_token(int token_id) {
 		/* remove double and single quotes if token is a string or
 		* char literal */
 		if (token_type_id == SIMBOLO_LITERAL_STRING ||
-			token_type_id == SIMBOLO_LITERAL_CHAR) {
+			token_type_id == SIMBOLO_LITERAL_CHAR) 
+		{
 			token_text = remove_quotes(token_text);
 		}
 
@@ -94,8 +97,12 @@ int recognize_token(int token_id) {
 		if (token_type_id == SIMBOLO_LITERAL_STRING ||
 			token_type_id == SIMBOLO_LITERAL_CHAR)
 			free((void*)token_text);
-	}
 
+		return token_id;
+	}
+	yylval.valor_simbolo_lexico = (comp_dict_item_t*)malloc(sizeof(struct comp_dict_item_t));
+	yylval.valor_simbolo_lexico->token = token_text;
+	yylval.valor_simbolo_lexico->token_type = token_id;
 	/* then, return the token's identifier. */
 	return token_id;
 }
