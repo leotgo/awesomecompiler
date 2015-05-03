@@ -239,6 +239,7 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 					if(expression->sym_table_ptr->token_type == SIMBOLO_LITERAL_STRING)
 					{
 						exit(IKS_ERROR_STRING_TO_X);
+						
 					}
 					else
 					{
@@ -246,6 +247,7 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 					}
 				}
 			} 
+			
 			return typeConvert(node_symbol->type);
 		}
 	}
@@ -270,7 +272,6 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 		node->type == AST_ARIM_DIVISAO 		||
 		node->type == AST_ARIM_INVERSAO		 )
 	{
-		printf("Teste2. \n");
 		printf("Type inference for expression: %d \n", type_inference(node));
 		return type_inference(node);
 	}
@@ -285,16 +286,20 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 	{
 		return type_inference(node);
 	}
+	else if(node->type == AST_CHAMADA_DE_FUNCAO)
+	{
+		comp_context_symbol_t* node_symbol;
+		node_symbol = context_find_identifier_multilevel(current_context, node->children[0]->sym_table_ptr->token);
+		return typeConvert( node_symbol->type );
+	}
 	else return node->type;
 }
 
 int check_function(comp_tree_t* node)
 {
-	getchar();
 	printf("func: %s\n", node->sym_table_ptr->token);
 	if(node->type == AST_IDENTIFICADOR)
 	{
-		
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
 	
