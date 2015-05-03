@@ -63,7 +63,7 @@ void context_pop() {
 }
 
 comp_context_symbol_t* context_add_identifier_to_current(
-		const char* identifier, int type) 
+		const char* identifier, int type, int purpose) 
 {
 	if (current_context == NULL )
 	{
@@ -86,6 +86,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	comp_context_symbol_t* sym = (comp_context_symbol_t*)
 		malloc(sizeof(comp_context_symbol_t));
 	sym->parameters = NULL;
+	sym->purpose = purpose;
 	sym->type = type;
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	strcpy((char*)sym->key, identifier);

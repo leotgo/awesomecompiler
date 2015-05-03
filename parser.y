@@ -71,6 +71,7 @@
 %type <valor_simbolo_lexico> Parametros
 %type <valor_simbolo_lexico> ParametrosNaoVazio
 
+
 %union 
 {
     struct comp_dict_item_t* valor_simbolo_lexico;
@@ -187,11 +188,11 @@ Saida:
 		;
 
 Variavel:
-		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type); $$ =$1;}
+		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type, NORMAL); $$ =$1;}
 		;
 
 Vetor:
-		Tipo TK_IDENTIFICADOR '[' Inteiro ']' { context_add_identifier_to_current($2->token,AST_VETOR_INDEXADO);}
+		Tipo TK_IDENTIFICADOR '[' Inteiro ']' { context_add_identifier_to_current($2->token,$1->token_type, VECTOR);}
 		;
 
 DeclVariavelGlobal: 
@@ -242,18 +243,18 @@ DeclFuncao:
 		;
 
 ArgumentosNaoVazio:
-		  Expressao { }
-		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3); }
+		  Expressao { $$ = $1; }
+		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3);}
 		;
 
 Argumentos:
-	      { $$->value = NULL; }
-		| Expressao { }
+	      { $$ = NULL; }
+		| Expressao { $$ = $1;  $$->expectedTypes = type_list_Add($$->expectedTypes, $1->token_type);}
 		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3); }
 		;
 
 ChamadaDeFuncao:
-		 Identificador '(' Argumentos ')' { $$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); check_function($1);}
+		 Identificador '(' Argumentos ')' { $$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); check_function($1, $3);}
 		;
 
 Comando:

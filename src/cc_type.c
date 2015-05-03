@@ -1,3 +1,4 @@
+
 #include "cc_type.h"
 #include "cc_tree.h"
 #include "cc_context.h"
@@ -295,7 +296,7 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 	else return node->type;
 }
 
-int check_function(comp_tree_t* node)
+int check_function(comp_tree_t* node, comp_tree_t* arguments)
 {
 	printf("func: %s\n", node->sym_table_ptr->token);
 	if(node->type == AST_IDENTIFICADOR)
