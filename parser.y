@@ -243,14 +243,14 @@ DeclFuncao:
 		;
 
 ArgumentosNaoVazio:
-		  Expressao { /*$$ = $1; $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));*/}
-		| Expressao ',' ArgumentosNaoVazio { /*$$ = ast_list($1, $3);$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($3));*/}
+		  Expressao { $$ = $1; $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
+		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3);$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($3));}
 		;
 
 Argumentos:
 	      { $$ = NULL; }
-		| Expressao { /*getchar();$$ = $1;  $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));*/}
-		| Expressao ',' ArgumentosNaoVazio { /*$$ = ast_list($1, $3); $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($3));*/}
+		| Expressao { /*getchar();*/$$ = $1;  $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
+		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3); $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($3));}
 		;
 
 ChamadaDeFuncao:
@@ -325,7 +325,7 @@ Programa:
 				              /*ast_generate_dot_graph(global_syntax_tree);*/
 								context_pop(); }
 		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); 
-				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();}
+				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();type_check($1);}
 		;
 /*
 	Itens:

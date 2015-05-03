@@ -30,4 +30,6 @@
 #define IKS_ERROR_WRONG_PAR_RETURN 14 /* parâmetro não é expressão compatível 
 										 com tipo do retorno */
 
+#define IKS_ERROR_FUNCTION_NO_RETURN 15
+
 #endif

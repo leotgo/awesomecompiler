@@ -91,20 +91,27 @@ int type_check_function(comp_tree_t* node)
 	comp_tree_t* ret = node->children[0];
 	
 	if( ret == NULL )
-	{
-		yyerror("Function child 0 pointer is NULL. \n");
 		return 0;
-	}
 
 	// Search for return node, to check whether the type matches
 	// the function type.
 	while(ret->type != AST_RETURN && ret->next != NULL)
 		ret = ret->next;
 	
-	int return_type = typeConvert( get_type ( ret->children[0] ) );	
+	if(ret->type != AST_RETURN)
+	{
+		yyerror("ERROR: Function has no RETURN statement defined");
+		exit(IKS_ERROR_FUNCTION_NO_RETURN);
+	}
+	else if(ret->next)
+	{
+		yyerror("WARNING: Code after RETURN statement will never be executed");
+	}
+
+	int return_type = typeConvert( typeConvert( get_type ( ret->children[0] ) ) );
 	
 	comp_context_symbol_t* node_symbol;
-	node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->key);
+	node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
 	int function_type = typeConvert( node_symbol->type );
 
 	if(return_type != function_type)
@@ -115,7 +122,11 @@ int type_check_function(comp_tree_t* node)
 	}
 	else
 	{
-		return type_check(node->children[0]);
+		int childCheck = type_check(node->children[0]);
+		if(node->next != NULL)
+			return type_check(node->next);
+		else
+			return childCheck;
 	}
 }
 
@@ -352,7 +363,7 @@ int typeConvert(int type)
 	}
 }
 
-int get_type(comp_tree_t* node, comp_tree_t* expression)
+int get_type(comp_tree_t* node/*, comp_tree_t* expression*/)
 {	
 	//printf("Entered get_type function\n\n");
 	if(node->type == AST_IDENTIFICADOR)
@@ -370,7 +381,9 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 		}
 		else
 		{
-			//printf("%d \n\n", expression->sym_table_ptr->token_type);
+			/*//printf("%d \n\n", expression->sym_table_ptr->token_type);
+			printf("teste %d, exp_type: %d\n", type_inference(expression), expression->num_children );
+			getchar();
 			if(check_types(node_symbol->type, type_inference(expression) ) == -1)
 			{
 				yyerror("Error: Wrong type");
@@ -391,8 +404,7 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 						exit(IKS_ERROR_WRONG_TYPE);
 					}
 				}
-			} 
-			
+			} */
 			return typeConvert(node_symbol->type);
 		}
 	}
@@ -442,7 +454,7 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 
 int check_function(comp_tree_t* node, comp_tree_t* arguments)
 {
-	printf("func: %s\n", node->sym_table_ptr->token);
+	/*printf("func: %s\n", node->sym_table_ptr->token);*/
 	if(node->type == AST_IDENTIFICADOR)
 	{
 		comp_context_symbol_t* node_symbol;
