@@ -3,12 +3,21 @@
 
 #include "cc_dict.h"
 #include "uthash.h"
+#include "cc_type.h"
+
+#define NORMAL 0
+#define VECTOR 1
+#define FUNCTION 2
 
 /* the symbols table that will be stored inside the compiler contexts */
 typedef struct comp_context_symbol_t {
 	const char* key; /* string defining the entry's key (i.e., the name of
 					 the identifier */
 	int type; /* type as defined by cc_type.h */
+
+	type_list* parameters; /* list with all parameters if element is function. If not, value will be NULL */
+
+	int purpose; /*0 = normal variable; 1 = vector; 2 = function; */
 
 	UT_hash_handle hh; /* hash handle. */
 } comp_context_symbol_t;
@@ -56,7 +65,10 @@ comp_context_symbol_t* context_find_identifier_multilevel(
  * IKS_ERROR_DECLARED. otherwise, adds the identifier to the current context. 
  * */
 comp_context_symbol_t* context_add_identifier_to_current(
-	const char* identifier, int type);
+	const char* identifier, int type, int purpose);
+
+comp_context_symbol_t* context_add_function_to_current(
+	const char* identifier, int type, type_list* parameters);
 
 /* the main context is where global variables and the all the function 
  * declarations are defined. */

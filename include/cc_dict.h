@@ -4,6 +4,7 @@
 /* for the symbol table, we used the library 'uthash', which is available 
  * for free at http://troydhanson.github.io/uthash/ */
 #include "uthash.h" 
+#include "cc_type.h"
 
 /* The structure defining the elements that the symbols table will store, as
  * defined by the requirements. */
