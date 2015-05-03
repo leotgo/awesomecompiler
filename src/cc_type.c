@@ -139,19 +139,91 @@ int type_check_while_do(comp_tree_t* node)
 
 int type_check_input(comp_tree_t* node)
 {
-	// still to implement
-	return 1;
+	if(node->children[0]->type != AST_IDENTIFICADOR)
+	{
+		yyerror("ERROR: INPUT only supports identifiers as arguments");
+		exit(IKS_ERROR_WRONG_TYPE);
+		return 0;
+	}
+	else
+	{
+		// Call type_inference function to determine whether the identifier exists
+		type_inference(node->children[0]);
+		return 1;
+	}
 }
 
 int type_check_output(comp_tree_t* node)
 {
-	// still to implement
+	if(node->children[0]->type == AST_ARIM_SOMA 		|| 
+	   node->children[0]->type == AST_ARIM_SUBTRACAO	||
+	   node->children[0]->type == AST_ARIM_MULTIPLICACAO 	|| 
+	   node->children[0]->type == AST_ARIM_DIVISAO		||
+	   node->children[0]->type == AST_ARIM_INVERSAO		||
+	   node->children[0]->type == AST_LITERAL		 )
+	{
+		return type_check_output_exp_list(node->children[0]);
+	}
+	else
+	{
+		yyerror("ERROR: OUTPUT only supports string literals or arithmetic expressions as arguments");
+		exit(IKS_ERROR_WRONG_TYPE);
+		return 0;
+	}
+}
+
+int type_check_output_exp_list(comp_tree_t* node)
+{
+	if(node->type == AST_ARIM_SOMA 		|| 
+	   node->type == AST_ARIM_SUBTRACAO	||
+	   node->type == AST_ARIM_MULTIPLICACAO 	|| 
+	   node->type == AST_ARIM_DIVISAO		||
+	   node->type == AST_ARIM_INVERSAO		 )
+	{
+	
+		// Call type_inference to check whether the expression has forming errors
+		type_inference(node);
+	
+		// Go for next expression in expression list
+		if(node->next != NULL) {
+			return type_check_output_exp_list(node->next);
+		}
+	}
+	else if(node->type == AST_LITERAL) 
+	{
+		int literalType = typeConvert( get_type( node ) );
+		if(literalType != IKS_STRING)
+		{
+			yyerror("ERROR: OUTPUT only supports string literals or arithmetic expressions as arguments");
+			exit(IKS_ERROR_WRONG_TYPE);
+			return 0;
+		}
+
+		if(node->next != NULL) {
+			return type_check_output_exp_list(node->next);
+		}
+	}
+	else 
+	{
+		yyerror("ERROR: One of the arguments of OUTPUT is not an expression or literal");
+		exit(IKS_ERROR_WRONG_TYPE);
+		return 0;
+	}
+
 	return 1;
 }
 
 int type_check_attribution(comp_tree_t* node)
 {
-	int var_type = typeConvert( get_type(  ) );
+	int var_type = typeConvert( get_type( node->children[0] ) );
+	int exp_type = typeConvert( get_type( node->children[1] ) );
+
+	if(var_type != exp_type)
+	{
+		yyerror("ERROR: Expression type does not match target variable type");
+		exit(IKS_ERROR_WRONG_TYPE);
+	}		
+
 	return 1;
 }
 
