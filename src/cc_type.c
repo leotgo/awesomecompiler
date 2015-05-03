@@ -87,7 +87,7 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 	
 	if(node->type == AST_IDENTIFICADOR)
 	{
-		getchar();
+		
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
 		//node_symbol = context_find_identifier(current_context, node->sym_table_ptr->key);
@@ -95,7 +95,7 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 		if(node_symbol == NULL)
 		{	
 			/* Literal not found in current context or in any of its parents */
-			yyerror("Error: Undeclared variable or function");
+			yyerror("Error: Undeclared variable");
 			exit(IKS_ERROR_UNDECLARED);
 		}
 		else
@@ -135,6 +135,29 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 		} else return node_symbol->type;
 	}
 	else return node->type;
+}
+
+int check_function(comp_tree_t* node)
+{
+	getchar();
+	printf("func: %s\n", node->sym_table_ptr->token);
+	if(node->type == AST_IDENTIFICADOR)
+	{
+		
+		comp_context_symbol_t* node_symbol;
+		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
+	
+		if(node_symbol == NULL)
+		{
+			/* function not found in current context or in any of its parents */
+			yyerror("Error: Undeclared function");
+			exit(IKS_ERROR_UNDECLARED);
+		}
+		else
+		{
+			
+		}
+	}
 }
 
 int check_types(int variable_type, int expression_type)

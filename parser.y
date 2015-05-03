@@ -233,7 +233,7 @@ ParametrosNaoVazio:
 		;
 
 DeclFuncao:
-		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6);  context_add_identifier_to_current($2->token,$1->token_type); printf("func\n");}
+		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6);  context_add_identifier_to_current($2->token,$1->token_type); }
 		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 	{ $$ = ast_create(AST_FUNCAO, $3, $7);  context_add_identifier_to_current($3->token,$2->token_type);}
 		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {	yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
@@ -251,7 +251,7 @@ Argumentos:
 		;
 
 ChamadaDeFuncao:
-		 Identificador '(' Argumentos ')' { $$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); get_type($1);}
+		 Identificador '(' Argumentos ')' { $$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); check_function($1);}
 		;
 
 Comando:
