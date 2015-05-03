@@ -99,6 +99,12 @@ int type_inference(comp_tree_t* node)
 		int childType_1 = typeConvert( get_type(node->children[0]) );
 		int childType_2 = typeConvert( get_type(node->children[1]) );	
 
+		if(childType_1 == IKS_STRING || childType_1 == IKS_CHAR || childType_2 == IKS_STRING || childType_2 == IKS_CHAR)
+		{
+			yyerror("ERROR: STRING and CHAR type terms are not supported in arithmetic expression");
+			exit(IKS_ERROR_WRONG_TYPE);
+		}
+
 		return type_binOperation_result(childType_1, childType_2);
 		
 	}
@@ -107,7 +113,7 @@ int type_inference(comp_tree_t* node)
 		int childType = typeConvert( get_type(node->children[0]) );
 		if(childType == IKS_STRING || childType == IKS_CHAR)
 		{
-			yyerror("Erro: Uso de string ou char em operacao de inversao!");
+			yyerror("ERROR: STRING and CHAR type terms are not supported in arithmetic expression");
 			exit(IKS_ERROR_WRONG_TYPE);
 		}
 
@@ -127,7 +133,7 @@ int type_inference(comp_tree_t* node)
 		
 		if(childType_1 == IKS_STRING || childType_1 == IKS_CHAR || childType_2 == IKS_STRING || childType_2 == IKS_CHAR)
 		{
-			yyerror("Erro: Uso de string ou char em operacao logica!");
+			yyerror("ERROR: STRING and CHAR type terms are not supported in logical expression");
 			exit(IKS_ERROR_WRONG_TYPE);
 		}
 
@@ -138,7 +144,7 @@ int type_inference(comp_tree_t* node)
 		int childType = typeConvert( get_type(node->children[0]) );
 		if(childType != IKS_BOOL)
 		{
-			yyerror("Erro: Uso de nao-booleano em operacao de negacao!");
+			yyerror("ERROR: STRING and CHAR type terms are not supported in logical expression");
 			exit(IKS_ERROR_WRONG_TYPE);
 		}
 		return childType;
@@ -203,7 +209,7 @@ int typeConvert(int type)
 
 int get_type(comp_tree_t* node, comp_tree_t* expression)
 {	
-	
+	//printf("Entered get_type function\n\n");
 	if(node->type == AST_IDENTIFICADOR)
 	{
 
@@ -245,7 +251,6 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 	}
 	else if(node->type == AST_LITERAL)
 	{
-		printf("Teste1. \n");
 		comp_dict_item_t* node_symbol;
 		node_symbol = symbols_table_find(node->sym_table_ptr->key, &global_symbols_table);
 		
@@ -256,7 +261,6 @@ int get_type(comp_tree_t* node, comp_tree_t* expression)
 		} 
 		else
 		{
-			printf("teste 2 %s: %d \n", node_symbol->token, typeConvert(node_symbol->token_type));
 			return typeConvert(node_symbol->token_type);
 		}
 	}
