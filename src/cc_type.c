@@ -87,8 +87,35 @@ int type_check(comp_tree_t* ast)
 
 int type_check_function(comp_tree_t* node)
 {
-	// still to implement
-	return 1;
+	comp_tree_t* ret = node->children[0];
+	
+	if( ret == NULL )
+	{
+		yyerror("Function child 0 pointer is NULL. \n");
+		return 0;
+	}
+
+	// Search for return node, to check whether the type matches
+	// the function type.
+	while(ret->type != AST_RETURN && ret->next != NULL)
+		ret = ret->next;
+	
+	int return_type = typeConvert( get_type ( ret->children[0] ) );	
+	
+	comp_context_symbol_t* node_symbol;
+	node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->key);
+	int function_type = typeConvert( node_symbol->type );
+
+	if(return_type != function_type)
+	{
+		yyerror("ERROR: Return type does not match function type");
+		exit(IKS_ERROR_WRONG_TYPE);
+		return 0;
+	}
+	else
+	{
+		return type_check(node->children[0]);
+	}
 }
 
 int type_check_if_else(comp_tree_t* node)
@@ -123,7 +150,7 @@ int type_check_output(comp_tree_t* node)
 
 int type_check_attribution(comp_tree_t* node)
 {
-	//still to implement
+	int var_type = typeConvert( get_type(  ) );
 	return 1;
 }
 
