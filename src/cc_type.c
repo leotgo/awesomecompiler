@@ -384,7 +384,32 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 		}
 		else
 		{
-			
+			if(node_symbol->purpose != FUNCTION)
+			{
+				if(node_symbol->purpose == NORMAL)
+				{
+					yyerror("Error: Trying to use variable as function");
+					exit(IKS_ERROR_VARIABLE);
+				}
+				else
+				{
+					if(node_symbol->purpose == VECTOR)
+					{
+						yyerror("Error: Trying to use vector as function");
+						exit(IKS_ERROR_VECTOR);		
+					}	
+				}
+			}/*
+			printf("verificando chamada de funcao");
+			getchar();
+			if(arguments->expectedTypes != NULL)
+			{
+				printf("arguments: %d", arguments->expectedTypes[0].type);
+			}
+			else
+			{
+				printf("arguments types null");
+			}*/
 		}
 	}
 }

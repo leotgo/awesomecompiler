@@ -243,14 +243,14 @@ DeclFuncao:
 		;
 
 ArgumentosNaoVazio:
-		  Expressao { $$ = $1; }
-		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3);}
+		  Expressao { /*$$ = $1; $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));*/}
+		| Expressao ',' ArgumentosNaoVazio { /*$$ = ast_list($1, $3);$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($3));*/}
 		;
 
 Argumentos:
 	      { $$ = NULL; }
-		| Expressao { $$ = $1;  $$->expectedTypes = type_list_Add($$->expectedTypes, $1->token_type);}
-		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3); }
+		| Expressao { /*getchar();$$ = $1;  $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));*/}
+		| Expressao ',' ArgumentosNaoVazio { /*$$ = ast_list($1, $3); $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($3));*/}
 		;
 
 ChamadaDeFuncao:
