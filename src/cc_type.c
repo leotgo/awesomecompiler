@@ -63,24 +63,96 @@ int type_list_Compare(type_list* list_a, type_list* list_b)
 
 int type_check(comp_tree_t* ast)
 {
-	type_list* childrenTypes = NULL;
+	if	(ast->type == AST_PROGRAMA)
+		type_check(ast->children[0]);
+	else if	(ast->type == AST_FUNCAO)
+		type_check_function(ast);
+	else if	(ast->type == AST_IF_ELSE)
+		type_check_if_else(ast);
+	else if	(ast->type == AST_DO_WHILE)
+		type_check_do_while(ast);
+	else if	(ast->type == AST_WHILE_DO)
+		type_check_while_do(ast);	
+	else if	(ast->type == AST_INPUT)
+		type_check_input(ast);
+	else if	(ast->type == AST_OUTPUT)
+		type_check_output(ast);
+	else if	(ast->type == AST_ATRIBUICAO)
+		type_check_attribution(ast);
 
-	// Recursive DFS to verify typing for basic expressions
-	// Iterate for each child and typecheck	them
-	int i;
-	for(i = 0; i < ast->num_children; i++)
+	if(ast->next != NULL)
+		return type_check(ast->next);
+	else
+		return 1;
+}
+
+int type_check_function(comp_tree_t* node)
+{
+	comp_tree_t* ret = node->children[0];
+	
+	if( ret == NULL )
 	{
-		if(type_check(ast->children[i]))
-			return 0;
-		else {
-			childrenTypes = type_list_Add(childrenTypes, get_type(ast->children[i]));
-		}
-		
+		yyerror("Function child 0 pointer is NULL. \n");
+		return 0;
 	}
 
-	// Typecheck current tree node - verify if children's types agree to expected types
-	int agreedTypes = type_list_Compare(ast->expectedTypes, childrenTypes);
-	return agreedTypes;
+	// Search for return node, to check whether the type matches
+	// the function type.
+	while(ret->type != AST_RETURN && ret->next != NULL)
+		ret = ret->next;
+	
+	int return_type = typeConvert( get_type ( ret->children[0] ) );	
+	
+	comp_context_symbol_t* node_symbol;
+	node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->key);
+	int function_type = typeConvert( node_symbol->type );
+
+	if(return_type != function_type)
+	{
+		yyerror("ERROR: Return type does not match function type");
+		exit(IKS_ERROR_WRONG_TYPE);
+		return 0;
+	}
+	else
+	{
+		return type_check(node->children[0]);
+	}
+}
+
+int type_check_if_else(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_do_while(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_while_do(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_input(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_output(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_attribution(comp_tree_t* node)
+{
+	int var_type = typeConvert( get_type(  ) );
+	return 1;
 }
 
 // type_inference function receives an expression (it has to be an expression! such as +, -, *, / or literals and identifiers
