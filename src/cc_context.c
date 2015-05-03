@@ -85,6 +85,43 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	
 	comp_context_symbol_t* sym = (comp_context_symbol_t*)
 		malloc(sizeof(comp_context_symbol_t));
+	sym->parameters = NULL;
+	sym->type = type;
+	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
+	strcpy((char*)sym->key, identifier);
+
+
+	HASH_ADD_KEYPTR(hh, current_context->symbols_table, sym->key,
+		strlen(sym->key), sym);
+	
+	return sym;
+}
+
+comp_context_symbol_t* context_add_function_to_current(
+		const char* identifier, int type, type_list* parameters) 
+{
+	if (current_context == NULL )
+	{
+		current_context = context_push_new();
+	}
+	if ( identifier == NULL || type == IKS_INVALID) 
+	{
+		/* error */
+		return NULL;
+	}
+	
+	if (context_find_identifier(current_context, identifier) != NULL) 
+	{
+		
+		yyerror("Error: Function already declared in scope");
+		/* error: variable was already declared in this scope */
+		exit(IKS_ERROR_DECLARED);
+	}
+	
+	comp_context_symbol_t* sym = (comp_context_symbol_t*)
+		malloc(sizeof(comp_context_symbol_t));
+	sym->parameters = parameters;
+	sym->purpose = FUNCTION;
 	sym->type = type;
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	strcpy((char*)sym->key, identifier);

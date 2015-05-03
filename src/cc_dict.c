@@ -24,7 +24,8 @@ void free_comp_dict_item_t(comp_dict_item_t* item) {
 comp_dict_t global_symbols_table = NULL;
 
 comp_dict_item_t* symbols_table_add(const char* key, int line_number,
-	int token_type, const char* token_value, comp_dict_t* table) {
+	int token_type, const char* token_value, comp_dict_t* table) 
+{
 
 	comp_dict_item_t* item = symbols_table_find(key, table);
 

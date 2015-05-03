@@ -67,7 +67,9 @@
 %type <ast_node> BlocoDeComandosFuncao
 %type <valor_simbolo_lexico> Variavel
 %type <valor_simbolo_lexico> Tipo
-
+%type <valor_simbolo_lexico> Parametro
+%type <valor_simbolo_lexico> Parametros
+%type <valor_simbolo_lexico> ParametrosNaoVazio
 
 %union 
 {
@@ -185,7 +187,7 @@ Saida:
 		;
 
 Variavel:
-		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type);}
+		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type); $$ =$1;}
 		;
 
 Vetor:
@@ -217,24 +219,24 @@ Retorno:
 		;
 
 Parametro:
-		  Variavel { }
-		| Const Variavel { }
+		  Variavel { $$ = $1;}
+		| Const Variavel { $$ = $2;}
 		;
 
 Parametros:
- 		  { }
-		| Parametro { }
-		| Parametro ',' ParametrosNaoVazio { }
+ 		  { $$->value = NULL; }
+		| Parametro { $$->value = type_list_Add($$->value, $1->token_type);}
+		| Parametro ',' ParametrosNaoVazio { $$->value= type_list_Add($3->value, $1->token_type); }
 		;
 
 ParametrosNaoVazio:
-		  Parametro { }
-		| Parametro ',' ParametrosNaoVazio { }
+		  Parametro {$$->value = type_list_Add($$->value, $1->token_type); }
+		| Parametro ',' ParametrosNaoVazio {$$->value= type_list_Add($3->value, $1->token_type); }
 		;
 
 DeclFuncao:
-		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6);  context_add_identifier_to_current($2->token,$1->token_type); }
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 	{ $$ = ast_create(AST_FUNCAO, $3, $7);  context_add_identifier_to_current($3->token,$2->token_type);}
+		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6);  context_add_function_to_current($2->token,$1->token_type, $4->value); }
+		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 	{ $$ = ast_create(AST_FUNCAO, $3, $7);  context_add_function_to_current($3->token,$2->token_type, $5->value);}
 		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {	yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		;
@@ -245,7 +247,7 @@ ArgumentosNaoVazio:
 		;
 
 Argumentos:
-	      { $$ = NULL; }
+	      { $$->value = NULL; }
 		| Expressao { }
 		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3); }
 		;
