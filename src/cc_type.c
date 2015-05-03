@@ -62,24 +62,69 @@ int type_list_Compare(type_list* list_a, type_list* list_b)
 
 int type_check(comp_tree_t* ast)
 {
-	type_list* childrenTypes = NULL;
+	if	(ast->type == AST_PROGRAMA)
+		type_check(ast->children[0]);
+	else if	(ast->type == AST_FUNCAO)
+		type_check_function(ast);
+	else if	(ast->type == AST_IF_ELSE)
+		type_check_if_else(ast);
+	else if	(ast->type == AST_DO_WHILE)
+		type_check_do_while(ast);
+	else if	(ast->type == AST_WHILE_DO)
+		type_check_while_do(ast);	
+	else if	(ast->type == AST_INPUT)
+		type_check_input(ast);
+	else if	(ast->type == AST_OUTPUT)
+		type_check_output(ast);
+	else if	(ast->type == AST_ATRIBUICAO)
+		type_check_attribution(ast);
 
-	// Recursive DFS to verify typing for basic expressions
-	// Iterate for each child and typecheck	them
-	int i;
-	for(i = 0; i < ast->num_children; i++)
-	{
-		if(type_check(ast->children[i]))
-			return 0;
-		else {
-			childrenTypes = type_list_Add(childrenTypes, get_type(ast->children[i]));
-		}
-		
-	}
+	if(ast->next != NULL)
+		return type_check(ast->next);
+	else
+		return 1;
+}
 
-	// Typecheck current tree node - verify if children's types agree to expected types
-	int agreedTypes = type_list_Compare(ast->expectedTypes, childrenTypes);
-	return agreedTypes;
+int type_check_function(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_if_else(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_do_while(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_while_do(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_input(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_output(comp_tree_t* node)
+{
+	// still to implement
+	return 1;
+}
+
+int type_check_attribution(comp_tree_t* node)
+{
+	//still to implement
+	return 1;
 }
 
 // type_inference function receives an expression (it has to be an expression! such as +, -, *, / or literals and identifiers
