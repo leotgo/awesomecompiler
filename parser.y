@@ -173,8 +173,8 @@ ListaDeExpressoes:
 		;
 
 Atribuicao:
-		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3); }
-		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); get_type($1);}
+		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3, NORMAL); }
+		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); get_type($1, VECTOR);}
 		| Literal '=' Expressao { yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
 
