@@ -5,6 +5,7 @@
 #include "cc_context.h"
 #include "cc_tree.h"
 #include "cc_dict.h" 
+#include "cc_error.h"
   
 %}
 
@@ -322,7 +323,7 @@ Declaracoes:
 
 Programa:
 		   { $$ = ast_create(AST_PROGRAMA, NULL); }
-		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1);free_value_pool();}
+		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1);free_value_pool();exit(IKS_SUCCESS);}
 		;
 /*
 	Itens:

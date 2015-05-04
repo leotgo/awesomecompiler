@@ -127,13 +127,14 @@ int type_check_function(comp_tree_t* node)
 
 
 		int return_type = typeConvert(  get_type ( ret->children[0], retrieve_node_purpose(ret->children[0]) ) ) ;
+		printf("return type: %d \n", return_type); 
 
 	
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
 		int function_type = typeConvert( node_symbol->type );
 
-		if(return_type != function_type)
+		if(!coercion_possible(return_type, function_type))
 		{
 			yyerror("ERROR: Return type does not match function type");
 			exit(IKS_ERROR_WRONG_PAR_RETURN);
@@ -255,6 +256,8 @@ int type_check_attribution(comp_tree_t* node)
 	}
 	else if(var_type != exp_type)
 	{
+		printf("var type: %d \n", var_type);
+		printf("exp type: %d \n", exp_type);
 		yyerror("ERROR: Expression type does not match target variable type");
 		exit(IKS_ERROR_WRONG_TYPE);
 	}		
@@ -453,6 +456,11 @@ int typeConvert(int type)
 
 int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 {	
+	if(node->type == AST_VETOR_INDEXADO)
+	{
+		type_check(node);
+		return get_type(node->children[0], VECTOR);
+	}
 	if(node->type == AST_IDENTIFICADOR)
 	{
 
