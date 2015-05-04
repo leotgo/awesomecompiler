@@ -109,7 +109,9 @@ int type_check_function(comp_tree_t* node)
 		yyerror("WARNING: Code after RETURN statement will never be executed");
 	}
 
-	int return_type = typeConvert( typeConvert( get_type ( ret->children[0],3 ) ) );
+
+	int return_type = typeConvert(  get_type ( ret->children[0],3 ) ) ;
+
 	
 	comp_context_symbol_t* node_symbol;
 	node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
@@ -475,6 +477,14 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 	{
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(current_context, node->children[0]->sym_table_ptr->token);
+
+		if(node_symbol == NULL)
+		{	
+			/* Function not found in current context or in any of its parents */
+			yyerror("Error: Undeclared function");
+			exit(IKS_ERROR_UNDECLARED);
+		}
+
 		return typeConvert( node_symbol->type );
 	}
 	else return node->type;
@@ -538,6 +548,7 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 		}
 	}
 }
+
 
 int check_types(int variable_type, int expression_type)
 {
