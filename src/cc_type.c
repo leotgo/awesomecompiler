@@ -10,6 +10,8 @@
 #define true 1
 #define false 0
 
+int coercion_possible(int type, int expected_type);
+
 // Adds a type to the specified type list, at the end
 // If list is null, memory is allocated for the list
 type_list* type_list_Add(type_list* list, int addedType)
@@ -42,6 +44,7 @@ int type_list_Compare(type_list* list_a, type_list* list_b)
 	while(list_a != NULL && list_b != NULL)
 	{
 		//printf("list a: %d, list b: %d\n", list_a->type, list_b->type);
+		
 		if(list_a->type != list_b->type)
 			return 0;
 		else
@@ -498,12 +501,23 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 			//getchar();
 			if(arguments != NULL)
 			{
-				//printf("arguments: %d\n", arguments->expectedTypes[0].type);
-				//printf("arguments tabela: %d\n", arguments->expectedTypes[0].type);
-				if(type_list_Compare(arguments->expectedTypes, node_symbol->parameters) == 0)
-				{
-					//printf("ERRO MOTHAFUCKA!\n");
-					//getchar();
+				comp_tree_t* arg = arguments;
+				type_list* expected_type = node_symbol->parameters;
+				while (arg) {
+					if (expected_type == NULL) {
+						/* error: given more parameters than expected. */
+					}
+					if (!coercion_possible(arg->type, expected_type->type)) {
+						/* error: parameter of invalid type, and no
+						 * coercion is possible. */
+					} else {
+						arg->induced_type_by_coercion = expected_type->type;
+					}
+					expected_type = expected_type->next;
+					arg = arg->next;
+				}
+				if (expected_type != NULL) {
+					/* error, given less parameters than expected. */
 				}
 			}
 			else
@@ -583,3 +597,8 @@ int check_types(int variable_type, int expression_type)
 	return -1;
 }
 
+int coercion_possible(int type, int expected_type) {
+	return ((type == IKS_INT || type == IKS_FLOAT || type == IKS_BOOL) &&
+		expected_type == IKS_INT || expected_type == IKS_FLOAT ||
+		expected_type == IKS_BOOL);
+}

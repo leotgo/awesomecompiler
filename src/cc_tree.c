@@ -35,6 +35,7 @@ comp_tree_t* ast_createv(int type, va_list args) {
 	t->num_children = 0;
 	t->sym_table_ptr = NULL;
 	t->children = NULL;
+	t->induced_type_by_coercion = IKS_INVALID;
 	t->next = NULL;
 
 	if (type == AST_PROGRAMA) {

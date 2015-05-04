@@ -9,6 +9,8 @@
 typedef struct comp_tree_t {
 	int type; /* the type of this node. see cc_ast.h for reference */
 
+	int induced_type_by_coercion;
+
 	comp_dict_item_t* sym_table_ptr; /* if the node type is AST_LITERAL or 
 									 AST_IDENTIFICADOR, this will point to the
 									 entry on the symbols table correspondent to
