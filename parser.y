@@ -325,7 +325,7 @@ Programa:
 				              /*ast_generate_dot_graph(global_syntax_tree);*/
 								context_pop(); }
 		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); 
-				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();type_check($1);}
+				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();type_check($1);free_value_pool();}
 		;
 /*
 	Itens:
