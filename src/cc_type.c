@@ -41,6 +41,7 @@ int type_list_Compare(type_list* list_a, type_list* list_b)
 	// Compare each element
 	while(list_a != NULL && list_b != NULL)
 	{
+		//printf("list a: %d, list b: %d\n", list_a->type, list_b->type);
 		if(list_a->type != list_b->type)
 			return 0;
 		else
@@ -454,6 +455,7 @@ int get_type(comp_tree_t* node/*, comp_tree_t* expression*/)
 
 int check_function(comp_tree_t* node, comp_tree_t* arguments)
 {
+
 	/*printf("func: %s\n", node->sym_table_ptr->token);*/
 	if(node->type == AST_IDENTIFICADOR)
 	{
@@ -483,17 +485,25 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 						exit(IKS_ERROR_VECTOR);		
 					}	
 				}
-			}/*
-			printf("verificando chamada de funcao");
-			getchar();
-			if(arguments->expectedTypes != NULL)
+			}
+			//printf("verificando chamada de funcao");
+			//getchar();
+			if(arguments != NULL)
 			{
-				printf("arguments: %d", arguments->expectedTypes[0].type);
+				//printf("arguments: %d\n", arguments->expectedTypes[0].type);
+				//printf("arguments tabela: %d\n", arguments->expectedTypes[0].type);
+				if(type_list_Compare(arguments->expectedTypes, node_symbol->parameters) == 0)
+				{
+					//printf("ERRO MOTHAFUCKA!\n");
+					//getchar();
+				}
 			}
 			else
 			{
-				printf("arguments types null");
-			}*/
+				//printf("arguments types null\n");
+			}
+			//printf("lol");
+			//getchar();
 		}
 	}
 }
