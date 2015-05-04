@@ -226,13 +226,13 @@ Parametro:
 
 Parametros:
  		  { $$ = NULL; }
-		| Parametro { $$->value = type_list_Add($$->value, $1->token_type);}
-		| Parametro ',' ParametrosNaoVazio { $$->value= type_list_Add($3->value, $1->token_type); }
+		| Parametro {printf("PType: %d\n",$1->token_type); $$->value = type_list_Add($$->value, $1->token_type);}
+		| Parametro ',' ParametrosNaoVazio {printf("PType2: %d\n",$1->token_type); $$->value= type_list_Add($3->value, $1->token_type); }
 		;
 
 ParametrosNaoVazio:
-		  Parametro {$$->value = type_list_Add($$->value, $1->token_type); }
-		| Parametro ',' ParametrosNaoVazio {$$->value= type_list_Add($3->value, $1->token_type); }
+		  Parametro {printf("PTypeNV: %d\n",$1->token_type);$$->value = type_list_Add($$->value, $1->token_type); }
+		| Parametro ',' ParametrosNaoVazio {printf("PTypeNV2: %d\n",$1->token_type);$$->value= type_list_Add($3->value, $1->token_type); }
 		;
 
 DeclFuncao:
@@ -243,14 +243,14 @@ DeclFuncao:
 		;
 
 ArgumentosNaoVazio:
-		  Expressao { $$ = $1; $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
-		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3);$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($3));}
+		  Expressao { printf("TypeANV: %d\n",type_inference($1)); $$ = $1; $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
+		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3);$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
 		;
 
 Argumentos:
 	      { $$ = NULL; }
-		| Expressao { /*getchar();*/$$ = $1;  $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
-		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3); $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($3));}
+		| Expressao { /*getchar();*/printf("TypeArg: %d\n",type_inference($1));$$ = $1;  $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
+		| Expressao ',' ArgumentosNaoVazio { printf("TypeARG2: %d\n",type_inference($1));$$ = ast_list($1, $3); $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
 		;
 
 ChamadaDeFuncao:

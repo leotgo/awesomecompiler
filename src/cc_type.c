@@ -18,13 +18,19 @@ type_list* type_list_Add(type_list* list, int addedType)
 {
 	if(list != NULL)
 	{
-		type_list* last = list;
+		/*type_list* last = list;
 		while(last->next != NULL) 
 			last = last->next;
 
 		last->next = (type_list*)malloc(sizeof(type_list));
 		last->next->type = addedType;
 		last->next->next = NULL;
+		*/
+		//Now reversing order
+		type_list* new = (type_list*)malloc(sizeof(type_list));
+		new->type = addedType;
+		new->next = list;
+		return new;	
 	}
 	else
 	{
@@ -383,6 +389,8 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 		{	
 			/* Literal not found in current context or in any of its parents */
 			yyerror("Error: Undeclared variable");
+			printf("Node: %d\n",node->type);
+			printf("Purpose: %d\n",purpose);getchar();
 			exit(IKS_ERROR_UNDECLARED);
 		}
 		else
@@ -532,20 +540,34 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 			{
 				comp_tree_t* arg = arguments;
 				type_list* expected_type = node_symbol->parameters;
-				while (arg) {
-					if (expected_type == NULL) {
+				while (arg) 
+				{
+					printf("arg: %d, expected: %d", typeConvert(arg->expectedTypes->type), typeConvert(expected_type->type));
+					if (expected_type == NULL) 
+					{	
+						yyerror("Error: Excess arguments");
+						exit(IKS_ERROR_EXCESS_ARGS);	
 						/* error: given more parameters than expected. */
 					}
-					if (!coercion_possible(arg->type, expected_type->type)) {
+					if (!coercion_possible(typeConvert(arg->expectedTypes->type), typeConvert(expected_type->type))) 
+					{
+						printf("erro de tipo!\n");
+						//yyerror("Error: Wrong arguments");
+						//exit(IKS_ERROR_WRONG_TYPE_ARGS);
 						/* error: parameter of invalid type, and no
 						 * coercion is possible. */
-					} else {
+					} 
+					else 
+					{
 						arg->induced_type_by_coercion = expected_type->type;
 					}
 					expected_type = expected_type->next;
 					arg = arg->next;
 				}
-				if (expected_type != NULL) {
+				if (expected_type != NULL) 
+				{
+					yyerror("Error: Missing arguments");
+					exit(IKS_ERROR_MISSING_ARGS);	
 					/* error, given less parameters than expected. */
 				}
 			}
@@ -630,8 +652,7 @@ int check_types(int variable_type, int expression_type)
 	return -1;
 }
 
-int coercion_possible(int type, int expected_type) {
-	return ((type == IKS_INT || type == IKS_FLOAT || type == IKS_BOOL) &&
-		expected_type == IKS_INT || expected_type == IKS_FLOAT ||
-		expected_type == IKS_BOOL);
+int coercion_possible(int type, int expected_type) 
+{
+	return type == expected_type || ( ((type == IKS_INT || type == IKS_FLOAT || type == IKS_BOOL) && (expected_type == IKS_INT || expected_type == IKS_FLOAT || expected_type == IKS_BOOL)));
 }
