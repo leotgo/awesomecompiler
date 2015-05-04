@@ -5,6 +5,15 @@
 
 comp_tree_t* global_syntax_tree = NULL;
 
+typedef struct tree_node_pool
+{
+	comp_tree_t* node;
+	struct tree_node_pool* next;
+} tree_node_pool;
+
+tree_node_pool* nodes_pool = NULL;
+tree_node_pool* current_pool_node = NULL;
+
 void free_tree_node(comp_tree_t* t) {
 	if (t == NULL) return;
 	
@@ -22,10 +31,38 @@ void free_tree_node(comp_tree_t* t) {
 	free(t);
 }
 
+void free_node_pool()
+{
+	current_pool_node = nodes_pool;
+	while(current_pool_node != NULL)
+	{
+		tree_node_pool* freed_node = current_pool_node;
+		current_pool_node = current_pool_node->next;
+		free_tree_node(freed_node->node);
+		free(freed_node);
+	}
+}
+
 comp_tree_t* ast_create(int type, ...) {
 	va_list args;
 	va_start(args, type);
 	comp_tree_t* ans = ast_createv(type, args);
+	
+	if(nodes_pool == NULL)
+	{
+		nodes_pool = (tree_node_pool*)malloc(sizeof(tree_node_pool));
+		nodes_pool->node = ans;
+		nodes_pool->next = NULL;
+		current_pool_node = nodes_pool;
+	}
+	else
+	{
+		current_pool_node->next = (tree_node_pool*)malloc(sizeof(tree_node_pool));
+		current_pool_node = current_pool_node->next;
+		current_pool_node->node = ans;
+		current_pool_node->next = NULL;
+	}
+
 	va_end(args);
 	return ans;	
 }
