@@ -173,7 +173,7 @@ ListaDeExpressoes:
 		;
 
 Atribuicao:
-		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3, NORMAL); }
+		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3, NORMAL);  }
 		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); get_type($1, VECTOR);}
 		| Literal '=' Expressao { yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
@@ -323,9 +323,9 @@ Declaracoes:
 Programa:
 		   { $$ = ast_create(AST_PROGRAMA, NULL); 
 				              /*ast_generate_dot_graph(global_syntax_tree);*/
-								context_pop(); }
+								 }
 		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); 
-				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();type_check($1);free_value_pool();}
+				             /* ast_generate_dot_graph(global_syntax_tree); */ type_check($1);free_value_pool();}
 		;
 /*
 	Itens:

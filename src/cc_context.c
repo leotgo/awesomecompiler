@@ -5,7 +5,15 @@
 
 comp_context_t* main_context = NULL;
 comp_context_t* current_context = NULL;
-
+__attribute__((constructor)) void begin()
+{
+	main_context = context_push_new();
+	current_context = main_context;
+}
+__attribute__((destructor)) void end()
+{
+	context_pop();
+}
 void context_free(comp_context_t* context) {
 	if (context->children != NULL) {
 		comp_context_t *b, *c;
@@ -67,7 +75,8 @@ comp_context_symbol_t* context_add_identifier_to_current(
 {
 	if (current_context == NULL )
 	{
-		current_context = context_push_new();
+printf("CURRENT IS NULL!\n");
+		current_context = main_context;
 	}
 	if ( identifier == NULL || type == IKS_INVALID) 
 	{
@@ -103,7 +112,8 @@ comp_context_symbol_t* context_add_function_to_current(
 {
 	if (current_context == NULL )
 	{
-		current_context = context_push_new();
+		printf("CURRENT IS NULL!\n");
+		current_context = main_context;	
 	}
 	if ( identifier == NULL || type == IKS_INVALID) 
 	{

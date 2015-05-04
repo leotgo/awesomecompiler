@@ -11,7 +11,7 @@
 #define false 0
 
 int coercion_possible(int type, int expected_type);
-
+comp_context_symbol_t* get_symbol(comp_tree_t* node);
 // Adds a type to the specified type list, at the end
 // If list is null, memory is allocated for the list
 type_list* type_list_Add(type_list* list, int addedType)
@@ -73,6 +73,7 @@ int type_list_Compare(type_list* list_a, type_list* list_b)
 
 int type_check(comp_tree_t* ast)
 {
+	printf("TypeCheck\n");
 	if	(ast->type == AST_PROGRAMA)
 		type_check(ast->children[0]);
 	else if	(ast->type == AST_FUNCAO)
@@ -111,7 +112,7 @@ int type_check_function(comp_tree_t* node)
 	
 	if(ret->type != AST_RETURN)
 	{
-		yyerror("ERROR: Function has no RETURN statement defined");
+		//yyerror("ERROR: Function has no RETURN statement defined");
 	}
 	else if(ret->next)
 	{
@@ -214,7 +215,8 @@ int type_check_output_exp_list(comp_tree_t* node)
 	}
 	else if(node->type == AST_LITERAL) 
 	{
-		int literalType = typeConvert( get_type( node, 3 ) );
+		comp_context_symbol_t* symbol= get_symbol(node);
+		int literalType = typeConvert( symbol->type );
 		if(literalType != IKS_STRING)
 		{
 			yyerror("ERROR: OUTPUT only supports string literals or arithmetic expressions as arguments");
@@ -238,6 +240,7 @@ int type_check_output_exp_list(comp_tree_t* node)
 
 int type_check_attribution(comp_tree_t* node)
 {
+	printf("entering\n");getchar();
 	int var_type = typeConvert( get_type( node->children[0], retrieve_node_purpose(node->children[0]) ) );
 	int exp_type = typeConvert( get_type( node->children[1], retrieve_node_purpose(node->children[1]) ) );
 
@@ -288,7 +291,8 @@ int type_inference(comp_tree_t* node)
 	}
 	else if(node->type == AST_LITERAL)
 	{
-		int type =  typeConvert( get_type(node),3 );
+		comp_context_symbol_t* symbol= get_symbol(node);
+		int type = typeConvert( symbol->type );
 		return type;
 	}
 	else if(node->type == AST_ARIM_SOMA 		|| 
@@ -425,11 +429,17 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
-	
+		printf("Current Context:%d\n",current_context);
 		if(node_symbol == NULL)
 		{	
 			/* Identifier not found in current context or in any of its parents */
+			printf("Node: %d\n",node->type);
+			printf("Filhos: %d\n",node->num_children);
+			printf("Sym: %d\n",node->sym_table_ptr);
+			printf("SYMTOKEN: %s\n",node->sym_table_ptr->token);
+			printf("Purpose: %d\n",purpose);getchar();			
 			yyerror("ERROR: Undeclared variable");
+			
 			exit(IKS_ERROR_UNDECLARED);
 		}
 		else
@@ -516,6 +526,66 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 	else return node->type;
 }
 
+comp_context_symbol_t* get_symbol(comp_tree_t* node)
+{
+	comp_context_symbol_t* node_symbol;
+	node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
+
+	if(node_symbol == NULL)
+	{	
+		/* Identifier not found in current context or in any of its parents */
+		yyerror("ERROR: Undeclared variable");
+		exit(IKS_ERROR_UNDECLARED);
+	}
+	else
+	{
+		return node_symbol;
+	}
+}
+
+int check_purpose(int purpose, comp_context_symbol_t* node_symbol)
+{
+	if(node_symbol->purpose == VECTOR && purpose == NORMAL)
+	{
+		yyerror("ERROR: Vector is being used as variable");
+		exit(IKS_ERROR_VECTOR);
+	}
+
+	if(node_symbol->purpose == NORMAL && purpose == VECTOR)
+	{
+		yyerror("ERROR: Variable is being used as vector");
+		exit(IKS_ERROR_VARIABLE);
+	}
+
+	if(node_symbol->purpose == FUNCTION && purpose == NORMAL)
+	{
+		yyerror("ERROR: Function is being used as variable");
+		exit(IKS_ERROR_FUNCTION);
+	}
+
+	if(node_symbol->purpose == FUNCTION && purpose == VECTOR)
+	{
+		yyerror("ERROR: Function is being used as vector");
+		exit(IKS_ERROR_FUNCTION);
+	}
+
+	if(node_symbol->purpose == NORMAL && purpose == FUNCTION)
+	{
+		yyerror("ERROR: Trying to use variable as function");
+		exit(IKS_ERROR_VARIABLE);
+	}
+
+	if(node_symbol->purpose == VECTOR && purpose == FUNCTION)
+	{
+		yyerror("ERROR: Trying to use vector as function");
+		exit(IKS_ERROR_VECTOR);		
+	}	
+	
+
+	return 1;
+
+}
+
 int check_function(comp_tree_t* node, comp_tree_t* arguments)
 {
 
@@ -549,15 +619,14 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 					}	
 				}
 			}
-			//printf("verificando chamada de funcao");
-			//getchar();
+
 			if(arguments != NULL)
 			{
 				comp_tree_t* arg = arguments;
 				type_list* expected_type = node_symbol->parameters;
 				while (arg) 
 				{
-					printf("arg: %d, expected: %d", typeConvert(arg->expectedTypes->type), typeConvert(expected_type->type));
+					printf("arg: %d, expected: %d\n", typeConvert(arg->expectedTypes->type), typeConvert(expected_type->type));
 					if (expected_type == NULL) 
 					{	
 						yyerror("Error: Excess arguments");
