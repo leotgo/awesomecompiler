@@ -63,8 +63,8 @@ comp_dict_item_t* symbols_table_add(const char* key, int line_number,
 	item->token_type = token_type;
 
 	/*item->params_list = (type_list*)malloc(sizeof(type_list));
-	item->params_list->type = -1;
-	item->params_list->next = NULL;*/
+	item->params_list->type = -1*/
+	item->params_list = NULL;
 
 	HASH_ADD_KEYPTR(hh, *table, item->key, strlen(item->key), item);
 
@@ -133,12 +133,10 @@ void* interpret_token_value(const char* text, int token_type, int line_number) {
 		/* if the token is an identifier, it has no value associated to it
 		 * for now. */
 		value = NULL;
-		printf("initialized '%s' as null\n", text);
-		getchar();
+
 	} else {
 		/* error. */
-		printf("invalid token type (%d) passed to interpret_token_value().\n",
-			token_type);
+
 		value = NULL;
 	}
 	return value;

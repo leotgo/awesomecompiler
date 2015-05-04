@@ -639,11 +639,12 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 			}
 			printf("Is function\n");
 
-			if(arguments != NULL)
+			if((arguments != NULL)&&(node_symbol != NULL))
 			{
 				printf("step\n");
 				comp_tree_t* arg = arguments;
-				type_list* expected_type = node_symbol->parameters;
+				type_list* expected_type = NULL;
+				expected_type = node_symbol->parameters;
 				comp_context_symbol_t* symbol;
 				while (arg != NULL) 
 				{
@@ -655,8 +656,8 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 						/* error: given more parameters than expected. */
 						return 0;
 					}
-					else 
-					{
+					//else 
+					//{
 						int arg_type;
 						if(arg->type != AST_LITERAL)
 						{
@@ -677,14 +678,14 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 							 * coercion is possible. */
 							return 0;
 						} 
-						else 
+						else 	
 						{
 							arg->induced_type_by_coercion = expected_type->type;
 						}
 						expected_type = expected_type->next;
 						arg = arg->next;
-						printf("lololol \n");
-					}
+						
+					//}
 				}
 				if (expected_type != NULL) 
 				{

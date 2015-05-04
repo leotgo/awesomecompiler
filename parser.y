@@ -227,12 +227,12 @@ Parametro:
 
 Parametros:
  		  { $$ = NULL; }
-		| Parametro {printf("PType: %d\n",$1->token_type); $$->params_list = type_list_Add($$->params_list, $1->token_type);}
+		| Parametro {printf("PType: %d\n",$1->token_type); $$->params_list = type_list_Add(NULL, $1->token_type);}
 		| Parametro ',' ParametrosNaoVazio {printf("PType2: %d\n",$1->token_type); $$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
 		;
 
 ParametrosNaoVazio:
-		  Parametro {printf("PTypeNV: %d\n",$1->token_type);$$->params_list = type_list_Add($$->params_list, $1->token_type); }
+		  Parametro {printf("PTypeNV: %d\n",$1->token_type);$$->params_list = type_list_Add(NULL, $1->token_type); }
 		| Parametro ',' ParametrosNaoVazio {printf("PTypeNV2: %d\n",$1->token_type);$$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
 		;
 
@@ -244,13 +244,13 @@ DeclFuncao:
 		;
 
 ArgumentosNaoVazio:
-		  Expressao { printf("TypeANV: %d\n",type_inference($1)); $$ = $1; $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
+		  Expressao { printf("TypeANV: %d\n",type_inference($1)); $$ = $1; $$->expectedTypes = type_list_Add(NULL, type_inference($1));}
 		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3);$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
 		;
 
 Argumentos:
 	      { $$ = NULL; }
-		| Expressao { /*getchar();*/printf("TypeArg: %d\n",type_inference($1));$$ = $1;  $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
+		| Expressao { /*getchar();*/printf("TypeArg: %d\n",type_inference($1));$$ = $1;  $$->expectedTypes = type_list_Add(NULL, type_inference($1));}
 		| Expressao ',' ArgumentosNaoVazio { printf("TypeARG2: %d\n",type_inference($1));$$ = ast_list($1, $3); $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
 		;
 
