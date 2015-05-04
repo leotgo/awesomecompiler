@@ -132,26 +132,80 @@ int type_check_function(comp_tree_t* node)
 			exit(IKS_ERROR_WRONG_PAR_RETURN);
 			return 0;
 		}
+		else
+		{
+			ret->induced_type_by_coercion = function_type;
+		}
 	}
 	return 1;	
 }
 
 int type_check_if_else(comp_tree_t* node)
 {
-	// still to implement
+	int test_type = typeConvert( get_type( node->children[0], retrieve_node_purpose( node->children[0] ) ) );
+
+	// child 0: test - has to be booleean
+	if(!coercion_possible(test_type, IKS_BOOL))
+	{
+		yyerror("ERROR: If-Else test is not a boolean");
+		exit(IKS_ERROR_WRONG_TYPE);
+		return 0;
+	}
+	else
+	{
+		node->children[0]->induced_type_by_coercion = IKS_BOOL;
+	}
+
+	// child 1: true case
+	type_check(node->children[1]);
+
+	// child 2: false case
+	if(node->children[2] != NULL)
+	{
+		type_check(node->children[2]);
+	}
+
 	return 1;
 }
 
 int type_check_do_while(comp_tree_t* node)
 {
-	// still to implement
-	return 1;
+	int test_type = typeConvert( get_type( node->children[0], retrieve_node_purpose( node->children[0] ) ) );
+
+	// child 0: test - has to be booleean
+	if(!coercion_possible(test_type, IKS_BOOL))
+	{
+		yyerror("ERROR: If-Else test is not a boolean");
+		exit(IKS_ERROR_WRONG_TYPE);
+		return 0;
+	}
+	else
+	{
+		node->children[0]->induced_type_by_coercion = IKS_BOOL;
+	}
+
+	// child 1: true case
+	return type_check(node->children[1]);
 }
 
 int type_check_while_do(comp_tree_t* node)
 {
-	// still to implement
-	return 1;
+	int test_type = typeConvert( get_type( node->children[0], retrieve_node_purpose( node->children[0] ) ) );
+
+	// child 0: test - has to be booleean
+	if(!coercion_possible(test_type, IKS_BOOL))
+	{
+		yyerror("ERROR: If-Else test is not a boolean");
+		exit(IKS_ERROR_WRONG_TYPE);
+		return 0;
+	}
+	else
+	{
+		node->children[0]->induced_type_by_coercion = IKS_BOOL;
+	}
+
+	// child 1: true case
+	return type_check(node->children[1]);
 }
 
 int type_check_input(comp_tree_t* node)
@@ -680,7 +734,7 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 						} 
 						else 	
 						{
-							arg->induced_type_by_coercion = expected_type->type;
+							arg->induced_type_by_coercion = typeConvert( expected_type->type );
 						}
 						expected_type = expected_type->next;
 						arg = arg->next;
