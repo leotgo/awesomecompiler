@@ -11,6 +11,14 @@ extern int lineCounter; /* lineCounter is declared in scanner.c,
 extern comp_dict_t global_symbols_table; /* the compiler's symbols table, declared
 								  in cc_dict.c */
 
+typedef struct lex_value_pool {
+	comp_dict_item_t* value;
+	struct lex_value_pool* next;
+} lex_value_pool;
+
+lex_value_pool* global_value_pool = NULL;
+lex_value_pool* current_value_pool_item = NULL;
+
 extern YYSTYPE yylval;
 extern char* yytext;
 
@@ -103,8 +111,40 @@ int recognize_token(int token_id) {
 	yylval.valor_simbolo_lexico = (comp_dict_item_t*)malloc(sizeof(struct comp_dict_item_t));
 	yylval.valor_simbolo_lexico->token = token_text;
 	yylval.valor_simbolo_lexico->token_type = token_id;
+
+	if(global_value_pool == NULL)
+	{
+		global_value_pool = (lex_value_pool*)malloc(sizeof(struct lex_value_pool));
+		current_value_pool_item = global_value_pool;
+		current_value_pool_item->value = yylval.valor_simbolo_lexico;
+		current_value_pool_item->next = NULL;
+	}
+	else
+	{
+		current_value_pool_item->next = (lex_value_pool*)malloc(sizeof(struct lex_value_pool));
+		current_value_pool_item = current_value_pool_item->next;
+		current_value_pool_item->value = yylval.valor_simbolo_lexico;
+		current_value_pool_item->next = NULL;
+	}
+
 	/* then, return the token's identifier. */
 	return token_id;
+}
+
+void free_value_pool()
+{
+	current_value_pool_item = global_value_pool;
+
+	while(current_value_pool_item->next != NULL)
+	{
+		lex_value_pool* thisValue = current_value_pool_item;
+		current_value_pool_item = current_value_pool_item->next;
+		free(thisValue->value);
+		free(thisValue);
+	}
+
+	free(current_value_pool_item->value);
+	free(current_value_pool_item);
 }
 
 char* remove_quotes(const char* token_text) {
