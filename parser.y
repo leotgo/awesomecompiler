@@ -173,8 +173,13 @@ ListaDeExpressoes:
 		;
 
 Atribuicao:
+<<<<<<< HEAD
 		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3, NORMAL);  }
 		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); get_type($1, VECTOR);}
+=======
+		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3, NORMAL); }
+		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, type_check( ast_create(AST_VETOR_INDEXADO, $1, $3) ), $6); get_type($1, VECTOR);}
+>>>>>>> 23f7b0c235bff8e48c9f3fb0b317218772686e5a
 		| Literal '=' Expressao { yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
 
@@ -276,12 +281,12 @@ SequenciaDeComandos:
 		;
 
 BlocoDeComandosFuncao:
-		  '{' { context_push_new(); } SequenciaDeComandos '}' { $$ = $3; context_pop();}
+		  '{' { context_push_new(); } SequenciaDeComandos { context_pop(); } '}' { $$ = $3; }
 		| '{' '}' { $$ = NULL; }
 		;
 
 BlocoDeComandos:
-		  '{' { context_push_new(); } SequenciaDeComandos '}' { $$ = ast_create(AST_BLOCO, $3);context_pop(); }
+		  '{' { context_push_new(); } SequenciaDeComandos { context_pop(); } '}' { $$ = ast_create(AST_BLOCO, $3); }
 		| '{' '}' { $$ = ast_create(AST_BLOCO, NULL); }
 		;
 
@@ -323,9 +328,15 @@ Declaracoes:
 Programa:
 		   { $$ = ast_create(AST_PROGRAMA, NULL); 
 				              /*ast_generate_dot_graph(global_syntax_tree);*/
+<<<<<<< HEAD
 								 }
 		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); 
 				             /* ast_generate_dot_graph(global_syntax_tree); */ type_check($1);free_value_pool();}
+=======
+								context_pop(); }
+		| { context_push_new(); } Declaracoes { $$ = ast_create(AST_PROGRAMA, $2); 
+				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();print_tree($2, 0);type_check($2);free_value_pool();}
+>>>>>>> 23f7b0c235bff8e48c9f3fb0b317218772686e5a
 		;
 /*
 	Itens:
