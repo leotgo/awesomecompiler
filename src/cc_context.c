@@ -110,7 +110,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	HASH_ADD_KEYPTR(hh, current_context->symbols_table, sym->key,
 		strlen(sym->key), sym);
 	
-	printf("Added identifier to current context: %s \n", sym->key);
+	//printf("Added identifier to current context: %s \n", sym->key);
 
 	return sym;
 }

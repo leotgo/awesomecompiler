@@ -147,6 +147,7 @@ int type_check_if_else(comp_tree_t* node)
 	// child 0: test - has to be booleean
 	if(!coercion_possible(test_type, IKS_BOOL))
 	{
+		printf("Test type: %d \n", test_type);
 		yyerror("ERROR: If-Else test is not a boolean");
 		exit(IKS_ERROR_WRONG_TYPE);
 		return 0;
@@ -415,6 +416,7 @@ int type_inference(comp_tree_t* node)
 	}
 	else if(node->type == AST_LOGICO_E 			|| 
 		node->type == AST_LOGICO_OU 			||
+		node->type == AST_LOGICO_COMP_IGUAL 		|| 
 		node->type == AST_LOGICO_COMP_DIF 		|| 
 		node->type == AST_LOGICO_COMP_LE 		||
 		node->type == AST_LOGICO_COMP_GE		||	 
@@ -425,10 +427,21 @@ int type_inference(comp_tree_t* node)
 		int childType_1 = typeConvert( get_type(node->children[0]), retrieve_node_purpose(node->children[0]) );
 		int childType_2 = typeConvert( get_type(node->children[1]), retrieve_node_purpose(node->children[1]) );
 		
-		if(childType_1 == IKS_STRING || childType_1 == IKS_CHAR || childType_2 == IKS_STRING || childType_2 == IKS_CHAR)
+		if(childType_1 != childType_2)
 		{
-			yyerror("ERROR: STRING and CHAR type terms are not supported in logical expression");
-			exit(IKS_ERROR_WRONG_TYPE);
+			if(!coercion_possible(childType_1, childType_2))
+			{
+				if(!coercion_possible(childType_1, childType_2))
+				{
+					yyerror("ERROR: Comparison elements have different types");
+					exit(IKS_ERROR_WRONG_TYPE);
+					return 0;
+				}
+				else
+					node->children[1]->induced_type_by_coercion = childType_1;
+			}
+			else
+				node->children[0]->induced_type_by_coercion = childType_2;
 		}
 
 		return IKS_BOOL;
@@ -503,7 +516,7 @@ int typeConvert(int type)
 
 int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 {	
-	printf("node: %d", node->type);
+	//printf("node: %d", node->type);
 	if(node->type == AST_VETOR_INDEXADO)
 	{
 		type_check(node);
@@ -525,7 +538,7 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 			printf("SYMTOKEN: %s\n",node->sym_table_ptr->token);
 			printf("Purpose: %d\n",purpose);	*/	
 
-			printf("Undeclared variable: %s\n", node->sym_table_ptr->token);
+			//printf("Undeclared variable: %s\n", node->sym_table_ptr->token);
 			
 			yyerror("ERROR: Undeclared variable");
 			
@@ -533,7 +546,7 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 		}
 		else
 		{
-			printf("purpose: %d, symbol: %d\n", purpose, node_symbol->purpose);getchar();
+			//printf("purpose: %d, symbol: %d\n", purpose, node_symbol->purpose);getchar();
 			if(purpose != 3 )
 			{
 				check_purpose(purpose, node_symbol);
@@ -567,6 +580,7 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 	}
 	else if(node->type == AST_LOGICO_E 			|| 
 		node->type == AST_LOGICO_OU 			||
+		node->type == AST_LOGICO_COMP_IGUAL 		|| 
 		node->type == AST_LOGICO_COMP_DIF 		|| 
 		node->type == AST_LOGICO_COMP_LE 		||
 		node->type == AST_LOGICO_COMP_GE		||
@@ -716,7 +730,7 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 						if(arg->type != AST_LITERAL)
 						{
 							symbol = get_symbol(arg);
-							printf("symbol->type: %d, expected: %d", typeConvert( symbol->type ), typeConvert(expected_type->type));getchar();
+							//printf("symbol->type: %d, expected: %d", typeConvert( symbol->type ), typeConvert(expected_type->type));getchar();
 							arg_type = symbol->type;
 						}
 						else
