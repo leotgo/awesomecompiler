@@ -174,7 +174,7 @@ ListaDeExpressoes:
 
 Atribuicao:
 		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3, NORMAL); }
-		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); get_type($1, VECTOR);}
+		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, type_check( ast_create(AST_VETOR_INDEXADO, $1, $3) ), $6); get_type($1, VECTOR);}
 		| Literal '=' Expressao { yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
 
@@ -276,12 +276,12 @@ SequenciaDeComandos:
 		;
 
 BlocoDeComandosFuncao:
-		  '{' { context_push_new(); } SequenciaDeComandos '}' { $$ = $3; context_pop();}
+		  '{' { context_push_new(); } SequenciaDeComandos { context_pop(); } '}' { $$ = $3; }
 		| '{' '}' { $$ = NULL; }
 		;
 
 BlocoDeComandos:
-		  '{' { context_push_new(); } SequenciaDeComandos '}' { $$ = ast_create(AST_BLOCO, $3);context_pop(); }
+		  '{' { context_push_new(); } SequenciaDeComandos { context_pop(); } '}' { $$ = ast_create(AST_BLOCO, $3); }
 		| '{' '}' { $$ = ast_create(AST_BLOCO, NULL); }
 		;
 
@@ -324,8 +324,8 @@ Programa:
 		   { $$ = ast_create(AST_PROGRAMA, NULL); 
 				              /*ast_generate_dot_graph(global_syntax_tree);*/
 								context_pop(); }
-		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); 
-				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();type_check($1);free_value_pool();}
+		| { context_push_new(); } Declaracoes { $$ = ast_create(AST_PROGRAMA, $2); 
+				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();print_tree($2, 0);type_check($2);free_value_pool();}
 		;
 /*
 	Itens:
