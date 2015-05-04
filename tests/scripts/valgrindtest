@@ -1,4 +1,17 @@
 #!/bin/bash
+
+#check if valgrind is installed
+VALGRIND=`which valgrind`
+if [ "$VALGRIND" = "" ]
+then
+    exit 2
+fi
+
+if [ ! -x $VALGRIND ]
+then
+    exit 2
+fi
+
 if [[ $# -lt 1 ]]; then
 	echo "Usage: $0 BINARY PARAMETERS"
 	exit 2
