@@ -4,6 +4,7 @@
 #include "cc_ast.h"
 #include "cc_dict.h"
 #include "cc_type.h"
+#include "cc_context.h"
 #include <stdarg.h>
 
 typedef struct comp_tree_t {
@@ -17,6 +18,8 @@ typedef struct comp_tree_t {
 									 that symbol. otherwise, it is NULL. */
 
 	int num_children; /* the number of children pertaining to that node. */
+
+	struct comp_context_t* context;
 	
 
 	struct comp_tree_t** children; /* a list of node pointers to the children

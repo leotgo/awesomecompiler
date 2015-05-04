@@ -1,5 +1,6 @@
 #include "cc_tree.h"
 #include "cc_gv.h"
+#include "cc_context.h"
 #include <stdio.h>
 
 comp_tree_t* global_syntax_tree = NULL;
@@ -37,6 +38,7 @@ comp_tree_t* ast_createv(int type, va_list args) {
 	t->children = NULL;
 	t->induced_type_by_coercion = IKS_INVALID;
 	t->next = NULL;
+	t->context = current_context;
 
 	if (type == AST_PROGRAMA) {
 		/* 'program' has 1 child: the first function. 
@@ -172,7 +174,7 @@ void ast_generate_dot_graph(comp_tree_t* t) {
 		gv_connect(t, t->next);
 	}
 }
-
+/*
 void print_tree(comp_tree_t* t, int tabs)
 {
 	print_tabs(tabs);
@@ -248,4 +250,4 @@ void print_node(comp_tree_t* t, int tabs)
 	}
 
 	printf("\n");
-}
+}*/

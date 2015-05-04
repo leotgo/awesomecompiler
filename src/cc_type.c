@@ -73,6 +73,8 @@ int type_list_Compare(type_list* list_a, type_list* list_b)
 
 int type_check(comp_tree_t* ast)
 {
+	if	(ast == NULL)
+		return 1;
 	if	(ast->type == AST_PROGRAMA)
 		type_check(ast->children[0]);
 	else if	(ast->type == AST_FUNCAO)
@@ -93,6 +95,7 @@ int type_check(comp_tree_t* ast)
 		type_check_indexed_vector(ast);
 	else if (ast->type == AST_CHAMADA_DE_FUNCAO)
 		type_check_function_call(ast);
+	
 	if(ast->next != NULL)
 		return type_check(ast->next);
 	else
@@ -131,7 +134,7 @@ int type_check_function(comp_tree_t* node)
 
 	
 		comp_context_symbol_t* node_symbol;
-		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
+		node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
 		int function_type = typeConvert( node_symbol->type );
 
 		if(!coercion_possible(return_type, function_type))
@@ -465,7 +468,7 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 	{
 
 		comp_context_symbol_t* node_symbol;
-		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
+		node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
 		//printf("Current Context:%d\n",(int)current_context);
 		if(node_symbol == NULL)
 		{	
@@ -530,7 +533,7 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 	else if(node->type == AST_CHAMADA_DE_FUNCAO)
 	{
 		comp_context_symbol_t* node_symbol;
-		node_symbol = context_find_identifier_multilevel(current_context, node->children[0]->sym_table_ptr->token);
+		node_symbol = context_find_identifier_multilevel(node->context, node->children[0]->sym_table_ptr->token);
 
 		if(node_symbol == NULL)
 		{	
@@ -547,7 +550,7 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 comp_context_symbol_t* get_symbol(comp_tree_t* node)
 {
 	comp_context_symbol_t* node_symbol;
-	node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
+	node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
 
 	if(node_symbol == NULL)
 	{	
@@ -607,12 +610,11 @@ int check_purpose(int purpose, comp_context_symbol_t* node_symbol)
 
 int check_function(comp_tree_t* node, comp_tree_t* arguments)
 {
-
 	/*printf("func: %s\n", node->sym_table_ptr->token);*/
 	if(node->type == AST_IDENTIFICADOR)
 	{
 		comp_context_symbol_t* node_symbol;
-		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
+		node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
 	
 		if(node_symbol == NULL)
 		{
