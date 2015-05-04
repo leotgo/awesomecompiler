@@ -89,7 +89,8 @@ int type_check(comp_tree_t* ast)
 		type_check_output(ast);
 	else if	(ast->type == AST_ATRIBUICAO)
 		type_check_attribution(ast);
-
+	else if (ast->type == AST_CHAMADA_DE_FUNCAO)
+		type_check_function_call(ast);
 	if(ast->next != NULL)
 		return type_check(ast->next);
 	else
@@ -111,7 +112,6 @@ int type_check_function(comp_tree_t* node)
 	if(ret->type != AST_RETURN)
 	{
 		yyerror("ERROR: Function has no RETURN statement defined");
-		exit(IKS_ERROR_FUNCTION_NO_RETURN);
 	}
 	else if(ret->next)
 	{
@@ -119,7 +119,7 @@ int type_check_function(comp_tree_t* node)
 	}
 
 
-	int return_type = typeConvert(  get_type ( ret->children[0],3 ) ) ;
+	int return_type = typeConvert(  get_type ( ret->children[0], retrieve_node_purpose(ret->children[0]) ) ) ;
 
 	
 	comp_context_symbol_t* node_symbol;
@@ -129,7 +129,7 @@ int type_check_function(comp_tree_t* node)
 	if(return_type != function_type)
 	{
 		yyerror("ERROR: Return type does not match function type");
-		exit(IKS_ERROR_WRONG_TYPE);
+		exit(IKS_ERROR_WRONG_PAR_RETURN);
 		return 0;
 	}
 	else
@@ -165,7 +165,7 @@ int type_check_input(comp_tree_t* node)
 	if(node->children[0]->type != AST_IDENTIFICADOR)
 	{
 		yyerror("ERROR: INPUT only supports identifiers as arguments");
-		exit(IKS_ERROR_WRONG_TYPE);
+		exit(IKS_ERROR_WRONG_PAR_INPUT);
 		return 0;
 	}
 	else
@@ -190,7 +190,7 @@ int type_check_output(comp_tree_t* node)
 	else
 	{
 		yyerror("ERROR: OUTPUT only supports string literals or arithmetic expressions as arguments");
-		exit(IKS_ERROR_WRONG_TYPE);
+		exit(IKS_ERROR_WRONG_PAR_OUTPUT);
 		return 0;
 	}
 }
@@ -218,7 +218,7 @@ int type_check_output_exp_list(comp_tree_t* node)
 		if(literalType != IKS_STRING)
 		{
 			yyerror("ERROR: OUTPUT only supports string literals or arithmetic expressions as arguments");
-			exit(IKS_ERROR_WRONG_TYPE);
+			exit(IKS_ERROR_WRONG_PAR_OUTPUT);
 			return 0;
 		}
 
@@ -229,7 +229,7 @@ int type_check_output_exp_list(comp_tree_t* node)
 	else 
 	{
 		yyerror("ERROR: One of the arguments of OUTPUT is not an expression or literal");
-		exit(IKS_ERROR_WRONG_TYPE);
+		exit(IKS_ERROR_WRONG_PAR_OUTPUT);
 		return 0;
 	}
 
@@ -238,10 +238,20 @@ int type_check_output_exp_list(comp_tree_t* node)
 
 int type_check_attribution(comp_tree_t* node)
 {
-	int var_type = typeConvert( get_type( node->children[0],3 ) );
-	int exp_type = typeConvert( get_type( node->children[1],3 ) );
+	int var_type = typeConvert( get_type( node->children[0], retrieve_node_purpose(node->children[0]) ) );
+	int exp_type = typeConvert( get_type( node->children[1], retrieve_node_purpose(node->children[1]) ) );
 
-	if(var_type != exp_type)
+	if(var_type != IKS_STRING && exp_type == IKS_STRING)
+	{
+		yyerror("ERROR: Impossible coertion from STRING type to variable type");
+		exit(IKS_ERROR_STRING_TO_X);
+	}
+	else if(var_type != IKS_CHAR && exp_type == IKS_CHAR)
+	{
+		yyerror("ERROR: Impossible coertion from CHAR type to variable type");
+		exit(IKS_ERROR_CHAR_TO_X);
+	}
+	else if(var_type != exp_type)
 	{
 		yyerror("ERROR: Expression type does not match target variable type");
 		exit(IKS_ERROR_WRONG_TYPE);
@@ -250,10 +260,33 @@ int type_check_attribution(comp_tree_t* node)
 	return 1;
 }
 
+int type_check_function_call(comp_tree_t* node)
+{
+	
+	return 1;
+}
+
+int retrieve_node_purpose(comp_tree_t* node)
+{
+	if(node->type == AST_IDENTIFICADOR)
+		return NORMAL;
+	else if(node->type == AST_VETOR_INDEXADO)
+		return VECTOR;
+	else if(node->type == AST_CHAMADA_DE_FUNCAO)
+		return FUNCTION;
+	else
+		return 3;
+}
+
 // type_inference function receives an expression (it has to be an expression! such as +, -, *, / or literals and identifiers
 int type_inference(comp_tree_t* node)
 {
-	if(node->type == AST_LITERAL || node->type == AST_IDENTIFICADOR)
+	if(node->type == AST_IDENTIFICADOR)
+	{
+		int type =  typeConvert( get_type(node), retrieve_node_purpose(node) );
+		return type;
+	}
+	else if(node->type == AST_LITERAL)
 	{
 		int type =  typeConvert( get_type(node),3 );
 		return type;
@@ -264,13 +297,18 @@ int type_inference(comp_tree_t* node)
 		node->type == AST_ARIM_DIVISAO		 )
 	{
 		// Get children nodes type
-		int childType_1 = typeConvert( get_type(node->children[0]),3 );
-		int childType_2 = typeConvert( get_type(node->children[1]),3 );	
+		int childType_1 = typeConvert( get_type(node->children[0]), retrieve_node_purpose(node->children[0]) );
+		int childType_2 = typeConvert( get_type(node->children[1]), retrieve_node_purpose(node->children[1]) );	
 
-		if(childType_1 == IKS_STRING || childType_1 == IKS_CHAR || childType_2 == IKS_STRING || childType_2 == IKS_CHAR)
+		if(childType_1 == IKS_STRING ||  childType_2 == IKS_STRING)
 		{
-			yyerror("ERROR: STRING and CHAR type terms are not supported in arithmetic expression");
-			exit(IKS_ERROR_WRONG_TYPE);
+			yyerror("ERROR: STRING type terms are not supported in arithmetic expression");
+			exit(IKS_ERROR_STRING_TO_X);
+		}
+		else if(childType_1 == IKS_CHAR || childType_2 == IKS_CHAR)
+		{
+			yyerror("ERROR: CHAR type terms are not supported in arithmetic expression");
+			exit(IKS_ERROR_CHAR_TO_X);
 		}
 
 		return type_binOperation_result(childType_1, childType_2);
@@ -278,11 +316,16 @@ int type_inference(comp_tree_t* node)
 	}
 	else if(node->type == AST_ARIM_INVERSAO)
 	{
-		int childType = typeConvert( get_type(node->children[0]),3 );
-		if(childType == IKS_STRING || childType == IKS_CHAR)
+		int childType = typeConvert( get_type(node->children[0]), retrieve_node_purpose(node->children[0]) );
+		if(childType == IKS_STRING)
 		{
-			yyerror("ERROR: STRING and CHAR type terms are not supported in arithmetic expression");
-			exit(IKS_ERROR_WRONG_TYPE);
+			yyerror("ERROR: STRING type terms are not supported in arithmetic expression");
+			exit(IKS_ERROR_STRING_TO_X);
+		}
+		else if(childType == IKS_CHAR)
+		{
+			yyerror("ERROR: CHAR type terms are not supported in arithmetic expression");
+			exit(IKS_ERROR_CHAR_TO_X);
 		}
 
 		return childType;
@@ -296,8 +339,8 @@ int type_inference(comp_tree_t* node)
 		node->type == AST_LOGICO_COMP_G 		 )
 		
 	{
-		int childType_1 = typeConvert( get_type(node->children[0]),3 );
-		int childType_2 = typeConvert( get_type(node->children[1]),3 );
+		int childType_1 = typeConvert( get_type(node->children[0]), retrieve_node_purpose(node->children[0]) );
+		int childType_2 = typeConvert( get_type(node->children[1]), retrieve_node_purpose(node->children[1]) );
 		
 		if(childType_1 == IKS_STRING || childType_1 == IKS_CHAR || childType_2 == IKS_STRING || childType_2 == IKS_CHAR)
 		{
@@ -309,7 +352,7 @@ int type_inference(comp_tree_t* node)
 	}
 	else if(node->type == AST_LOGICO_COMP_NEGACAO)
 	{
-		int childType = typeConvert( get_type(node->children[0]),3 );
+		int childType = typeConvert( get_type(node->children[0]), retrieve_node_purpose(node->children[0]) );
 		if(childType != IKS_BOOL)
 		{
 			yyerror("ERROR: STRING and CHAR type terms are not supported in logical expression");
@@ -377,20 +420,16 @@ int typeConvert(int type)
 
 int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 {	
-	//printf("Entered get_type function\n\n");
 	if(node->type == AST_IDENTIFICADOR)
 	{
 
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
-		//node_symbol = context_find_identifier(current_context, node->sym_table_ptr->key);
 	
 		if(node_symbol == NULL)
 		{	
-			/* Literal not found in current context or in any of its parents */
-			yyerror("Error: Undeclared variable");
-			printf("Node: %d\n",node->type);
-			printf("Purpose: %d\n",purpose);getchar();
+			/* Identifier not found in current context or in any of its parents */
+			yyerror("ERROR: Undeclared variable");
 			exit(IKS_ERROR_UNDECLARED);
 		}
 		else
@@ -400,52 +439,28 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 			{
 				if(node_symbol->purpose == VECTOR && purpose == NORMAL)
 				{
-					yyerror("Error: Vector is being used as variable");
+					yyerror("ERROR: Vector is being used as variable");
 					exit(IKS_ERROR_VECTOR);
 				}
 
 				if(node_symbol->purpose == NORMAL && purpose == VECTOR)
 				{
-					yyerror("Error: Variable is being used as vector");
+					yyerror("ERROR: Variable is being used as vector");
 					exit(IKS_ERROR_VARIABLE);
 				}
 	
 				if(node_symbol->purpose == FUNCTION && purpose == NORMAL)
 				{
-					yyerror("Error: Function is being used as variable");
+					yyerror("ERROR: Function is being used as variable");
 					exit(IKS_ERROR_FUNCTION);
 				}
 
 				if(node_symbol->purpose == FUNCTION && purpose == VECTOR)
 				{
-					yyerror("Error: Function is being used as vector");
+					yyerror("ERROR: Function is being used as vector");
 					exit(IKS_ERROR_FUNCTION);
 				}
 			}
-			/*//printf("%d \n\n", expression->sym_table_ptr->token_type);
-			printf("teste %d, exp_type: %d\n", type_inference(expression), expression->num_children );
-			getchar();
-			if(check_types(node_symbol->type, type_inference(expression) ) == -1)
-			{
-				yyerror("Error: Wrong type");
-				
-				if(expression->sym_table_ptr->token_type == SIMBOLO_LITERAL_CHAR)
-				{
-					exit(IKS_ERROR_CHAR_TO_X);
-				}
-				else
-				{
-					if(expression->sym_table_ptr->token_type == SIMBOLO_LITERAL_STRING)
-					{
-						exit(IKS_ERROR_STRING_TO_X);
-						
-					}
-					else
-					{
-						exit(IKS_ERROR_WRONG_TYPE);
-					}
-				}
-			} */
 			return typeConvert(node_symbol->type);
 		}
 	}
@@ -513,7 +528,7 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 		if(node_symbol == NULL)
 		{
 			/* function not found in current context or in any of its parents */
-			yyerror("Error: Undeclared function");
+			yyerror("ERROR: Undeclared function");
 			exit(IKS_ERROR_UNDECLARED);
 		}
 		else
@@ -522,14 +537,14 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 			{
 				if(node_symbol->purpose == NORMAL)
 				{
-					yyerror("Error: Trying to use variable as function");
+					yyerror("ERROR: Trying to use variable as function");
 					exit(IKS_ERROR_VARIABLE);
 				}
 				else
 				{
 					if(node_symbol->purpose == VECTOR)
 					{
-						yyerror("Error: Trying to use vector as function");
+						yyerror("ERROR: Trying to use vector as function");
 						exit(IKS_ERROR_VECTOR);		
 					}	
 				}
@@ -575,7 +590,7 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 			{
 				if(node_symbol->parameters != NULL)
 				{
-					yyerror("Error: Missing arguments");
+					yyerror("ERROR: Missing arguments");
 					exit(IKS_ERROR_MISSING_ARGS);	
 				}
 			}
