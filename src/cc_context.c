@@ -68,6 +68,8 @@ void context_pop() {
 			current_context = current_context->parent;
 		} else {
 			/* error: current context has no parent */
+			context_free(current_context);
+			current_context = NULL;
 			//yyerror("context has no parent!");
 		}
 	} else {
@@ -139,7 +141,7 @@ comp_context_symbol_t* context_add_function_to_current(
 		malloc(sizeof(comp_context_symbol_t));
 	if(parameters != NULL)
 	{
-		sym->parameters = parameters->value;
+		sym->parameters = parameters->params_list;
 	}
 	else
 	{
@@ -163,6 +165,8 @@ void context_symbol_free(comp_context_symbol_t* s)
 	{
 		if (s->key != NULL)
 			free((char*)s->key);
+		if (s->parameters != NULL)
+			type_list_free(s->parameters);
 		free(s);
 	}
 }

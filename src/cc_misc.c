@@ -38,7 +38,7 @@ void main_init (int argc, char **argv) {
 void main_finalize(void) {
 	/* free data structures */
 	symbols_table_finalize(&global_symbols_table);	
-	free_tree_node(global_syntax_tree);
+	// free_tree_node(global_syntax_tree);
 	free_node_pool();
 }
 

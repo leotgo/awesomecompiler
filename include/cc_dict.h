@@ -28,6 +28,8 @@ typedef struct comp_dict_item_t {
 				 SIMBOLO_IDENTIFICADOR - the pointer will be NULL				 
 				 */
 
+	type_list* params_list;
+
 	UT_hash_handle hh; /* the handle that must be used by the item types of the
 					   hash table, defined by 'uthash'*/
 } comp_dict_item_t;

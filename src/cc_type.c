@@ -12,34 +12,15 @@
 
 int coercion_possible(int type, int expected_type);
 comp_context_symbol_t* get_symbol(comp_tree_t* node);
-// Adds a type to the specified type list, at the end
+// Adds a type to the specified type list, at the beginning
 // If list is null, memory is allocated for the list
+
 type_list* type_list_Add(type_list* list, int addedType)
 {
-	if(list != NULL)
-	{
-		/*type_list* last = list;
-		while(last->next != NULL) 
-			last = last->next;
-
-		last->next = (type_list*)malloc(sizeof(type_list));
-		last->next->type = addedType;
-		last->next->next = NULL;
-		*/
-		//Now reversing order
 		type_list* new = (type_list*)malloc(sizeof(type_list));
 		new->type = addedType;
 		new->next = list;
-		return new;	
-	}
-	else
-	{
-		list = (type_list*)malloc(sizeof(type_list));
-		list->type = addedType;
-		list->next = NULL;
-	}
-	
-	return list;
+		return new;
 }
 
 // Compares two type lists and returns true if they are identical
@@ -69,6 +50,14 @@ int type_list_Compare(type_list* list_a, type_list* list_b)
 		return 0;
 	else
 		return 1;
+}
+
+void type_list_free(type_list* x) {
+	while (x != NULL) {
+		type_list* y = x;
+		x = x->next;
+		free(y);
+	}
 }
 
 int type_check(comp_tree_t* ast)
@@ -296,7 +285,8 @@ int type_check_indexed_vector(comp_tree_t* node)
 
 int type_check_function_call(comp_tree_t* node)
 {
-	get_type(node->children[0]);
+	
+	//get_type(node->children[0],retrieve_node_purpose(node));
 	check_function(node, node->children[1]);
 	return 1;
 }
@@ -459,6 +449,7 @@ int typeConvert(int type)
 
 int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 {	
+	printf("node: %d", node->type);
 	if(node->type == AST_VETOR_INDEXADO)
 	{
 		type_check(node);
@@ -488,7 +479,8 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 		}
 		else
 		{
-			if(purpose != 3)
+			printf("purpose: %d, symbol: %d\n", purpose, node_symbol->purpose);getchar();
+			if(purpose != 3 )
 			{
 				check_purpose(purpose, node_symbol);
 			}
@@ -610,12 +602,13 @@ int check_purpose(int purpose, comp_context_symbol_t* node_symbol)
 
 int check_function(comp_tree_t* node, comp_tree_t* arguments)
 {
-	/*printf("func: %s\n", node->sym_table_ptr->token);*/
+	//printf("func: %d\n", arguments->expectedTypes->type);
 	if(node->type == AST_IDENTIFICADOR)
 	{
+		printf("AST ID\n");
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
-	
+		
 		if(node_symbol == NULL)
 		{
 			/* function not found in current context or in any of its parents */
@@ -644,11 +637,14 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 					}	
 				}
 			}
+			printf("Is function\n");
 
 			if(arguments != NULL)
 			{
+				printf("step\n");
 				comp_tree_t* arg = arguments;
 				type_list* expected_type = node_symbol->parameters;
+				comp_context_symbol_t* symbol;
 				while (arg != NULL) 
 				{
 
@@ -659,21 +655,36 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 						/* error: given more parameters than expected. */
 						return 0;
 					}
-					else if (!coercion_possible(typeConvert( get_type(arg, 3) ), typeConvert(expected_type->type))) 
-					{
-						yyerror("ERROR: Arguments with wrong type");
-						exit(IKS_ERROR_WRONG_TYPE_ARGS);
-						/* error: parameter of invalid type, and no
-						 * coercion is possible. */
-						return 0;
-					} 
 					else 
 					{
-						arg->induced_type_by_coercion = expected_type->type;
+						int arg_type;
+						if(arg->type != AST_LITERAL)
+						{
+							symbol = get_symbol(arg);
+							printf("symbol->type: %d, expected: %d", typeConvert( symbol->type ), typeConvert(expected_type->type));getchar();
+							arg_type = symbol->type;
+						}
+						else
+						{
+							arg_type = arg->sym_table_ptr->token_type;
+						}
+
+						if (!coercion_possible(typeConvert( arg_type ), typeConvert(expected_type->type))) 
+						{
+							yyerror("ERROR: Arguments with wrong type");
+							exit(IKS_ERROR_WRONG_TYPE_ARGS);
+							/* error: parameter of invalid type, and no
+							 * coercion is possible. */
+							return 0;
+						} 
+						else 
+						{
+							arg->induced_type_by_coercion = expected_type->type;
+						}
+						expected_type = expected_type->next;
+						arg = arg->next;
+						printf("lololol \n");
 					}
-					expected_type = expected_type->next;
-					arg = arg->next;
-					printf("lololol \n");
 				}
 				if (expected_type != NULL) 
 				{

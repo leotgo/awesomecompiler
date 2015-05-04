@@ -227,13 +227,13 @@ Parametro:
 
 Parametros:
  		  { $$ = NULL; }
-		| Parametro {printf("PType: %d\n",$1->token_type); $$->value = type_list_Add($$->value, $1->token_type);}
-		| Parametro ',' ParametrosNaoVazio {printf("PType2: %d\n",$1->token_type); $$->value= type_list_Add($3->value, $1->token_type); }
+		| Parametro {printf("PType: %d\n",$1->token_type); $$->params_list = type_list_Add($$->params_list, $1->token_type);}
+		| Parametro ',' ParametrosNaoVazio {printf("PType2: %d\n",$1->token_type); $$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
 		;
 
 ParametrosNaoVazio:
-		  Parametro {printf("PTypeNV: %d\n",$1->token_type);$$->value = type_list_Add($$->value, $1->token_type); }
-		| Parametro ',' ParametrosNaoVazio {printf("PTypeNV2: %d\n",$1->token_type);$$->value= type_list_Add($3->value, $1->token_type); }
+		  Parametro {printf("PTypeNV: %d\n",$1->token_type);$$->params_list = type_list_Add($$->params_list, $1->token_type); }
+		| Parametro ',' ParametrosNaoVazio {printf("PTypeNV2: %d\n",$1->token_type);$$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
 		;
 
 DeclFuncao:
@@ -322,8 +322,8 @@ Declaracoes:
 		;
 
 Programa:
-		   { $$ = ast_create(AST_PROGRAMA, NULL); }
-		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1);free_value_pool();exit(IKS_SUCCESS);}
+		   { $$ = ast_create(AST_PROGRAMA, NULL); ast_generate_dot_graph(global_syntax_tree); exit(IKS_SUCCESS); }
+		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); ast_generate_dot_graph(global_syntax_tree); free_value_pool();  exit(IKS_SUCCESS);}
 		;
 /*
 	Itens:

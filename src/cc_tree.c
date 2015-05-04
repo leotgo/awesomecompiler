@@ -28,6 +28,9 @@ void free_tree_node(comp_tree_t* t) {
 	if (t->next) 
 		free_tree_node(t->next);
 
+	if (t->expectedTypes)
+		type_list_free(t->expectedTypes);
+
 	free(t);
 }
 
@@ -41,6 +44,7 @@ void free_node_pool()
 		free_tree_node(freed_node->node);
 		free(freed_node);
 	}
+	nodes_pool = NULL;
 }
 
 comp_tree_t* ast_create(int type, ...) {
@@ -75,6 +79,7 @@ comp_tree_t* ast_createv(int type, va_list args) {
 	t->children = NULL;
 	t->induced_type_by_coercion = IKS_INVALID;
 	t->next = NULL;
+	t->expectedTypes = NULL;
 	t->context = current_context;
 
 	if (type == AST_PROGRAMA) {
@@ -182,6 +187,7 @@ void ast_create_children(comp_tree_t* t, int num_children, va_list args)
 }
 
 void ast_generate_dot_graph(comp_tree_t* t) {
+#ifdef AVALIACAO_ETAPA_3
 	if (t == NULL)
 		return;
 
@@ -210,6 +216,7 @@ void ast_generate_dot_graph(comp_tree_t* t) {
 		ast_generate_dot_graph(t->next);
 		gv_connect(t, t->next);
 	}
+#endif
 }
 /*
 void print_tree(comp_tree_t* t, int tabs)

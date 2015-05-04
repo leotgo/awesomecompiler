@@ -22,4 +22,6 @@ type_list* type_list_Add(type_list* list, int addedType);
 // identical - same elements in same order
 int type_list_Compare(type_list* list_a, type_list* list_b);
 
+void type_list_free(type_list* x);
+
 #endif
