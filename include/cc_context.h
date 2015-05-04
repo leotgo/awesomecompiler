@@ -68,7 +68,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	const char* identifier, int type, int purpose);
 
 comp_context_symbol_t* context_add_function_to_current(
-	const char* identifier, int type, type_list* parameters);
+	const char* identifier, int type, comp_dict_item_t* parameters);
 
 /* the main context is where global variables and the all the function 
  * declarations are defined. */

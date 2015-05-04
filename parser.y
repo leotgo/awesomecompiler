@@ -225,7 +225,7 @@ Parametro:
 		;
 
 Parametros:
- 		  { $$->value = NULL; }
+ 		  { $$ = NULL; }
 		| Parametro { $$->value = type_list_Add($$->value, $1->token_type);}
 		| Parametro ',' ParametrosNaoVazio { $$->value= type_list_Add($3->value, $1->token_type); }
 		;
@@ -236,8 +236,8 @@ ParametrosNaoVazio:
 		;
 
 DeclFuncao:
-		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6);  context_add_function_to_current($2->token,$1->token_type, $4->value); }
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 	{ $$ = ast_create(AST_FUNCAO, $3, $7);  context_add_function_to_current($3->token,$2->token_type, $5->value);}
+		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6);  context_add_function_to_current($2->token,$1->token_type, $4); }
+		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 	{ $$ = ast_create(AST_FUNCAO, $3, $7);  context_add_function_to_current($3->token,$2->token_type, $5);}
 		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {	yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		;

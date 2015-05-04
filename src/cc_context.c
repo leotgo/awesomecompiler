@@ -99,7 +99,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 }
 
 comp_context_symbol_t* context_add_function_to_current(
-		const char* identifier, int type, type_list* parameters) 
+		const char* identifier, int type, comp_dict_item_t* parameters) 
 {
 	if (current_context == NULL )
 	{
@@ -121,7 +121,14 @@ comp_context_symbol_t* context_add_function_to_current(
 	
 	comp_context_symbol_t* sym = (comp_context_symbol_t*)
 		malloc(sizeof(comp_context_symbol_t));
-	sym->parameters = parameters;
+	if(parameters != NULL)
+	{
+		sym->parameters = parameters->value;
+	}
+	else
+	{
+		sym->parameters = NULL;
+	}
 	sym->purpose = FUNCTION;
 	sym->type = type;
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
