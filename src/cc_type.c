@@ -73,7 +73,6 @@ int type_list_Compare(type_list* list_a, type_list* list_b)
 
 int type_check(comp_tree_t* ast)
 {
-	printf("TypeCheck\n");
 	if	(ast->type == AST_PROGRAMA)
 		type_check(ast->children[0]);
 	else if	(ast->type == AST_FUNCAO)
@@ -111,7 +110,6 @@ int type_check_function(comp_tree_t* node)
 	// the function type.
 	while(ret->type != AST_RETURN && ret->next != NULL)
 	{
-		printf("Tree: %s - Token: %s \n", node->sym_table_ptr->token, ret->sym_table_ptr->token);
 		ret = ret->next;
 	}
 	
@@ -142,13 +140,7 @@ int type_check_function(comp_tree_t* node)
 			return 0;
 		}
 	}
-	
-	int childCheck = type_check(node->children[0]);
-	if(node->next != NULL)
-		return type_check(node->next);
-	else
-		return childCheck;
-	
+	return 1;	
 }
 
 int type_check_if_else(comp_tree_t* node)
@@ -223,8 +215,8 @@ int type_check_output_exp_list(comp_tree_t* node)
 	}
 	else if(node->type == AST_LITERAL) 
 	{
-		comp_context_symbol_t* symbol= get_symbol(node);
-		int literalType = typeConvert( symbol->type );
+		comp_dict_item_t* symbol = node->sym_table_ptr;
+		int literalType = typeConvert( symbol->token_type );
 		if(literalType != IKS_STRING)
 		{
 			yyerror("ERROR: OUTPUT only supports string literals or arithmetic expressions as arguments");
@@ -248,7 +240,6 @@ int type_check_output_exp_list(comp_tree_t* node)
 
 int type_check_attribution(comp_tree_t* node)
 {
-	printf("entering\n");getchar();
 	int var_type = typeConvert( get_type( node->children[0], retrieve_node_purpose(node->children[0]) ) );
 	int exp_type = typeConvert( get_type( node->children[1], retrieve_node_purpose(node->children[1]) ) );
 
@@ -299,6 +290,7 @@ int type_check_indexed_vector(comp_tree_t* node)
 
 int type_check_function_call(comp_tree_t* node)
 {
+	get_type(node->children[0]);
 	check_function(node, node->children[1]);
 	return 1;
 }
@@ -328,8 +320,8 @@ int type_inference(comp_tree_t* node)
 	}
 	else if(node->type == AST_LITERAL)
 	{
-		comp_context_symbol_t* symbol= get_symbol(node);
-		int type = typeConvert( symbol->type );
+		comp_dict_item_t* symbol= node->sym_table_ptr;
+		int type = typeConvert( symbol->token_type );
 		return type;
 	}
 	else if(node->type == AST_ARIM_SOMA 		|| 
@@ -466,19 +458,19 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(current_context, node->sym_table_ptr->token);
-		printf("Current Context:%d\n",current_context);
+		//printf("Current Context:%d\n",(int)current_context);
 		if(node_symbol == NULL)
 		{	
 			/* Identifier not found in current context or in any of its parents */
 
-			printf("Node: %d\n",node->type);
+			/*printf("Node: %d\n",node->type);
 			printf("Filhos: %d\n",node->num_children);
-			printf("Sym: %d\n",node->sym_table_ptr);
+			//printf("Sym: %d\n",node->sym_table_ptr);
 			printf("SYMTOKEN: %s\n",node->sym_table_ptr->token);
-			printf("Purpose: %d\n",purpose);getchar();			
+			printf("Purpose: %d\n",purpose);	*/	
 
-			printf("Undeclared variable: %s \n========\n", node->sym_table_ptr->token);
-
+			printf("Undeclared variable: %s\n", node->sym_table_ptr->token);
+			
 			yyerror("ERROR: Undeclared variable");
 			
 			exit(IKS_ERROR_UNDECLARED);
@@ -487,29 +479,7 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 		{
 			if(purpose != 3)
 			{
-				if(node_symbol->purpose == VECTOR && purpose == NORMAL)
-				{
-					yyerror("ERROR: Vector is being used as variable");
-					exit(IKS_ERROR_VECTOR);
-				}
-
-				if(node_symbol->purpose == NORMAL && purpose == VECTOR)
-				{
-					yyerror("ERROR: Variable is being used as vector");
-					exit(IKS_ERROR_VARIABLE);
-				}
-	
-				if(node_symbol->purpose == FUNCTION && purpose == NORMAL)
-				{
-					yyerror("ERROR: Function is being used as variable");
-					exit(IKS_ERROR_FUNCTION);
-				}
-
-				if(node_symbol->purpose == FUNCTION && purpose == VECTOR)
-				{
-					yyerror("ERROR: Function is being used as vector");
-					exit(IKS_ERROR_FUNCTION);
-				}
+				check_purpose(purpose, node_symbol);
 			}
 			return typeConvert(node_symbol->type);
 		}
@@ -574,6 +544,7 @@ comp_context_symbol_t* get_symbol(comp_tree_t* node)
 	if(node_symbol == NULL)
 	{	
 		/* Identifier not found in current context or in any of its parents */
+		printf("Undeclared token: %s \n", node->sym_table_ptr->token);
 		yyerror("ERROR: Undeclared variable");
 		exit(IKS_ERROR_UNDECLARED);
 	}
@@ -638,6 +609,7 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 		if(node_symbol == NULL)
 		{
 			/* function not found in current context or in any of its parents */
+			
 			yyerror("ERROR: Undeclared function");
 			exit(IKS_ERROR_UNDECLARED);
 			return 0;

@@ -20,6 +20,7 @@ typedef struct comp_context_symbol_t {
 	int purpose; /*0 = normal variable; 1 = vector; 2 = function; */
 
 	UT_hash_handle hh; /* hash handle. */
+
 } comp_context_symbol_t;
 
 typedef comp_context_symbol_t* comp_context_symbols_table_t;

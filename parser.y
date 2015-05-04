@@ -113,7 +113,7 @@ Inteiro:
 		;
 
 Literal:
-		  Inteiro { }
+		  Inteiro { $$ = $1; }
 		| TK_LIT_FLOAT { $$ = ast_create(AST_LITERAL, $1); }
 		| TK_LIT_TRUE { $$ = ast_create(AST_LITERAL, $1); }
 		| TK_LIT_FALSE { $$ = ast_create(AST_LITERAL, $1); }
@@ -130,11 +130,11 @@ Expressao:
 		| '+' Expressao { $$ = $2; }
 		| '-' Expressao { $$ = ast_create(AST_ARIM_INVERSAO, $2); }	//todo
 		| '!' Expressao { $$ = ast_create(AST_LOGICO_COMP_NEGACAO, $2); }	//todo
-		| Literal { }
-		| Identificador { }
+		| Literal { $$ = $1; }
+		| Identificador { $$ = $1; }
 		| Identificador '[' Expressao ']' { 
 			$$ = ast_create(AST_VETOR_INDEXADO, $1, $3); }
-		| ChamadaDeFuncao { }
+		| ChamadaDeFuncao { $$ = $1; }
 		| Expressao '+' Expressao { 
 			$$ = ast_create(AST_ARIM_SOMA, $1, $3); }
 		| Expressao '-' Expressao { 
@@ -168,18 +168,13 @@ Expressao:
 		;
 
 ListaDeExpressoes:
-		  Expressao { }		  
+		  Expressao { $$ = $1; }		  
 		| Expressao ',' ListaDeExpressoes { $$ = ast_list($1, $3); }
 		;
 
 Atribuicao:
-<<<<<<< HEAD
 		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3, NORMAL);  }
 		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); get_type($1, VECTOR);}
-=======
-		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3, NORMAL); }
-		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, type_check( ast_create(AST_VETOR_INDEXADO, $1, $3) ), $6); get_type($1, VECTOR);}
->>>>>>> 23f7b0c235bff8e48c9f3fb0b317218772686e5a
 		| Literal '=' Expressao { yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
 
@@ -241,8 +236,8 @@ ParametrosNaoVazio:
 		;
 
 DeclFuncao:
-		  Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $6);  context_add_function_to_current($2->token,$1->token_type, $4); }
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' BlocoDeComandosFuncao 	{ $$ = ast_create(AST_FUNCAO, $3, $7);  context_add_function_to_current($3->token,$2->token_type, $5);}
+		  Tipo TK_IDENTIFICADOR '(' Parametros ')' { context_add_function_to_current($2->token,$1->token_type, $4); } BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $7); }
+		| Static Tipo TK_IDENTIFICADOR '(' Parametros  ')' { context_add_function_to_current($3->token,$2->token_type, $5); } BlocoDeComandosFuncao { $$ = ast_create(AST_FUNCAO, $3, $8); }
 		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {	yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		;
@@ -281,12 +276,12 @@ SequenciaDeComandos:
 		;
 
 BlocoDeComandosFuncao:
-		  '{' { context_push_new(); } SequenciaDeComandos { context_pop(); } '}' { $$ = $3; }
+		  '{' { context_push_new(); } SequenciaDeComandos { type_check($3);context_pop(); } '}' { $$ = $3; }
 		| '{' '}' { $$ = NULL; }
 		;
 
 BlocoDeComandos:
-		  '{' { context_push_new(); } SequenciaDeComandos { context_pop(); } '}' { $$ = ast_create(AST_BLOCO, $3); }
+		  '{' { context_push_new(); } SequenciaDeComandos { type_check($3); context_pop(); } '}' { $$ = ast_create(AST_BLOCO, $3); }
 		| '{' '}' { $$ = ast_create(AST_BLOCO, NULL); }
 		;
 
@@ -317,7 +312,7 @@ ControleDeFluxo:
 
 Declaracao:
 		DeclVariavelGlobal { $$ = NULL; }
-		| DeclFuncao { }
+		| DeclFuncao { type_check($1); }
 		;
 
 Declaracoes:
@@ -326,17 +321,8 @@ Declaracoes:
 		;
 
 Programa:
-		   { $$ = ast_create(AST_PROGRAMA, NULL); 
-				              /*ast_generate_dot_graph(global_syntax_tree);*/
-<<<<<<< HEAD
-								 }
-		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); 
-				             /* ast_generate_dot_graph(global_syntax_tree); */ type_check($1);free_value_pool();}
-=======
-								context_pop(); }
-		| { context_push_new(); } Declaracoes { $$ = ast_create(AST_PROGRAMA, $2); 
-				             /* ast_generate_dot_graph(global_syntax_tree); */ context_pop();print_tree($2, 0);type_check($2);free_value_pool();}
->>>>>>> 23f7b0c235bff8e48c9f3fb0b317218772686e5a
+		   { $$ = ast_create(AST_PROGRAMA, NULL); }
+		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1);free_value_pool();}
 		;
 /*
 	Itens:

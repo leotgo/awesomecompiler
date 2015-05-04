@@ -2,6 +2,7 @@
 #include "cc_type.h"
 #include "cc_error.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 comp_context_t* main_context = NULL;
 comp_context_t* current_context = NULL;
@@ -14,6 +15,7 @@ __attribute__((destructor)) void end()
 {
 	context_pop();
 }
+
 void context_free(comp_context_t* context) {
 	if (context->children != NULL) {
 		comp_context_t *b, *c;
@@ -35,6 +37,7 @@ void context_free(comp_context_t* context) {
 }
 
 comp_context_t* context_push_new() {
+	//yyerror("context push!");
 	comp_context_t* parent = current_context;
 
 	current_context = (comp_context_t*)malloc(sizeof(comp_context_t));
@@ -61,9 +64,11 @@ comp_context_t* context_push_new() {
 void context_pop() {
 	if (current_context != NULL) {
 		if (current_context->parent != NULL) {
+			//yyerror("context pop!");
 			current_context = current_context->parent;
 		} else {
 			/* error: current context has no parent */
+			//yyerror("context has no parent!");
 		}
 	} else {
 		/* error: popping NULL context */
@@ -75,7 +80,6 @@ comp_context_symbol_t* context_add_identifier_to_current(
 {
 	if (current_context == NULL )
 	{
-printf("CURRENT IS NULL!\n");
 		current_context = main_context;
 	}
 	if ( identifier == NULL || type == IKS_INVALID) 
@@ -104,6 +108,8 @@ printf("CURRENT IS NULL!\n");
 	HASH_ADD_KEYPTR(hh, current_context->symbols_table, sym->key,
 		strlen(sym->key), sym);
 	
+	printf("Added identifier to current context: %s \n", sym->key);
+
 	return sym;
 }
 
