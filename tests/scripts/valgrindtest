@@ -4,11 +4,13 @@
 VALGRIND=`which valgrind`
 if [ "$VALGRIND" = "" ]
 then
+    tput setaf 1; tput bold; echo "Valgrind is probably not installed (checked with 'which valgrind')"; tput sgr0
     exit 2
 fi
 
 if [ ! -x $VALGRIND ]
 then
+    tput setaf 1; tput bold; echo "Valgrind was found, but it is not executable (tested with 'test -x valgrind')"; tput sgr0
     exit 2
 fi
 
