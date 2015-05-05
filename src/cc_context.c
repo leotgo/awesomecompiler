@@ -46,6 +46,7 @@ comp_context_t* context_push_new() {
 	current_context->children = NULL;
 	current_context->next = NULL;
 
+
 	/* set the parent */
 	current_context->parent = parent;
 
@@ -78,7 +79,7 @@ void context_pop() {
 }
 
 comp_context_symbol_t* context_add_identifier_to_current(
-		const char* identifier, int type, int purpose) 
+		const char* identifier, int type, int purpose, int vector_size) 
 {
 	if (current_context == NULL )
 	{
@@ -104,15 +105,30 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	sym->purpose = purpose;
 	sym->type = type;
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
+	sym->data_size = 0;
+	sym->vector_size = vector_size;
 	strcpy((char*)sym->key, identifier);
 
 
 	HASH_ADD_KEYPTR(hh, current_context->symbols_table, sym->key,
 		strlen(sym->key), sym);
 	
-	//printf("Added identifier to current context: %s \n", sym->key);
+	calculate_symbol_data_size(sym);
 
 	return sym;
+}
+
+int calculate_symbol_data_size(comp_context_symbol_t* sym) {
+	if (sym == NULL) return 0;
+	if (sym->type == IKS_BOOL) sym->data_size = 1;
+	else if (sym->type == IKS_INT) sym->data_size = 4;
+	else if (sym->type == IKS_FLOAT) sym->data_size = 8;
+	else if (sym->type == IKS_CHAR) sym->data_size = 1;
+	else if (sym->type == IKS_STRING) {
+		sym->data_size = 1;
+	}
+	if (sym->purpose == PURPOSE_VECTOR)
+		sym->data_size *= sym->vector_size;
 }
 
 comp_context_symbol_t* context_add_function_to_current(
@@ -147,9 +163,11 @@ comp_context_symbol_t* context_add_function_to_current(
 	{
 		sym->parameters = NULL;
 	}
-	sym->purpose = FUNCTION;
+	sym->purpose = PURPOSE_FUNCTION;
 	sym->type = type;
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
+	sym->data_size = 0;
+	sym->vector_size = 1;
 	strcpy((char*)sym->key, identifier);
 
 

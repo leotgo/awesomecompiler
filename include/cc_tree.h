@@ -82,4 +82,6 @@ void ast_create_children(comp_tree_t* t, int num_children, va_list args);
  * current .dot graph to be generated. */ 
 void ast_generate_dot_graph(comp_tree_t* t);
 
+int ast_retrieve_node_purpose(comp_tree_t* node);
+
 #endif

@@ -174,8 +174,13 @@ ListaDeExpressoes:
 		;
 
 Atribuicao:
-		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($1,$3, NORMAL);  }
-		| Identificador '[' Expressao ']' '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); get_type($1, VECTOR);}
+		  Identificador '=' Expressao { 
+			$$ = ast_create(AST_ATRIBUICAO, $1, $3); 
+			get_type($3, PURPOSE_NORMAL);  }
+		| Identificador '[' Expressao ']' '=' Expressao { 
+			$$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); 
+			get_type($1, PURPOSE_VECTOR);
+			}
 		| Literal '=' Expressao { yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
 
@@ -189,11 +194,15 @@ Saida:
 		;
 
 Variavel:
-		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type, NORMAL); $$ =$1;}
+		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type, PURPOSE_NORMAL, 1); $$ =$1;}
 		;
 
 Vetor:
-		Tipo TK_IDENTIFICADOR '[' Inteiro ']' { context_add_identifier_to_current($2->token,$1->token_type, VECTOR);}
+		Tipo TK_IDENTIFICADOR '[' Inteiro ']' { 
+			int vs = ($4->sym_table_ptr) ? 1 : (*((int*) ($4->sym_table_ptr->value)));			
+			context_add_identifier_to_current(
+				$2->token, $1->token_type, PURPOSE_VECTOR, vs);
+		}
 		;
 
 DeclVariavelGlobal: 

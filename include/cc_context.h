@@ -5,9 +5,11 @@
 #include "uthash.h"
 #include "cc_type.h"
 
-#define NORMAL 0
-#define VECTOR 1
-#define FUNCTION 2
+#define PURPOSE_NORMAL 0
+#define PURPOSE_VECTOR 1
+#define PURPOSE_FUNCTION 2
+#define min(a, b) (((a) < (b)) ? (a) : (b))
+#define max(a, b) (((a) > (b)) ? (a) : (b))
 
 /* the symbols table that will be stored inside the compiler contexts */
 typedef struct comp_context_symbol_t {
@@ -18,6 +20,11 @@ typedef struct comp_context_symbol_t {
 	type_list* parameters; /* list with all parameters if element is function. If not, value will be NULL */
 
 	int purpose; /*0 = normal variable; 1 = vector; 2 = function; */
+
+	int data_size;
+
+	int vector_size; /* if purpose == vector, then this holds the size of 
+					 the vector. otherwise, it is equal to 1. */
 
 	UT_hash_handle hh; /* hash handle. */
 
@@ -66,10 +73,12 @@ comp_context_symbol_t* context_find_identifier_multilevel(
  * IKS_ERROR_DECLARED. otherwise, adds the identifier to the current context. 
  * */
 comp_context_symbol_t* context_add_identifier_to_current(
-	const char* identifier, int type, int purpose);
+	const char* identifier, int type, int purpose, int vector_size);
 
 comp_context_symbol_t* context_add_function_to_current(
 	const char* identifier, int type, comp_dict_item_t* parameters);
+
+int calculate_symbol_data_size(comp_context_symbol_t* sym);
 
 /* the main context is where global variables and the all the function 
  * declarations are defined. */

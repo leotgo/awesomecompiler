@@ -68,6 +68,7 @@ comp_tree_t* ast_create(int type, ...) {
 	}
 
 	va_end(args);
+
 	return ans;	
 }
 
@@ -121,6 +122,36 @@ comp_tree_t* ast_createv(int type, va_list args) {
 		/* atribution has 2 children: the identifier that is being atributed to
 		 * and the expression that is being atributed. */
 		ast_create_children(t, 2, args);
+
+		if (t->children[0]->type == AST_IDENTIFICADOR) {
+			if (t->children[1]->type == AST_LITERAL &&
+				get_type(t->children[1], PURPOSE_NORMAL) == IKS_STRING) {
+				comp_context_symbol_t* sym = 
+					context_find_identifier_multilevel(
+						current_context, t->children[0]->sym_table_ptr->token);
+				if (sym != NULL) {  /* sempre deveria ser != NULL*/  
+					sym->data_size = max(
+						strlen(t->children[1]->sym_table_ptr->value), 
+						sym->data_size);
+				}				
+			}
+		} else if (t->children[0]->type == AST_VETOR_INDEXADO) {
+			if (t->children[0]->children[0]->type == AST_IDENTIFICADOR) {
+				if (t->children[1]->type == AST_LITERAL &&
+					get_type(t->children[1], PURPOSE_NORMAL) == IKS_STRING) {
+					comp_context_symbol_t* sym =
+						context_find_identifier_multilevel(
+							current_context, 
+							t->children[0]->children[0]->sym_table_ptr->token);
+					if (sym != NULL) {  /* sempre deveria ser != NULL*/
+						sym->data_size = max(
+							sym->vector_size * strlen(
+								t->children[1]->sym_table_ptr->value),
+							sym->data_size);
+					}
+				}
+			}
+		}
 	} else if (type == AST_RETURN) {
 		/* return has 1 child: the expression that is being returned. */
 		ast_create_children(t, 1, args);
@@ -218,3 +249,16 @@ void ast_generate_dot_graph(comp_tree_t* t) {
 	}
 #endif
 }
+
+int ast_retrieve_node_purpose(comp_tree_t* node) {
+	if (node->type == AST_IDENTIFICADOR)
+		return PURPOSE_NORMAL;
+	else if (node->type == AST_VETOR_INDEXADO) {
+		yyerror("Indexed vector found");
+		return PURPOSE_VECTOR;
+	} else if (node->type == AST_CHAMADA_DE_FUNCAO)
+		return PURPOSE_FUNCTION;
+	else
+		return 3;
+}
+
