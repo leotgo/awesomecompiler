@@ -5,6 +5,7 @@
  * for free at http://troydhanson.github.io/uthash/ */
 #include "uthash.h" 
 #include "cc_type.h"
+typedef struct type_list type_list;
 
 /* The structure defining the elements that the symbols table will store, as
  * defined by the requirements. */

@@ -1,10 +1,5 @@
 
 #include "cc_type.h"
-#include "cc_tree.h"
-#include "cc_context.h"
-#include "cc_error.h"
-#include "../parser.h"
-#include "main.h"
 
 #define bool int
 #define true 1
@@ -351,7 +346,7 @@ int type_inference(comp_tree_t* node)
 {
 	if(node->type == AST_IDENTIFICADOR)
 	{
-		int type =  typeConvert( get_type(node), ast_retrieve_node_purpose(node) );
+		int type =  typeConvert( get_type(node, ast_retrieve_node_purpose(node) ));
 		return type;
 	}
 	else if(node->type == AST_LITERAL)
@@ -366,8 +361,8 @@ int type_inference(comp_tree_t* node)
 		node->type == AST_ARIM_DIVISAO		 )
 	{
 		// Get children nodes type
-		int childType_1 = typeConvert( get_type(node->children[0]), ast_retrieve_node_purpose(node->children[0]) );
-		int childType_2 = typeConvert( get_type(node->children[1]), ast_retrieve_node_purpose(node->children[1]) );	
+		int childType_1 = typeConvert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
+		int childType_2 = typeConvert( get_type(node->children[1], ast_retrieve_node_purpose(node->children[1]) ));	
 
 		if(childType_1 == IKS_STRING ||  childType_2 == IKS_STRING)
 		{
@@ -385,7 +380,7 @@ int type_inference(comp_tree_t* node)
 	}
 	else if(node->type == AST_ARIM_INVERSAO)
 	{
-		int childType = typeConvert( get_type(node->children[0]), ast_retrieve_node_purpose(node->children[0]) );
+		int childType = typeConvert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
 		if(childType == IKS_STRING)
 		{
 			yyerror("ERROR: STRING type terms are not supported in arithmetic expression");
@@ -409,8 +404,8 @@ int type_inference(comp_tree_t* node)
 		node->type == AST_LOGICO_COMP_G 		 )
 		
 	{
-		int childType_1 = typeConvert( get_type(node->children[0]), ast_retrieve_node_purpose(node->children[0]) );
-		int childType_2 = typeConvert( get_type(node->children[1]), ast_retrieve_node_purpose(node->children[1]) );
+		int childType_1 = typeConvert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
+		int childType_2 = typeConvert( get_type(node->children[1], ast_retrieve_node_purpose(node->children[1]) ));
 		
 		if(childType_1 != childType_2)
 		{
@@ -433,7 +428,7 @@ int type_inference(comp_tree_t* node)
 	}
 	else if(node->type == AST_LOGICO_COMP_NEGACAO)
 	{
-		int childType = typeConvert( get_type(node->children[0]), ast_retrieve_node_purpose(node->children[0]) );
+		int childType = typeConvert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
 		if(childType != IKS_BOOL)
 		{
 			yyerror("ERROR: STRING and CHAR type terms are not supported in logical expression");

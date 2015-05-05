@@ -12,7 +12,7 @@ typedef struct comp_tree_t {
 
 	int induced_type_by_coercion;
 
-	comp_dict_item_t* sym_table_ptr; /* if the node type is AST_LITERAL or 
+	struct comp_dict_item_t* sym_table_ptr; /* if the node type is AST_LITERAL or 
 									 AST_IDENTIFICADOR, this will point to the
 									 entry on the symbols table correspondent to
 									 that symbol. otherwise, it is NULL. */
@@ -36,7 +36,7 @@ typedef struct comp_tree_t {
 							  in the .dot format, this node will be drawn as 
 							  the last child on the list. */
 
-	type_list* expectedTypes;
+	struct type_list* expectedTypes;
 
 } comp_tree_t;
 

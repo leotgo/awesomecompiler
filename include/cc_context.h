@@ -10,14 +10,14 @@
 #define PURPOSE_FUNCTION 2
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 #define max(a, b) (((a) > (b)) ? (a) : (b))
-
+struct comp_dict_item_t;
 /* the symbols table that will be stored inside the compiler contexts */
 typedef struct comp_context_symbol_t {
 	const char* key; /* string defining the entry's key (i.e., the name of
 					 the identifier */
 	int type; /* type as defined by cc_type.h */
 
-	type_list* parameters; /* list with all parameters if element is function. If not, value will be NULL */
+	struct type_list* parameters; /* list with all parameters if element is function. If not, value will be NULL */
 
 	int purpose; /*0 = normal variable; 1 = vector; 2 = function; */
 
@@ -76,7 +76,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	const char* identifier, int type, int purpose, int vector_size);
 
 comp_context_symbol_t* context_add_function_to_current(
-	const char* identifier, int type, comp_dict_item_t* parameters);
+	const char* identifier, int type, struct comp_dict_item_t* parameters);
 
 int calculate_symbol_data_size(comp_context_symbol_t* sym);
 
