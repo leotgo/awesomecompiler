@@ -264,7 +264,7 @@ Argumentos:
 		;
 
 ChamadaDeFuncao:
-		 Identificador '(' Argumentos ')' { $$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); check_function($1, $3);}
+		 Identificador '(' Argumentos ')' { $$ = ast_create(AST_CHAMADA_DE_FUNCAO, $1, $3); type_check_function_call($1, $3);}
 		;
 
 Comando:

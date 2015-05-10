@@ -5,11 +5,8 @@
 #define true 1
 #define false 0
 
-int coercion_possible(int type, int expected_type);
-comp_context_symbol_t* get_symbol(comp_tree_t* node);
-// Adds a type to the specified type list, at the beginning
-// If list is null, memory is allocated for the list
 
+// Adds a type to the specified type list, at the beginning
 type_list* type_list_Add(type_list* list, int addedType)
 {
 		type_list* new = (type_list*)malloc(sizeof(type_list));
@@ -18,43 +15,20 @@ type_list* type_list_Add(type_list* list, int addedType)
 		return new;
 }
 
-// Compares two type lists and returns true if they are identical
-// (same elements in same order)
-int type_list_Compare(type_list* list_a, type_list* list_b)
+// free all nodes from a type_list
+void type_list_free(type_list* x) 
 {
-	// Compare each element
-	while(list_a != NULL && list_b != NULL)
+	while (x != NULL) 
 	{
-		//printf("list a: %d, list b: %d\n", list_a->type, list_b->type);
-		
-		if(list_a->type != list_b->type)
-			return 0;
-		else
-		{
-			list_a = list_a->next;
-			list_b = list_b->next;
-		}
-	}
-	/* In case there are no elements left in any of the lists, 	 |
-	| we begin to check whether they have same size 		*/
-	if(list_a == NULL && list_b == NULL) 
-		return 1;
-	else if(list_a == NULL && list_b != NULL)
-		return 0;
-	else if(list_a != NULL && list_b == NULL)
-		return 0;
-	else
-		return 1;
-}
-
-void type_list_free(type_list* x) {
-	while (x != NULL) {
 		type_list* y = x;
 		x = x->next;
 		free(y);
 	}
 }
 
+/*
+	checks type depending on the lexic symbol
+*/
 int type_check(comp_tree_t* ast)
 {
 	if	(ast == NULL)
@@ -62,7 +36,7 @@ int type_check(comp_tree_t* ast)
 	if	(ast->type == AST_PROGRAMA)
 		type_check(ast->children[0]);
 	else if	(ast->type == AST_FUNCAO)
-		type_check_function(ast);
+		type_check_function_definition(ast);
 	else if	(ast->type == AST_IF_ELSE)
 		type_check_if_else(ast);
 	else if	(ast->type == AST_DO_WHILE)
@@ -78,7 +52,7 @@ int type_check(comp_tree_t* ast)
 	else if (ast->type == AST_VETOR_INDEXADO)
 		type_check_indexed_vector(ast);
 	else if (ast->type == AST_CHAMADA_DE_FUNCAO)
-		type_check_function_call(ast);
+		type_check_function_call(ast, ast->children[1]);
 	
 	if(ast->next != NULL)
 		return type_check(ast->next);
@@ -86,12 +60,15 @@ int type_check(comp_tree_t* ast)
 		return 1;
 }
 
-int type_check_function(comp_tree_t* node)
+/*
+	checks if return matches return type from function 
+*/
+int type_check_function_definition(comp_tree_t* node)
 {
 	comp_tree_t* ret = node->children[0];
 	
 	if( ret == NULL )
-		return 0;
+		return ERROR;
 
 	// Search for return node, to check whether the type matches
 	// the function type.
@@ -100,41 +77,42 @@ int type_check_function(comp_tree_t* node)
 		ret = ret->next;
 	}
 	
-	if(ret->type != AST_RETURN)
+	if(ret->type == AST_RETURN)
 	{
-		//yyerror("ERROR: Function has no RETURN statement defined");
-
-	}
-	else
-	{
+		// there is a return in the defined function
+		
 		if(ret->next)
 		{
+			// there is something after the 'return' command on function
 			yyerror("WARNING: Code after RETURN statement will never be executed");
 		}
 
 
 		int return_type = typeConvert(  get_type ( ret->children[0], ast_retrieve_node_purpose(ret->children[0]) ) ) ;
-		printf("return type: %d \n", return_type); 
 
 	
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
 		int function_type = typeConvert( node_symbol->type );
 
+		// tries coercion for return type and function return type
 		if(!coercion_possible(return_type, function_type))
 		{
 			yyerror("ERROR: Return type does not match function type");
 			exit(IKS_ERROR_WRONG_PAR_RETURN);
-			return 0;
+			return ERROR;
 		}
 		else
 		{
 			ret->induced_type_by_coercion = function_type;
 		}
 	}
-	return 1;	
+	return SUCCESS;	
 }
 
+/*
+	checks if type from if is boolean and checks type of their command blocks
+*/
 int type_check_if_else(comp_tree_t* node)
 {
 	int test_type = typeConvert( get_type( node->children[0], ast_retrieve_node_purpose( node->children[0] ) ) );
@@ -145,7 +123,7 @@ int type_check_if_else(comp_tree_t* node)
 		printf("Test type: %d \n", test_type);
 		yyerror("ERROR: If-Else test is not a boolean");
 		exit(IKS_ERROR_WRONG_TYPE);
-		return 0;
+		return ERROR;
 	}
 	else
 	{
@@ -161,9 +139,12 @@ int type_check_if_else(comp_tree_t* node)
 		type_check(node->children[2]);
 	}
 
-	return 1;
+	return SUCCESS;
 }
 
+/*
+	checks if while statement type is bool and type checks the command block
+*/
 int type_check_do_while(comp_tree_t* node)
 {
 	int test_type = typeConvert( get_type( node->children[0], ast_retrieve_node_purpose( node->children[0] ) ) );
@@ -173,7 +154,7 @@ int type_check_do_while(comp_tree_t* node)
 	{
 		yyerror("ERROR: If-Else test is not a boolean");
 		exit(IKS_ERROR_WRONG_TYPE);
-		return 0;
+		return ERROR;
 	}
 	else
 	{
@@ -184,6 +165,9 @@ int type_check_do_while(comp_tree_t* node)
 	return type_check(node->children[1]);
 }
 
+/*
+	checks if while do statement type is bool and type checks the command block
+*/
 int type_check_while_do(comp_tree_t* node)
 {
 	int test_type = typeConvert( get_type( node->children[0], ast_retrieve_node_purpose( node->children[0] ) ) );
@@ -193,7 +177,7 @@ int type_check_while_do(comp_tree_t* node)
 	{
 		yyerror("ERROR: If-Else test is not a boolean");
 		exit(IKS_ERROR_WRONG_TYPE);
-		return 0;
+		return ERROR;
 	}
 	else
 	{
@@ -204,22 +188,28 @@ int type_check_while_do(comp_tree_t* node)
 	return type_check(node->children[1]);
 }
 
+/*
+	checks if input statement type is an identifier
+*/
 int type_check_input(comp_tree_t* node)
 {
 	if(node->children[0]->type != AST_IDENTIFICADOR)
 	{
 		yyerror("ERROR: INPUT only supports identifiers as arguments");
 		exit(IKS_ERROR_WRONG_PAR_INPUT);
-		return 0;
+		return ERROR;
 	}
 	else
 	{
 		// Call type_inference function to determine whether the identifier exists
 		type_inference(node->children[0]);
-		return 1;
+		return SUCCESS;
 	}
 }
 
+/*
+	checks if output statement type is string literal ou arithmetic expression
+*/
 int type_check_output(comp_tree_t* node)
 {
 	if(node->children[0]->type == AST_ARIM_SOMA 		|| 
@@ -235,10 +225,13 @@ int type_check_output(comp_tree_t* node)
 	{
 		yyerror("ERROR: OUTPUT only supports string literals or arithmetic expressions as arguments");
 		exit(IKS_ERROR_WRONG_PAR_OUTPUT);
-		return 0;
+		return ERROR;
 	}
 }
 
+/*
+	checks if output list statement type is string literal ou arithmetic expression
+*/
 int type_check_output_exp_list(comp_tree_t* node)
 {
 	if(node->type == AST_ARIM_SOMA 		|| 
@@ -252,7 +245,8 @@ int type_check_output_exp_list(comp_tree_t* node)
 		type_inference(node);
 	
 		// Go for next expression in expression list
-		if(node->next != NULL) {
+		if(node->next != NULL) 
+		{
 			return type_check_output_exp_list(node->next);
 		}
 	}
@@ -264,10 +258,11 @@ int type_check_output_exp_list(comp_tree_t* node)
 		{
 			yyerror("ERROR: OUTPUT only supports string literals or arithmetic expressions as arguments");
 			exit(IKS_ERROR_WRONG_PAR_OUTPUT);
-			return 0;
+			return ERROR;
 		}
 
-		if(node->next != NULL) {
+		if(node->next != NULL) 
+		{
 			return type_check_output_exp_list(node->next);
 		}
 	}
@@ -275,12 +270,15 @@ int type_check_output_exp_list(comp_tree_t* node)
 	{
 		yyerror("ERROR: One of the arguments of OUTPUT is not an expression or literal");
 		exit(IKS_ERROR_WRONG_PAR_OUTPUT);
-		return 0;
+		return ERROR;
 	}
 
-	return 1;
+	return SUCCESS;
 }
 
+/*
+	checks if atttribution has the right type or type can be coerced
+*/
 int type_check_attribution(comp_tree_t* node)
 {
 	int var_type = typeConvert( get_type( node->children[0], ast_retrieve_node_purpose(node->children[0]) ) );
@@ -290,23 +288,26 @@ int type_check_attribution(comp_tree_t* node)
 	{
 		yyerror("ERROR: Impossible coertion from STRING type to variable type");
 		exit(IKS_ERROR_STRING_TO_X);
+		return ERROR;
 	}
 	else if(var_type != IKS_CHAR && exp_type == IKS_CHAR)
 	{
 		yyerror("ERROR: Impossible coertion from CHAR type to variable type");
 		exit(IKS_ERROR_CHAR_TO_X);
+		return ERROR;
 	}
 	else if(var_type != exp_type)
 	{
-		printf("var type: %d \n", var_type);
-		printf("exp type: %d \n", exp_type);
 		yyerror("ERROR: Expression type does not match target variable type");
 		exit(IKS_ERROR_WRONG_TYPE);
+		return ERROR;
 	}		
 
-	return 1;
+	return SUCCESS;
 }
-
+/*
+	checks type from indexed vector, also seeing if variable was declared as one
+*/
 int type_check_indexed_vector(comp_tree_t* node)
 {
 	int exp_type = typeConvert( get_type( node->children[1], ast_retrieve_node_purpose(node->children[1]) ) );
@@ -315,42 +316,41 @@ int type_check_indexed_vector(comp_tree_t* node)
 	{
 		yyerror("ERROR: Impossible coertion from STRING type to integer in vector access");
 		exit(IKS_ERROR_STRING_TO_X);
-		return 0;
+		return ERROR;
 	}
 	else if(exp_type == IKS_CHAR)
 	{
 		yyerror("ERROR: Impossible coertion from CHAR type to integer in vector access");
 		exit(IKS_ERROR_CHAR_TO_X);
-		return 0;
+		return ERROR;
 	}
 	else if(exp_type != IKS_INT)
 	{
 		yyerror("ERROR: Vector access expression is not an integer");
 		exit(IKS_ERROR_WRONG_TYPE);
-		return 0;
+		return ERROR;
 	}
 
-	return 1;
+	return SUCCESS;
 }
 
-int type_check_function_call(comp_tree_t* node)
-{
-	
-	//get_type(node->children[0],retrieve_node_purpose(node));
-	check_function(node, node->children[1]);
-	return 1;
-}
 
-// type_inference function receives an expression (it has to be an expression! such as +, -, *, / or literals and identifiers
+/*
+	inferences type given an expression
+	type_inference function receives an expression (it has to be an expression! such as +, -, *, / or literals and identifiers
+	returns infered type
+*/
 int type_inference(comp_tree_t* node)
 {
 	if(node->type == AST_IDENTIFICADOR)
 	{
+		// if node is an identifier, gets type from context's symbols table
 		int type =  typeConvert( get_type(node, ast_retrieve_node_purpose(node) ));
 		return type;
 	}
 	else if(node->type == AST_LITERAL)
 	{
+		// if node is literal gets type by global symbols table
 		comp_dict_item_t* symbol= node->sym_table_ptr;
 		int type = typeConvert( symbol->token_type );
 		return type;
@@ -375,7 +375,7 @@ int type_inference(comp_tree_t* node)
 			exit(IKS_ERROR_CHAR_TO_X);
 		}
 
-		return type_binOperation_result(childType_1, childType_2);
+		return operation_type(childType_1, childType_2);
 		
 	}
 	else if(node->type == AST_ARIM_INVERSAO)
@@ -439,7 +439,10 @@ int type_inference(comp_tree_t* node)
 	else return IKS_INVALID;
 }
 
-int type_binOperation_result(int childType_1, int childType_2)
+/*
+	returns type from operation 
+*/
+int operation_type(int childType_1, int childType_2)
 {
 	if(childType_1 == childType_2)					// If they are the same type, return any of them
 	{								// If not, use rules as defined in the task specification
@@ -462,6 +465,10 @@ int type_binOperation_result(int childType_1, int childType_2)
 		return IKS_INVALID;
 }
 
+/*
+	converts from all types of different definitions of types to a unified enumeration
+	returns type in unified enumeration
+*/
 int typeConvert(int type)
 {
 	if(type == IKS_INVALID || type == IKS_INT || type == IKS_FLOAT || type == IKS_BOOL || type == IKS_CHAR || type == IKS_STRING)
@@ -494,9 +501,14 @@ int typeConvert(int type)
 	}
 }
 
-int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
+/*
+	gets type from ast node. If node represents a function, variable or vector
+	the second parameter should be its purpose (enum that indicates if is used as
+	function, variable or vector)
+*/
+int get_type(comp_tree_t* node, int purpose)
 {	
-	//printf("node: %d", node->type);
+
 	if(node->type == AST_VETOR_INDEXADO)
 	{
 		type_check(node);
@@ -506,33 +518,11 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 	{
 
 		comp_context_symbol_t* node_symbol;
-		node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
-		//printf("Current Context:%d\n",(int)current_context);
-		if(node_symbol == NULL)
-		{	
-			/* Identifier not found in current context or in any of its parents */
-
-			/*printf("Node: %d\n",node->type);
-			printf("Filhos: %d\n",node->num_children);
-			//printf("Sym: %d\n",node->sym_table_ptr);
-			printf("SYMTOKEN: %s\n",node->sym_table_ptr->token);
-			printf("Purpose: %d\n",purpose);	*/	
-
-			//printf("Undeclared variable: %s\n", node->sym_table_ptr->token);
+		node_symbol = get_symbol(node);
 			
-			yyerror("ERROR: Undeclared variable");
-			
-			exit(IKS_ERROR_UNDECLARED);
-		}
-		else
-		{
-			//printf("purpose: %d, symbol: %d\n", purpose, node_symbol->purpose);getchar();
-			if(purpose != 3 )
-			{
-				check_purpose(purpose, node_symbol);
-			}
-			return typeConvert(node_symbol->type);
-		}
+		check_purpose(purpose, node_symbol);
+		return typeConvert(node_symbol->type);
+		
 	}
 	else if(node->type == AST_LITERAL)
 	{
@@ -555,7 +545,6 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 		node->type == AST_ARIM_DIVISAO 		||
 		node->type == AST_ARIM_INVERSAO		 )
 	{
-		printf("Type inference for expression: %d \n", type_inference(node));
 		return type_inference(node);
 	}
 	else if(node->type == AST_LOGICO_E 			|| 
@@ -587,6 +576,9 @@ int get_type(comp_tree_t* node, int purpose/*, comp_tree_t* expression*/)
 	else return node->type;
 }
 
+/*
+	gets symbol from symbol's table from the ast node 
+*/
 comp_context_symbol_t* get_symbol(comp_tree_t* node)
 {
 	comp_context_symbol_t* node_symbol;
@@ -605,6 +597,9 @@ comp_context_symbol_t* get_symbol(comp_tree_t* node)
 	}
 }
 
+/*
+	checks if variable purpose is the same as defined
+*/
 int check_purpose(int purpose, comp_context_symbol_t* node_symbol)
 {
 	if(node_symbol->purpose == PURPOSE_VECTOR && purpose == PURPOSE_NORMAL)
@@ -644,16 +639,22 @@ int check_purpose(int purpose, comp_context_symbol_t* node_symbol)
 	}	
 	
 
-	return 1;
+	return SUCCESS;
 
 }
 
-int check_function(comp_tree_t* node, comp_tree_t* arguments)
+/*
+	checks if function calls have the right parameter types 
+	and if identifier was really defined as a function
+	node: identifier for the function name
+	arguments: ast item with list that contains the function arguments
+	
+*/
+int type_check_function_call(comp_tree_t* node, comp_tree_t* arguments)
 {
-	//printf("func: %d\n", arguments->expectedTypes->type);
+
 	if(node->type == AST_IDENTIFICADOR)
 	{
-		printf("AST ID\n");
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
 		
@@ -663,17 +664,21 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 			
 			yyerror("ERROR: Undeclared function");
 			exit(IKS_ERROR_UNDECLARED);
-			return 0;
+			return ERROR;
 		}
 		else
 		{
+			
 			if(node_symbol->purpose != PURPOSE_FUNCTION)
 			{
+				// the corresponding symbol from the symbol's table is 
+				// not supposed to be a function
+				
 				if(node_symbol->purpose == PURPOSE_NORMAL)
 				{
 					yyerror("ERROR: Trying to use variable as function");
 					exit(IKS_ERROR_VARIABLE);
-					return 0;
+					return ERROR;
 				}
 				else
 				{
@@ -681,149 +686,91 @@ int check_function(comp_tree_t* node, comp_tree_t* arguments)
 					{
 						yyerror("ERROR: Trying to use vector as function");
 						exit(IKS_ERROR_VECTOR);		
-						return 0;
+						return ERROR;
 					}	
 				}
 			}
-			printf("Is function\n");
 
 			if((arguments != NULL)&&(node_symbol != NULL))
 			{
-				printf("step\n");
+				
 				comp_tree_t* arg = arguments;
 				type_list* expected_type = NULL;
 				expected_type = node_symbol->parameters;
 				comp_context_symbol_t* symbol;
 				while (arg != NULL) 
 				{
-
+					// tests if all arguments from function call 
+					// fits with parameters from fucntion definition
 					if (expected_type == NULL) 
 					{	
+						// there are still arguments but no parameters
+						// calls error message
 						yyerror("ERROR: Excess arguments");
 						exit(IKS_ERROR_EXCESS_ARGS);
 						/* error: given more parameters than expected. */
-						return 0;
+						return ERROR;
 					}
-					//else 
-					//{
-						int arg_type;
-						if(arg->type != AST_LITERAL)
-						{
-							symbol = get_symbol(arg);
-							//printf("symbol->type: %d, expected: %d", typeConvert( symbol->type ), typeConvert(expected_type->type));getchar();
-							arg_type = symbol->type;
-						}
-						else
-						{
-							arg_type = arg->sym_table_ptr->token_type;
-						}
 
-						if (!coercion_possible(typeConvert( arg_type ), typeConvert(expected_type->type))) 
-						{
-							yyerror("ERROR: Arguments with wrong type");
-							exit(IKS_ERROR_WRONG_TYPE_ARGS);
-							/* error: parameter of invalid type, and no
-							 * coercion is possible. */
-							return 0;
-						} 
-						else 	
-						{
-							arg->induced_type_by_coercion = typeConvert( expected_type->type );
-						}
-						expected_type = expected_type->next;
-						arg = arg->next;
+					// gets argument type
+					int arg_type;
+					if(arg->type != AST_LITERAL)
+					{
+						symbol = get_symbol(arg);
+						arg_type = symbol->type;
+					}
+					else
+					{
+						arg_type = arg->sym_table_ptr->token_type;
+					}
+					
+					// if coercion not possible, argument is of wrong type
+					if (!coercion_possible(typeConvert( arg_type ), typeConvert(expected_type->type))) 
+					{
+						yyerror("ERROR: Arguments with wrong type");
+						exit(IKS_ERROR_WRONG_TYPE_ARGS);
+						/* error: parameter of invalid type, and no
+						 * coercion is possible. */
+						return ERROR;
+					} 
+					else 	
+					{
+						arg->induced_type_by_coercion = typeConvert( expected_type->type );
+					}
+					expected_type = expected_type->next;
+					arg = arg->next;
 						
-					//}
 				}
 				if (expected_type != NULL) 
 				{
+					// if there are still parameters but no more arguments, show error message
 					yyerror("Error: Missing arguments");
 					exit(IKS_ERROR_MISSING_ARGS);	
 					/* error, given less parameters than expected. */
-					return 0;
+					return ERROR;
 				}
 			}
 			else
 			{
+				
 				if(node_symbol->parameters != NULL)
 				{
+					// function call has no arguments but function definition has
 					yyerror("ERROR: Missing arguments");
 					exit(IKS_ERROR_MISSING_ARGS);	
-					return 0;
+					return ERROR;
 				}
 			}
 		}
 	}
-	return 1;
+	return SUCCESS;
 }
 
 
-int check_types(int variable_type, int expression_type)
-{
-	if( variable_type == TK_PR_INT && expression_type == SIMBOLO_LITERAL_INT)
-	{
-		return TK_PR_INT;
-	}
-
-	if( variable_type == TK_PR_CHAR && expression_type == SIMBOLO_LITERAL_CHAR)
-	{
-		return TK_PR_CHAR;
-	}
-
-	if( variable_type == TK_PR_FLOAT && expression_type == SIMBOLO_LITERAL_FLOAT)
-	{
-		return TK_PR_FLOAT;
-	}
-
-	if( variable_type == TK_PR_BOOL && expression_type == SIMBOLO_LITERAL_BOOL)
-	{
-		return TK_PR_BOOL;
-	}
-
-	if( variable_type == TK_PR_STRING && expression_type == SIMBOLO_LITERAL_STRING)
-	{
-		return TK_PR_STRING;
-	}
-	
-	// conversao implicita de int pra float
-	if( variable_type == TK_PR_FLOAT && expression_type == SIMBOLO_LITERAL_INT)
-	{
-		return TK_PR_FLOAT;
-	}
-
-	// conversao implicita de int pra bool
-	if( variable_type == TK_PR_BOOL && expression_type == SIMBOLO_LITERAL_INT)
-	{
-		return TK_PR_BOOL;
-	}
-
-	// conversao implicita de bool pra int
-	if( variable_type == TK_PR_INT && expression_type == SIMBOLO_LITERAL_BOOL)
-	{
-		return TK_PR_INT;
-	}
-
-	// conversao implicita de bool pra float
-	if( variable_type == TK_PR_FLOAT && expression_type == SIMBOLO_LITERAL_BOOL)
-	{
-		return TK_PR_FLOAT;
-	}
-
-	// conversao implicita de float pra int
-	if( variable_type == TK_PR_INT && expression_type == SIMBOLO_LITERAL_FLOAT)
-	{
-		return TK_PR_INT;
-	}
-
-	// conversao implicita de float pra bool
-	if( variable_type == TK_PR_BOOL && expression_type == SIMBOLO_LITERAL_FLOAT)
-	{
-		return TK_PR_BOOL;
-	}
-
-	return -1;
-}
-
+/*
+	tests if type coercion is possible
+	returns boolean to wether coercion is possible or not
+*/
 int coercion_possible(int type, int expected_type) 
 {
 	return type == expected_type || ( ((type == IKS_INT || type == IKS_FLOAT || type == IKS_BOOL) && (expected_type == IKS_INT || expected_type == IKS_FLOAT || expected_type == IKS_BOOL)));
