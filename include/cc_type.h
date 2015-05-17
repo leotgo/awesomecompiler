@@ -8,6 +8,8 @@
 #include "../parser.h"
 #include "main.h"
 
+
+
 #define IKS_INVALID 0
 #define IKS_INT 1
 #define IKS_FLOAT 2
@@ -31,21 +33,6 @@ type_list* type_list_Add(type_list* list, int addedType);
 
 // free all nodes from a type_list
 void type_list_free(type_list* x);
-
-// Type list structure for AST nodes, used to determine whether the
-// node's children agree to expected types.
-// made for checking if vector dimensions are correct
-typedef struct vector_dimension_list 
-{
-	int size;
-	struct vector_dimension_list* next;
-} vector_dimension_list;
-
-// Adds a type to the specified vector dimension list
-vector_dimension_list* vector_dimension_list_Add(vector_dimension_list* list, int addedDimension);
-
-// free all nodes from a avector_dimension_list
-void vector_dimension_list_free(vector_dimension_list* x);
 
 
 /*

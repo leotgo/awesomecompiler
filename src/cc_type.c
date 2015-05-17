@@ -26,31 +26,12 @@ void type_list_free(type_list* x)
 	}
 }
 
-// Adds a type to the specified vector dimension list, at the beginning
-vector_dimension_list* vector_dimension_list_Add(vector_dimension_list* list, int addedDimension)
-{
-		vector_dimension_list* new = (vector_dimension_list*)malloc(sizeof(vector_dimension_list));
-		new->size = addedDimension;
-		new->next = list;
-		return new;
-}
-
-// free all nodes from a avector_dimension_list
-void vector_dimension_list_free(vector_dimension_list* x)
-{
-	while (x != NULL) 
-	{
-		vector_dimension_list* y = x;
-		x = x->next;
-		free(y);
-	}
-}
-
 /*
 	checks type depending on the lexic symbol
 */
 int type_check(comp_tree_t* ast)
 {
+	
 	if	(ast == NULL)
 		return 1;
 	if	(ast->type == AST_PROGRAMA)
