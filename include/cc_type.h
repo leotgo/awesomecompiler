@@ -20,7 +20,8 @@
  
 // Type list structure for AST nodes, used to determine whether the
 // node's children agree to expected types.
-typedef struct type_list {
+typedef struct type_list 
+{
 	int type;
 	struct type_list* next;
 } type_list;
@@ -30,6 +31,22 @@ type_list* type_list_Add(type_list* list, int addedType);
 
 // free all nodes from a type_list
 void type_list_free(type_list* x);
+
+// Type list structure for AST nodes, used to determine whether the
+// node's children agree to expected types.
+// made for checking if vector dimensions are correct
+typedef struct vector_dimension_list 
+{
+	int size;
+	struct vector_dimension_list* next;
+} vector_dimension_list;
+
+// Adds a type to the specified vector dimension list
+vector_dimension_list* vector_dimension_list_Add(vector_dimension_list* list, int addedDimension);
+
+// free all nodes from a avector_dimension_list
+void vector_dimension_list_free(vector_dimension_list* x);
+
 
 /*
 	checks type depending on the lexic symbol
@@ -81,6 +98,9 @@ int type_check_attribution(struct comp_tree_t* node);
 */
 int type_check_indexed_vector(struct comp_tree_t* node);
 
+int type_check_vector_dimension(struct comp_tree_t* node);
+
+int check_vector_dimensions_number(struct comp_tree_t* node);
 /*
 	inferences type given an expression
 	type_inference function receives an expression (it has to be an expression! such as +, -, *, / or literals and identifiers

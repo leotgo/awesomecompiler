@@ -79,7 +79,7 @@ void context_pop() {
 }
 
 comp_context_symbol_t* context_add_identifier_to_current(
-		const char* identifier, int type, int purpose, int vector_size) 
+		const char* identifier, int type, int purpose, int vector_dimensions) 
 {
 	if (current_context == NULL )
 	{
@@ -106,12 +106,14 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	sym->type = type;
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	sym->data_size = 0;
-	sym->vector_size = vector_size;
+	
+	sym->vector_size = vector_dimensions;
 	strcpy((char*)sym->key, identifier);
 
 
 	HASH_ADD_KEYPTR(hh, current_context->symbols_table, sym->key,
 		strlen(sym->key), sym);
+		
 	
 	calculate_symbol_data_size(sym);
 

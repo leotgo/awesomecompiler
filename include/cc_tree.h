@@ -36,6 +36,8 @@ typedef struct comp_tree_t {
 							  in the .dot format, this node will be drawn as 
 							  the last child on the list. */
 
+	int vector_dimensions;
+
 	struct type_list* expectedTypes;
 
 } comp_tree_t;

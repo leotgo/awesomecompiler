@@ -26,6 +26,26 @@ void type_list_free(type_list* x)
 	}
 }
 
+// Adds a type to the specified vector dimension list, at the beginning
+vector_dimension_list* vector_dimension_list_Add(vector_dimension_list* list, int addedDimension)
+{
+		vector_dimension_list* new = (vector_dimension_list*)malloc(sizeof(vector_dimension_list));
+		new->size = addedDimension;
+		new->next = list;
+		return new;
+}
+
+// free all nodes from a avector_dimension_list
+void vector_dimension_list_free(vector_dimension_list* x)
+{
+	while (x != NULL) 
+	{
+		vector_dimension_list* y = x;
+		x = x->next;
+		free(y);
+	}
+}
+
 /*
 	checks type depending on the lexic symbol
 */
@@ -120,7 +140,6 @@ int type_check_if_else(comp_tree_t* node)
 	// child 0: test - has to be booleean
 	if(!coercion_possible(test_type, IKS_BOOL))
 	{
-		printf("Test type: %d \n", test_type);
 		yyerror("ERROR: If-Else test is not a boolean");
 		exit(IKS_ERROR_WRONG_TYPE);
 		return ERROR;
@@ -283,7 +302,6 @@ int type_check_attribution(comp_tree_t* node)
 {
 	int var_type = typeConvert( get_type( node->children[0], ast_retrieve_node_purpose(node->children[0]) ) );
 	int exp_type = typeConvert( get_type( node->children[1], ast_retrieve_node_purpose(node->children[1]) ) );
-
 	if(var_type != IKS_STRING && exp_type == IKS_STRING)
 	{
 		yyerror("ERROR: Impossible coertion from STRING type to variable type");
@@ -296,7 +314,7 @@ int type_check_attribution(comp_tree_t* node)
 		exit(IKS_ERROR_CHAR_TO_X);
 		return ERROR;
 	}
-	else if(var_type != exp_type)
+	else if(!coercion_possible(var_type, exp_type))
 	{
 		yyerror("ERROR: Expression type does not match target variable type");
 		exit(IKS_ERROR_WRONG_TYPE);
@@ -310,6 +328,7 @@ int type_check_attribution(comp_tree_t* node)
 */
 int type_check_indexed_vector(comp_tree_t* node)
 {
+	
 	int exp_type = typeConvert( get_type( node->children[1], ast_retrieve_node_purpose(node->children[1]) ) );
 
 	if(exp_type == IKS_STRING)
@@ -334,6 +353,58 @@ int type_check_indexed_vector(comp_tree_t* node)
 	return SUCCESS;
 }
 
+int type_check_vector_dimension(struct comp_tree_t* node)
+{
+	int exp_type = typeConvert( type_inference(node) );
+
+	if(exp_type == IKS_STRING)
+	{
+		yyerror("ERROR: Impossible coertion from STRING type to integer in vector access");
+		exit(IKS_ERROR_STRING_TO_X);
+		return ERROR;
+	}
+	else if(exp_type == IKS_CHAR)
+	{
+		yyerror("ERROR: Impossible coertion from CHAR type to integer in vector access");
+		exit(IKS_ERROR_CHAR_TO_X);
+		return ERROR;
+	}
+	else if(exp_type != IKS_INT)
+	{
+		yyerror("ERROR: Vector access expression is not an integer");
+		exit(IKS_ERROR_WRONG_TYPE);
+		return ERROR;
+	}
+
+	
+	return SUCCESS;
+}
+
+int check_vector_dimensions_number(struct comp_tree_t* node)
+{
+	
+	comp_context_symbol_t* symbol = get_symbol(node);
+	
+	if( node->vector_dimensions > symbol->vector_size)
+	{
+		yyerror("ERROR: Using vector with more dimensions than defined");
+		exit(IKS_ERROR_STRING_TO_X); //TODO colocar constante de exit certa!
+		return ERROR;
+	}
+	else
+	{
+		if(node->vector_dimensions < symbol->vector_size)
+		{
+			yyerror("ERROR: Using vector with less dimensions than defined");
+			exit(IKS_ERROR_STRING_TO_X); //TODO colocar constante de exit certa!
+			return ERROR;
+		}
+		else
+		{
+			return SUCCESS;
+		}
+	}
+}
 
 /*
 	inferences type given an expression
@@ -511,6 +582,7 @@ int get_type(comp_tree_t* node, int purpose)
 
 	if(node->type == AST_VETOR_INDEXADO)
 	{
+		
 		type_check(node);
 		return get_type(node->children[0], PURPOSE_VECTOR);
 	}
@@ -521,6 +593,12 @@ int get_type(comp_tree_t* node, int purpose)
 		node_symbol = get_symbol(node);
 			
 		check_purpose(purpose, node_symbol);
+		
+		if(purpose == PURPOSE_VECTOR)
+		{
+			check_vector_dimensions_number(node);
+		}
+		
 		return typeConvert(node_symbol->type);
 		
 	}
@@ -587,7 +665,6 @@ comp_context_symbol_t* get_symbol(comp_tree_t* node)
 	if(node_symbol == NULL)
 	{	
 		/* Identifier not found in current context or in any of its parents */
-		printf("Undeclared token: %s \n", node->sym_table_ptr->token);
 		yyerror("ERROR: Undeclared variable");
 		exit(IKS_ERROR_UNDECLARED);
 	}

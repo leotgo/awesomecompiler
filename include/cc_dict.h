@@ -6,6 +6,7 @@
 #include "uthash.h" 
 #include "cc_type.h"
 typedef struct type_list type_list;
+typedef struct vector_dimension_list vector_dimension_list;
 
 /* The structure defining the elements that the symbols table will store, as
  * defined by the requirements. */
@@ -29,7 +30,9 @@ typedef struct comp_dict_item_t {
 				 SIMBOLO_IDENTIFICADOR - the pointer will be NULL				 
 				 */
 
-	type_list* params_list;
+	type_list* params_list; // has function parameters
+	
+	//int vector_dimensions;
 
 	UT_hash_handle hh; /* the handle that must be used by the item types of the
 					   hash table, defined by 'uthash'*/

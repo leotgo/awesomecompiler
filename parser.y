@@ -66,8 +66,11 @@
 %type <ast_node> Literal
 %type <ast_node> Inteiro
 %type <ast_node> BlocoDeComandosFuncao
+%type <ast_node> AcessoVetor
+%type <ast_node> DimensoesVetor
 %type <valor_simbolo_lexico> Variavel
 %type <valor_simbolo_lexico> Tipo
+//%type <valor_simbolo_lexico> Inteiro
 %type <valor_simbolo_lexico> Parametro
 %type <valor_simbolo_lexico> Parametros
 %type <valor_simbolo_lexico> ParametrosNaoVazio
@@ -133,8 +136,8 @@ Expressao:
 		| '!' Expressao { $$ = ast_create(AST_LOGICO_COMP_NEGACAO, $2); }	//todo
 		| Literal { $$ = $1; }
 		| Identificador { $$ = $1; }
-		| Identificador '[' Expressao ']' { 
-			$$ = ast_create(AST_VETOR_INDEXADO, $1, $3); }
+		| Identificador '[' AcessoVetor ']' {  $1->vector_dimensions = $3->vector_dimensions;
+			$$ = ast_create(AST_VETOR_INDEXADO, $1, $3); check_vector_dimensions_number($1); }
 		| ChamadaDeFuncao { $$ = $1; }
 		| Expressao '+' Expressao { 
 			$$ = ast_create(AST_ARIM_SOMA, $1, $3); }
@@ -174,13 +177,10 @@ ListaDeExpressoes:
 		;
 
 Atribuicao:
-		  Identificador '=' Expressao { 
-			$$ = ast_create(AST_ATRIBUICAO, $1, $3); 
-			get_type($3, PURPOSE_NORMAL);  }
-		| Identificador '[' Expressao ']' '=' Expressao { 
-			$$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); 
-			get_type($1, PURPOSE_VECTOR);
-			}
+		  Identificador '=' Expressao { $$ = ast_create(AST_ATRIBUICAO, $1, $3); get_type($3, PURPOSE_NORMAL);  }
+		| Identificador '[' AcessoVetor ']' '=' Expressao { $1->vector_dimensions = $3->vector_dimensions;
+															$$ = ast_create(AST_ATRIBUICAO, ast_create(AST_VETOR_INDEXADO, $1, $3), $6); 
+															get_type($1, PURPOSE_VECTOR);}
 		| Literal '=' Expressao { yyerror("Erro: Identificador invalido"); YYERROR; }	
 		;
 
@@ -194,15 +194,23 @@ Saida:
 		;
 
 Variavel:
-		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type, PURPOSE_NORMAL, 1); $$ =$1;}
+		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type, PURPOSE_NORMAL, 0); $$ =$1;}
+		;
+
+AcessoVetor:
+
+		  Expressao						{ type_check_vector_dimension($1); $$ = $1; $$->vector_dimensions = 1;}
+		| Expressao ',' AcessoVetor		{ $$->vector_dimensions = 1 + $3->vector_dimensions; }
+		;
+
+DimensoesVetor:
+	
+		  Inteiro						{ $$ = $1; $$->vector_dimensions = 1;  }
+		| Inteiro ',' DimensoesVetor	{ $$->vector_dimensions = 1 + $3->vector_dimensions; }
 		;
 
 Vetor:
-		Tipo TK_IDENTIFICADOR '[' Inteiro ']' { 
-			int vs = ($4->sym_table_ptr) ? 1 : (*((int*) ($4->sym_table_ptr->value)));			
-			context_add_identifier_to_current(
-				$2->token, $1->token_type, PURPOSE_VECTOR, vs);
-		}
+		Tipo TK_IDENTIFICADOR '[' DimensoesVetor ']' 	{ context_add_identifier_to_current($2->token, $1->token_type, PURPOSE_VECTOR, $4->vector_dimensions);}
 		;
 
 DeclVariavelGlobal: 
@@ -214,8 +222,12 @@ DeclVariavelGlobal:
 
 VariavelLocal:
 		  Variavel { }
+		| Vetor		{ }
 		| Const Variavel { }
+		| Const Vetor	 { }
+		| Static Vetor	 { }
 		| Static Variavel { }
+		| Static Const Vetor	{ }
 		| Static Const Variavel { }
 		;
 
@@ -236,13 +248,13 @@ Parametro:
 
 Parametros:
  		  { $$ = NULL; }
-		| Parametro {printf("PType: %d\n",$1->token_type); $$->params_list = type_list_Add(NULL, $1->token_type);}
-		| Parametro ',' ParametrosNaoVazio {printf("PType2: %d\n",$1->token_type); $$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
+		| Parametro { $$->params_list = type_list_Add(NULL, $1->token_type);}
+		| Parametro ',' ParametrosNaoVazio { $$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
 		;
 
 ParametrosNaoVazio:
-		  Parametro {printf("PTypeNV: %d\n",$1->token_type);$$->params_list = type_list_Add(NULL, $1->token_type); }
-		| Parametro ',' ParametrosNaoVazio {printf("PTypeNV2: %d\n",$1->token_type);$$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
+		  Parametro { $$->params_list = type_list_Add(NULL, $1->token_type); }
+		| Parametro ',' ParametrosNaoVazio { $$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
 		;
 
 DeclFuncao:
@@ -253,14 +265,14 @@ DeclFuncao:
 		;
 
 ArgumentosNaoVazio:
-		  Expressao { printf("TypeANV: %d\n",type_inference($1)); $$ = $1; $$->expectedTypes = type_list_Add(NULL, type_inference($1));}
+		  Expressao { $$ = $1; $$->expectedTypes = type_list_Add(NULL, type_inference($1));}
 		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3);$$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
 		;
 
 Argumentos:
 	      { $$ = NULL; }
-		| Expressao { /*getchar();*/printf("TypeArg: %d\n",type_inference($1));$$ = $1;  $$->expectedTypes = type_list_Add(NULL, type_inference($1));}
-		| Expressao ',' ArgumentosNaoVazio { printf("TypeARG2: %d\n",type_inference($1));$$ = ast_list($1, $3); $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
+		| Expressao { $$->expectedTypes = type_list_Add(NULL, type_inference($1));}
+		| Expressao ',' ArgumentosNaoVazio { $$ = ast_list($1, $3); $$->expectedTypes = type_list_Add($$->expectedTypes, type_inference($1));}
 		;
 
 ChamadaDeFuncao:

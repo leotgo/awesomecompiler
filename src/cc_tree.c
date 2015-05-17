@@ -250,11 +250,12 @@ void ast_generate_dot_graph(comp_tree_t* t) {
 #endif
 }
 
-int ast_retrieve_node_purpose(comp_tree_t* node) {
+int ast_retrieve_node_purpose(comp_tree_t* node) 
+{
 	if (node->type == AST_IDENTIFICADOR)
 		return PURPOSE_NORMAL;
-	else if (node->type == AST_VETOR_INDEXADO) {
-		yyerror("Indexed vector found");
+	else if (node->type == AST_VETOR_INDEXADO) 
+	{
 		return PURPOSE_VECTOR;
 	} else if (node->type == AST_CHAMADA_DE_FUNCAO)
 		return PURPOSE_FUNCTION;
