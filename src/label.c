@@ -1,0 +1,41 @@
+#include "label.h"
+
+
+
+char* generate_label()
+{
+
+	char *name = (char*) malloc(label_name_size);
+	char * buffer = (char*) malloc(label_name_size);
+	strcpy(name, "L");
+	sprintf(buffer,"%d",label_count);
+	strcat(name, buffer);
+	label_count++;
+	int i;
+	if(label_count >= label_range)
+	{
+		label_name_size++;
+		label_range*=10;
+	}
+	
+	label_list_add(name);
+	free(buffer);
+	return name;
+}
+
+void label_list_add(char* name)
+{
+	label_list* new = (label_list*)malloc(sizeof(label_list));
+	new->name = name;
+	new->next = lbl_list;
+}
+
+void label_list_destroy()
+{
+	while (lbl_list != NULL) 
+	{
+		label_list* y = lbl_list;
+		lbl_list = lbl_list->next;
+		free(y);
+	}
+}
