@@ -51,7 +51,7 @@
 
 typedef struct instruction
 {
-	char* opcode;		// The opcode for this instruction
+	int opcode;		// The opcode for this instruction
 
 	char* tgt_reg;		// The target register for the instruction
 	char* src_reg_1;	// The first source register for instruction. May be empty.
