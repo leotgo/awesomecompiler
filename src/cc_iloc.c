@@ -1,13 +1,32 @@
 #include "cc_iloc.h"
 
-typedef struct instruction
+
+
+void instruction_list_add(struct instruction* instr)
 {
-	char* opcode;		// The opcode for this instruction
+	instruction_list* new = (instruction_list*)malloc(sizeof(instruction_list));
+	new->instr = instr;
+	new->next = instr_list;
+}
 
-	char* tgt_reg;		// The target register for the instruction
-	char* src_reg_1;	// The first source register for instruction. May be empty.
-	char* src_reg_2;	// The second source register for the instruction. May also be empty.
+void print_instruction_list()
+{
+	recursive_parse(instr_list);
+}
 
-	void* valI;		// Pointer to immediate value for some types of operations
+void recursive_parse(instruction_list* list)
+{
+	recursive_parse(list->next);
+	
+	// TODO print here
+}
 
-} instruction;
+void instruction_list_destroy()
+{
+	while (instr_list != NULL) 
+	{
+		instruction_list* y = instr_list;
+		instr_list = instr_list->next;
+		free(y);
+	}
+}

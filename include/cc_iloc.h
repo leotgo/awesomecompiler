@@ -49,4 +49,35 @@
 #define OP_CMP_GT	 	42
 #define OP_CMP_NE	 	43
 
+typedef struct instruction
+{
+	char* opcode;		// The opcode for this instruction
+
+	char* tgt_reg;		// The target register for the instruction
+	char* src_reg_1;	// The first source register for instruction. May be empty.
+	char* src_reg_2;	// The second source register for the instruction. May also be empty.
+
+	void* valI;		// Pointer to immediate value for some types of operations
+
+} instruction;
+
+
+// reversed list of instructions. 
+//To print instructions in correct order must use function print_instructions
+typedef struct instruction_list 
+{
+	struct instruction* instr;
+	struct instruction_list* next;
+	
+} instruction_list;
+
+instruction_list* instr_list = NULL;
+
+void instruction_list_add(struct instruction* instr);
+
+void print_instruction_list();
+
+void recursive_parse(instruction_list* list);
+
+void instruction_list_destroy();
 
