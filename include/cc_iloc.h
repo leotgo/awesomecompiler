@@ -36,18 +36,20 @@
 #define OP_STORE_A_I 	29
 #define OP_STORE_A_O	30
 #define OP_C_STORE 		31
-#define OP_I_2_I	 	32
-#define OP_C_2_C		33
-#define OP_C_2_I	 	34
-#define OP_I_2_C	 	35
-#define OP_JUMP_I	 	36
-#define OP_JUMP		 	37
-#define OP_CMP_LT	 	38
-#define OP_CMP_LE	 	39
-#define OP_CMP_EQ	 	40
-#define OP_CMP_GE	 	41
-#define OP_CMP_GT	 	42
-#define OP_CMP_NE	 	43
+#define OP_C_STORE_A_I	32
+#define OP_C_STORE_A_O	33
+#define OP_I_2_I	 	34
+#define OP_C_2_C		35
+#define OP_C_2_I	 	36
+#define OP_I_2_C	 	37
+#define OP_JUMP_I	 	38
+#define OP_JUMP		 	39
+#define OP_CMP_LT	 	40
+#define OP_CMP_LE	 	41
+#define OP_CMP_EQ	 	42
+#define OP_CMP_GE	 	43
+#define OP_CMP_GT	 	44
+#define OP_CMP_NE	 	45
 
 typedef struct instruction
 {
@@ -78,6 +80,8 @@ void instruction_list_add(struct instruction* instr);
 void print_instruction_list();
 
 void recursive_parse(instruction_list* list);
+
+void print_instruction(instruction_list* list);
 
 void instruction_list_destroy();
 

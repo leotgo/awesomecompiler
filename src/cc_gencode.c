@@ -2,7 +2,7 @@
 #include "cc_tree.h"
 
 // The main code generation function. Called over the AST tree root, after it is created.
-void generate_code(comp_tree_t* tree)
+void generate_code(comp_tree_t* node)
 {
 	switch(node->type)
 	{
