@@ -34,6 +34,7 @@ void register_list_destroy()
 	while (reg_list != NULL) 
 	{
 		register_list* y = reg_list;
+		free(y->name);
 		reg_list = reg_list->next;
 		free(y);
 	}
