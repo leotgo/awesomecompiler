@@ -81,6 +81,8 @@ comp_tree_t* ast_createv(int type, va_list args) {
 	t->induced_type_by_coercion = IKS_INVALID;
 	t->next = NULL;
 	t->expectedTypes = NULL;
+	t->code = NULL;
+	t->addr = -1; 
 	t->context = current_context;
 
 	if (type == AST_PROGRAMA) {

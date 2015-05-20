@@ -23,3 +23,14 @@ void generate_code(comp_tree_t* node, char* rdest);
  * como o senhor recomenda carregar as strings?
  * 
  * */
+
+
+/* 
+ * TODO alex:
+ * 
+ * Mudar tamanho das strings para 100
+ * Tamanho dos vetores multidimensionais
+ * Enderecamento dos vetores
+ * Implementar AST_ in generate_code
+ * 
+ * */
