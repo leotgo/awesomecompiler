@@ -35,6 +35,7 @@ void label_list_destroy()
 	while (lbl_list != NULL) 
 	{
 		label_list* y = lbl_list;
+		free(y->name);
 		lbl_list = lbl_list->next;
 		free(y);
 	}
