@@ -39,6 +39,7 @@ void main_finalize(void) {
 	/* free data structures */
 	symbols_table_finalize(&global_symbols_table);	
 	// free_tree_node(global_syntax_tree);
+	context_free(main_context);
 	free_node_pool();
 }
 

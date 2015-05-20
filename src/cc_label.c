@@ -1,6 +1,9 @@
 #include "cc_label.h"
 
-
+struct label_list* lbl_list = NULL;
+int label_count = 0;
+int label_name_size = 3;
+int label_range = 10;
 
 char* generate_label()
 {

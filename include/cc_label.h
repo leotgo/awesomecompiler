@@ -1,3 +1,5 @@
+#ifndef CC_LABEL_H
+#define CC_LABEL_H
 
 #include <string.h>
 #include <stdio.h>
@@ -9,13 +11,13 @@ typedef struct label_list
 	struct label_list* next;
 } label_list;
 
-struct label_list* lbl_list;
-int label_count = 0;
-int label_name_size = 3;
-int label_range = 10;
+extern label_list* lbl_list;
 
 void label_list_add(char* name);
 
 void label_list_destroy();
 
 char* generate_label();
+
+
+#endif

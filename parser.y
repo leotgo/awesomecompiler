@@ -6,6 +6,7 @@
 #include "cc_tree.h"
 #include "cc_dict.h" 
 #include "cc_error.h"
+#include "cc_gencode.h"
   
 %}
 
@@ -343,8 +344,12 @@ Declaracoes:
 		;
 
 Programa:
-		   { $$ = ast_create(AST_PROGRAMA, NULL); ast_generate_dot_graph(global_syntax_tree); exit(IKS_SUCCESS); }
-		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); ast_generate_dot_graph(global_syntax_tree); free_value_pool();  exit(IKS_SUCCESS);}
+		   { $$ = ast_create(AST_PROGRAMA, NULL); ast_generate_dot_graph(global_syntax_tree); 
+			context_calc_addr(); generate_code(global_syntax_tree); exit(IKS_SUCCESS); }
+		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); ast_generate_dot_graph(global_syntax_tree); free_value_pool();  
+			context_calc_addr(); 
+			generate_code(global_syntax_tree);
+			exit(IKS_SUCCESS);}
 		;
 /*
 	Itens:

@@ -1,5 +1,9 @@
-
 #include "cc_register.h"
+
+struct register_list* reg_list = NULL;
+int register_count = 0;
+int register_name_size = 3;
+int range = 10;
 
 char* generate_register()
 {

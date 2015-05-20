@@ -1,3 +1,5 @@
+#ifndef CC_REGISTER_H
+#define CC_REGISTER_H
 
 #include <string.h>
 #include <stdio.h>
@@ -9,10 +11,7 @@ typedef struct register_list
 	struct register_list* next;
 } register_list;
 
-struct register_list* reg_list;
-int register_count = 0;
-int register_name_size = 3;
-int range = 10;
+extern struct register_list* reg_list;
 
 void register_list_add(char* name);
 
@@ -21,3 +20,4 @@ void register_list_destroy();
 char* generate_register();
 
 
+#endif

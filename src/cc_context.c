@@ -69,9 +69,17 @@ void context_pop() {
 			current_context = current_context->parent;
 		} else {
 			/* error: current context has no parent */
-			context_free(current_context);
+			//context_free(current_context);
+			
+			/* we should never pop the main context; instead, call 
+			 * context_free() on it when we are finalizing all data structures. 
+			 * */
+
 			current_context = NULL;
-			//yyerror("context has no parent!");
+			yyerror("Context has no parent!\n"
+				"We are popping the main context, which should never happen. "
+				"We can't pop the main context yet, because we will need them "
+				"when we go through the grammar one more time.\n");
 		}
 	} else {
 		/* error: popping NULL context */
@@ -110,10 +118,8 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	sym->vector_size = vector_dimensions;
 	strcpy((char*)sym->key, identifier);
 
-
 	HASH_ADD_KEYPTR(hh, current_context->symbols_table, sym->key,
 		strlen(sym->key), sym);
-		
 	
 	calculate_symbol_data_size(sym);
 
@@ -212,4 +218,30 @@ comp_context_symbol_t* context_find_identifier_multilevel(
 		c = c->parent;
 	}
 	return NULL;
+}
+
+void _context_calc_addr(comp_context_t* ctx) {	
+	comp_context_symbol_t* sym, *tmp;
+	if (ctx == NULL) return;
+	ctx->end_addr = ctx->start_addr;
+	HASH_ITER(hh, ctx->symbols_table, sym, tmp) {
+		sym->addr = ctx->end_addr;
+		ctx->end_addr += sym->data_size;
+	}
+
+	if (ctx->next != NULL) {
+		ctx->next->start_addr = ctx->start_addr;
+		_context_calc_addr(ctx->next);
+	}
+
+	if (ctx->children != NULL) {
+		ctx->children->start_addr = ctx->end_addr;
+		_context_calc_addr(ctx->children);
+	}
+}
+
+void context_calc_addr() {
+	main_context->start_addr = 0;
+	main_context->end_addr = 0;
+	_context_calc_addr(main_context);
 }
