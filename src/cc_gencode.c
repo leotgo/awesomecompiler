@@ -1,8 +1,8 @@
 #include "cc_gencode.h"
-#include "cc_tree.h"
 
-// The main code generation function. Called over the AST tree root, after it is created.
-void generate_code(comp_tree_t* tree)
+// The main code generation function. Called over the AST tree root, after it 
+// is created.
+void generate_code(comp_tree_t* node)
 {
 	switch(node->type)
 	{
@@ -12,14 +12,6 @@ void generate_code(comp_tree_t* tree)
 		case AST_DO_WHILE:
 			break;
 		case AST_WHILE_DO:
-			break;
-		case AST_LOGICO_COMP_DIF:
-			break;
-		case AST_LOGICO_COMP_IGUAL:
-			break;
-		case AST_LOGICO_COMP_LE:
-			break;
-		case AST_LOGICO_COMP_GE:
 			break;
 		case AST_LOGICO_COMP_DIF:
 			break;
