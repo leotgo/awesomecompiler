@@ -2,6 +2,8 @@
 #include "cc_dict.h"
 #include "cc_tree.h"
 #include "parser.h"
+#include "cc_register.h"
+#include "cc_label.h"
 #include "main.h"
 #include <assert.h>
 
@@ -41,6 +43,9 @@ void main_finalize(void) {
 	// free_tree_node(global_syntax_tree);
 	context_free(main_context);
 	free_node_pool();
+	register_list_destroy();
+	label_list_destroy();
+
 }
 
 int recognize_token(int token_id) {

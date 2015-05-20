@@ -18,7 +18,8 @@ typedef struct comp_context_symbol_t {
 					 the identifier */
 	int type; /* type as defined by cc_type.h */
 
-	struct type_list* parameters; /* list with all parameters if element is function. If not, value will be NULL */
+	struct type_list* parameters; /* list with all parameters if element is 
+								  function. If not, value will be NULL */
 
 	int purpose; /*0 = normal variable; 1 = vector; 2 = function; */
 
@@ -101,7 +102,7 @@ int calculate_symbol_data_size(comp_context_symbol_t* sym);
  * example:
  * 
  * int x; -> address 0, size = 4
- * string x = "alex zoch gliesch" -> address 4, size = 18 (17 characters + \0)
+ * string z = "alex zoch gliesch" -> address 4, size = 18 (17 characters + \0)
  * 
  * void main() {
  *		int x = 1000; -> address 26, size 4;

@@ -5,6 +5,12 @@ int register_count = 0;
 int register_name_size = 3;
 int range = 10;
 
+void register_list_add(char* name) {
+	register_list* new = (register_list*)malloc(sizeof(register_list));
+	new->name = name;
+	new->next = reg_list;
+}
+
 char* generate_register()
 {
 
@@ -14,7 +20,6 @@ char* generate_register()
 	sprintf(buffer,"%d",register_count);
 	strcat(name, buffer);
 	register_count++;
-	int i;
 	if(register_count >= range)
 	{
 		register_name_size++;
@@ -24,13 +29,6 @@ char* generate_register()
 	register_list_add(name);
 	free(buffer);
 	return name;
-}
-
-void register_list_add(char* name)
-{
-	register_list* new = (register_list*)malloc(sizeof(register_list));
-	new->name = name;
-	new->next = reg_list;
 }
 
 void register_list_destroy()

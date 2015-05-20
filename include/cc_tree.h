@@ -40,6 +40,10 @@ typedef struct comp_tree_t {
 
 	struct type_list* expectedTypes;
 
+	int addr; /* address in the generated code where this node points to. */
+
+	char* code;
+
 } comp_tree_t;
 
 /* the global syntax tree, which will be declared in cc_tree.c.  */

@@ -13,8 +13,6 @@ typedef struct label_list
 
 extern label_list* lbl_list;
 
-void label_list_add(char* name);
-
 void label_list_destroy();
 
 char* generate_label();

@@ -13,8 +13,6 @@ typedef struct register_list
 
 extern struct register_list* reg_list;
 
-void register_list_add(char* name);
-
 void register_list_destroy();
 
 char* generate_register();
