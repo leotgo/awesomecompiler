@@ -193,3 +193,100 @@ void generate_code(comp_tree_t* node, char* regdest)
 			break;
 	}	
 }
+
+void generate_code_if_else(comp_tree_t* node)
+{
+	// Generate code for IF-ELSE condition test
+	char* cond_reg = generate_register();
+	generate_code(node->children[0], cond_reg);
+
+	// Generate labels for condition cases TRUE and FALSE
+	char* case_true_label = generate_label();
+	char* case_false_label = generate_label();	
+
+	// Add BRANCH code based on IF-ELSE condition test
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_CBR;
+	node->instr_list->src_op_1 = cond_reg;
+	node->instr_list->tgt_op_1 = case_true_label;
+	node->instr_list->tgt_op_2 = case_false_label;
+
+	// Add condition true case label
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = case_true_label;
+
+	// Add condition true case code block	
+	generate_code(node->children[1], NULL);
+	
+	// Add condition false case label
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = case_false_label;
+
+	// Add condition false case code block, if it exists
+	if(node->children[2] != NULL)
+		generate_code(node->children[2], NULL);
+}
+
+void generate_code_do_while(comp_tree_t* node)
+{
+	// Generate labels for condition cases TRUE and FALSE
+	char* case_true_label = generate_label();
+	char* case_false_label = generate_label();
+
+	// Add label to start of DO-WHILE code block
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = case_true_label;
+
+	// Add instruction list of DO-WHILE code block
+	generate_code(node->children[1], NULL);
+
+	// Add instruction list of DO-WHILE condition test
+	char* cond_reg = generate_register();
+	generate_code(node->children[0], cond_reg);
+
+	// Add BRANCH code based on DO-WHILE condition test
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_CBR;
+	node->instr_list->src_op_1 = cond_reg;
+	node->instr_list->tgt_op_1 = case_true_label;
+	node->instr_list->tgt_op_2 = case_false_label;
+
+	// Add label to case when test is false (which means going to the next instruction)
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = case_false_label;
+}
+
+void generate_code_while_do(comp_tree_t* node)
+{
+	// Generate labels for condition cases TRUE and FALSE
+	char* case_true_label = generate_label();
+	char* case_false_label = generate_label();
+
+	// Generate code for WHILE-DO condition test
+	char* cond_reg = generate_register();
+	generate_code(node->children[0], cond_reg);
+
+	// Add BRANCH code based on WHILE-DO condition test
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_CBR;
+	node->instr_list->src_op_1 = cond_reg;
+	node->instr_list->tgt_op_1 = case_true_label;
+	node->instr_list->tgt_op_2 = case_false_label;
+
+	// Add label to WHILE-DO code block
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = case_true_label;
+
+	// Add instruction list of WHILE-DO code block
+	generate_code(node->children[1], NULL);
+
+	// Add label to case when test is false (which means going to the next instruction)
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = case_false_label;
+}
