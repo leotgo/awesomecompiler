@@ -365,6 +365,7 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 {
 	char* short_circuit_label;
 	char* second_exp_label = generate_label();
+	char* next_label = generate_label();
 
 	// register for value of children 0
 	char* r1 = generate_register();	
@@ -378,39 +379,20 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 	// Add first expression code to this node
 	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
 
-	if(operation == OP_MULT || operation == OP_AND || operation == OP_OR)
+	if(operation == OP_AND || operation == OP_OR)
 	{
 		short_circuit_label = generate_label();
 		instruction_list_add(&(node->instr_list));
+		node->instr_list->opcode = OP_CBR;
 		node->instr_list->src_op_1 = r1;
-
-		if(operation == OP_AND || operation == OP_OR)
-			node->instr_list->opcode = OP_CBR;
-		else
-			node->instr_list->opcode = OP_CMP_EQ;
 
 		if(operation == OP_AND)
 		{
 			node->instr_list->tgt_op_1 = second_exp_label;
 			node->instr_list->tgt_op_2 = short_circuit_label;
 		}
-		else if(operation == OP_OR)
+		else
 		{
-			node->instr_list->tgt_op_1 = short_circuit_label;
-			node->instr_list->tgt_op_2 = second_exp_label;
-		}
-		else if(operation == OP_MULT)
-		{
-			char* reg_mult_operand_zero = generate_register();
-
-			char *zero = (char*) malloc(2);
-			strcpy(zero, "0");
-			node->instr_list->src_op_2 = zero;
-			node->instr_list->tgt_op_1 = reg_mult_operand_zero;
-
-			instruction_list_add(&(node->instr_list));
-			node->instr_list->opcode = OP_CBR;
-			node->instr_list->src_op_1 = reg_mult_operand_zero;
 			node->instr_list->tgt_op_1 = short_circuit_label;
 			node->instr_list->tgt_op_2 = second_exp_label;
 		}
@@ -429,13 +411,33 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 	node->instr_list->src_op_2 = r2;
 	node->instr_list->tgt_op_1 = regdest;
 	
-	if(operation == OP_MULT || operation == OP_AND || operation == OP_OR)
+	if(operation == OP_AND || operation == OP_OR)
 	{
+		// In case there was no short circuit, we jump to next instruction set
+		// This MUST be added before the short_circuit_label, in case we do not jump directly
+		// to the short circuit, else we will copy R1 to REGDEST without need
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_JUMP_I;
+		node->instr_list->tgt_op_1 = next_label;		
+
 		// Add short circuit label, in case there is short circuit
 		instruction_list_add(&node->instr_list);
 		node->instr_list->opcode = OP_NOP;
 		node->instr_list->label = short_circuit_label;
+
+		// There may be short circuit, so we copy the contents of the short circuited register (R1) to REGDEST
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_I_2_I;
+		node->instr_list->src_op_1 = r1;
+		node->instr_list->tgt_op_1 = regdest;
+
+		// Code for the next set of instructions
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_NOP;
+		node->instr_list->label = next_label;
 	}
+
+	
 }
 
 void generate_children_code(comp_tree_t* node, char* regdest)
