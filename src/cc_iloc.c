@@ -21,14 +21,16 @@ void print_instruction_list(instruction* instr_list)
 
 void recursive_parse(instruction* list)
 {
-	if (list->next == NULL) return;
-	recursive_parse(list->next);
-	
+
+	if (list->next != NULL) 
+		recursive_parse(list->next);
+
 	print_instruction(list);
 }
 
 void print_instruction(instruction* list)
 {
+
 	if(list->label != NULL)
 	{
 		printf("%s:\n", list->label);

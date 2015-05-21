@@ -25,7 +25,8 @@ char* int_str(int i) {
 
 void generate_code(comp_tree_t* node, char* regdest)
 {
-	printf("gencode %d \n", node->type);getchar();
+	
+	printf("gencode %d \n", node->type);
 	switch(node->type)
 	{
 		/* Leonardo ********************************* */
@@ -141,7 +142,6 @@ void generate_code(comp_tree_t* node, char* regdest)
 
 			/* generate code for the expression that is being assigned to
 			 * the variable. */
-			;
 
 
 			/* generate code for the left side of the attribution. */
@@ -181,19 +181,23 @@ void generate_code(comp_tree_t* node, char* regdest)
 
 		/* Depois decidimos quem vai fazer ********** */
 		case AST_PROGRAMA:
+			generate_children_code(node, regdest);
 			break;
+			
 		case AST_FUNCAO:
+			generate_children_code(node, regdest);
 			break;
 		case AST_LITERAL:
 			generate_code_literal(node, regdest);
 			break;
 		case AST_INPUT:
-			// nao faço a minima ideia do que faz o input de verdade
+			// nao tem que fazer
 			break;
 		case AST_OUTPUT:
-			// nao faço a minima ideia do que faz o output de verdade
+			// nao tem que fazer
 			break;
 		case AST_RETURN:
+			// ACHO que nao tem que fazer ainda
 			break;
 		case AST_BLOCO:
 			// acho que nao precisa fazer nada?
@@ -204,7 +208,17 @@ void generate_code(comp_tree_t* node, char* regdest)
 			/* Do nothing (IN THIS STAGE, WILL NOT BE IMPLEMENTED) */
 			break;
 	}	
+	
+	if(node->type == AST_PROGRAMA)
+	{
+		// calls function to print instruction list 
+		
+		print_instruction_list(node->instr_list);
+		
+	}
+	
 }
+
 
 void generate_code_literal(comp_tree_t* node, char* regdest)
 {
@@ -213,10 +227,10 @@ void generate_code_literal(comp_tree_t* node, char* regdest)
 		printf("Error: no symbol's table pointer exists in literal\n");
 		exit(-1);
 	}
-	
+		
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_LOAD_I;
-	node->instr_list->src_op_1 = node->sym_table_ptr->token;
+	node->instr_list->src_op_1 = (char*)node->sym_table_ptr->token;
 	node->instr_list->tgt_op_1 = regdest;
 }
 
@@ -229,6 +243,8 @@ void generate_code_operation_negative(comp_tree_t* node, char* regdest)
 	
 	char *zero = (char*) malloc(2);
 	strcpy(zero, "0");
+	
+	node->instr_list = instruction_list_merge(&node->instr_list, &node->children[0]->instr_list);
 	
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_R_SUB_I;
@@ -246,13 +262,32 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 	
 	generate_code(node->children[0],r1);
 	generate_code(node->children[1],r2);
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
 	
-	
-	instruction_list_add(&node->instr_list);
+	instruction_list_add(&(node->instr_list));
 	node->instr_list->opcode = operation;
 	node->instr_list->src_op_1 = r1;
 	node->instr_list->src_op_2 = r2;
 	node->instr_list->tgt_op_1 = regdest;
+	
+
+	
+}
+
+void generate_children_code(comp_tree_t* node, char* regdest)
+{
+	int i;
+	for(i=0; i < node->num_children; i++)
+	{
+		comp_tree_t *c = node->children[i];
+		while(c!=NULL)
+		{
+			generate_code(c,regdest);
+			node->instr_list = instruction_list_merge(&node->instr_list, &node->children[i]->instr_list);
+			c = c->next;
+		}
+	}
 	
 }
 

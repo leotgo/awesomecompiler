@@ -19,6 +19,8 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation);
 
 void generate_code_operation_negative(comp_tree_t* node, char* regdest);
 
+void generate_children_code(comp_tree_t* node, char* regdest);
+
 void generate_code_if_else(comp_tree_t* node);
 
 void generate_code_do_while(comp_tree_t* node);
