@@ -1,5 +1,8 @@
 #include "cc_gencode.h"
 #include "cc_type.h"
+#include "cc_register.h"
+#include "cc_label.h"
+#include "cc_iloc.h"
 
 // The main code generation function. Called over the AST tree root, after it 
 // is created.

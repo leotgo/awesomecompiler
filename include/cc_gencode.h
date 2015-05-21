@@ -28,7 +28,6 @@ void generate_code(comp_tree_t* node, char* rdest);
 /* 
  * TODO alex:
  * 
- * Mudar tamanho das strings para 100
  * Tamanho dos vetores multidimensionais
  * Enderecamento dos vetores
  * Implementar AST_ in generate_code

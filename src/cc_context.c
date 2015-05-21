@@ -87,7 +87,8 @@ void context_pop() {
 }
 
 comp_context_symbol_t* context_add_identifier_to_current(
-		const char* identifier, int type, int purpose, int vector_dimensions) 
+		const char* identifier, int type, int purpose, int vector_dimensions,
+		int* vector_dimension_sizes) 
 {
 	if (current_context == NULL )
 	{
@@ -115,7 +116,13 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	sym->data_size = 0;
 	
-	sym->vector_size = vector_dimensions;
+	sym->vector_dimensions = vector_dimensions;
+	memset(sym->vector_dimension_sizes, -1, 
+		sizeof(sym->vector_dimension_sizes));
+	if (vector_dimension_sizes != NULL && vector_dimensions > 0) {
+		memcpy(sym->vector_dimension_sizes, vector_dimension_sizes,
+			sizeof(int) * (vector_dimensions + 1));
+	}
 	strcpy((char*)sym->key, identifier);
 
 	HASH_ADD_KEYPTR(hh, current_context->symbols_table, sym->key,
@@ -133,10 +140,15 @@ int calculate_symbol_data_size(comp_context_symbol_t* sym) {
 	else if (sym->type == IKS_FLOAT) sym->data_size = 8;
 	else if (sym->type == IKS_CHAR) sym->data_size = 1;
 	else if (sym->type == IKS_STRING) {
-		sym->data_size = 1;
+		sym->data_size = 100;
 	}
-	if (sym->purpose == PURPOSE_VECTOR)
-		sym->data_size *= sym->vector_size;
+	if (sym->purpose == PURPOSE_VECTOR) {
+		int d;
+		for (d = 0; d < sym->vector_dimensions; ++d) {
+			if (sym->vector_dimension_sizes[d] != -1)
+				sym->data_size *= sym->vector_dimension_sizes[d];
+		}
+	}
 }
 
 comp_context_symbol_t* context_add_function_to_current(
@@ -175,7 +187,7 @@ comp_context_symbol_t* context_add_function_to_current(
 	sym->type = type;
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	sym->data_size = 0;
-	sym->vector_size = 1;
+	sym->vector_dimensions = 0;
 	strcpy((char*)sym->key, identifier);
 
 
