@@ -31,22 +31,31 @@ void generate_code(comp_tree_t* node, char* regdest)
 	{
 		/* Leonardo ********************************* */
 		case AST_IF_ELSE:
+			generate_code_if_else(node);
 			break;
 		case AST_DO_WHILE:
+			generate_code_do_while(node);
 			break;
 		case AST_WHILE_DO:
+			generate_code_while_do(node);
 			break;
 		case AST_LOGICO_COMP_DIF:
+			generate_code_comparison(node, regdest, OP_CMP_NE);
 			break;
 		case AST_LOGICO_COMP_IGUAL:
+			generate_code_comparison(node, regdest, OP_CMP_EQ);
 			break;
 		case AST_LOGICO_COMP_LE:
+			generate_code_comparison(node, regdest, OP_CMP_LE);
 			break;
 		case AST_LOGICO_COMP_GE:
+			generate_code_comparison(node, regdest, OP_CMP_GE);
 			break;
 		case AST_LOGICO_COMP_L:
+			generate_code_comparison(node, regdest, OP_CMP_LT);
 			break;
 		case AST_LOGICO_COMP_G:
+			generate_code_comparison(node, regdest, OP_CMP_GT);
 			break;
 		case AST_LOGICO_COMP_NEGACAO:
 			break;
@@ -354,16 +363,64 @@ void generate_code_operation_negative(comp_tree_t* node, char* regdest)
 
 void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 {
+	char* short_circuit_label;
+	char* second_exp_label = generate_label();
+
 	// register for value of children 0
 	char* r1 = generate_register();	
 	// register for value of chldren 1
 	char* r2 = generate_register();
 	
+	// Generate code for first and second expression
 	generate_code(node->children[0],r1);
 	generate_code(node->children[1],r2);
 	
-
+	// Add first expression code to this node
 	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
+
+	if(operation == OP_MULT || operation == OP_AND || operation == OP_OR)
+	{
+		short_circuit_label = generate_label();
+		instruction_list_add(&(node->instr_list));
+		node->instr_list->src_op_1 = r1;
+
+		if(operation == OP_AND || operation == OP_OR)
+			node->instr_list->opcode = OP_CBR;
+		else
+			node->instr_list->opcode = OP_CMP_EQ;
+
+		if(operation == OP_AND)
+		{
+			node->instr_list->tgt_op_1 = second_exp_label;
+			node->instr_list->tgt_op_2 = short_circuit_label;
+		}
+		else if(operation == OP_OR)
+		{
+			node->instr_list->tgt_op_1 = short_circuit_label;
+			node->instr_list->tgt_op_2 = second_exp_label;
+		}
+		else if(operation == OP_MULT)
+		{
+			char* reg_mult_operand_zero = generate_register();
+
+			char *zero = (char*) malloc(2);
+			strcpy(zero, "0");
+			node->instr_list->src_op_2 = zero;
+			node->instr_list->tgt_op_1 = reg_mult_operand_zero;
+
+			instruction_list_add(&(node->instr_list));
+			node->instr_list->opcode = OP_CBR;
+			node->instr_list->src_op_1 = reg_mult_operand_zero;
+			node->instr_list->tgt_op_1 = short_circuit_label;
+			node->instr_list->tgt_op_2 = second_exp_label;
+		}
+	}
+
+	// Add second expression label
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = second_exp_label;
+
 	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
 	
 	instruction_list_add(&(node->instr_list));
@@ -372,8 +429,13 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 	node->instr_list->src_op_2 = r2;
 	node->instr_list->tgt_op_1 = regdest;
 	
-	
-	
+	if(operation == OP_MULT || operation == OP_AND || operation == OP_OR)
+	{
+		// Add short circuit label, in case there is short circuit
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_NOP;
+		node->instr_list->label = short_circuit_label;
+	}
 }
 
 void generate_children_code(comp_tree_t* node, char* regdest)
@@ -423,7 +485,7 @@ void generate_code_if_else(comp_tree_t* node)
 	// After true code is executed, go to next instruction
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_JUMP_I;
-	node->instr_list->src_op_1 = next_label;
+	node->instr_list->tgt_op_1 = next_label;
 
 	// Add condition false case label
 	instruction_list_add(&node->instr_list);
