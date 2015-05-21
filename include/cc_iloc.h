@@ -81,6 +81,19 @@ typedef struct instruction
  * */
 void instruction_list_add(instruction** instr_list);
 
+
+/* 
+ * merges two instruction lists. the input lists can be considered to be both
+ * destroyed after this function is called; accessing them after this call
+ * will result in undefined behaviour. 
+ * 
+ * this function returns a new list which is the concatenation of l1 and l2 
+ * (where l2 come after l1). 
+ * 
+ * it is not a problem if one (or both) of them is NULL.
+ * */
+instruction* instruction_list_merge(instruction** l1, instruction** l2);
+
 void print_instruction_list(instruction* list);
 
 void instruction_list_destroy(instruction* list);

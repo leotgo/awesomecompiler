@@ -245,3 +245,20 @@ void instruction_list_destroy(instruction* instr_list)
 		free(y);
 	}
 }
+
+instruction* instruction_list_merge(instruction** l1, instruction** l2) {
+	if (l1 == NULL || l2 == NULL) {
+		perror("Passing null instruction lists to merge.");
+		exit(-1);
+	}
+	instruction* la = *l1, *lb = *l2;
+	*l1 = NULL, *l2 = NULL;
+	if (la == NULL)
+		return lb;
+
+	while (la->next) {
+		la = la->next;
+	}
+	la->next = lb;
+	return la;
+}

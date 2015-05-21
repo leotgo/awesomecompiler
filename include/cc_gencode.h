@@ -13,23 +13,7 @@
  * */
 void generate_code(comp_tree_t* node, char* regdest);
 
+
+
 #endif
 
-/* 
- * pergunta pro professor:
- * 
- * dá pra carregar uma string em um registrador iloc?
- * 
- * como o senhor recomenda carregar as strings?
- * 
- * */
-
-
-/* 
- * TODO alex:
- * 
- * Tamanho dos vetores multidimensionais
- * Enderecamento dos vetores
- * Implementar AST_ in generate_code
- * 
- * */

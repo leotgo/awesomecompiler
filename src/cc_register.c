@@ -1,19 +1,12 @@
 #include "cc_register.h"
+#include "cc_str_pool.h"
 
-struct register_list* reg_list = NULL;
 int register_count = 0;
 int register_name_size = 3;
 int range = 10;
 
-void register_list_add(char* name) {
-	register_list* new = (register_list*)malloc(sizeof(register_list));
-	new->name = name;
-	new->next = reg_list;
-}
-
 char* generate_register()
 {
-
 	char *name = (char*) malloc(register_name_size);
 	char * buffer = (char*) malloc(register_name_size);
 	strcpy(name, "r");
@@ -28,18 +21,8 @@ char* generate_register()
 	
 	register_list_add(name);
 	free(buffer);
+	str_pool_add(name);
 	return name;
-}
-
-void register_list_destroy()
-{
-	while (reg_list != NULL) 
-	{
-		register_list* y = reg_list;
-		free(y->name);
-		reg_list = reg_list->next;
-		free(y);
-	}
 }
 
 char* reg_fp() {

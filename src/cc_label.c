@@ -1,15 +1,8 @@
 #include "cc_label.h"
 
-struct label_list* lbl_list = NULL;
 int label_count = 0;
 int label_name_size = 3;
 int label_range = 10;
-
-void label_list_add(char* name) {
-	label_list* new = (label_list*)malloc(sizeof(label_list));
-	new->name = name;
-	new->next = lbl_list;
-}
 
 char* generate_label()
 {
@@ -29,16 +22,7 @@ char* generate_label()
 	
 	label_list_add(name);
 	free(buffer);
+	str_pool_add(name);
 	return name;
 }
 
-void label_list_destroy()
-{
-	while (lbl_list != NULL) 
-	{
-		label_list* y = lbl_list;
-		free(y->name);
-		lbl_list = lbl_list->next;
-		free(y);
-	}
-}

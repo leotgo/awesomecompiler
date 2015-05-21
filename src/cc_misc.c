@@ -5,6 +5,7 @@
 #include "cc_register.h"
 #include "cc_label.h"
 #include "main.h"
+#include "cc_str_pool.h"
 #include <assert.h>
 
 extern int lineCounter; /* lineCounter is declared in scanner.c, 
@@ -43,9 +44,7 @@ void main_finalize(void) {
 	// free_tree_node(global_syntax_tree);
 	context_free(main_context);
 	free_node_pool();
-	register_list_destroy();
-	label_list_destroy();
-
+	str_pool_destroy();
 }
 
 int recognize_token(int token_id) {

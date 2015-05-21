@@ -4,6 +4,22 @@
 #include "cc_label.h"
 #include "cc_iloc.h"
 
+/* converts the int 'i', into a string (it allocates the necessary memory for 
+ * that string).
+ * it adds the string to the node pool so we don't ahve to worry about 
+ * releasing the memory.*/
+char* int_str(int i) {
+	/* a 32-bit integer will never exceed 10 digits, so the
+	* address string will never be more than 12 digits ;)
+	* (just to be safe)
+	* */
+	char* str = (char*)malloc(12 * sizeof(char));
+	memset(str, 0, 12 * sizeof(char));
+	sprintf(str, "%d", i);
+	str_pool_add(str);
+	return str;
+}
+
 // The main code generation function. Called over the AST tree root, after it 
 // is created.
 
@@ -67,19 +83,43 @@ void generate_code(comp_tree_t* node, char* regdest)
 			 * */
 			node->addr = get_symbol(node)->addr;
 
-			/* if the user specified a destination registrer, we make a 
-			 * LOAD of this identifier's value to rdest. */
-			if (regdest) {				
+			if (regdest) {
 				instruction_list_add(&node->instr_list);
-				node->instr_list->opcode = OP_LOAD_A_I;
-				node->instr_list->tgt_op_1 = regdest;
-				if (node->context == main_context) { /* global variable */
-					node->instr_list->src_op_1 = reg_fp();
-				} else {
-					node->instr_list->src_op_1 = reg_arp();
-				}				
 
-				//node->instr_list->src_reg_2 = 
+				/* we have to use LOADI (immediate load) if node type is a
+				* string. the immediate value will be the address. */
+				if (get_symbol(node)->type == IKS_STRING) {					
+					node->instr_list->opcode = OP_LOAD_I;
+					/* first operand: the immediate value */
+					node->instr_list->src_op_1 = int_str(node->addr);
+					/* target: the destination register */
+					node->instr_list->tgt_op_1 = regdest;
+
+				} else {
+					/* variable is anything other than a string. load by value. 
+					*
+					* LOAD_AI of this identifier's value to rdest.
+					*
+					* LOAD_AI   reg_base   offset   =>   reg_dest 
+					* 
+					* */
+					node->instr_list->opcode = OP_LOAD_A_I;
+
+					/* target is regdest */
+					node->instr_list->tgt_op_1 = regdest;
+
+					/* first operand: fp if variable is global,
+					 * or rarp if variable is local. */
+					if (node->context == main_context) { /* global variable */
+						node->instr_list->src_op_1 = reg_fp();
+					} else {
+						node->instr_list->src_op_1 = reg_arp();
+					}
+
+					/* second operand: the immediate value of the variable's
+					 * address.*/
+					node->instr_list->src_op_2 = int_str(node->addr);
+				}
 			}
 			break;
 		case AST_ATRIBUICAO:
@@ -96,17 +136,28 @@ void generate_code(comp_tree_t* node, char* regdest)
 			;
 
 
-			char* reg0 = generate_register();
 			/* generate code for the left side of the attribution. */
-			generate_code(node->children[0], reg0);
+			generate_code(node->children[0], NULL);
 
+			/* reg1 will hold the value to be assigned to the memory 
+			 * address. */
 			char* reg1 = generate_register();
 
 			/* generate code for the right side of the attrib.*/
 			generate_code(node->children[1], reg1);
 
+			/* concatenate children's codes. */
+			node->instr_list = instruction_list_merge(
+				node->children[0]->instr_list,
+				node->children[1]->instr_list);
+
 			/* addr of the variable that will be assig. */
 			int dest_addr = get_symbol(node->children[0])->addr; 
+
+			/*
+			 * ALEX, CONTINUAR AQUI 
+			 *
+			 **/
 
 			break;
 		case AST_VETOR_INDEXADO:
