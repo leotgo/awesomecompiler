@@ -1,5 +1,6 @@
 #include "cc_str_pool.h"
 #include <stdlib.h>
+#include <string.h>
 
 typedef struct str_pool {
 	char* str;

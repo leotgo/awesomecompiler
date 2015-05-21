@@ -19,7 +19,6 @@ char* generate_register()
 		range*=10;
 	}
 	
-	register_list_add(name);
 	free(buffer);
 	str_pool_add(name);
 	return name;

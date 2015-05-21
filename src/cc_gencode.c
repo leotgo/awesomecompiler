@@ -148,8 +148,8 @@ void generate_code(comp_tree_t* node, char* regdest)
 
 			/* concatenate children's codes. */
 			node->instr_list = instruction_list_merge(
-				node->children[0]->instr_list,
-				node->children[1]->instr_list);
+				&node->children[0]->instr_list,
+				&node->children[1]->instr_list);
 
 			/* addr of the variable that will be assig. */
 			int dest_addr = get_symbol(node->children[0])->addr; 

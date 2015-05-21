@@ -20,7 +20,6 @@ char* generate_label()
 		label_range*=10;
 	}
 	
-	label_list_add(name);
 	free(buffer);
 	str_pool_add(name);
 	return name;
