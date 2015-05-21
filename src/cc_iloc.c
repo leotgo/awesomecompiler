@@ -4,7 +4,13 @@
 void instruction_list_add(instruction** instr_list)
 {
 	instruction* new = (instruction*)malloc(sizeof(instruction));
+	new->opcode = OP_NOP;
 	new->next = *instr_list;
+	new->tgt_reg_1 = NULL;
+	new->tgt_reg_2 = NULL;
+	new->src_reg_1 = NULL;
+	new->src_reg_2 = NULL;
+	new->valI = NULL;
 	*instr_list = new;
 }
 

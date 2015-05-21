@@ -7,7 +7,7 @@
 // The main code generation function. Called over the AST tree root, after it 
 // is created.
 
-void generate_code(comp_tree_t* node, char* rdest)
+void generate_code(comp_tree_t* node, char* regdest)
 {
 	switch(node->type)
 	{
@@ -65,6 +65,22 @@ void generate_code(comp_tree_t* node, char* rdest)
 			 * não tem código, mas aqui tem que ver o ponteiro
 			 * pro simbolo no contexto e setar node->addr adequadamente. 
 			 * */
+			node->addr = get_symbol(node)->addr;
+
+			/* if the user specified a destination registrer, we make a 
+			 * LOAD of this identifier's value to rdest. */
+			if (regdest) {				
+				instruction_list_add(&node->instr_list);
+				node->instr_list->opcode = OP_LOAD_A_I;
+				node->instr_list->tgt_reg_1 = regdest;
+				if (node->context == main_context) { /* global variable */
+					node->instr_list->src_reg_1 = reg_fp();
+				} else {
+					node->instr_list->src_reg_1 = reg_arp();
+				}				
+
+				//node->instr_list->src_reg_2 = 
+			}
 			break;
 		case AST_ATRIBUICAO:
 			/* casos:
@@ -78,10 +94,18 @@ void generate_code(comp_tree_t* node, char* rdest)
 			/* generate code for the expression that is being assigned to
 			 * the variable. */
 			;
-			char* reg = generate_register();
-			generate_code(node->children[1], reg);
 
-			/* addr of the variable being assigned. */
+
+			char* reg0 = generate_register();
+			/* generate code for the left side of the attribution. */
+			generate_code(node->children[0], reg0);
+
+			char* reg1 = generate_register();
+
+			/* generate code for the right side of the attrib.*/
+			generate_code(node->children[1], reg1);
+
+			/* addr of the variable that will be assig. */
 			int dest_addr = get_symbol(node->children[0])->addr; 
 
 			break;

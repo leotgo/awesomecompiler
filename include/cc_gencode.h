@@ -11,7 +11,7 @@
  * it ignores 'rdest'.
  * 
  * */
-void generate_code(comp_tree_t* node, char* rdest);
+void generate_code(comp_tree_t* node, char* regdest);
 
 #endif
 

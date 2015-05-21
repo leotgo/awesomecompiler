@@ -13,6 +13,10 @@ typedef struct register_list
 
 extern struct register_list* reg_list;
 
+char* reg_fp();
+
+char* reg_arp();
+
 void register_list_destroy();
 
 char* generate_register();

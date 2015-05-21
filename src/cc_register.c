@@ -41,3 +41,13 @@ void register_list_destroy()
 		free(y);
 	}
 }
+
+char* reg_fp() {
+	static char* rfp = "rfp";
+	return rfp;
+}
+
+char* reg_arp() {
+	static char* rarp = "rarp";
+	return rarp;
+}

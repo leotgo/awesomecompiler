@@ -49,6 +49,7 @@
 #define OP_CMP_GE	 	43
 #define OP_CMP_GT	 	44
 #define OP_CMP_NE	 	45
+#define OP_NOP			46
 
 typedef struct instruction
 {
