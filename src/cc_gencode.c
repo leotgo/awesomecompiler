@@ -396,6 +396,7 @@ void generate_code_if_else(comp_tree_t* node)
 	// Generate code for IF-ELSE condition test
 	char* cond_reg = generate_register();
 	generate_code(node->children[0], cond_reg);
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
 
 	// Generate labels for condition cases TRUE and FALSE
 	char* case_true_label = generate_label();
