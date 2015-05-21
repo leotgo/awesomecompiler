@@ -13,7 +13,7 @@ __attribute__((constructor)) void begin()
 }
 __attribute__((destructor)) void end()
 {
-	context_pop();
+	//context_pop();
 }
 
 void context_free(comp_context_t* context) {

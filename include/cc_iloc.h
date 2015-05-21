@@ -51,6 +51,7 @@
 #define OP_CMP_NE	 	45
 #define OP_CBR			46
 #define OP_NOP			47
+#define OP_NOT			48 	// we created new iloc operation: r1 => r2; r2 has inverted value
 
 typedef struct instruction
 {

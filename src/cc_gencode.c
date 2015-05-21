@@ -25,6 +25,7 @@ char* int_str(int i) {
 
 void generate_code(comp_tree_t* node, char* regdest)
 {
+	printf("gencode %d \n", node->type);getchar();
 	switch(node->type)
 	{
 		/* Leonardo ********************************* */
@@ -184,14 +185,18 @@ void generate_code(comp_tree_t* node, char* regdest)
 		case AST_FUNCAO:
 			break;
 		case AST_LITERAL:
+			generate_code_literal(node, regdest);
 			break;
 		case AST_INPUT:
+			// nao faço a minima ideia do que faz o input de verdade
 			break;
 		case AST_OUTPUT:
+			// nao faço a minima ideia do que faz o output de verdade
 			break;
 		case AST_RETURN:
 			break;
 		case AST_BLOCO:
+			// acho que nao precisa fazer nada?
 			break;
 		/* ****************************************** */
 		
@@ -199,6 +204,20 @@ void generate_code(comp_tree_t* node, char* regdest)
 			/* Do nothing (IN THIS STAGE, WILL NOT BE IMPLEMENTED) */
 			break;
 	}	
+}
+
+void generate_code_literal(comp_tree_t* node, char* regdest)
+{
+	if(node->sym_table_ptr == NULL)
+	{
+		printf("Error: no symbol's table pointer exists in literal\n");
+		exit(-1);
+	}
+	
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_LOAD_I;
+	node->instr_list->src_op_1 = node->sym_table_ptr->token;
+	node->instr_list->tgt_op_1 = regdest;
 }
 
 void generate_code_operation_negative(comp_tree_t* node, char* regdest)
@@ -214,7 +233,7 @@ void generate_code_operation_negative(comp_tree_t* node, char* regdest)
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_R_SUB_I;
 	node->instr_list->src_op_1 = r1;
-	node->instr_list->src_op_1 = zero;
+	node->instr_list->src_op_2 = zero;
 	node->instr_list->tgt_op_1 = regdest;
 }
 
@@ -232,7 +251,7 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = operation;
 	node->instr_list->src_op_1 = r1;
-	node->instr_list->src_op_1 = r2;
+	node->instr_list->src_op_2 = r2;
 	node->instr_list->tgt_op_1 = regdest;
 	
 }

@@ -13,6 +13,8 @@
  * */
 void generate_code(comp_tree_t* node, char* regdest);
 
+void generate_code_literal(comp_tree_t* node, char* regdest);
+
 void generate_code_operation(comp_tree_t* node, char* regdest, int operation);
 
 void generate_code_operation_negative(comp_tree_t* node, char* regdest);
