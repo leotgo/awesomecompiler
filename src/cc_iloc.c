@@ -1,30 +1,30 @@
 #include "cc_iloc.h"
 
 
-
-void instruction_list_add(struct instruction* instr)
+void instruction_list_add(instruction** instr_list)
 {
-	instruction_list* new = (instruction_list*)malloc(sizeof(instruction_list));
-	new->instr = instr;
-	new->next = instr_list;
+	instruction* new = (instruction*)malloc(sizeof(instruction));
+	new->next = *instr_list;
+	*instr_list = new;
 }
 
-void print_instruction_list()
+void print_instruction_list(instruction* instr_list)
 {
 	recursive_parse(instr_list);
 }
 
-void recursive_parse(instruction_list* list)
+void recursive_parse(instruction* list)
 {
+	if (list->next == NULL) return;
 	recursive_parse(list->next);
 	
 	print_instruction(list);
 }
 
-void print_instruction(instruction_list* list)
+void print_instruction(instruction* list)
 {
 	
-	switch(list->instr->opcode)
+	switch(list->opcode)
 	{
 		case OP_ADD:
 			printf("add %s, %s => %s", list->instr->src_reg_1, list->instr->src_reg_2, list->instr->tgt_reg_1);
@@ -216,12 +216,26 @@ void print_instruction(instruction_list* list)
 	
 }
 
-void instruction_list_destroy()
+void instruction_list_destroy(instruction* instr_list)
 {
 	while (instr_list != NULL) 
 	{
-		instruction_list* y = instr_list;
+		instruction* y = instr_list;
 		instr_list = instr_list->next;
+
+		/* Guys,
+		 * 
+		 * Check whether we really don't have to free the fields in instr:
+		 * 
+		 * tgt_reg,
+		 * src_reg, 
+		 * valI ???
+		 * 
+		 * In theory, we shouldn't have, since tgt_reg and src_reg strings 
+		 * should be freed on cc_register's pool. But just in case, we should
+		 * keep this in mind!
+		 * */
+
 		free(y);
 	}
 }

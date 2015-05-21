@@ -31,6 +31,9 @@ void free_tree_node(comp_tree_t* t) {
 	if (t->expectedTypes)
 		type_list_free(t->expectedTypes);
 
+	if (t->instr_list)
+		instruction_list_destroy(t->instr_list);
+
 	free(t);
 }
 
@@ -81,9 +84,10 @@ comp_tree_t* ast_createv(int type, va_list args) {
 	t->induced_type_by_coercion = IKS_INVALID;
 	t->next = NULL;
 	t->expectedTypes = NULL;
-	t->code = NULL;
+	t->instr_list = NULL;
 	t->addr = -1; 
 	t->context = current_context;
+	memset(t->vector_dimension_sizes, -1, sizeof t->vector_dimension_sizes);
 
 	if (type == AST_PROGRAMA) {
 		/* 'program' has 1 child: the first function. 
@@ -124,49 +128,6 @@ comp_tree_t* ast_createv(int type, va_list args) {
 		/* atribution has 2 children: the identifier that is being atributed to
 		 * and the expression that is being atributed. */
 		ast_create_children(t, 2, args);
-
-		if (t->children[0]->type == AST_IDENTIFICADOR) {
-			if (t->children[1]->type == AST_LITERAL &&
-				get_type(t->children[1], PURPOSE_NORMAL) == IKS_STRING) {
-				/* it works like this. when the string is declared, 
-				 * it's data_size is set to 1 (it's an empty string; just the 
-				 * \0). 
-				 * 
-				 * when the string is assigned something, we check the size of
-				 * the string being assigned and set the variable size to that.
-				 * 
-				 * */
-				comp_context_symbol_t* sym = 
-					context_find_identifier_multilevel(
-						current_context, t->children[0]->sym_table_ptr->token);
-				if (sym != NULL) {  /* sempre deveria ser != NULL*/  
-					sym->data_size = max(
-						strlen(t->children[1]->sym_table_ptr->value) + 1, /* I add 1 here because of \0 */
-						sym->data_size);
-				}				
-			}
-		} else if (t->children[0]->type == AST_VETOR_INDEXADO) {
-			/* 
-			 * look: the size of a vector of string, by definition, will be
-			 * the dimensinos of the vector times the 
-			 * 
-			 * */
-			if (t->children[0]->children[0]->type == AST_IDENTIFICADOR) {
-				if (t->children[1]->type == AST_LITERAL &&
-					get_type(t->children[1], PURPOSE_NORMAL) == IKS_STRING) {
-					comp_context_symbol_t* sym =
-						context_find_identifier_multilevel(
-							current_context, 
-							t->children[0]->children[0]->sym_table_ptr->token);
-					if (sym != NULL) {  /* sempre deveria ser != NULL*/
-						sym->data_size = max(
-							sym->vector_size * (1 + /* I add 1 here because of \0 */
-								strlen(t->children[1]->sym_table_ptr->value)),
-							sym->data_size);
-					}
-				}
-			}
-		}
 	} else if (type == AST_RETURN) {
 		/* return has 1 child: the expression that is being returned. */
 		ast_create_children(t, 1, args);
@@ -202,6 +163,8 @@ comp_tree_t* ast_createv(int type, va_list args) {
 		 * and the first element of the expression list that corresponds 
 		 * to its arguments. */
 		ast_create_children(t, 2, args);
+	} else if (type == AST_ACCESSO_VETOR) {
+
 	}
 
 

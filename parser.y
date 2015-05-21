@@ -195,7 +195,7 @@ Saida:
 		;
 
 Variavel:
-		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type, PURPOSE_NORMAL, 0); $$ =$1;}
+		  Tipo TK_IDENTIFICADOR { context_add_identifier_to_current($2->token,$1->token_type, PURPOSE_NORMAL, 0, NULL); $$ = $1;}
 		;
 
 AcessoVetor:
@@ -206,12 +206,12 @@ AcessoVetor:
 
 DimensoesVetor:
 	
-		  Inteiro						{ $$ = $1; $$->vector_dimensions = 1;  }
-		| Inteiro ',' DimensoesVetor	{ $$->vector_dimensions = 1 + $3->vector_dimensions; }
+		  Inteiro						{ $$ = $1; $$->vector_dimensions = 1; $$->vector_dimension_sizes[$$->vector_dimensions - 1] = * ((int*) ($1->sym_table_ptr->value)); }
+		| Inteiro ',' DimensoesVetor	{ $$->vector_dimensions = 1 + $3->vector_dimensions; $$->vector_dimension_sizes[$$->vector_dimensions - 1] = * ((int*) ($1->sym_table_ptr->value)); }
 		;
 
 Vetor:
-		Tipo TK_IDENTIFICADOR '[' DimensoesVetor ']' 	{ context_add_identifier_to_current($2->token, $1->token_type, PURPOSE_VECTOR, $4->vector_dimensions);}
+		Tipo TK_IDENTIFICADOR '[' DimensoesVetor ']' 	{ context_add_identifier_to_current($2->token, $1->token_type, PURPOSE_VECTOR, $4->vector_dimensions, $4->vector_dimension_sizes);}
 		;
 
 DeclVariavelGlobal: 
@@ -345,10 +345,10 @@ Declaracoes:
 
 Programa:
 		   { $$ = ast_create(AST_PROGRAMA, NULL); ast_generate_dot_graph(global_syntax_tree); 
-			context_calc_addr(); generate_code(global_syntax_tree); exit(IKS_SUCCESS); }
+			context_calc_addr(); generate_code(global_syntax_tree, NULL); exit(IKS_SUCCESS); }
 		| Declaracoes { $$ = ast_create(AST_PROGRAMA, $1); ast_generate_dot_graph(global_syntax_tree); free_value_pool();  
 			context_calc_addr(); 
-			generate_code(global_syntax_tree);
+			generate_code(global_syntax_tree, NULL);
 			exit(IKS_SUCCESS);}
 		;
 /*

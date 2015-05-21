@@ -5,6 +5,7 @@
 #include "cc_dict.h"
 #include "cc_type.h"
 #include "cc_context.h"
+#include "cc_iloc.h"
 #include <stdarg.h>
 
 typedef struct comp_tree_t {
@@ -36,13 +37,34 @@ typedef struct comp_tree_t {
 							  in the .dot format, this node will be drawn as 
 							  the last child on the list. */
 
-	int vector_dimensions;
+	int vector_dimensions; /* number of vector dimensions. for isntance:
+						   v[10] has 1 dimension.
+						   v[10, 10] has 2 dimensions.
+						   v[10, 10, 10] has 3 dimensions.						   
+						   */
+
+	/* t
+	 * he size of each dimension of the vector. in the examples above, 
+	 * it would be 10, 10 and 10.
+	 * 
+	 * for instance, if we declare int v[15][20][25], we have: 
+	 * vector_dimension_sizes[0] = 25
+	 * vector_dimension_sizes[1] = 20
+	 * vector_dimension_sizes[2] = 15
+	 * 
+	 * vector_dimension_sizes[3..MAX_VECTOR_DIMENSIONS-1] = -1 
+	 * 
+	 * i.e., all invalid dimensions are -1.
+	 * 
+	 * * */
+	int vector_dimension_sizes[MAX_VECTOR_DIMENSIONS]; 
+
 
 	struct type_list* expectedTypes;
 
 	int addr; /* address in the generated code where this node points to. */
 
-	char* code;
+	instruction* instr_list	;
 
 } comp_tree_t;
 

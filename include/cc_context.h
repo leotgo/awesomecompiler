@@ -1,6 +1,7 @@
 #ifndef __CONTEXT_H
 #define __CONTEXT_H
 
+#include "cc_ast.h"
 #include "cc_dict.h"
 #include "uthash.h"
 #include "cc_type.h"
@@ -12,6 +13,7 @@
 #define max(a, b) (((a) > (b)) ? (a) : (b))
 struct comp_dict_item_t;
 typedef struct vector_dimension_list vector_dimension_list;
+
 /* the symbols table that will be stored inside the compiler contexts */
 typedef struct comp_context_symbol_t {
 	const char* key; /* string defining the entry's key (i.e., the name of
@@ -25,8 +27,10 @@ typedef struct comp_context_symbol_t {
 
 	int data_size;
 
-	int vector_size; /* if purpose == vector, then this holds the size of 
+	int vector_dimensions; /* if purpose == vector, then this holds the size of 
 					 the vector. otherwise, it is equal to 0. */
+
+	int vector_dimension_sizes[MAX_VECTOR_DIMENSIONS];
 
 	int addr; /* the address defined by the variable in the
 						  current activation registry. */
@@ -82,7 +86,8 @@ comp_context_symbol_t* context_find_identifier_multilevel(
  * IKS_ERROR_DECLARED. otherwise, adds the identifier to the current context. 
  * */
 comp_context_symbol_t* context_add_identifier_to_current(
-	const char* identifier, int type, int purpose, int vector_dimensions);
+	const char* identifier, int type, int purpose, int vector_dimensions,
+	int* vector_dimension_sizes);
 
 comp_context_symbol_t* context_add_function_to_current(
 	const char* identifier, int type, struct comp_dict_item_t* parameters);

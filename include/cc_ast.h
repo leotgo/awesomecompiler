@@ -34,4 +34,8 @@
 #define AST_LOGICO_COMP_NEGACAO 25 // !
 #define AST_VETOR_INDEXADO      26 // para var[exp] quando o índice exp é acessado no vetor var
 #define AST_CHAMADA_DE_FUNCAO   27
+#define AST_ACCESSO_VETOR 28
+
+#define MAX_VECTOR_DIMENSIONS 50
+
 #endif

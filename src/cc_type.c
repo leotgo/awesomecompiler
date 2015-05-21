@@ -366,7 +366,7 @@ int check_vector_dimensions_number(struct comp_tree_t* node)
 	
 	comp_context_symbol_t* symbol = get_symbol(node);
 	
-	if( node->vector_dimensions > symbol->vector_size)
+	if( node->vector_dimensions > symbol->vector_dimensions)
 	{
 		yyerror("ERROR: Using vector with more dimensions than defined");
 		exit(IKS_ERROR_STRING_TO_X); //TODO colocar constante de exit certa!
@@ -374,7 +374,7 @@ int check_vector_dimensions_number(struct comp_tree_t* node)
 	}
 	else
 	{
-		if(node->vector_dimensions < symbol->vector_size)
+		if(node->vector_dimensions < symbol->vector_dimensions)
 		{
 			yyerror("ERROR: Using vector with less dimensions than defined");
 			exit(IKS_ERROR_STRING_TO_X); //TODO colocar constante de exit certa!

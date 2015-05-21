@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <stdio.h>
-#include "main.h"
 
 #define OP_ADD 			1
 #define OP_SUB 			2
@@ -70,28 +69,23 @@ typedef struct instruction
 
 	void* valI; // Pointer to immediate value for some types of operations
 
+	struct instruction* next;
+
 } instruction;
 
+/* 
+ * adds instr to the beginning of instr_list, and sets the address of that list 
+ * to the newly inserted element.
+ * ex: instruction_list_add(&instr_list);
+ * */
+void instruction_list_add(instruction** instr_list);
 
-// reversed list of instructions. 
-//To print instructions in correct order must use function print_instructions
-typedef struct instruction_list 
-{
-	struct instruction* instr;
-	struct instruction_list* next;
-	
-} instruction_list;
+void print_instruction_list(instruction* list);
 
-instruction_list* instr_list = NULL;
+void instruction_list_destroy(instruction* list);
 
-void instruction_list_add(struct instruction* instr);
+void recursive_parse(instruction* list);
 
-void print_instruction_list();
-
-void recursive_parse(instruction_list* list);
-
-void print_instruction(instruction_list* list);
-
-void instruction_list_destroy();
+void print_instruction(instruction* list);
 
 #endif
