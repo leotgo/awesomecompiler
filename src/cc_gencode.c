@@ -26,7 +26,7 @@ char* int_str(int i) {
 void generate_code(comp_tree_t* node, char* regdest)
 {
 	
-	printf("gencode %d \n", node->type);
+	//printf("gencode %d \n", node->type);
 	switch(node->type)
 	{
 		/* Leonardo ********************************* */
@@ -446,9 +446,8 @@ void generate_children_code(comp_tree_t* node, char* regdest)
 		comp_tree_t *c = node->children[i];
 		while(c!=NULL)
 		{
-			printf("while %d %d",c->type, i);
 			generate_code(c,regdest);
-			node->instr_list = instruction_list_merge(&node->instr_list, &node->children[i]->instr_list);
+			node->instr_list = instruction_list_merge(&node->instr_list, &c->instr_list);
 			c = c->next;
 		}
 	}
