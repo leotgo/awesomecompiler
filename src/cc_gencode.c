@@ -83,11 +83,11 @@ void generate_code(comp_tree_t* node, char* regdest)
 			break;
 			
 		case AST_LOGICO_E:
-			generate_code_operation(node, regdest, OP_AND); 			
+			generate_code_boolean_operation(node, regdest, OP_AND); 			
 			break;
 			
 		case AST_LOGICO_OU:
-			generate_code_operation(node, regdest, OP_OR); 
+			generate_code_boolean_operation(node, regdest, OP_OR); 
 			break;
 			
 		/* ****************************************** */
