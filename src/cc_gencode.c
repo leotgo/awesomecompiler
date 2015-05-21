@@ -52,26 +52,33 @@ void generate_code(comp_tree_t* node, char* regdest)
 
 		/* Marina *********************************** */
 		case AST_ARIM_SOMA:
-			/* load operando 1, registrador temporario r1
-			 * load operando 2, registrador temporario r2
-			 * sum r1 r2
-			 * coloca a sum no registrador DE RETORNO r3 (passado como parametro
-			 * pra generate_code()) 
-			 * (x * 1) + (y * 3)  
-			 */
+			generate_code_operation(node, regdest, OP_ADD); 
 			break;
+			
 		case AST_ARIM_SUBTRACAO:
+			generate_code_operation(node, regdest, OP_SUB); 
 			break;
+			
 		case AST_ARIM_MULTIPLICACAO:
+			generate_code_operation(node, regdest, OP_MULT); 
 			break;
+			
 		case AST_ARIM_DIVISAO:
+			generate_code_operation(node, regdest, OP_DIV); 
 			break;
+			
 		case AST_ARIM_INVERSAO:
+			generate_code_operation_negative(node, regdest);
 			break;
-		case AST_LOGICO_E:			
+			
+		case AST_LOGICO_E:
+			generate_code_operation(node, regdest, OP_AND); 			
 			break;
+			
 		case AST_LOGICO_OU:
+			generate_code_operation(node, regdest, OP_OR); 
 			break;
+			
 		/* ****************************************** */
 		
 		
@@ -192,6 +199,42 @@ void generate_code(comp_tree_t* node, char* regdest)
 			/* Do nothing (IN THIS STAGE, WILL NOT BE IMPLEMENTED) */
 			break;
 	}	
+}
+
+void generate_code_operation_negative(comp_tree_t* node, char* regdest)
+{
+	// register for value of children 0
+	char* r1 = generate_register();	
+	
+	generate_code(node->children[0],r1);
+	
+	char *zero = (char*) malloc(2);
+	strcpy(zero, "0");
+	
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_R_SUB_I;
+	node->instr_list->src_op_1 = r1;
+	node->instr_list->src_op_1 = zero;
+	node->instr_list->tgt_op_1 = regdest;
+}
+
+void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
+{
+	// register for value of children 0
+	char* r1 = generate_register();	
+	// register for value of chldren 1
+	char* r2 = generate_register();
+	
+	generate_code(node->children[0],r1);
+	generate_code(node->children[1],r2);
+	
+	
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = operation;
+	node->instr_list->src_op_1 = r1;
+	node->instr_list->src_op_1 = r2;
+	node->instr_list->tgt_op_1 = regdest;
+	
 }
 
 void generate_code_if_else(comp_tree_t* node)

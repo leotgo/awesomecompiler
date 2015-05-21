@@ -10,6 +10,7 @@ void instruction_list_add(instruction** instr_list)
 	new->tgt_op_2 = NULL;
 	new->src_op_1 = NULL;
 	new->src_op_2 = NULL;
+	new->label = NULL;
 	*instr_list = new;
 }
 
@@ -28,7 +29,10 @@ void recursive_parse(instruction* list)
 
 void print_instruction(instruction* list)
 {
-	
+	if(list->label != NULL)
+	{
+		printf("%s:\n", list->label);
+	}
 	switch(list->opcode)
 	{
 		case OP_ADD:
@@ -250,7 +254,7 @@ instruction* instruction_list_merge(instruction** l1, instruction** l2) {
 		perror("Passing null instruction lists to merge.");
 		exit(-1);
 	}
-	instruction* la = *l1, *lb = *l2;
+	instruction *la = *l1, *lb = *l2;
 	*l1 = NULL, *l2 = NULL;
 	if (la == NULL)
 		return lb;

@@ -54,6 +54,8 @@
 
 typedef struct instruction
 {
+	char* label;	
+	
 	int opcode;		// The opcode for this instruction
 
 	char* tgt_op_1; // The first target register for the instruction. 
