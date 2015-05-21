@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 if [[ 2 != $# || ! -f $1 || ! -f $2 ]]; then
 	echo "Usage: $0 COMPILER INPUT"
 	exit 1
