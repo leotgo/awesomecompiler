@@ -64,7 +64,7 @@ typedef struct comp_tree_t {
 
 	int addr; /* address in the generated code where this node points to. */
 
-	instruction_list* instr_list	;
+	instruction* instr_list	;
 
 } comp_tree_t;
 

@@ -67,7 +67,7 @@ void generate_code(comp_tree_t* node, char* rdest)
 			 * */
 			break;
 		case AST_ATRIBUICAO:
-			/* casos: 
+			/* casos:
 			 * x = 2 + 3
 			 * x = y
 			 * x = expressao (ex, x = x + y)
@@ -77,6 +77,7 @@ void generate_code(comp_tree_t* node, char* rdest)
 
 			/* generate code for the expression that is being assigned to
 			 * the variable. */
+			;
 			char* reg = generate_register();
 			generate_code(node->children[1], reg);
 
@@ -85,7 +86,7 @@ void generate_code(comp_tree_t* node, char* rdest)
 
 			break;
 		case AST_VETOR_INDEXADO:
-			/* casos:
+			/* casos
 			 * v[5]
 			 * v[x]
 			 * v[x + 5]

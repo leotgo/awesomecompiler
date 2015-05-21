@@ -31,6 +31,9 @@ void free_tree_node(comp_tree_t* t) {
 	if (t->expectedTypes)
 		type_list_free(t->expectedTypes);
 
+	if (t->instr_list)
+		instruction_list_destroy(t->instr_list);
+
 	free(t);
 }
 
@@ -81,7 +84,7 @@ comp_tree_t* ast_createv(int type, va_list args) {
 	t->induced_type_by_coercion = IKS_INVALID;
 	t->next = NULL;
 	t->expectedTypes = NULL;
-	t->code = NULL;
+	t->instr_list = NULL;
 	t->addr = -1; 
 	t->context = current_context;
 	memset(t->vector_dimension_sizes, -1, sizeof t->vector_dimension_sizes);
