@@ -200,8 +200,8 @@ Variavel:
 
 AcessoVetor:
 
-		  Expressao						{ type_check_vector_dimension($1); $$ = $1; $$->vector_dimensions = 1;}
-		| Expressao ',' AcessoVetor		{ $$->vector_dimensions = 1 + $3->vector_dimensions; }
+		  Expressao						{ type_check_vector_dimension($1); $$ = $1; $$->vector_dimensions = 1; }
+		| Expressao ',' AcessoVetor		{ $$->vector_dimensions = 1 + $3->vector_dimensions; $$ = ast_list($1, $3); }
 		;
 
 DimensoesVetor:

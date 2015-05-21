@@ -256,6 +256,12 @@ void instruction_list_destroy(instruction* instr_list)
 }
 
 instruction* instruction_list_merge(instruction** l1, instruction** l2) {
+	/* swap l1 and l2 to invert the order, because we're storing the
+	 * instructions in inverted order. */
+	instruction** tmp = l1;
+	l1 = l2;
+	l2 = tmp; 
+
 	if (l1 == NULL || l2 == NULL) {
 		perror("Passing null instruction lists to merge.");
 		exit(-1);
@@ -270,4 +276,10 @@ instruction* instruction_list_merge(instruction** l1, instruction** l2) {
 	}
 	la->next = lb;
 	return la;
+}
+
+instruction* instruction_list_new() {
+	instruction* ii = NULL;
+	instruction_list_add(&ii);
+	return ii;
 }

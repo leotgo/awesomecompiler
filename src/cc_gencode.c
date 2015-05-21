@@ -86,96 +86,15 @@ void generate_code(comp_tree_t* node, char* regdest)
 		
 		/* Alex ************************************* */
 		case AST_IDENTIFICADOR:
-			/* 
-			 * não tem código, mas aqui tem que ver o ponteiro
-			 * pro simbolo no contexto e setar node->addr adequadamente. 
-			 * */
-			node->addr = get_symbol(node)->addr;
-
-			if (regdest) {
-				instruction_list_add(&node->instr_list);
-
-				/* we have to use LOADI (immediate load) if node type is a
-				* string. the immediate value will be the address. */
-				if (get_symbol(node)->type == IKS_STRING) {					
-					node->instr_list->opcode = OP_LOAD_I;
-					/* first operand: the immediate value */
-					node->instr_list->src_op_1 = int_str(node->addr);
-					/* target: the destination register */
-					node->instr_list->tgt_op_1 = regdest;
-
-				} else {
-					/* variable is anything other than a string. load by value. 
-					*
-					* LOAD_AI of this identifier's value to rdest.
-					*
-					* LOAD_AI   reg_base   offset   =>   reg_dest 
-					* 
-					* */
-					node->instr_list->opcode = OP_LOAD_A_I;
-
-					/* target is regdest */
-					node->instr_list->tgt_op_1 = regdest;
-
-					/* first operand: fp if variable is global,
-					 * or rarp if variable is local. */
-					if (node->context == main_context) { /* global variable */
-						node->instr_list->src_op_1 = reg_fp();
-					} else {
-						node->instr_list->src_op_1 = reg_arp();
-					}
-
-					/* second operand: the immediate value of the variable's
-					 * address.*/
-					node->instr_list->src_op_2 = int_str(node->addr);
-				}
-			}
+			generate_code_identificador(node, regdest);
 			break;
+			
 		case AST_ATRIBUICAO:
-			/* casos:
-			 * x = 2 + 3
-			 * x = y
-			 * x = expressao (ex, x = x + y)
-			 * x[5] = 5;
-			 * x = "alex"
-			 * */
-
-			/* generate code for the expression that is being assigned to
-			 * the variable. */
-
-
-			/* generate code for the left side of the attribution. */
-			generate_code(node->children[0], NULL);
-
-			/* reg1 will hold the value to be assigned to the memory 
-			 * address. */
-			char* reg1 = generate_register();
-
-			/* generate code for the right side of the attrib.*/
-			generate_code(node->children[1], reg1);
-
-			/* concatenate children's codes. */
-			node->instr_list = instruction_list_merge(
-				&node->children[0]->instr_list,
-				&node->children[1]->instr_list);
-
-			/* addr of the variable that will be assig. */
-			int dest_addr = get_symbol(node->children[0])->addr; 
-
-			/*
-			 * ALEX, CONTINUAR AQUI 
-			 *
-			 **/
+			generate_code_atribuicao(node, regdest);
 
 			break;
 		case AST_VETOR_INDEXADO:
-			/* casos
-			 * v[5]
-			 * v[x]
-			 * v[x + 5]
-			 * v[x, y, z]
-			 * v[1, x + y, x + 5]
-			 * */
+			generate_code_vetor_indexado(node, regdest);
 			break;
 		/* ****************************************** */
 
@@ -219,6 +138,184 @@ void generate_code(comp_tree_t* node, char* regdest)
 	
 }
 
+void generate_code_vetor_indexado(comp_tree_t* node, char* regdest) {
+	/* casos
+	* v[5]
+	* v[x]
+	* v[x + 5]
+	* v[x, y, z]
+	* v[1, x + y, x + 5]
+	*
+	* child 1: v
+	* child 2: lista de argumentos
+	*
+	* */
+	if (node->num_children != 2) {
+		perror("generate_code() for AST_VETOR_INDEXADO: node should "
+			"have 2 children but does not.");
+		exit(EXIT_FAILURE);
+	}
+
+	/* we set the context for this node to be the same context
+	* where v was assigned. */
+	node->context = node->children[0]->context;
+
+	if (regdest != NULL) {
+		/* if regdest is not null, we must load the value to
+		* the register regdest. */
+
+		/*in order to do that, first we must compute the address
+		*of the vector indexing: */
+		char* regaddr = generate_register();
+		instruction* ii = calculate_vector_indexing_address(node, regaddr);
+		node->instr_list = instruction_list_merge(&ii, &node->instr_list);
+
+		/* having the address, we must do a load_AO to regdest */
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_LOAD_A_O;
+		if (node->context == main_context)
+			node->instr_list->src_op_1 = reg_fp();
+		else node->instr_list->src_op_1 = reg_arp();
+		node->instr_list->src_op_2 = regaddr;
+		node->instr_list->tgt_op_1 = regdest;
+	}
+}
+
+void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
+	/* casos:
+	* x = 2 + 3
+	* x = y
+	* x = expressao (ex, x = x + y)
+	* x[5] = 5;
+	* x = "alex"
+	* */
+
+	/* generate code for the expression that is being assigned to
+	* the variable. */
+	;
+
+
+	/* generate code for the left side of the attribution. */
+	generate_code(node->children[0], NULL);
+
+	/* reg1 will hold the value to be assigned to the memory
+	* address. */
+	char* reg1 = generate_register();
+
+	/* generate code for the right side of the attrib.*/
+	generate_code(node->children[1], reg1);
+
+	/* concatenate children's codes. */
+	node->instr_list = instruction_list_merge(
+		&node->children[0]->instr_list,
+		&node->children[1]->instr_list);
+
+
+	char* reg_offset = generate_register();
+
+	/* address of the variable that will be assigned. */
+	if (node->children[0]->type == AST_VETOR_INDEXADO) {
+		instruction* ii = calculate_vector_indexing_address(node->children[0], reg_offset);
+		node->instr_list = instruction_list_merge(&node->instr_list, &ii);
+	} else {
+		int dest_addr = get_symbol(node->children[0])->addr;
+		instruction* ii = instruction_list_new();
+		ii->opcode = OP_LOAD_I;
+		ii->src_op_1 = int_str(dest_addr);
+		ii->tgt_op_1 = reg_offset;
+		node->instr_list = instruction_list_merge(&node->instr_list, &ii);
+	}
+
+	instruction_list_add(&node->instr_list);
+
+	node->instr_list->opcode = OP_STORE_A_O;
+	node->instr_list->src_op_1 = reg1;
+	if (node->context == main_context) { /* assigning to global
+										 variable */
+		node->instr_list->tgt_op_1 = reg_arp();
+	} else {
+		node->instr_list->tgt_op_1 = reg_fp();
+	}
+
+	node->instr_list->tgt_op_2 = reg_offset;
+
+	if (regdest) {
+		/* if there is a destination register, */
+		instruction_list_add(&node->instr_list);
+		//instruction_list_add
+	}
+}
+
+void generate_code_identificador(comp_tree_t* node, char* regdest) {
+	/*
+	* não tem código, mas aqui tem que ver o ponteiro
+	* pro simbolo no contexto e setar node->addr adequadamente.
+	* */
+	node->addr = get_symbol(node)->addr;
+
+	if (regdest) {
+		instruction_list_add(&node->instr_list);
+
+		/* we have to use LOADI (immediate load) if node type is a
+		* string. the immediate value will be the address. */
+		if (get_symbol(node)->type == IKS_STRING) {
+			node->instr_list->opcode = OP_LOAD_I;
+			/* first operand: the immediate value */
+			node->instr_list->src_op_1 = int_str(node->addr);
+			/* target: the destination register */
+			node->instr_list->tgt_op_1 = regdest;
+
+		} else {
+			/* variable is anything other than a string. load by value.
+			* */
+			node->instr_list->opcode = OP_LOAD_A_I;
+
+			/* target is regdest */
+			node->instr_list->tgt_op_1 = regdest;
+
+			/* first operand: fp if variable is global,
+			* or rarp if variable is local. */
+			if (node->context == main_context) { /* global variable */
+				node->instr_list->src_op_1 = reg_fp();
+			} else {
+				node->instr_list->src_op_1 = reg_arp();
+			}
+
+			/* second operand: the immediate value of the variable's
+			* address.*/
+			node->instr_list->src_op_2 = int_str(node->addr);
+		}
+	}
+}
+
+instruction* calculate_vector_indexing_address(const comp_tree_t* node, 
+	char* regdest_address) {
+	if (regdest_address == NULL || node == NULL) {
+		perror("We should never call generate_code_vector_indexing() "
+			"with NULL parameters.");
+		exit(EXIT_FAILURE);
+	} else if (node->type != AST_VETOR_INDEXADO) {
+		perror("Node given to generate_code_vector_indexing() is not of "
+			"type AST_VETOR_INDEXADO. This is wrong!");
+		exit(EXIT_FAILURE);
+	}
+
+	instruction* ii = instruction_list_new();
+
+	/* first, we need to iterate over the list of arguments,
+	* generate code for them, and store the reults of each argument
+	* expression in a different register. */
+	char* arg_registers[MAX_VECTOR_DIMENSIONS];
+	comp_tree_t* c = node->children[1];
+	int i = 0;
+	while (c) {
+		arg_registers[i++] = generate_register();
+		generate_code(c, arg_registers[i]);
+		ii = instruction_list_merge(&ii, &c->instr_list);
+		c = c->next;
+	}
+
+}
 
 void generate_code_literal(comp_tree_t* node, char* regdest)
 {
@@ -230,7 +327,9 @@ void generate_code_literal(comp_tree_t* node, char* regdest)
 		
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_LOAD_I;
-	node->instr_list->src_op_1 = (char*)node->sym_table_ptr->token;
+
+	node->instr_list->src_op_1 = (char*) node->sym_table_ptr->token;
+
 	node->instr_list->tgt_op_1 = regdest;
 }
 
@@ -262,10 +361,12 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 	
 	generate_code(node->children[0],r1);
 	generate_code(node->children[1],r2);
+
 	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
 	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
 	
 	instruction_list_add(&(node->instr_list));
+
 	node->instr_list->opcode = operation;
 	node->instr_list->src_op_1 = r1;
 	node->instr_list->src_op_2 = r2;

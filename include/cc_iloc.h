@@ -99,6 +99,8 @@ void print_instruction_list(instruction* list);
 
 void instruction_list_destroy(instruction* list);
 
+instruction* instruction_list_new();
+
 void recursive_parse(instruction* list);
 
 void print_instruction(instruction* list);
