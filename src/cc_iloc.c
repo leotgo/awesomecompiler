@@ -270,12 +270,15 @@ instruction* instruction_list_merge(instruction** l1, instruction** l2) {
 
 	if (la == NULL)
 		return lb;
+
 	if (lb == NULL)
 		return la;
-	while (la->next) {
-		la = la->next;
+
+	instruction* l_tmp = la;
+	while (l_tmp->next) {
+		l_tmp = l_tmp->next;
 	}
-	la->next = lb;
+	l_tmp->next = lb;
 	return la;
 }
 
