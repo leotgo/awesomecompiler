@@ -56,16 +56,16 @@ typedef struct instruction
 {
 	int opcode;		// The opcode for this instruction
 
-	char* tgt_reg_1; // The first target register for the instruction. 
+	char* tgt_op_1; // The first target register for the instruction. 
 	// This one may NOT be empty.
 	
-	char* tgt_reg_2; // The second target register for the instruction. 
+	char* tgt_op_2; // The second target register for the instruction. 
 	// May be empty.
 
-	char* src_reg_1; // The first source register for instruction. 
+	char* src_op_1; // The first source register for instruction. 
 	// May be empty.
 
-	char* src_reg_2; // The second source register for the instruction. 
+	char* src_op_2; // The second source register for the instruction. 
 	// May also be empty.
 
 	void* valI; // Pointer to immediate value for some types of operations

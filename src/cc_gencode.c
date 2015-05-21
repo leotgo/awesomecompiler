@@ -72,11 +72,11 @@ void generate_code(comp_tree_t* node, char* regdest)
 			if (regdest) {				
 				instruction_list_add(&node->instr_list);
 				node->instr_list->opcode = OP_LOAD_A_I;
-				node->instr_list->tgt_reg_1 = regdest;
+				node->instr_list->tgt_op_1 = regdest;
 				if (node->context == main_context) { /* global variable */
-					node->instr_list->src_reg_1 = reg_fp();
+					node->instr_list->src_op_1 = reg_fp();
 				} else {
-					node->instr_list->src_reg_1 = reg_arp();
+					node->instr_list->src_op_1 = reg_arp();
 				}				
 
 				//node->instr_list->src_reg_2 = 

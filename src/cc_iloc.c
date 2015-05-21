@@ -33,19 +33,19 @@ void print_instruction(instruction* list)
 	switch(list->opcode)
 	{
 		case OP_ADD:
-			printf("add %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("add %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_SUB:
-			printf("sub %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("sub %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 		
 		case OP_MULT:
-			printf("mult %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("mult %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_DIV:
-			printf("div %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("div %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_ADD_I:
@@ -73,7 +73,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_L_SHIFT:
-			printf("lshift %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("lshift %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_L_SHIFT_I:
@@ -81,7 +81,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_R_SHIFT:
-			printf("rshift %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("rshift %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_R_SHIFT_I:
@@ -89,7 +89,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_AND:
-			printf("and %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("and %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_AND_I:
@@ -97,7 +97,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_OR:
-			printf("or %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("or %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_OR_I:
@@ -105,7 +105,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_XOR:
-			printf("xor %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("xor %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_XOR_I:
@@ -117,7 +117,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_LOAD:
-			printf("load %s => %s", list->src_reg_1, list->tgt_reg_1);
+			printf("load %s => %s", list->src_op_1, list->tgt_op_1);
 			break;
 			
 		case OP_LOAD_A_I:
@@ -125,11 +125,11 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_LOAD_A_O:
-			printf("loadAO %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("loadAO %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_CLOAD:
-			printf("cload %s => %s", list->src_reg_1, list->tgt_reg_1);
+			printf("cload %s => %s", list->src_op_1, list->tgt_op_1);
 			break;
 			
 		case OP_CLOAD_A_I:
@@ -137,11 +137,11 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_CLOAD_A_O:
-			printf("cloadAO %s, %s => %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("cloadAO %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_STORE:
-			printf("store %s => %s", list->src_reg_1, list->tgt_reg_1);
+			printf("store %s => %s", list->src_op_1, list->tgt_op_1);
 			break;
 			
 		case OP_STORE_A_I:
@@ -149,11 +149,11 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_STORE_A_O:
-			printf("storeAO %s => %s, %s", list->src_reg_1, list->tgt_reg_1, list->tgt_reg_2);
+			printf("storeAO %s => %s, %s", list->src_op_1, list->tgt_op_1, list->tgt_op_2);
 			break;
 			
 		case OP_C_STORE:
-			printf("cstore %s => %s", list->src_reg_1, list->tgt_reg_1);
+			printf("cstore %s => %s", list->src_op_1, list->tgt_op_1);
 			break;
 			
 		case OP_C_STORE_A_I:
@@ -161,23 +161,23 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_C_STORE_A_O:
-			printf("cstoreAO %s => %s, %s", list->src_reg_1, list->tgt_reg_1, list->tgt_reg_2);
+			printf("cstoreAO %s => %s, %s", list->src_op_1, list->tgt_op_1, list->tgt_op_2);
 			break;
 			
 		case OP_I_2_I:
-			printf("i2i %s => %s", list->src_reg_1, list->tgt_reg_1);
+			printf("i2i %s => %s", list->src_op_1, list->tgt_op_1);
 			break;
 			
 		case OP_C_2_C:
-			printf("c2c %s => %s", list->src_reg_1, list->tgt_reg_1);
+			printf("c2c %s => %s", list->src_op_1, list->tgt_op_1);
 			break;
 			
 		case OP_C_2_I:
-			printf("c2i %s => %s", list->src_reg_1, list->tgt_reg_1);
+			printf("c2i %s => %s", list->src_op_1, list->tgt_op_1);
 			break;
 			
 		case OP_I_2_C:
-			printf("i2c %s => %s", list->src_reg_1, list->tgt_reg_1);
+			printf("i2c %s => %s", list->src_op_1, list->tgt_op_1);
 			break;
 			
 		case OP_JUMP_I:
@@ -185,31 +185,31 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_JUMP:
-			printf("jump -> %s", list->tgt_reg_1);
+			printf("jump -> %s", list->tgt_op_1);
 			break;
 			
 		case OP_CMP_LT:
-			printf("cmp_LT %s, %s -> %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("cmp_LT %s, %s -> %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_CMP_LE:
-			printf("cmp_LE %s, %s -> %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("cmp_LE %s, %s -> %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_CMP_EQ:
-			printf("cmp_EQ %s, %s -> %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("cmp_EQ %s, %s -> %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_CMP_GE:
-			printf("cmp_GE %s, %s -> %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("cmp_GE %s, %s -> %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_CMP_GT:
-			printf("cmp_GT %s, %s -> %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("cmp_GT %s, %s -> %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_CMP_NE:
-			printf("cmp_NE %s, %s -> %s", list->src_reg_1, list->src_reg_2, list->tgt_reg_1);
+			printf("cmp_NE %s, %s -> %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_CBR:
