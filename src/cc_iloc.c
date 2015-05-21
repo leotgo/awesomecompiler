@@ -49,27 +49,27 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_ADD_I:
-			printf("addI");
+			printf("addI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_SUB_I:
-			printf("subI");
+			printf("subI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_R_SUB_I:
-			printf("rsubI");
+			printf("rsubI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_MULT_I:
-			printf("multI");
+			printf("multI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_DIV_I:
-			printf("divI");
+			printf("divI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_R_DIV_I:
-			printf("rdivI");
+			printf("rdivI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_L_SHIFT:
@@ -77,7 +77,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_L_SHIFT_I:
-			printf("lshiftI");
+			printf("lshiftI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_R_SHIFT:
@@ -85,7 +85,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_R_SHIFT_I:
-			printf("rshiftI");
+			printf("rshiftI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_AND:
@@ -93,7 +93,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_AND_I:
-			printf("andI");
+			printf("andI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_OR:
@@ -101,7 +101,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_OR_I:
-			printf("orI");
+			printf("orI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_XOR:
@@ -109,11 +109,11 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_XOR_I:
-			printf("xorI");
+			printf("xorI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_LOAD_I:
-			printf("loadI");
+			printf("loadI %s => %s", list->src_op_1, list->tgt_op_1);
 			break;
 			
 		case OP_LOAD:
@@ -121,7 +121,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_LOAD_A_I:
-			printf("loadAI");
+			printf("loadAI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_LOAD_A_O:
@@ -133,7 +133,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_CLOAD_A_I:
-			printf("cloadAI");
+			printf("cloadAI %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
 			
 		case OP_CLOAD_A_O:
@@ -145,7 +145,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_STORE_A_I:
-			printf("storeAI");
+			printf("storeAI %s => %s, %s", list->src_op_1, list->tgt_op_1, list->tgt_op_2);
 			break;
 			
 		case OP_STORE_A_O:
@@ -157,7 +157,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_C_STORE_A_I:
-			printf("cstoreAI");
+			printf("cstoreAI %s => %s, %s", list->src_op_1, list->tgt_op_1, list->tgt_op_2);
 			break;
 			
 		case OP_C_STORE_A_O:
@@ -181,7 +181,7 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_JUMP_I:
-			printf("jumpI");
+			printf("jumpI -> %s", list->tgt_op_1);
 			break;
 			
 		case OP_JUMP:
@@ -213,11 +213,11 @@ void print_instruction(instruction* list)
 			break;
 			
 		case OP_CBR:
-			printf("cbr");
+			printf("cbr %s -> %s, %s", list->src_op_1, list->tgt_op_1, list->tgt_op_2); 
 			break;
 	}	
 	
-	
+	printf("\n");
 	
 	
 }
