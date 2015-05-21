@@ -384,6 +384,7 @@ void generate_children_code(comp_tree_t* node, char* regdest)
 		comp_tree_t *c = node->children[i];
 		while(c!=NULL)
 		{
+			printf("while %d %d",c->type, i);
 			generate_code(c,regdest);
 			node->instr_list = instruction_list_merge(&node->instr_list, &node->children[i]->instr_list);
 			c = c->next;
@@ -391,7 +392,6 @@ void generate_children_code(comp_tree_t* node, char* regdest)
 	}
 	
 }
-
 void generate_code_if_else(comp_tree_t* node)
 {
 	// Generate code for IF-ELSE condition test
@@ -400,7 +400,8 @@ void generate_code_if_else(comp_tree_t* node)
 
 	// Generate labels for condition cases TRUE and FALSE
 	char* case_true_label = generate_label();
-	char* case_false_label = generate_label();	
+	char* case_false_label = generate_label();
+	char* next_label = generate_label();
 
 	// Add BRANCH code based on IF-ELSE condition test
 	instruction_list_add(&node->instr_list);
@@ -416,7 +417,13 @@ void generate_code_if_else(comp_tree_t* node)
 
 	// Add condition true case code block	
 	generate_code(node->children[1], NULL);
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
 	
+	// After true code is executed, go to next instruction
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_JUMP_I;
+	node->instr_list->src_op_1 = next_label;
+
 	// Add condition false case label
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_NOP;
@@ -424,7 +431,20 @@ void generate_code_if_else(comp_tree_t* node)
 
 	// Add condition false case code block, if it exists
 	if(node->children[2] != NULL)
+	{
 		generate_code(node->children[2], NULL);
+		node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[2]->instr_list));
+
+		// After false case code is executed, go to next instruction
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_JUMP_I;
+		node->instr_list->src_op_1 = next_label;
+	}
+
+	// Add next instruction label
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = next_label;
 }
 
 void generate_code_do_while(comp_tree_t* node)
@@ -440,10 +460,12 @@ void generate_code_do_while(comp_tree_t* node)
 
 	// Add instruction list of DO-WHILE code block
 	generate_code(node->children[1], NULL);
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
 
 	// Add instruction list of DO-WHILE condition test
 	char* cond_reg = generate_register();
 	generate_code(node->children[0], cond_reg);
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
 
 	// Add BRANCH code based on DO-WHILE condition test
 	instruction_list_add(&node->instr_list);
@@ -467,6 +489,7 @@ void generate_code_while_do(comp_tree_t* node)
 	// Generate code for WHILE-DO condition test
 	char* cond_reg = generate_register();
 	generate_code(node->children[0], cond_reg);
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
 
 	// Add BRANCH code based on WHILE-DO condition test
 	instruction_list_add(&node->instr_list);
@@ -482,9 +505,32 @@ void generate_code_while_do(comp_tree_t* node)
 
 	// Add instruction list of WHILE-DO code block
 	generate_code(node->children[1], NULL);
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
 
 	// Add label to case when test is false (which means going to the next instruction)
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_NOP;
 	node->instr_list->label = case_false_label;
+}
+
+void generate_code_comparison(comp_tree_t* node, char* regdest, int comparison)
+{
+	// Generate registers for the first and second expression of the comparison
+	char* first_exp_reg = generate_register();
+	char* secnd_exp_reg = generate_register();
+
+	// Generate code for the first and second expressions
+	generate_code(node->children[0], first_exp_reg);
+	generate_code(node->children[1], secnd_exp_reg);
+
+	// Add children code to this node
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
+
+	// Execute the desired comparison
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = comparison;
+	node->instr_list->src_op_1 = first_exp_reg;
+	node->instr_list->src_op_2 = secnd_exp_reg;
+	node->instr_list->tgt_op_1 = regdest;
 }

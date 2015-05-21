@@ -33,6 +33,7 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest);
 
 void generate_code_identificador(comp_tree_t* node, char* regdest);
 
+void generate_code_comparison(comp_tree_t* node, char* regdest, int comparison);
 /* 
  * does the vector indexing for the given node (which MUST have type 
  * AST_VETOR_INDEXADO). it creates an instruction list and returns it. 
