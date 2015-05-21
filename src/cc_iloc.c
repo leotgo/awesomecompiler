@@ -21,7 +21,6 @@ void print_instruction_list(instruction* instr_list)
 
 void recursive_parse(instruction* list)
 {
-
 	if (list->next != NULL) 
 		recursive_parse(list->next);
 
@@ -268,9 +267,11 @@ instruction* instruction_list_merge(instruction** l1, instruction** l2) {
 	}
 	instruction *la = *l1, *lb = *l2;
 	*l1 = NULL, *l2 = NULL;
+
 	if (la == NULL)
 		return lb;
-
+	if (lb == NULL)
+		return la;
 	while (la->next) {
 		la = la->next;
 	}

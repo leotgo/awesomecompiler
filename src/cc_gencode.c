@@ -325,7 +325,7 @@ void generate_code_literal(comp_tree_t* node, char* regdest)
 		exit(-1);
 	}
 		
-	instruction_list_add(&node->instr_list);
+	instruction_list_add(&(node->instr_list));
 	node->instr_list->opcode = OP_LOAD_I;
 
 	node->instr_list->src_op_1 = (char*) node->sym_table_ptr->token;
@@ -361,18 +361,18 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 	
 	generate_code(node->children[0],r1);
 	generate_code(node->children[1],r2);
+	
 
 	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
 	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
 	
 	instruction_list_add(&(node->instr_list));
-
 	node->instr_list->opcode = operation;
 	node->instr_list->src_op_1 = r1;
 	node->instr_list->src_op_2 = r2;
 	node->instr_list->tgt_op_1 = regdest;
 	
-
+	
 	
 }
 
