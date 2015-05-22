@@ -128,7 +128,7 @@ void generate_code(comp_tree_t* node, char* regdest)
 			// ACHO que nao tem que fazer ainda
 			break;
 		case AST_BLOCO:
-			// acho que nao precisa fazer nada?
+			generate_children_code(node, regdest);
 			break;
 		/* ****************************************** */
 		
