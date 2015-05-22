@@ -147,6 +147,15 @@ void generate_code(comp_tree_t* node, char* regdest)
 	
 }
 
+char* get_reg_fp_or_arp(comp_tree_t* node) {
+	comp_context_symbol_t* ss = get_symbol(node);
+	if (context_find_identifier(main_context, ss->key) != NULL) {
+		return reg_fp();
+	} else {
+		return reg_arp();
+	}
+}
+
 void generate_code_vetor_indexado(comp_tree_t* node, char* regdest) {
 	/* casos
 	* v[5]
@@ -182,9 +191,7 @@ void generate_code_vetor_indexado(comp_tree_t* node, char* regdest) {
 		/* having the address, we must do a load_AO to regdest */
 		instruction_list_add(&node->instr_list);
 		node->instr_list->opcode = OP_LOAD_A_O;
-		if (node->context == main_context)
-			node->instr_list->src_op_1 = reg_fp();
-		else node->instr_list->src_op_1 = reg_arp();
+		node->instr_list->src_op_1 = get_reg_fp_or_arp(node);
 		node->instr_list->src_op_2 = regaddr;
 		node->instr_list->tgt_op_1 = regdest;
 	}
@@ -239,12 +246,7 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
 
 	node->instr_list->opcode = OP_STORE_A_O;
 	node->instr_list->src_op_1 = reg1;
-	if (node->children[0]->context == main_context) { /* assigning to global
-										 variable */
-		node->instr_list->tgt_op_1 = reg_fp();
-	} else {
-		node->instr_list->tgt_op_1 = reg_arp();
-	}
+	node->instr_list->tgt_op_1 = get_reg_fp_or_arp(node->children[0]);
 
 	node->instr_list->tgt_op_2 = reg_offset;
 
@@ -288,11 +290,7 @@ void generate_code_identificador(comp_tree_t* node, char* regdest) {
 
 			/* first operand: fp if variable is global,
 			* or rarp if variable is local. */
-			if (node->context == main_context) { /* global variable */
-				node->instr_list->src_op_1 = reg_fp();
-			} else {
-				node->instr_list->src_op_1 = reg_arp();
-			}
+			node->instr_list->src_op_1 = get_reg_fp_or_arp(node);
 
 			/* second operand: the immediate value of the variable's
 			* address.*/
