@@ -241,9 +241,9 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
 	node->instr_list->src_op_1 = reg1;
 	if (node->children[0]->context == main_context) { /* assigning to global
 										 variable */
-		node->instr_list->tgt_op_1 = reg_arp();
-	} else {
 		node->instr_list->tgt_op_1 = reg_fp();
+	} else {
+		node->instr_list->tgt_op_1 = reg_arp();
 	}
 
 	node->instr_list->tgt_op_2 = reg_offset;
