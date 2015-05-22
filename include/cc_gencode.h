@@ -17,6 +17,8 @@ void generate_code_literal(comp_tree_t* node, char* regdest);
 
 void generate_code_operation(comp_tree_t* node, char* regdest, int operation);
 
+void generate_code_boolean_operation(comp_tree_t* node, char* regdest, int operation);
+
 void generate_code_operation_negative(comp_tree_t* node, char* regdest);
 
 void generate_children_code(comp_tree_t* node, char* regdest);
@@ -33,6 +35,7 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest);
 
 void generate_code_identificador(comp_tree_t* node, char* regdest);
 
+void generate_code_comparison(comp_tree_t* node, char* regdest, int comparison);
 /* 
  * does the vector indexing for the given node (which MUST have type 
  * AST_VETOR_INDEXADO). it creates an instruction list and returns it. 
