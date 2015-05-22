@@ -638,7 +638,7 @@ int get_type(comp_tree_t* node, int purpose)
 /*
 	gets symbol from symbol's table from the ast node 
 */
-comp_context_symbol_t* get_symbol(comp_tree_t* node)
+comp_context_symbol_t* get_symbol(const comp_tree_t* node)
 {
 	comp_context_symbol_t* node_symbol;
 	node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);

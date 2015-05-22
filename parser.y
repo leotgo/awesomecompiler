@@ -207,11 +207,17 @@ AcessoVetor:
 DimensoesVetor:
 	
 		  Inteiro						{ $$ = $1; $$->vector_dimensions = 1; $$->vector_dimension_sizes[$$->vector_dimensions - 1] = * ((int*) ($1->sym_table_ptr->value)); }
-		| Inteiro ',' DimensoesVetor	{ $$->vector_dimensions = 1 + $3->vector_dimensions; $$->vector_dimension_sizes[$$->vector_dimensions - 1] = * ((int*) ($1->sym_table_ptr->value)); }
+		| Inteiro ',' DimensoesVetor	{ 
+				$$->vector_dimensions = 1 + $3->vector_dimensions; 
+				memcpy($$->vector_dimension_sizes, $3->vector_dimension_sizes, sizeof($$->vector_dimension_sizes));
+				$$->vector_dimension_sizes[$$->vector_dimensions - 1] = * ((int*) ($1->sym_table_ptr->value)); 
+			}
 		;
 
 Vetor:
-		Tipo TK_IDENTIFICADOR '[' DimensoesVetor ']' 	{ context_add_identifier_to_current($2->token, $1->token_type, PURPOSE_VECTOR, $4->vector_dimensions, $4->vector_dimension_sizes);}
+		Tipo TK_IDENTIFICADOR '[' DimensoesVetor ']' 	{ 
+			context_add_identifier_to_current($2->token, $1->token_type, PURPOSE_VECTOR, $4->vector_dimensions, $4->vector_dimension_sizes);			
+		}
 		;
 
 DeclVariavelGlobal: 

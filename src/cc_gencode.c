@@ -230,7 +230,7 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
 
 	node->instr_list->opcode = OP_STORE_A_O;
 	node->instr_list->src_op_1 = reg1;
-	if (node->context == main_context) { /* assigning to global
+	if (node->children[0]->context == main_context) { /* assigning to global
 										 variable */
 		node->instr_list->tgt_op_1 = reg_arp();
 	} else {
@@ -240,9 +240,13 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
 	node->instr_list->tgt_op_2 = reg_offset;
 
 	if (regdest) {
-		/* if there is a destination register, */
+		/* if there is a destination register (because we're doing something 
+		 * like  x = y = 10; ), copy reg1 to regdets. 
+		 * */
 		instruction_list_add(&node->instr_list);
-		//instruction_list_add
+		node->instr_list->opcode = OP_I_2_I;
+		node->instr_list->src_op_1 = reg1;
+		node->instr_list->tgt_op_1 = regdest;
 	}
 }
 
@@ -290,6 +294,7 @@ void generate_code_identificador(comp_tree_t* node, char* regdest) {
 
 instruction* calculate_vector_indexing_address(const comp_tree_t* node, 
 	char* regdest_address) {
+
 	if (regdest_address == NULL || node == NULL) {
 		perror("We should never call generate_code_vector_indexing() "
 			"with NULL parameters.");
@@ -300,21 +305,119 @@ instruction* calculate_vector_indexing_address(const comp_tree_t* node,
 		exit(EXIT_FAILURE);
 	}
 
-	instruction* ii = instruction_list_new();
+	static int label_count = 0;
+
+	instruction* ii = NULL;
+
+	instruction_list_add(&ii);
+	ii->opcode = OP_NOP;
+	ii->label = (char*)malloc(256 * sizeof(char));
+	sprintf(ii->label, "vector_indexing_%d_START", label_count);
+	str_pool_add(ii->label);
 
 	/* first, we need to iterate over the list of arguments,
 	* generate code for them, and store the reults of each argument
 	* expression in a different register. */
-	char* arg_registers[MAX_VECTOR_DIMENSIONS];
+
+	comp_context_symbol_t* ss = get_symbol(node->children[0]);
+	if (ss->purpose != PURPOSE_VECTOR || ss->vector_dimensions < 1) {
+		perror("calculate_vector_indexing_address(): given node's sym table ptr "
+			"does not have purpose vector! Why? something went wrong here!");
+		exit(EXIT_FAILURE);
+	}
+
+	/* the registers d hold the values for each of the indexing values. 
+	 * */
+	char* d[MAX_VECTOR_DIMENSIONS];
 	comp_tree_t* c = node->children[1];
 	int i = 0;
 	while (c) {
-		arg_registers[i++] = generate_register();
-		generate_code(c, arg_registers[i]);
+		d[i++] = generate_register();
+		generate_code(c, d[i]);
 		ii = instruction_list_merge(&ii, &c->instr_list);
 		c = c->next;
 	}
 
+	/* the registers S hold the dimension sizes for each of the dimensions. 
+	 * */
+	char* S[MAX_VECTOR_DIMENSIONS];
+	for (i = ss->vector_dimensions - 1; i >= 0; --i) {
+		S[i] = generate_register();
+		instruction_list_add(&ii);
+		ii->opcode = OP_LOAD_I;
+		ii->tgt_op_1 = S[i];
+		ii->src_op_1 = int_str(ss->vector_dimension_sizes[i]);
+	}
+
+	/* the registers S_accum[i] hold the multiplication of the dimensino sizes
+	 * with index greater than i.
+	 * For instance,
+	 * S_accum[n - 1] = 1. 
+	 * S_accum[n - 2] = s[n-1] * s_accum[n-1] = s[n-1] * 1. 
+	 * S_accum[n - 3] = s[n-2] * s_accum[n-2] = s[n-2] * s[n-1]. 
+	 * And so on. */
+	char* S_accum[MAX_VECTOR_DIMENSIONS];
+
+	instruction_list_add(&ii);
+	ii->opcode = OP_I_2_I;	
+	ii->src_op_1 = d[ss->vector_dimensions - 1];
+	ii->tgt_op_1 = regdest_address;
+
+	for (i = ss->vector_dimensions - 2; i >= 0; --i) {
+		S_accum[i] = generate_register();
+		instruction_list_add(&ii);
+		if (i != ss->vector_dimensions - 2) {
+			ii->opcode = OP_MULT;
+			ii->src_op_1 = S_accum[i + 1];
+			ii->src_op_2 = S[i + 1];
+			ii->tgt_op_1 = S_accum[i];
+		} else {
+			ii->opcode = OP_I_2_I;
+			ii->src_op_1 = S[i + 1];
+			ii->tgt_op_1 = S_accum[i];
+		}
+
+		instruction_list_add(&ii);
+		char* tmp_mult_reg = generate_register(); /* this register will hold 
+												  d[i] * S_accum[i] */
+		ii->opcode = OP_MULT;
+		ii->tgt_op_1 = tmp_mult_reg;
+		ii->src_op_1 = d[i];
+		ii->src_op_2 = S_accum[i];
+
+		/* now finally accumulate it to regdest */
+		instruction_list_add(&ii);
+		ii->opcode = OP_ADD;
+		ii->src_op_1 = tmp_mult_reg;
+		ii->src_op_2 = regdest_address;
+		ii->tgt_op_1 = regdest_address;
+	}
+
+	/* now, multiply the relative offset by the data size. */
+	int datasize = 1;
+	if (ss->type == IKS_BOOL) datasize = 1;
+	else if (ss->type == IKS_INT) datasize = 4;
+	else if (ss->type == IKS_FLOAT) datasize = 8;
+	else if (ss->type == IKS_CHAR) datasize = 1;
+	else if (ss->type == IKS_STRING) datasize = 100;
+	else {
+		perror("Invalid data type when calculating vector indexing.");
+		exit(EXIT_FAILURE);
+	}
+
+	instruction_list_add(&ii);
+	ii->opcode = OP_MULT_I;
+	ii->src_op_1 = regdest_address;
+	ii->src_op_2 = int_str(datasize);
+	ii->tgt_op_1 = regdest_address;
+
+	instruction_list_add(&ii);
+	ii->opcode = OP_NOP;
+	ii->label = (char*)malloc(256 * sizeof(char));
+	sprintf(ii->label, "vector_indexing_%d_END", label_count);
+	str_pool_add(ii->label);
+
+	++label_count;
 }
 
 void generate_code_literal(comp_tree_t* node, char* regdest)

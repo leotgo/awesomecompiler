@@ -116,7 +116,7 @@ int get_type(struct comp_tree_t* node, int purpose);
 /*
 	gets symbol from symbol's table from the ast node 
 */
-struct comp_context_symbol_t* get_symbol(struct comp_tree_t* node);
+struct comp_context_symbol_t* get_symbol(const struct comp_tree_t* node);
 
 /*
 	checks if variable purpose is the same as defined
