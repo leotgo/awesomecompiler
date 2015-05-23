@@ -762,13 +762,13 @@ void generate_code_logical_not(comp_tree_t* node, char* regdest)
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_SUB_I;
 	node->instr_list->src_op_1 = max_value_reg;
-	node->instr_list->src_op_1 = one;
+	node->instr_list->src_op_2 = one;
 	node->instr_list->tgt_op_1 = max_value_reg;
 
 	// Do XOR from expression value and maximum register value to negate the expression and store in regdest
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_XOR;
 	node->instr_list->src_op_1 = exp_reg;
-	node->instr_list->src_op_1 = max_value_reg;
+	node->instr_list->src_op_2 = max_value_reg;
 	node->instr_list->tgt_op_1 = regdest;
 }
