@@ -3,6 +3,7 @@
 
 void instruction_list_add(instruction** instr_list)
 {
+	if (instr_list == NULL) return;
 	instruction* new = (instruction*)malloc(sizeof(instruction));
 	new->opcode = OP_NOP;
 	new->next = *instr_list;
@@ -16,26 +17,31 @@ void instruction_list_add(instruction** instr_list)
 
 void print_instruction_list(instruction* instr_list)
 {
-	recursive_parse(instr_list);
+	if (instr_list != NULL)
+		recursive_parse(instr_list);
 }
 
 void recursive_parse(instruction* list)
 {
-	if (list->next != NULL) 
-		recursive_parse(list->next);
+	if (list != NULL) {
+		if (list->next != NULL)
+			recursive_parse(list->next);
 
-	print_instruction(list);
+		print_instruction(list);
+	}
 }
 
 void print_instruction(instruction* list)
 {
+	if (list == NULL) return;
 
 	if(list->label != NULL)
 	{
 		printf("%s:\n", list->label);
 	}
+	printf("\t");
 	switch(list->opcode)
-	{
+	{		
 		case OP_ADD:
 			printf("add %s, %s => %s", list->src_op_1, list->src_op_2, list->tgt_op_1);
 			break;
@@ -220,6 +226,9 @@ void print_instruction(instruction* list)
 			printf("cbr %s -> %s, %s", list->src_op_1, list->tgt_op_1, list->tgt_op_2); 
 			break;
 			
+		case OP_NOP:
+			printf("nop");
+			break;
 		case OP_NOP:
 			printf("nop");
 			break;
