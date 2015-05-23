@@ -665,6 +665,12 @@ void generate_code_while_do(comp_tree_t* node)
 	// Generate labels for condition cases TRUE and FALSE
 	char* case_true_label = generate_label();
 	char* case_false_label = generate_label();
+	char* cond_label = generate_label();
+
+	// Add label to WHILE-DO condition test
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = cond_label;
 
 	// Generate code for WHILE-DO condition test
 	char* cond_reg = generate_register();
@@ -686,6 +692,11 @@ void generate_code_while_do(comp_tree_t* node)
 	// Add instruction list of WHILE-DO code block
 	generate_code(node->children[1], NULL);
 	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
+
+	// After true code is executed, go to condition test
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_JUMP_I;
+	node->instr_list->tgt_op_1 = cond_label;
 
 	// Add label to case when test is false (which means going to the next instruction)
 	instruction_list_add(&node->instr_list);
