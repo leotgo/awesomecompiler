@@ -112,7 +112,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 		malloc(sizeof(comp_context_symbol_t));
 	sym->parameters = NULL;
 	sym->purpose = purpose;
-	sym->type = type;
+	sym->type = type_convert(type);
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	sym->data_size = 0;
 	
@@ -242,12 +242,12 @@ void _context_calc_addr(comp_context_t* ctx) {
 	}
 
 	if (ctx->next != NULL) {
-		ctx->next->start_addr = ctx->start_addr;
+		ctx->next->start_addr = 0;
 		_context_calc_addr(ctx->next);
 	}
 
 	if (ctx->children != NULL) {
-		ctx->children->start_addr = ctx->end_addr;
+		ctx->children->start_addr = 0;
 		_context_calc_addr(ctx->children);
 	}
 }

@@ -104,7 +104,7 @@ int operation_type(int childType_1, int childType_2);
 	converts from all types of different definitions of types to a unified enumeration
 	returns type in unified enumeration
 */
-int typeConvert(int type);
+int type_convert(int type);
 
 /*
 	gets type from ast node. If node represents a function, variable or vector

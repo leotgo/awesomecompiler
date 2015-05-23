@@ -89,12 +89,12 @@ int type_check_function_definition(comp_tree_t* node)
 		}
 
 
-		int return_type = typeConvert(  get_type ( ret->children[0], ast_retrieve_node_purpose(ret->children[0]) ) ) ;
+		int return_type = type_convert(  get_type ( ret->children[0], ast_retrieve_node_purpose(ret->children[0]) ) ) ;
 
 	
 		comp_context_symbol_t* node_symbol;
 		node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
-		int function_type = typeConvert( node_symbol->type );
+		int function_type = type_convert( node_symbol->type );
 
 		// tries coercion for return type and function return type
 		if(!coercion_possible(return_type, function_type))
@@ -116,7 +116,7 @@ int type_check_function_definition(comp_tree_t* node)
 */
 int type_check_if_else(comp_tree_t* node)
 {
-	int test_type = typeConvert( get_type( node->children[0], ast_retrieve_node_purpose( node->children[0] ) ) );
+	int test_type = type_convert( get_type( node->children[0], ast_retrieve_node_purpose( node->children[0] ) ) );
 
 	// child 0: test - has to be booleean
 	if(!coercion_possible(test_type, IKS_BOOL))
@@ -147,10 +147,10 @@ int type_check_if_else(comp_tree_t* node)
 */
 int type_check_do_while(comp_tree_t* node)
 {
-	int test_type = typeConvert( get_type( node->children[0], ast_retrieve_node_purpose( node->children[0] ) ) );
+	int test_type = type_convert( get_type( node->children[0], ast_retrieve_node_purpose( node->children[0] ) ) );
 
 	// child 0: test - has to be booleean
-	printf("Type1: %d\ %d\n",test_type,IKS_BOOL);
+	printf("Type1: %d %d\n",test_type,IKS_BOOL);
 	if(!coercion_possible(test_type, IKS_BOOL))
 	{
 		yyerror("ERROR: If-Else test is not a boolean");
@@ -171,11 +171,11 @@ int type_check_do_while(comp_tree_t* node)
 */
 int type_check_while_do(comp_tree_t* node)
 {
-	int test_type = typeConvert( get_type( node->children[0], ast_retrieve_node_purpose( node->children[0] ) ) );
+	int test_type = type_convert( get_type( node->children[0], ast_retrieve_node_purpose( node->children[0] ) ) );
 
 	// child 0: test - has to be booleean
 	
-		printf("Type2: %d\ %d\n",test_type,IKS_BOOL);
+		printf("Type2: %d %d\n",test_type,IKS_BOOL);
 	if(!coercion_possible(test_type, IKS_BOOL))
 	{
 		yyerror("ERROR: If-Else test is not a boolean");
@@ -256,7 +256,7 @@ int type_check_output_exp_list(comp_tree_t* node)
 	else if(node->type == AST_LITERAL) 
 	{
 		comp_dict_item_t* symbol = node->sym_table_ptr;
-		int literalType = typeConvert( symbol->token_type );
+		int literalType = type_convert( symbol->token_type );
 		if(literalType != IKS_STRING)
 		{
 			yyerror("ERROR: OUTPUT only supports string literals or arithmetic expressions as arguments");
@@ -284,8 +284,8 @@ int type_check_output_exp_list(comp_tree_t* node)
 */
 int type_check_attribution(comp_tree_t* node)
 {
-	int var_type = typeConvert( get_type( node->children[0], ast_retrieve_node_purpose(node->children[0]) ) );
-	int exp_type = typeConvert( get_type( node->children[1], ast_retrieve_node_purpose(node->children[1]) ) );
+	int var_type = type_convert( get_type( node->children[0], ast_retrieve_node_purpose(node->children[0]) ) );
+	int exp_type = type_convert( get_type( node->children[1], ast_retrieve_node_purpose(node->children[1]) ) );
 	if(var_type != IKS_STRING && exp_type == IKS_STRING)
 	{
 		yyerror("ERROR: Impossible coertion from STRING type to variable type");
@@ -313,7 +313,7 @@ int type_check_attribution(comp_tree_t* node)
 int type_check_indexed_vector(comp_tree_t* node)
 {
 	
-	int exp_type = typeConvert( get_type( node->children[1], ast_retrieve_node_purpose(node->children[1]) ) );
+	int exp_type = type_convert( get_type( node->children[1], ast_retrieve_node_purpose(node->children[1]) ) );
 
 	if(exp_type == IKS_STRING)
 	{
@@ -339,7 +339,7 @@ int type_check_indexed_vector(comp_tree_t* node)
 
 int type_check_vector_dimension(struct comp_tree_t* node)
 {
-	int exp_type = typeConvert( type_inference(node) );
+	int exp_type = type_convert( type_inference(node) );
 
 	if(exp_type == IKS_STRING)
 	{
@@ -400,14 +400,14 @@ int type_inference(comp_tree_t* node)
 	if(node->type == AST_IDENTIFICADOR)
 	{
 		// if node is an identifier, gets type from context's symbols table
-		int type =  typeConvert( get_type(node, ast_retrieve_node_purpose(node) ));
+		int type =  type_convert( get_type(node, ast_retrieve_node_purpose(node) ));
 		return type;
 	}
 	else if(node->type == AST_LITERAL)
 	{
 		// if node is literal gets type by global symbols table
 		comp_dict_item_t* symbol= node->sym_table_ptr;
-		int type = typeConvert( symbol->token_type );
+		int type = type_convert( symbol->token_type );
 		return type;
 	}
 	else if(node->type == AST_ARIM_SOMA 		|| 
@@ -416,8 +416,8 @@ int type_inference(comp_tree_t* node)
 		node->type == AST_ARIM_DIVISAO		 )
 	{
 		// Get children nodes type
-		int childType_1 = typeConvert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
-		int childType_2 = typeConvert( get_type(node->children[1], ast_retrieve_node_purpose(node->children[1]) ));	
+		int childType_1 = type_convert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
+		int childType_2 = type_convert( get_type(node->children[1], ast_retrieve_node_purpose(node->children[1]) ));	
 
 		if(childType_1 == IKS_STRING ||  childType_2 == IKS_STRING)
 		{
@@ -435,7 +435,7 @@ int type_inference(comp_tree_t* node)
 	}
 	else if(node->type == AST_ARIM_INVERSAO)
 	{
-		int childType = typeConvert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
+		int childType = type_convert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
 		if(childType == IKS_STRING)
 		{
 			yyerror("ERROR: STRING type terms are not supported in arithmetic expression");
@@ -459,8 +459,8 @@ int type_inference(comp_tree_t* node)
 		node->type == AST_LOGICO_COMP_G 		 )
 		
 	{
-		int childType_1 = typeConvert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
-		int childType_2 = typeConvert( get_type(node->children[1], ast_retrieve_node_purpose(node->children[1]) ));
+		int childType_1 = type_convert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
+		int childType_2 = type_convert( get_type(node->children[1], ast_retrieve_node_purpose(node->children[1]) ));
 		
 		if(childType_1 != childType_2)
 		{
@@ -483,7 +483,7 @@ int type_inference(comp_tree_t* node)
 	}
 	else if(node->type == AST_LOGICO_COMP_NEGACAO)
 	{
-		int childType = typeConvert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
+		int childType = type_convert( get_type(node->children[0], ast_retrieve_node_purpose(node->children[0]) ));
 		if(childType != IKS_BOOL)
 		{
 			yyerror("ERROR: STRING and CHAR type terms are not supported in logical expression");
@@ -524,7 +524,7 @@ int operation_type(int childType_1, int childType_2)
 	converts from all types of different definitions of types to a unified enumeration
 	returns type in unified enumeration
 */
-int typeConvert(int type)
+int type_convert(int type)
 {
 	if(type == IKS_INVALID || type == IKS_INT || type == IKS_FLOAT || type == IKS_BOOL || type == IKS_CHAR || type == IKS_STRING)
 		return type;
@@ -583,7 +583,7 @@ int get_type(comp_tree_t* node, int purpose)
 			check_vector_dimensions_number(node);
 		}
 		
-		return typeConvert(node_symbol->type);
+		return type_convert(node_symbol->type);
 		
 	}
 	else if(node->type == AST_LITERAL)
@@ -598,7 +598,7 @@ int get_type(comp_tree_t* node, int purpose)
 		} 
 		else
 		{
-			return typeConvert(node_symbol->token_type);
+			return type_convert(node_symbol->token_type);
 		}
 	}
 	else if(node->type == AST_ARIM_SOMA 		|| 
@@ -633,7 +633,7 @@ int get_type(comp_tree_t* node, int purpose)
 			exit(IKS_ERROR_UNDECLARED);
 		}
 
-		return typeConvert( node_symbol->type );
+		return type_convert( node_symbol->type );
 	}
 	else return node->type;
 }
@@ -644,7 +644,8 @@ int get_type(comp_tree_t* node, int purpose)
 comp_context_symbol_t* get_symbol(const comp_tree_t* node)
 {
 	comp_context_symbol_t* node_symbol;
-	node_symbol = context_find_identifier_multilevel(node->context, node->sym_table_ptr->token);
+	node_symbol = context_find_identifier_multilevel(node->context, 
+		node->sym_table_ptr->token);
 
 	if(node_symbol == NULL)
 	{	
@@ -786,7 +787,7 @@ int type_check_function_call(comp_tree_t* node, comp_tree_t* arguments)
 					}
 					
 					// if coercion not possible, argument is of wrong type
-					if (!coercion_possible(typeConvert( arg_type ), typeConvert(expected_type->type))) 
+					if (!coercion_possible(type_convert( arg_type ), type_convert(expected_type->type))) 
 					{
 						yyerror("ERROR: Arguments with wrong type");
 						exit(IKS_ERROR_WRONG_TYPE_ARGS);
@@ -796,7 +797,7 @@ int type_check_function_call(comp_tree_t* node, comp_tree_t* arguments)
 					} 
 					else 	
 					{
-						arg->induced_type_by_coercion = typeConvert( expected_type->type );
+						arg->induced_type_by_coercion = type_convert( expected_type->type );
 					}
 					expected_type = expected_type->next;
 					arg = arg->next;
