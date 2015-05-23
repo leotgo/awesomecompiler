@@ -58,6 +58,7 @@ void generate_code(comp_tree_t* node, char* regdest)
 			generate_code_comparison(node, regdest, OP_CMP_GT);
 			break;
 		case AST_LOGICO_COMP_NEGACAO:
+			generate_code_logical_not(node, regdest);
 			break;
 		/* ****************************************** */
 
@@ -734,5 +735,40 @@ void generate_code_comparison(comp_tree_t* node, char* regdest, int comparison)
 	node->instr_list->opcode = comparison;
 	node->instr_list->src_op_1 = first_exp_reg;
 	node->instr_list->src_op_2 = secnd_exp_reg;
+	node->instr_list->tgt_op_1 = regdest;
+}
+
+void generate_code_logical_not(comp_tree_t* node, char* regdest)
+{
+	char* exp_reg = generate_register();
+	generate_code(node->children[0], exp_reg);
+	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
+
+	// Generate auxiliary register (will be filled with 11111111...)
+	char* max_value_reg = generate_register();
+
+	char *zero = (char*) malloc(2);
+	strcpy(zero, "0");
+	char *one = (char*) malloc(2);
+	strcpy(one, "1");
+
+	// Load value zero into auxiliary register
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_LOAD_I;
+	node->instr_list->src_op_1 = zero;
+	node->instr_list->tgt_op_1 = max_value_reg;
+
+	// Subtract 1 from zero to cause overflow and obtain maximum auxiliary register value
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_SUB_I;
+	node->instr_list->src_op_1 = max_value_reg;
+	node->instr_list->src_op_1 = one;
+	node->instr_list->tgt_op_1 = max_value_reg;
+
+	// Do XOR from expression value and maximum register value to negate the expression and store in regdest
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_XOR;
+	node->instr_list->src_op_1 = exp_reg;
+	node->instr_list->src_op_1 = max_value_reg;
 	node->instr_list->tgt_op_1 = regdest;
 }
