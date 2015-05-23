@@ -220,8 +220,8 @@ void print_instruction(instruction* list)
 			printf("cbr %s -> %s, %s", list->src_op_1, list->tgt_op_1, list->tgt_op_2); 
 			break;
 			
-		case OP_NOT:
-			printf("not %s => %s", list->src_op_1, list->tgt_op_1);
+		case OP_NOP:
+			printf("nop");
 			break;
 	}	
 	
