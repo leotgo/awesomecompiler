@@ -229,9 +229,7 @@ void print_instruction(instruction* list)
 		case OP_NOP:
 			printf("nop");
 			break;
-		case OP_NOP:
-			printf("nop");
-			break;
+
 	}	
 	
 	printf("\n");

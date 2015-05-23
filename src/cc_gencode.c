@@ -439,6 +439,55 @@ instruction* calculate_vector_indexing_address(const comp_tree_t* node,
 	return ii;
 }
 
+int get_immediate_operand(int operation)
+{
+	switch(operation)
+	{
+		case OP_ADD:
+			return OP_ADD_I;
+			break;
+			
+		case OP_SUB:
+			return OP_SUB_I;
+			break;
+			
+		case OP_MULT:
+			return OP_MULT_I;
+			break;
+		
+		case OP_DIV:
+			return OP_DIV_I;
+			break;
+		
+		case OP_L_SHIFT:
+			return OP_L_SHIFT_I;
+			break;
+			
+		case OP_R_SHIFT:
+			return OP_R_SHIFT_I;
+			break;
+			
+		case OP_AND:
+			return OP_AND_I;
+			break;
+			
+		case OP_OR:
+			return OP_OR_I;
+			break;
+			
+		case OP_XOR:
+			return OP_XOR_I;
+			break;
+			
+		case OP_LOAD:
+			return OP_LOAD_I;
+			break;
+			
+		case OP_JUMP:
+			return OP_JUMP_I;
+			break;
+	}
+}
 void generate_code_literal(comp_tree_t* node, char* regdest)
 {
 	if(node->sym_table_ptr == NULL)
@@ -479,15 +528,54 @@ void generate_code_operation(comp_tree_t* node, char* regdest, int operation)
 	// register for value of children 0
 	char* r1 = generate_register();	
 	// register for value of chldren 1
-	char* r2 = generate_register();
+	char* r2;
 	
 	// Generate code for first and second expression
-	generate_code(node->children[0],r1);
-	generate_code(node->children[1],r2);
 	
-	// Add first expression and second code to this node
-	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
-	node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
+	// checks if first or second child are literals to use immediate operations
+	if(node->children[1]->type == AST_LITERAL)
+	{
+		r2 = (char*) node->children[1]->sym_table_ptr->token;
+		operation = get_immediate_operand(operation);
+		
+		generate_code(node->children[0],r1);
+		node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
+	}
+	else
+	{
+		if(node->children[0]->type == AST_LITERAL)
+		{
+			if(operation == OP_DIV || operation == OP_SUB)
+			{
+				if(operation == OP_DIV)
+					operation = OP_R_DIV_I;
+				
+				if(operation == OP_SUB)
+					operation = OP_R_SUB_I;
+			}
+			else
+			{		
+				operation = get_immediate_operand(operation);
+			}
+			
+			r2 = (char*) node->children[0]->sym_table_ptr->token;
+			
+			generate_code(node->children[1],r1);
+			node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
+			
+		}
+		else
+		{
+			generate_code(node->children[0],r1);
+			node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[0]->instr_list));
+			
+			r2 = generate_register();
+			generate_code(node->children[1],r2);
+			node->instr_list = instruction_list_merge(&node->instr_list, &(node->children[1]->instr_list));
+		}
+		
+	}
+	
 	
 	instruction_list_add(&(node->instr_list));
 	node->instr_list->opcode = operation;
