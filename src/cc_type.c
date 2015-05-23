@@ -175,7 +175,7 @@ int type_check_while_do(comp_tree_t* node)
 
 	// child 0: test - has to be booleean
 	
-		printf("Type2: %d %d\n",test_type,IKS_BOOL);
+		
 	if(!coercion_possible(test_type, IKS_BOOL))
 	{
 		yyerror("ERROR: If-Else test is not a boolean");
