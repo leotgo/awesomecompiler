@@ -5,7 +5,7 @@
 #include "cc_context.h"
 #include "cc_dict.h"
 #include "cc_error.h"
-#include "../parser.h"
+#include "parser.h"
 #include "main.h"
 
 
