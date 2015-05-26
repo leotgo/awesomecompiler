@@ -9,10 +9,11 @@ typedef struct str_pool {
 
 str_pool* pool = NULL;
 
-void str_pool_add_lit(const char* str) {
+char* str_pool_add_lit(const char* str) {
 	char* s = (char*)malloc(sizeof(char) * (1 + strlen(str)));
 	strcpy(s, str);
 	str_pool_add(s);
+	return s;
 }
 
 void str_pool_add(char* str) {

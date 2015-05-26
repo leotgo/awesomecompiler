@@ -148,10 +148,10 @@ void generate_code(comp_tree_t* node, char* regdest)
 	
 }
 
-char* get_reg_fp_or_arp(comp_tree_t* node) {
+char* get_rbss_or_rarp(comp_tree_t* node) {
 	comp_context_symbol_t* ss = get_symbol(node);
 	if (context_find_identifier(main_context, ss->key) != NULL) {
-		return reg_fp();
+		return reg_rbss();
 	} else {
 		return reg_arp();
 	}
@@ -208,9 +208,9 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
 	node->instr_list->opcode = OP_STORE_A_O;
 	node->instr_list->src_op_1 = reg1;
 	if (node->children[0]->type == AST_VETOR_INDEXADO)
-		node->instr_list->tgt_op_1 = get_reg_fp_or_arp(node->children[0]->children[0]);
+		node->instr_list->tgt_op_1 = get_rbss_or_rarp(node->children[0]->children[0]);
 	else
-		node->instr_list->tgt_op_1 = get_reg_fp_or_arp(node->children[0]);
+		node->instr_list->tgt_op_1 = get_rbss_or_rarp(node->children[0]);
 
 	node->instr_list->tgt_op_2 = reg_offset;
 
@@ -226,10 +226,6 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
 }
 
 void generate_code_identificador(comp_tree_t* node, char* regdest) {
-	/*
-	* não tem código, mas aqui tem que ver o ponteiro
-	* pro simbolo no contexto e setar node->addr adequadamente.
-	* */
 	node->addr = get_symbol(node)->addr;
 
 	if (regdest) {
@@ -254,7 +250,7 @@ void generate_code_identificador(comp_tree_t* node, char* regdest) {
 
 			/* first operand: fp if variable is global,
 			* or rarp if variable is local. */
-			node->instr_list->src_op_1 = get_reg_fp_or_arp(node);
+			node->instr_list->src_op_1 = get_rbss_or_rarp(node);
 
 			/* second operand: the immediate value of the variable's
 			* address.*/
@@ -298,7 +294,7 @@ void generate_code_vetor_indexado(comp_tree_t* node, char* regdest) {
 		/* having the address, we must do a load_AO to regdest */
 		instruction_list_add(&node->instr_list);
 		node->instr_list->opcode = OP_LOAD_A_O;
-		node->instr_list->src_op_1 = get_reg_fp_or_arp(node);
+		node->instr_list->src_op_1 = get_rbss_or_rarp(node);
 		node->instr_list->src_op_2 = regaddr;
 		node->instr_list->tgt_op_1 = regdest;
 	}
@@ -306,6 +302,10 @@ void generate_code_vetor_indexado(comp_tree_t* node, char* regdest) {
 
 instruction* calculate_vector_indexing_address(const comp_tree_t* node, 
 	char* regdest_address) {
+	/* given a vector indexing, such as v[5], v[5, 10], v[x, y + z] or
+	 * the such, returns an instruction* that calculates the address 
+	 * of that indexing. it will also generate code for the expression indexes, 
+	 * like x and y+z in the example above.*/
 
 	if (regdest_address == NULL || node == NULL) {
 		perror("We should never call generate_code_vector_indexing() "
@@ -355,6 +355,11 @@ instruction* calculate_vector_indexing_address(const comp_tree_t* node,
 		c = c->next;
 	}
 
+	instruction_list_add(&ii);
+	ii->opcode = OP_I_2_I;
+	ii->src_op_1 = d[0];
+	ii->tgt_op_1 = regdest_address;
+
 	if (ss->vector_dimensions > 1) {
 		/* the registers S hold the dimension sizes for each of the dimensions.
 		 * */
@@ -375,11 +380,6 @@ instruction* calculate_vector_indexing_address(const comp_tree_t* node,
 		 * S_accum[n - 3] = s[n-2] * s_accum[n-2] = s[n-2] * s[n-1].
 		 * And so on. */
 		char* S_accum[MAX_VECTOR_DIMENSIONS];
-
-		instruction_list_add(&ii);
-		ii->opcode = OP_I_2_I;
-		ii->src_op_1 = d[0];
-		ii->tgt_op_1 = regdest_address;
 
 		for (i = 1; i <= ss->vector_dimensions - 1; ++i) {
 			
@@ -409,7 +409,7 @@ instruction* calculate_vector_indexing_address(const comp_tree_t* node,
 			ii->src_op_2 = regdest_address;
 			ii->tgt_op_1 = regdest_address;
 		}
-	}
+	} 
 
 	/* now, multiply the relative offset by the data size. */
 	int datasize = 1;
@@ -423,12 +423,21 @@ instruction* calculate_vector_indexing_address(const comp_tree_t* node,
 		exit(EXIT_FAILURE);
 	}
 
+	/* multiply by data size. */
 	instruction_list_add(&ii);
 	ii->opcode = OP_MULT_I;
 	ii->src_op_1 = regdest_address;
 	ii->src_op_2 = int_str(datasize);
 	ii->tgt_op_1 = regdest_address;
 
+	/* add base address to final address. */
+	instruction_list_add(&ii);
+	ii->opcode = OP_ADD_I;
+	ii->src_op_1 = regdest_address;
+	ii->src_op_2 = int_str(ss->addr);
+	ii->tgt_op_1 = regdest_address;
+
+	/* add a label to signalize end of vector indexing operation. */
 	instruction_list_add(&ii);
 	ii->opcode = OP_NOP;
 	ii->label = (char*)malloc(256 * sizeof(char));
@@ -488,6 +497,7 @@ int get_immediate_operand(int operation)
 			break;
 	}
 }
+
 void generate_code_literal(comp_tree_t* node, char* regdest)
 {
 	if(node->sym_table_ptr == NULL)
@@ -671,6 +681,7 @@ void generate_children_code(comp_tree_t* node, char* regdest)
 	}
 	
 }
+
 void generate_code_if_else(comp_tree_t* node)
 {
 	// Generate code for IF-ELSE condition test
