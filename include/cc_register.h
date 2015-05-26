@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char* reg_fp();
+char* reg_rbss();
 
 char* reg_arp();
 

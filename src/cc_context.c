@@ -149,6 +149,7 @@ int calculate_symbol_data_size(comp_context_symbol_t* sym) {
 				sym->data_size *= sym->vector_dimension_sizes[d];
 		}
 	}
+	return sym->data_size; 
 }
 
 comp_context_symbol_t* context_add_function_to_current(

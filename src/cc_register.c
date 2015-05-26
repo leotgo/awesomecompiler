@@ -24,8 +24,8 @@ char* generate_register()
 	return name;
 }
 
-char* reg_fp() {
-	static char* rfp = "rfp";
+char* reg_rbss() {
+	static char* rfp = "rbss";
 	return rfp;
 }
 
