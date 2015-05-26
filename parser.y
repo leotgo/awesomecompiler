@@ -330,7 +330,7 @@ CtrlFluxoWhile:
 
 CtrlFluxoDoWhile:
 		  TK_PR_DO Comando TK_PR_WHILE Expressao { $$ = ast_create(
-		  	AST_DO_WHILE, $2, $4); }
+		  	AST_DO_WHILE, $4, $2); }
 		;
 
 ControleDeFluxo:
