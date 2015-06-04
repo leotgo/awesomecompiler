@@ -12,6 +12,7 @@ void instruction_list_add(instruction** instr_list)
 	new->src_op_1 = NULL;
 	new->src_op_2 = NULL;
 	new->label = NULL;
+	new->comment = NULL;
 	*instr_list = new;
 }
 
@@ -231,7 +232,8 @@ void print_instruction(instruction* list)
 			break;
 
 	}	
-	
+	if (list->comment)
+		printf(" /* %s */", list->comment);
 	printf("\n");
 	
 	

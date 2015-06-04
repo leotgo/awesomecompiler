@@ -34,6 +34,7 @@ type_list* type_list_Add(type_list* list, int addedType);
 // free all nodes from a type_list
 void type_list_free(type_list* x);
 
+int type_data_size(int type);
 
 /*
 	checks type depending on the lexic symbol

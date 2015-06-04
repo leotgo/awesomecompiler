@@ -35,6 +35,14 @@ typedef struct comp_context_symbol_t {
 	int addr; /* the address defined by the variable in the
 						  current activation registry. */
 
+	/* if purpose == PURPOSE_FUNCTION, this is the label in the code that is 
+	 * correspondent to that function.
+	 * 
+	 * if the label is NULL, we have an error: trying to call a function that 
+	 * has not been declared yet.
+	 * */
+	char* function_code_label;
+
 	UT_hash_handle hh; /* hash handle. */
 
 } comp_context_symbol_t;
