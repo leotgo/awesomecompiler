@@ -9,6 +9,10 @@ char* reg_rbss();
 
 char* reg_arp();
 
+char* reg_fp();
+
+char* reg_sp();
+
 char* generate_register();
 
 

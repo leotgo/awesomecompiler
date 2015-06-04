@@ -25,6 +25,23 @@ char* int_str(int i) {
 
 void generate_code(comp_tree_t* node, char* regdest)
 {
+
+	if (node->type == AST_PROGRAMA) {
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_LOAD_I;
+		node->instr_list->src_op_1 = int_str(0);
+		node->instr_list->tgt_op_1 = reg_rbss();
+
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_LOAD_I;
+		node->instr_list->src_op_1 = int_str(0);
+		node->instr_list->tgt_op_1 = reg_fp();
+
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_LOAD_I;
+		node->instr_list->src_op_1 = int_str(0);
+		node->instr_list->tgt_op_1 = reg_sp();
+	}
 	
 	//printf("gencode %d \n", node->type);
 	switch(node->type)

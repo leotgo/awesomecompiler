@@ -25,11 +25,21 @@ char* generate_register()
 }
 
 char* reg_rbss() {
-	static char* rfp = "rbss";
-	return rfp;
+	static char* rbss = "rbss";
+	return rbss;
 }
 
 char* reg_arp() {
 	static char* rarp = "rarp";
 	return rarp;
+}
+
+char* reg_fp() {
+	static char* rfp = "fp";
+	return rfp;
+}
+
+char* reg_sp() {
+	static char* rsp = "sp";
+	return rsp;
 }
