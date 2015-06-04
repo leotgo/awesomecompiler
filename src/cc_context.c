@@ -115,6 +115,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	sym->type = type_convert(type);
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	sym->data_size = 0;
+	sym->function_code_label = NULL;
 	
 	sym->vector_dimensions = vector_dimensions;
 	memset(sym->vector_dimension_sizes, -1, 
@@ -135,13 +136,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 
 int calculate_symbol_data_size(comp_context_symbol_t* sym) {
 	if (sym == NULL) return 0;
-	if (sym->type == IKS_BOOL) sym->data_size = 1;
-	else if (sym->type == IKS_INT) sym->data_size = 4;
-	else if (sym->type == IKS_FLOAT) sym->data_size = 8;
-	else if (sym->type == IKS_CHAR) sym->data_size = 1;
-	else if (sym->type == IKS_STRING) {
-		sym->data_size = 100;
-	}
+	sym->data_size = type_data_size(sym->type);
 	if (sym->purpose == PURPOSE_VECTOR) {
 		int d;
 		for (d = 0; d < sym->vector_dimensions; ++d) {
@@ -189,6 +184,8 @@ comp_context_symbol_t* context_add_function_to_current(
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	sym->data_size = 0;
 	sym->vector_dimensions = 0;
+	sym->function_code_label = NULL;
+
 	strcpy((char*)sym->key, identifier);
 
 

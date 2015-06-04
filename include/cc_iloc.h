@@ -70,6 +70,8 @@ typedef struct instruction
 	char* src_op_2; // The second source register for the instruction. 
 	// May also be empty.
 
+	char* comment;
+
 	struct instruction* next;
 
 } instruction;

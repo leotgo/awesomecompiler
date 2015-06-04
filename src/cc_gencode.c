@@ -2,7 +2,31 @@
 #include "cc_type.h"
 #include "cc_register.h"
 #include "cc_label.h"
+#include "cc_str_pool.h"
+#include "cc_context.h"
+
 #include "cc_iloc.h"
+#include <assert.h>
+
+int fp_disp_stack[1000];
+int fp_dist_stack_index = 0;
+
+void push_fp_data_displacement(int disp) {
+	if (fp_dist_stack_index >= 1000) {
+		printf("Maximum call stack size exceeded.");
+		exit(-1);
+	}
+	fp_disp_stack[0] = 0;
+	fp_disp_stack[++fp_dist_stack_index] = disp;	
+}
+
+void pop_fp_data_displacement() {
+	fp_dist_stack_index = max(0, fp_dist_stack_index - 1);
+}
+
+int get_fp_data_displacement() {
+	return fp_disp_stack[fp_dist_stack_index];
+}
 
 /* converts the int 'i', into a string (it allocates the necessary memory for 
  * that string).
@@ -20,8 +44,9 @@ char* int_str(int i) {
 	return str;
 }
 
+
 // The main code generation function. Called over the AST tree root, after it 
-// is created.
+// is created. 
 
 void generate_code(comp_tree_t* node, char* regdest)
 {
@@ -41,6 +66,10 @@ void generate_code(comp_tree_t* node, char* regdest)
 		node->instr_list->opcode = OP_LOAD_I;
 		node->instr_list->src_op_1 = int_str(0);
 		node->instr_list->tgt_op_1 = reg_sp();
+
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_JUMP_I;
+		node->instr_list->tgt_op_1 = get_func_label("main");
 	}
 	
 	//printf("gencode %d \n", node->type);
@@ -131,7 +160,7 @@ void generate_code(comp_tree_t* node, char* regdest)
 			break;
 			
 		case AST_FUNCAO:
-			generate_children_code(node, regdest);
+			generate_code_function(node, regdest);
 			break;
 		case AST_LITERAL:
 			generate_code_literal(node, regdest);
@@ -144,6 +173,7 @@ void generate_code(comp_tree_t* node, char* regdest)
 			break;
 		case AST_RETURN:
 			// ACHO que nao tem que fazer ainda
+			generate_children_code(node, regdest);
 			break;
 		case AST_BLOCO:
 			generate_children_code(node, regdest);
@@ -152,6 +182,7 @@ void generate_code(comp_tree_t* node, char* regdest)
 		
 		case AST_CHAMADA_DE_FUNCAO:
 			/* Do nothing (IN THIS STAGE, WILL NOT BE IMPLEMENTED) */
+			generate_code_function_call(node, regdest);
 			break;
 	}	
 	
@@ -165,13 +196,261 @@ void generate_code(comp_tree_t* node, char* regdest)
 	
 }
 
-char* get_rbss_or_rarp(comp_tree_t* node) {
-	comp_context_symbol_t* ss = get_symbol(node);
-	if (context_find_identifier(main_context, ss->key) != NULL) {
-		return reg_rbss();
-	} else {
-		return reg_arp();
+void generate_code_function_call(comp_tree_t* node, char* regdest) {
+	char* return_label = generate_label();
+	assert(node->type == AST_CHAMADA_DE_FUNCAO);
+	assert(node->num_children == 2);
+
+	/* store return address */
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_STORE_A_I;
+	node->instr_list->src_op_1 = return_label;
+	node->instr_list->tgt_op_1 = reg_sp();
+	node->instr_list->tgt_op_2 = int_str(ARP_RETURN_ADDR_DISPLACEMENT);
+	node->instr_list->comment = str_pool_lit("Save return address (%s).", 
+		return_label);
+
+	/* store old sp */
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_STORE_A_I;
+	node->instr_list->src_op_1 = reg_sp();
+	node->instr_list->tgt_op_1 = reg_sp();
+	node->instr_list->tgt_op_2 = int_str(ARP_SP_DISPLACEMENT);
+	node->instr_list->comment = str_pool_lit("Save sp.");
+
+	/* store old fp */
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_STORE_A_I;
+	node->instr_list->src_op_1 = reg_fp();
+	node->instr_list->tgt_op_1 = reg_sp();
+	node->instr_list->tgt_op_2 = int_str(ARP_FP_DISPLACEMENT);
+	node->instr_list->comment = str_pool_lit("Save fp.");
+
+	comp_context_symbol_t* sym = get_symbol(node->children[0]);
+	assert(sym);
+	if (sym->function_code_label == NULL) {
+		perror("Error: calling function that has not been declared.");
 	}
+
+	/* -------------------------------------------------------- 
+	 * start load arguments 
+	 * ----------------------------------------------------------
+	 * */
+	int new_sp_pos = ARP_RETURN_VALUE_DISPLACEMENT + type_data_size(sym->type);
+	char* param_reg = generate_register();
+	int param_num = 1;
+	comp_tree_t* cc = node->children[1];
+	while (cc) {		
+		generate_code(cc, param_reg);
+		node->instr_list = instruction_list_merge(&node->instr_list, &cc->instr_list);
+		/* result will be in param_reg. store that in new_sp_pos */
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_STORE_A_I;
+		node->instr_list->src_op_1 = param_reg;
+		node->instr_list->tgt_op_1 = reg_sp();
+		node->instr_list->tgt_op_2 = int_str(new_sp_pos);
+		node->instr_list->comment = str_pool_lit(
+			"Adding argument %d to activation registry.", param_num++);
+		new_sp_pos += type_data_size(cc->induced_type_by_coercion);
+		cc = cc->next;
+	}
+
+	/* --------------------------------------------------------
+	* end load arguments
+	* ----------------------------------------------------------
+	* */
+
+	/* jump to func */
+
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_JUMP_I;
+	node->instr_list->tgt_op_1 = sym->function_code_label;
+	node->instr_list->comment = str_pool_lit("Jump to %s's implementation.", 
+		sym->key);
+	
+	/* create an instruction so we know where to come back */
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->label = return_label;
+	node->instr_list->comment = str_pool_lit("Return from function call.");
+
+	if (regdest) {
+		assert(type_convert(sym->type) != IKS_INVALID);
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_LOAD_A_I;
+		node->instr_list->src_op_1 = reg_sp();
+		node->instr_list->src_op_2 = int_str(ARP_RETURN_VALUE_DISPLACEMENT);
+		node->instr_list->tgt_op_1 = regdest;
+		node->instr_list->comment = str_pool_lit(
+			"Putting %s's return value in %s.", sym->key, regdest);
+	}
+}
+
+void generate_code_function(comp_tree_t* node, char* regdest) {
+	comp_context_symbol_t* sym = get_symbol(node);
+	assert(sym);
+	assert(sym->purpose == PURPOSE_FUNCTION);
+	assert(node->num_children >= 1);
+	int is_main_func = (strcmp("main", sym->key) == 0);
+
+	if (is_main_func) {
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_NOP;
+		node->instr_list->label = get_func_label(sym->key);
+		sym->function_code_label = node->instr_list->label;
+	}
+
+	int epilogue_size = 12;
+	int size_params = 0;
+
+	if (!is_main_func) {
+		/* step 1. put fp in sp */
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_I_2_I;
+		node->instr_list->src_op_1 = reg_sp();
+		node->instr_list->tgt_op_1 = reg_fp();
+		node->instr_list->comment = 
+			str_pool_lit("Update new fp value (equal to old sp).");
+
+
+		/* store the correct label, so we can call it later */
+		node->instr_list->label = get_func_label(sym->key);
+		sym->function_code_label = node->instr_list->label;
+
+		/* step 2: put sp to the ending of the epilogue.
+		 *
+		 * the ending of the epilogue is after
+		 * 4 bytes for return address
+		 * 4 bytes for old sp
+		 * 4 bytes for old fp
+		 * 4 * num_parameters bytes (for each parameter -- assuming only ints)
+		 * 4 bytes for return type (if there is a return type)
+		 */
+		epilogue_size = 12; /* ret addr, sp, fp */
+
+		/* return value */
+		epilogue_size += type_data_size(sym->type);
+
+		push_fp_data_displacement(epilogue_size);
+
+		/* get parameter sizes */
+		struct type_list* s = sym->parameters;
+		while (s != NULL) {
+			epilogue_size += type_data_size(s->type);
+			size_params += type_data_size(s->type);
+			s = s->next;
+		}
+
+		/* get correct sp position, by adding the epilogue size.*/
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_ADD_I;
+		node->instr_list->src_op_1 = reg_sp();
+		node->instr_list->src_op_2 = int_str(epilogue_size);
+		node->instr_list->tgt_op_1 = reg_sp();
+		node->instr_list->comment = str_pool_lit("Update new sp value (end of epilogue).");
+
+
+		if (regdest == NULL) {
+			regdest = generate_register();
+		}
+	}
+
+	/* add to sp the sizes of the local variables. */
+	if (node->children[0]) {
+		/* only if block is not empty. */
+		int context_data_sizes = 0;
+		comp_context_symbol_t* ss, *tmp;
+
+		assert(node->children[0]);
+		assert(node->children[0]->context);
+		comp_context_t* ctx = node->children[0]->context;
+		HASH_ITER(hh, ctx->symbols_table, ss, tmp) {
+			context_data_sizes += ss->data_size;
+		}
+
+		if (context_data_sizes - size_params > 0) {
+			instruction_list_add(&node->instr_list);
+			node->instr_list->opcode = OP_ADD_I;
+			node->instr_list->src_op_1 = reg_sp();
+			node->instr_list->src_op_2 = int_str(context_data_sizes - size_params);
+			node->instr_list->tgt_op_1 = reg_sp();
+			node->instr_list->comment =
+				str_pool_lit("Add sizes of local variables to sp.");
+		}
+	} 
+
+	/* the children of a funcion is the block where that function is declared. */
+	generate_children_code(node, regdest);
+
+	if (!is_main_func) {
+
+		/* 'regdest' will have the return value of the function.
+		*
+		* so now we'll have to put the return value in the memory position where
+		* we must store the return, that is, fp + epilogue_size - 4.
+		* */
+		if (type_data_size(sym->type) > 0) {
+			instruction_list_add(&node->instr_list);
+			node->instr_list->opcode = OP_STORE_A_I;
+			node->instr_list->src_op_1 = regdest;
+			node->instr_list->tgt_op_1 = reg_fp();
+			node->instr_list->tgt_op_2 = int_str(ARP_RETURN_VALUE_DISPLACEMENT);
+			node->instr_list->comment = str_pool_lit(
+				"Put return value (which is in %s) in fp + %d, which will be "
+				"used by caller.", regdest, ARP_RETURN_VALUE_DISPLACEMENT);
+		}
+
+		/* restore FP and SP, and jump back to the place that called the function.
+		 * */
+	char* jump_back_address = generate_register();
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_LOAD_A_I;
+		node->instr_list->src_op_1 = reg_fp();
+		node->instr_list->src_op_2 = int_str(ARP_RETURN_ADDR_DISPLACEMENT);
+		node->instr_list->tgt_op_1 = jump_back_address;
+		node->instr_list->comment = str_pool_lit("Get return address (which is in fp + %d).",
+			ARP_RETURN_ADDR_DISPLACEMENT);
+
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_LOAD_A_I;
+		node->instr_list->src_op_1 = reg_fp();
+		node->instr_list->src_op_2 = int_str(ARP_SP_DISPLACEMENT);
+		node->instr_list->tgt_op_1 = reg_sp();
+		node->instr_list->comment = str_pool_lit("Restore old sp (which is in fp + %d).",
+			ARP_SP_DISPLACEMENT);
+
+		char* old_fp_addr = generate_register();
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_LOAD_A_I;
+		node->instr_list->src_op_1 = reg_fp();
+		node->instr_list->src_op_2 = int_str(ARP_FP_DISPLACEMENT);
+		node->instr_list->tgt_op_1 = reg_fp();
+		node->instr_list->comment = str_pool_lit("Restore old fp (which is in fp + %d).",
+			ARP_FP_DISPLACEMENT);
+
+
+
+		/* jump back*/
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_JUMP;
+		node->instr_list->tgt_op_1 = jump_back_address;
+		node->instr_list->comment = str_pool_lit(
+			"Jump back to the place that called %s.", sym->key);
+
+		pop_fp_data_displacement();
+	}
+}
+
+char* get_rbss_or_fp(comp_tree_t* node) {
+	comp_context_symbol_t* ss = get_symbol(node);
+	comp_context_t* c = node->context;
+	while (c != NULL) {
+		comp_context_symbol_t* s = context_find_identifier(c, ss->key);
+		if (s != NULL && c != main_context) return reg_fp();
+		else if (s != NULL && c == main_context) return reg_rbss();
+		c = c->parent;
+	}
+	return reg_rbss();
 }
 
 void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
@@ -186,6 +465,11 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
 	/* generate code for the expression that is being assigned to
 	* the variable. */
 	;
+
+	const char* varname;
+	if (node->children[0]->type == AST_VETOR_INDEXADO)
+		varname = get_symbol(node->children[0]->children[0])->key;
+	else varname = get_symbol(node->children[0])->key;
 
 
 	/* generate code for the left side of the attribution. */
@@ -216,20 +500,42 @@ void generate_code_atribuicao(comp_tree_t* node, char* regdest) {
 		instruction* ii = instruction_list_new();
 		ii->opcode = OP_LOAD_I;
 		ii->src_op_1 = int_str(dest_addr);
-		ii->tgt_op_1 = reg_offset;
+		ii->tgt_op_1 = reg_offset;		
 		node->instr_list = instruction_list_merge(&node->instr_list, &ii);
 	}
 
-	instruction_list_add(&node->instr_list);
+	int use_displacement = 0;
+	if (node->children[0]->type == AST_VETOR_INDEXADO) {
+		char* ff = get_rbss_or_fp(node->children[0]->children[0]);
+		use_displacement = (strcmp(ff, reg_fp()) == 0);
+	} else {
+		char* ff = get_rbss_or_fp(node->children[0]);
+		use_displacement = (strcmp(ff, reg_fp()) == 0);		
+	}
 
+	if (use_displacement) {
+		instruction_list_add(&node->instr_list);
+		node->instr_list->opcode = OP_ADD_I;
+		node->instr_list->src_op_1 = reg_offset;
+		node->instr_list->src_op_2 = int_str(get_fp_data_displacement());
+		node->instr_list->tgt_op_1 = reg_offset;
+
+		node->instr_list->comment = str_pool_lit(
+			"Add fp displacement (%d) to %s's address.", 
+			get_fp_data_displacement(), varname);
+	}
+
+	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_STORE_A_O;
 	node->instr_list->src_op_1 = reg1;
 	if (node->children[0]->type == AST_VETOR_INDEXADO)
-		node->instr_list->tgt_op_1 = get_rbss_or_rarp(node->children[0]->children[0]);
+		node->instr_list->tgt_op_1 = get_rbss_or_fp(node->children[0]->children[0]);
 	else
-		node->instr_list->tgt_op_1 = get_rbss_or_rarp(node->children[0]);
+		node->instr_list->tgt_op_1 = get_rbss_or_fp(node->children[0]);	
 
 	node->instr_list->tgt_op_2 = reg_offset;
+	node->instr_list->comment = str_pool_lit(
+		"Storing a value in %s.", varname);
 
 	if (regdest) {
 		/* if there is a destination register (because we're doing something 
@@ -267,11 +573,21 @@ void generate_code_identificador(comp_tree_t* node, char* regdest) {
 
 			/* first operand: fp if variable is global,
 			* or rarp if variable is local. */
-			node->instr_list->src_op_1 = get_rbss_or_rarp(node);
+			node->instr_list->src_op_1 = get_rbss_or_fp(node);
 
 			/* second operand: the immediate value of the variable's
 			* address.*/
-			node->instr_list->src_op_2 = int_str(node->addr);
+			if (strcmp(node->instr_list->src_op_1, reg_fp()) == 0) {
+				node->instr_list->src_op_2 = int_str(node->addr + get_fp_data_displacement());
+				node->instr_list->comment 
+					= str_pool_lit("Variable %s base address (%d), plus fp displacement (%d).",
+					get_symbol(node)->key, node->addr, get_fp_data_displacement());
+			} else {				
+				node->instr_list->src_op_2 = int_str(node->addr);
+				node->instr_list->comment
+					= str_pool_lit("Variable %s base address (%d).",
+					get_symbol(node)->key, node->addr);
+			}
 		}
 	}
 }
@@ -311,7 +627,7 @@ void generate_code_vetor_indexado(comp_tree_t* node, char* regdest) {
 		/* having the address, we must do a load_AO to regdest */
 		instruction_list_add(&node->instr_list);
 		node->instr_list->opcode = OP_LOAD_A_O;
-		node->instr_list->src_op_1 = get_rbss_or_rarp(node);
+		node->instr_list->src_op_1 = get_rbss_or_fp(node);
 		node->instr_list->src_op_2 = regaddr;
 		node->instr_list->tgt_op_1 = regdest;
 	}
@@ -527,6 +843,9 @@ void generate_code_literal(comp_tree_t* node, char* regdest)
 	node->instr_list->opcode = OP_LOAD_I;
 
 	node->instr_list->src_op_1 = (char*) node->sym_table_ptr->token;
+	/*printf("generating code literal: %s, "
+		"regdest: %s\n", (char*)node->sym_table_ptr->token, regdest);*/
+
 
 	node->instr_list->tgt_op_1 = regdest;
 }
@@ -687,16 +1006,30 @@ void generate_children_code(comp_tree_t* node, char* regdest)
 {
 	int i;
 	for(i=0; i < node->num_children; i++)
-	{
-		comp_tree_t *c = node->children[i];
+	{		
+		comp_tree_t *c = node->children[i];		
 		while(c!=NULL)
 		{
-			generate_code(c,regdest);
+			/* if we encounter a return statement, we can stop generating
+			* code for the children right here. */
+			if (node->type == AST_FUNCAO && c->type != AST_RETURN) {
+				generate_code(c, NULL);
+			} else {
+				generate_code(c, regdest);
+			}
 			node->instr_list = instruction_list_merge(&node->instr_list, &c->instr_list);
+
+			if (node->type == AST_FUNCAO && c->type == AST_RETURN) {
+				return;
+			}
 			c = c->next;
 		}
 	}
-	
+	if (node->type == AST_FUNCAO && strcmp("main", get_symbol(node)->key) != 0) {
+		printf("Error: function %s does not have return statement. Aborting.\n",
+			get_symbol(node)->key);
+		exit(-1);
+	}
 }
 
 void generate_code_if_else(comp_tree_t* node)
@@ -887,4 +1220,11 @@ void generate_code_logical_not(comp_tree_t* node, char* regdest)
 	node->instr_list->src_op_1 = exp_reg;
 	node->instr_list->src_op_2 = max_value_reg;
 	node->instr_list->tgt_op_1 = regdest;
+}
+
+char* get_func_label(const char* function_name) {
+	char* c = (char*)malloc(10000 * sizeof(char));
+	sprintf(c, "function_%s_begin", function_name);
+	str_pool_add(c);
+	return c;
 }

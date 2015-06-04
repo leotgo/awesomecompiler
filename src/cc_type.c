@@ -837,3 +837,16 @@ int coercion_possible(int type, int expected_type)
 {
 	return type == expected_type || ( ((type == IKS_INT || type == IKS_FLOAT || type == IKS_BOOL) && (expected_type == IKS_INT || expected_type == IKS_FLOAT || expected_type == IKS_BOOL)));
 }
+
+int type_data_size(int type) {
+	type = type_convert(type);
+	int data_size = 0;
+	if (type == IKS_BOOL) data_size = 1;
+	else if (type == IKS_INT) data_size = 4;
+	else if (type == IKS_FLOAT) data_size = 8;
+	else if (type == IKS_CHAR) data_size = 1;
+	else if (type == IKS_STRING) {
+		data_size = 100;
+	}
+	return data_size;
+}

@@ -265,10 +265,10 @@ ParametrosNaoVazio:
 		;
 
 DeclFuncao:
-		  Tipo TK_IDENTIFICADOR '(' Parametros ')' { context_add_function_to_current($2->token,$1->token_type, $4); } BlocoDeComandosFuncao { 	$$ = ast_create(AST_FUNCAO, $2, $7); }
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros  ')' { context_add_function_to_current($3->token,$2->token_type, $5); } BlocoDeComandosFuncao { $$ = ast_create(AST_FUNCAO, $3, $8); }
-		| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {	yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
-		| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
+		  Tipo TK_IDENTIFICADOR { context_push_new(); } '(' Parametros ')' BlocoDeComandosFuncao { context_pop(); context_add_function_to_current($2->token,$1->token_type, $5); $$ = ast_create(AST_FUNCAO, $2, $7); }
+		| Static Tipo TK_IDENTIFICADOR { context_push_new(); } '(' Parametros  ')' BlocoDeComandosFuncao { context_pop(); context_add_function_to_current($3->token,$2->token_type, $6); $$ = ast_create(AST_FUNCAO, $3, $8); }
+		//| Tipo TK_IDENTIFICADOR '(' Parametros ')' ';'	BlocoDeComandosFuncao {	yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
+		//| Static Tipo TK_IDENTIFICADOR '(' Parametros ')' ';' BlocoDeComandosFuncao { yyerror(" Erro: definicao de funcao seguida de ; "); YYERROR; }
 		;
 
 ArgumentosNaoVazio:
@@ -305,7 +305,7 @@ SequenciaDeComandos:
 		;
 
 BlocoDeComandosFuncao:
-		  '{' { context_push_new(); } SequenciaDeComandos { type_check($3);context_pop(); } '}' { $$ = $3; }
+		  '{' SequenciaDeComandos { type_check($2); } '}' { $$ = $2; }
 		| '{' '}' { $$ = NULL; }
 		;
 

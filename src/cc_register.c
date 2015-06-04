@@ -30,7 +30,7 @@ char* reg_rbss() {
 }
 
 char* reg_arp() {
-	static char* rarp = "rarp";
+	static char* rarp = "fp";
 	return rarp;
 }
 
