@@ -256,12 +256,12 @@ Parametro:
 Parametros:
  		  { $$ = NULL; }
 		| Parametro { $$->params_list = type_list_Add(NULL, $1->token_type);}
-		| Parametro ',' ParametrosNaoVazio { $$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
+		| Parametro ',' ParametrosNaoVazio {  $$->params_list = type_list_Add($3->params_list, $1->token_type);}
 		;
 
 ParametrosNaoVazio:
 		  Parametro { $$->params_list = type_list_Add(NULL, $1->token_type); }
-		| Parametro ',' ParametrosNaoVazio { $$->params_list = type_list_Add(type_list_Add($3->params_list, $3->token_type), $$->token_type); }
+		| Parametro ',' ParametrosNaoVazio { $$->params_list = type_list_Add($3->params_list, $1->token_type); }
 		;
 
 DeclFuncao:

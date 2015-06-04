@@ -785,7 +785,6 @@ int type_check_function_call(comp_tree_t* node, comp_tree_t* arguments)
 					{
 						arg_type = arg->sym_table_ptr->token_type;
 					}
-					
 					// if coercion not possible, argument is of wrong type
 					if (!coercion_possible(type_convert( arg_type ), type_convert(expected_type->type))) 
 					{
