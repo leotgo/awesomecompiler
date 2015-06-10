@@ -5,6 +5,7 @@
 #include "cc_dict.h"
 #include "uthash.h"
 #include "cc_type.h"
+#include "cc_call_stack.h"
 
 #define PURPOSE_NORMAL 0
 #define PURPOSE_VECTOR 1
@@ -12,6 +13,7 @@
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 #define max(a, b) (((a) > (b)) ? (a) : (b))
 struct comp_dict_item_t;
+struct activation_frame;
 typedef struct vector_dimension_list vector_dimension_list;
 
 /* the symbols table that will be stored inside the compiler contexts */
@@ -24,6 +26,8 @@ typedef struct comp_context_symbol_t {
 								  function. If not, value will be NULL */
 
 	int purpose; /*0 = normal variable; 1 = vector; 2 = function; */
+
+	activation_frame* act_frame; /* if function, has pointer to the activation frame */
 
 	int data_size;
 
