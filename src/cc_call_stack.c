@@ -2,7 +2,7 @@
 
 
 
-void activation_frame_marshall(activation_frame* frame, comp_tree_t* node, char* regdest)
+void activation_frame_marshall(activation_frame* frame, comp_tree_t* node)
 {
 		
 	comp_context_symbol_t* sym = get_symbol(node->children[0]);
@@ -10,7 +10,9 @@ void activation_frame_marshall(activation_frame* frame, comp_tree_t* node, char*
 	if (sym->function_code_label == NULL) {
 		perror("Error: calling function that has not been declared.");
 	}	
-		
+	
+	sym->act_frame = frame;
+	
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_NOP;
 	node->instr_list->comment = str_pool_lit("Going to call %s() now.",
@@ -85,16 +87,16 @@ void activation_frame_marshall(activation_frame* frame, comp_tree_t* node, char*
 	node->instr_list->label = frame->return_address;
 	node->instr_list->comment = str_pool_lit("Return from function call.");
 
-	if (regdest) 
+	if (frame->returned_value) 
 	{
 		assert(type_convert(sym->type) != IKS_INVALID);
 		instruction_list_add(&node->instr_list);
 		node->instr_list->opcode = OP_LOAD_A_I;
 		node->instr_list->src_op_1 = frame->dynamic_link;
 		node->instr_list->src_op_2 = int_str(ARP_RETURN_VALUE_DISPLACEMENT);
-		node->instr_list->tgt_op_1 = regdest;
+		node->instr_list->tgt_op_1 = frame->returned_value;
 		node->instr_list->comment = str_pool_lit(
-			"Putting %s's return value in %s.", sym->key, regdest);
+			"Putting %s's return value in %s.", sym->key, frame->returned_value);
 	}
 }
 

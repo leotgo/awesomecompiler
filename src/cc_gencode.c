@@ -208,11 +208,12 @@ void generate_code_function_call(comp_tree_t* node, char* regdest)
 	frame->return_address = generate_label();
 	frame->static_link = reg_fp();
 	frame->dynamic_link = reg_sp();
+	frame->returned_value = regdest;
 
 	assert(node->type == AST_CHAMADA_DE_FUNCAO);
 	assert(node->num_children == 2);
 
-	activation_frame_marshall( frame, node, regdest);
+	activation_frame_marshall( frame, node);
 
 	
 }

@@ -23,7 +23,7 @@ typedef struct activation_frame
 	
 	char* dynamic_link;		// valor de sp
 	
-	void* returned_value;	// valor de retorno. pode ser int, float, char ou string.
+	char* returned_value;	// registrador com o valor de retorno
 	
 	void* arguments;		// guarda argumentos da função
 	
@@ -33,7 +33,7 @@ typedef struct activation_frame
 } activation_frame;
 
 
-void activation_frame_marshall(activation_frame* frame, comp_tree_t* node, char* regdest);
+void activation_frame_marshall(activation_frame* frame, comp_tree_t* node);
 
 void activation_frame_unmarshall();
 
