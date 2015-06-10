@@ -255,7 +255,8 @@ void generate_code_function_call(comp_tree_t* node, char* regdest) {
 		node->instr_list->tgt_op_1 = reg_sp();
 		node->instr_list->tgt_op_2 = int_str(new_sp_pos);
 		node->instr_list->comment = str_pool_lit(
-			"Adding argument %d to activation registry.", param_num++);
+			"Adding argument %d of %s() to activation registry.", param_num++, 
+			sym->key);
 		new_sp_pos += type_data_size(cc->induced_type_by_coercion);
 		cc = cc->next;
 	}
@@ -334,25 +335,41 @@ void generate_code_function(comp_tree_t* node, char* regdest) {
 		epilogue_size = 12; /* ret addr, sp, fp */
 
 		/* return value */
+		int return_size = type_data_size(sym->type);
 		epilogue_size += type_data_size(sym->type);
 
 		push_fp_data_displacement(epilogue_size);
 
 		/* get parameter sizes */
+		int num_parameters = 0;
+		int parameter_sizes[100];
 		struct type_list* s = sym->parameters;
 		while (s != NULL) {
 			epilogue_size += type_data_size(s->type);
 			size_params += type_data_size(s->type);
+			parameter_sizes[num_parameters++] = type_data_size(s->type);
 			s = s->next;
 		}
 
 		/* get correct sp position, by adding the epilogue size.*/
+		char* sp_comment = (char*)malloc(500);
+		int disp = 0;
+		disp = sprintf(sp_comment, "Update new sp value "
+			"(4 for return address, 4 for fp, 4 for sp, %d for return value", 
+			return_size);
+		int i;
+		for (i = 0; i < num_parameters; ++i) {
+			disp += sprintf(sp_comment + disp, ", %d for parameter %d",
+				parameter_sizes[i], i + 1);
+		}
+		sprintf(sp_comment + disp, ").");
+
 		instruction_list_add(&node->instr_list);
 		node->instr_list->opcode = OP_ADD_I;
 		node->instr_list->src_op_1 = reg_sp();
 		node->instr_list->src_op_2 = int_str(epilogue_size);
 		node->instr_list->tgt_op_1 = reg_sp();
-		node->instr_list->comment = str_pool_lit("Update new sp value (end of epilogue).");
+		node->instr_list->comment = str_pool_add(sp_comment);
 
 
 		if (regdest == NULL) {
@@ -440,7 +457,7 @@ void generate_code_function(comp_tree_t* node, char* regdest) {
 		node->instr_list->opcode = OP_JUMP;
 		node->instr_list->tgt_op_1 = jump_back_address;
 		node->instr_list->comment = str_pool_lit(
-			"Jump back to the place that called %s.", sym->key);
+			"Jump back to the place that called %s().", sym->key);
 
 		pop_fp_data_displacement();
 	}
@@ -615,6 +632,9 @@ void generate_code_vetor_indexado(comp_tree_t* node, char* regdest) {
 		exit(EXIT_FAILURE);
 	}
 
+	assert(node->type == AST_VETOR_INDEXADO);
+	assert(get_symbol(node->children[0])->purpose == PURPOSE_VECTOR);
+
 	/* we set the context for this node to be the same context
 	* where v was assigned. */
 	node->context = node->children[0]->context;
@@ -632,7 +652,7 @@ void generate_code_vetor_indexado(comp_tree_t* node, char* regdest) {
 		/* having the address, we must do a load_AO to regdest */
 		instruction_list_add(&node->instr_list);
 		node->instr_list->opcode = OP_LOAD_A_O;
-		node->instr_list->src_op_1 = get_rbss_or_fp(node);
+		node->instr_list->src_op_1 = get_rbss_or_fp(node->children[0]);
 		node->instr_list->src_op_2 = regaddr;
 		node->instr_list->tgt_op_1 = regdest;
 	}

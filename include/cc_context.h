@@ -43,11 +43,16 @@ typedef struct comp_context_symbol_t {
 	 * */
 	char* function_code_label;
 
+	/* sequence number used for variable ordering. */
+	int sequence_number;
+
 	UT_hash_handle hh; /* hash handle. */
 
 } comp_context_symbol_t;
 
 typedef comp_context_symbol_t* comp_context_symbols_table_t;
+
+extern int global_sequence_number;
 
 /* deallocates all the resources for a context table. */
 void context_symbol_free(comp_context_symbol_t* s);

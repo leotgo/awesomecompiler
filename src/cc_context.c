@@ -3,7 +3,9 @@
 #include "cc_error.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 
+int global_sequence_number = 0;
 comp_context_t* main_context = NULL;
 comp_context_t* current_context = NULL;
 __attribute__((constructor)) void begin()
@@ -116,6 +118,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	sym->key = (const char*)malloc(sizeof(char) * (1 + strlen(identifier)));
 	sym->data_size = 0;
 	sym->function_code_label = NULL;
+	sym->sequence_number = ++global_sequence_number;
 	
 	sym->vector_dimensions = vector_dimensions;
 	memset(sym->vector_dimension_sizes, -1, 
@@ -185,6 +188,7 @@ comp_context_symbol_t* context_add_function_to_current(
 	sym->data_size = 0;
 	sym->vector_dimensions = 0;
 	sym->function_code_label = NULL;
+	sym->sequence_number = ++global_sequence_number;
 
 	strcpy((char*)sym->key, identifier);
 
@@ -230,13 +234,41 @@ comp_context_symbol_t* context_find_identifier_multilevel(
 	return NULL;
 }
 
+int compare_symbols_in_context(const void* sym_a, const void* sym_b) {
+	comp_context_symbol_t* a = *(comp_context_symbol_t**)sym_a;
+	comp_context_symbol_t* b = *(comp_context_symbol_t**)sym_b;
+	return a->sequence_number > b->sequence_number;
+}
+
 void _context_calc_addr(comp_context_t* ctx) {	
 	comp_context_symbol_t* sym, *tmp;
 	if (ctx == NULL) return;
 	ctx->end_addr = ctx->start_addr;
+
+	comp_context_symbol_t* symbols_in_context[500];
+	int num_symbols_in_context = 0;
+
 	HASH_ITER(hh, ctx->symbols_table, sym, tmp) {
-		sym->addr = ctx->end_addr;
-		ctx->end_addr += sym->data_size;
+		symbols_in_context[num_symbols_in_context] = sym;
+		++num_symbols_in_context;
+	}
+
+	if (num_symbols_in_context > 0) {
+		qsort(symbols_in_context, num_symbols_in_context,
+			sizeof(comp_context_symbol_t*), compare_symbols_in_context);
+
+		int i;
+		for (i = 0; i < num_symbols_in_context; ++i) {
+			if (i > 0) {
+				//printf("i seq num: %d\ni-1 seq num: %d\n",
+				//	symbols_in_context[i]->sequence_number,
+				//	symbols_in_context[i - 1]->sequence_number);
+				assert(symbols_in_context[i]->sequence_number
+				> symbols_in_context[i - 1]->sequence_number);
+			}
+			symbols_in_context[i]->addr = ctx->end_addr;
+			ctx->end_addr += symbols_in_context[i]->data_size;
+		}
 	}
 
 	if (ctx->next != NULL) {

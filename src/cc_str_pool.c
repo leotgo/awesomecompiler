@@ -18,11 +18,12 @@ char* str_pool_lit(const char* str, ...) {
 	return s;
 }
 
-void str_pool_add(char* str) {
+char* str_pool_add(char* str) {
 	str_pool* p = pool;
 	pool = (str_pool*)malloc(sizeof(str_pool));
 	pool->next = p;
 	pool->str = str;
+	return str;
 }
 
 void str_pool_destroy() {

@@ -1,6 +1,6 @@
 
 #include "cc_type.h"
-
+#include <assert.h>
 #define bool int
 #define true 1
 #define false 0
@@ -778,7 +778,12 @@ int type_check_function_call(comp_tree_t* node, comp_tree_t* arguments)
 					int arg_type;
 					if(arg->type != AST_LITERAL)
 					{
-						symbol = get_symbol(arg);
+						if (arg->type == AST_VETOR_INDEXADO) {
+							assert(arg->num_children == 2);
+							symbol = get_symbol(arg->children[0]);
+						} else {
+							symbol = get_symbol(arg);
+						}						
 						arg_type = symbol->type;
 					}
 					else

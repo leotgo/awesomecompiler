@@ -3,7 +3,7 @@
 
 char* str_pool_lit(const char* str, ...);
 
-void str_pool_add(char* str);
+char* str_pool_add(char* str);
 
 void str_pool_destroy();
 
