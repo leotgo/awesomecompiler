@@ -3,6 +3,13 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "cc_gencode.h"
+#include "cc_register.h"
+#include "cc_tree.h"
+#include <assert.h>
+#include "cc_str_pool.h"
+
+typedef struct comp_tree_t comp_tree_t;
 
 typedef struct activation_frame
 {
@@ -12,9 +19,9 @@ typedef struct activation_frame
 	
 	int machine_state;
 	
-	int static_link;
+	char* static_link;	 	// valor de fp
 	
-	int dynamic_link;
+	char* dynamic_link;		// valor de sp
 	
 	void* returned_value;	// valor de retorno. pode ser int, float, char ou string.
 	
@@ -26,8 +33,10 @@ typedef struct activation_frame
 } activation_frame;
 
 
-void activation_frame_marshall();
+void activation_frame_marshall(activation_frame* frame, comp_tree_t* node, char* regdest);
 
 void activation_frame_unmarshall();
+
+
 
 #endif

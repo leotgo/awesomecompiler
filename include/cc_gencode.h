@@ -1,13 +1,13 @@
 #ifndef CC_GENCODE_H
 #define CC_GENCODE_H
 #include "cc_tree.h"
-
+#include "cc_iloc.h"
 #define ARP_RETURN_ADDR_DISPLACEMENT 0
 #define ARP_SP_DISPLACEMENT 4
 #define ARP_FP_DISPLACEMENT 8
 #define ARP_RETURN_VALUE_DISPLACEMENT 12
 
-
+typedef struct comp_tree_t comp_tree_t;
 
 
 /* this function takes a tree node and generates code for that node.
