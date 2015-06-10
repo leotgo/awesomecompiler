@@ -10,6 +10,8 @@
 typedef struct comp_tree_t comp_tree_t;
 
 
+char* int_str(int i);
+
 /* this function takes a tree node and generates code for that node.
  * 
  * the function is required to call generate_code for all the children of that 
