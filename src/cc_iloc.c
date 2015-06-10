@@ -1,5 +1,6 @@
 #include "cc_iloc.h"
 
+int show_comments_gencode = 0;
 
 void instruction_list_add(instruction** instr_list)
 {
@@ -232,8 +233,10 @@ void print_instruction(instruction* list)
 			break;
 
 	}	
-	if (list->comment)
-		printf(" /* %s */", list->comment);
+	if (show_comments_gencode) {
+		if (list->comment)
+			printf(" /* %s */", list->comment);
+	}
 	printf("\n");
 	
 	

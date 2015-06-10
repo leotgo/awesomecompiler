@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+extern int show_comments_gencode;
+
 #define OP_ADD 			1
 #define OP_SUB 			2
 #define OP_MULT 		3
