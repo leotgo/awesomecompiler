@@ -201,6 +201,17 @@ void generate_code_function_call(comp_tree_t* node, char* regdest) {
 	assert(node->type == AST_CHAMADA_DE_FUNCAO);
 	assert(node->num_children == 2);
 
+	comp_context_symbol_t* sym = get_symbol(node->children[0]);
+	assert(sym);
+	if (sym->function_code_label == NULL) {
+		perror("Error: calling function that has not been declared.");
+	}
+
+	instruction_list_add(&node->instr_list);
+	node->instr_list->opcode = OP_NOP;
+	node->instr_list->comment = str_pool_lit("Going to call %s() now.",
+		sym->key);
+
 	/* store return address */
 	instruction_list_add(&node->instr_list);
 	node->instr_list->opcode = OP_STORE_A_I;
@@ -225,12 +236,6 @@ void generate_code_function_call(comp_tree_t* node, char* regdest) {
 	node->instr_list->tgt_op_1 = reg_sp();
 	node->instr_list->tgt_op_2 = int_str(ARP_FP_DISPLACEMENT);
 	node->instr_list->comment = str_pool_lit("Save fp.");
-
-	comp_context_symbol_t* sym = get_symbol(node->children[0]);
-	assert(sym);
-	if (sym->function_code_label == NULL) {
-		perror("Error: calling function that has not been declared.");
-	}
 
 	/* -------------------------------------------------------- 
 	 * start load arguments 
