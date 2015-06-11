@@ -218,14 +218,17 @@ void generate_code_function_call(comp_tree_t* node, char* regdest)
 	
 }
 
-void generate_code_function(comp_tree_t* node, char* regdest) {
+void generate_code_function(comp_tree_t* node, char* regdest) 
+{
 	comp_context_symbol_t* sym = get_symbol(node);
 	assert(sym);
 	assert(sym->purpose == PURPOSE_FUNCTION);
 	assert(node->num_children >= 1);
+	
 	int is_main_func = (strcmp("main", sym->key) == 0);
 
-	if (is_main_func) {
+	if (is_main_func) 
+	{
 		instruction_list_add(&node->instr_list);
 		node->instr_list->opcode = OP_NOP;
 		node->instr_list->label = get_func_label(sym->key);
@@ -235,7 +238,8 @@ void generate_code_function(comp_tree_t* node, char* regdest) {
 	int epilogue_size = 12;
 	int size_params = 0;
 
-	if (!is_main_func) {
+	if (!is_main_func) 
+	{
 		/* step 1. put fp in sp */
 		instruction_list_add(&node->instr_list);
 		node->instr_list->opcode = OP_I_2_I;
@@ -330,63 +334,7 @@ void generate_code_function(comp_tree_t* node, char* regdest) {
 	/* the children of a funcion is the block where that function is declared. */
 	generate_children_code(node, regdest);
 
-	if (!is_main_func) {
-
-		/* 'regdest' will have the return value of the function.
-		*
-		* so now we'll have to put the return value in the memory position where
-		* we must store the return, that is, fp + epilogue_size - 4.
-		* */
-		if (type_data_size(sym->type) > 0) {
-			instruction_list_add(&node->instr_list);
-			node->instr_list->opcode = OP_STORE_A_I;
-			node->instr_list->src_op_1 = regdest;
-			node->instr_list->tgt_op_1 = reg_fp();
-			node->instr_list->tgt_op_2 = int_str(ARP_RETURN_VALUE_DISPLACEMENT);
-			node->instr_list->comment = str_pool_lit(
-				"Put return value (which is in %s) in fp + %d, which will be "
-				"used by caller.", regdest, ARP_RETURN_VALUE_DISPLACEMENT);
-		}
-
-		/* restore FP and SP, and jump back to the place that called the function.
-		 * */
-	char* jump_back_address = generate_register();
-		instruction_list_add(&node->instr_list);
-		node->instr_list->opcode = OP_LOAD_A_I;
-		node->instr_list->src_op_1 = reg_fp();
-		node->instr_list->src_op_2 = int_str(ARP_RETURN_ADDR_DISPLACEMENT);
-		node->instr_list->tgt_op_1 = jump_back_address;
-		node->instr_list->comment = str_pool_lit("Get return address (which is in fp + %d).",
-			ARP_RETURN_ADDR_DISPLACEMENT);
-
-		instruction_list_add(&node->instr_list);
-		node->instr_list->opcode = OP_LOAD_A_I;
-		node->instr_list->src_op_1 = reg_fp();
-		node->instr_list->src_op_2 = int_str(ARP_SP_DISPLACEMENT);
-		node->instr_list->tgt_op_1 = reg_sp();
-		node->instr_list->comment = str_pool_lit("Restore old sp (which is in fp + %d).",
-			ARP_SP_DISPLACEMENT);
-
-		char* old_fp_addr = generate_register();
-		instruction_list_add(&node->instr_list);
-		node->instr_list->opcode = OP_LOAD_A_I;
-		node->instr_list->src_op_1 = reg_fp();
-		node->instr_list->src_op_2 = int_str(ARP_FP_DISPLACEMENT);
-		node->instr_list->tgt_op_1 = reg_fp();
-		node->instr_list->comment = str_pool_lit("Restore old fp (which is in fp + %d).",
-			ARP_FP_DISPLACEMENT);
-
-
-
-		/* jump back*/
-		instruction_list_add(&node->instr_list);
-		node->instr_list->opcode = OP_JUMP;
-		node->instr_list->tgt_op_1 = jump_back_address;
-		node->instr_list->comment = str_pool_lit(
-			"Jump back to the place that called %s().", sym->key);
-
-		pop_fp_data_displacement();
-	}
+	activation_frame_unmarshall( node, sym, regdest, is_main_func);
 }
 
 char* get_rbss_or_fp(comp_tree_t* node) {

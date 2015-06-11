@@ -5,11 +5,13 @@
 #include <stdio.h>
 #include "cc_gencode.h"
 #include "cc_register.h"
+#include "cc_context.h"
 #include "cc_tree.h"
 #include <assert.h>
 #include "cc_str_pool.h"
 
 typedef struct comp_tree_t comp_tree_t;
+typedef struct comp_context_symbol_t comp_context_symbol_t;
 
 typedef struct activation_frame
 {
@@ -35,7 +37,7 @@ typedef struct activation_frame
 
 void activation_frame_marshall(activation_frame* frame, comp_tree_t* node);
 
-void activation_frame_unmarshall();
+void activation_frame_unmarshall(comp_tree_t* node, comp_context_symbol_t* sym, char* regdest, int is_main_func);
 
 
 
