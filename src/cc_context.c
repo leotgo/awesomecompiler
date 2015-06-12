@@ -237,7 +237,9 @@ comp_context_symbol_t* context_find_identifier_multilevel(
 int compare_symbols_in_context(const void* sym_a, const void* sym_b) {
 	comp_context_symbol_t* a = *(comp_context_symbol_t**)sym_a;
 	comp_context_symbol_t* b = *(comp_context_symbol_t**)sym_b;
-	return a->sequence_number > b->sequence_number;
+	if (a->sequence_number < b->sequence_number) return -1;
+	if (a->sequence_number == b->sequence_number) return 0;
+	return 1;
 }
 
 void _context_calc_addr(comp_context_t* ctx) {	

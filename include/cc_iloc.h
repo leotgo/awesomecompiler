@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-extern int show_comments_gencode;
+extern int gencode_show_comments;
 
 #define OP_ADD 			1
 #define OP_SUB 			2
@@ -74,6 +74,8 @@ typedef struct instruction
 
 	char* comment;
 
+	int marked; /* instruction marking for basic blocks. */
+
 	struct instruction* next;
 
 } instruction;
@@ -85,6 +87,7 @@ typedef struct instruction
  * */
 void instruction_list_add(instruction** instr_list);
 
+void instruction_init(instruction* instr);
 
 /* 
  * merges two instruction lists. the input lists can be considered to be both

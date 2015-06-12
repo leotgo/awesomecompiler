@@ -167,13 +167,17 @@ int main (int argc, char **argv) {
 			if (argc != 3) {
 				iloc_input_file = stdin;
 			} else {
-				iloc_input_file = fopen(argv[1], "r");
+				iloc_input_file = fopen(argv[2], "r");
 				if (iloc_input_file == NULL) iloc_input_file = stdin;
 			}
-			return iloc_mode(iloc_input_file);
-			exit(0);
+
+			USER_INIT;
+			int x = iloc_mode(iloc_input_file);
+			USER_FINALIZE;
+			exit(x);
+			return x;
 		} else if (strcmp(argv[1], "-c") == 0) {
-			show_comments_gencode = 1;
+			gencode_show_comments = 1;
 			yyin = fopen(argv[2], "r");
 		} else {
 			yyin = fopen(argv[1], "r");

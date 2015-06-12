@@ -679,11 +679,11 @@ instruction* calculate_vector_indexing_address(const comp_tree_t* node,
 
 	instruction* ii = NULL;
 
-	instruction_list_add(&ii);
-	ii->opcode = OP_NOP;
-	ii->label = (char*)malloc(256 * sizeof(char));
-	sprintf(ii->label, "vector_indexing_%d_start", label_count);
-	str_pool_add(ii->label);
+	if (gencode_show_comments) {
+		instruction_list_add(&ii);
+		ii->opcode = OP_NOP;
+		ii->comment = str_pool_lit("Vector indexing begin.");
+	}
 
 	/* first, we need to iterate over the list of arguments,
 	* generate code for them, and store the reults of each argument
@@ -795,12 +795,12 @@ instruction* calculate_vector_indexing_address(const comp_tree_t* node,
 	ii->src_op_2 = int_str(ss->addr);
 	ii->tgt_op_1 = regdest_address;
 
-	/* add a label to signalize end of vector indexing operation. */
-	instruction_list_add(&ii);
-	ii->opcode = OP_NOP;
-	ii->label = (char*)malloc(256 * sizeof(char));
-	sprintf(ii->label, "vector_indexing_%d_end", label_count);
-	str_pool_add(ii->label);
+	if (gencode_show_comments) {
+		/* add a label to signalize end of vector indexing operation. */
+		instruction_list_add(&ii);
+		ii->opcode = OP_NOP;
+		ii->comment = str_pool_lit("Vector indexing end.");
+	}
 
 	++label_count;
 	return ii;

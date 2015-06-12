@@ -1,20 +1,33 @@
 #include "cc_iloc.h"
 
-int show_comments_gencode = 0;
+int gencode_show_comments = 0;
 
 void instruction_list_add(instruction** instr_list)
 {
 	if (instr_list == NULL) return;
 	instruction* new = (instruction*)malloc(sizeof(instruction));
-	new->opcode = OP_NOP;
-	new->next = *instr_list;
+	instruction_init(new);
+	/*new->opcode = OP_NOP;
 	new->tgt_op_1 = NULL;
 	new->tgt_op_2 = NULL;
 	new->src_op_1 = NULL;
 	new->src_op_2 = NULL;
 	new->label = NULL;
 	new->comment = NULL;
+	new->marked = 0;*/
+	new->next = *instr_list;	
 	*instr_list = new;
+}
+
+void instruction_init(instruction* instr) {
+	instr->opcode = OP_NOP;
+	instr->tgt_op_1 = NULL;
+	instr->tgt_op_2 = NULL;
+	instr->src_op_1 = NULL;
+	instr->src_op_2 = NULL;
+	instr->label = NULL;
+	instr->comment = NULL;
+	instr->marked = 0;
 }
 
 void print_instruction_list(instruction* instr_list)
@@ -40,6 +53,9 @@ void print_instruction(instruction* list)
 	if(list->label != NULL)
 	{
 		printf("%s:\n", list->label);
+	}
+	if (list->marked) {
+		printf("**");
 	}
 	printf("\t");
 	switch(list->opcode)
@@ -233,12 +249,11 @@ void print_instruction(instruction* list)
 			break;
 
 	}	
-	if (show_comments_gencode) {
+	if (gencode_show_comments) {
 		if (list->comment)
 			printf(" /* %s */", list->comment);
 	}
 	printf("\n");
-	
 	
 }
 
