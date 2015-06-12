@@ -119,7 +119,7 @@ comp_context_symbol_t* context_add_identifier_to_current(
 	sym->data_size = 0;
 	sym->function_code_label = NULL;
 	sym->sequence_number = ++global_sequence_number;
-	
+	sym->act_frame = NULL;
 	sym->vector_dimensions = vector_dimensions;
 	memset(sym->vector_dimension_sizes, -1, 
 		sizeof(sym->vector_dimension_sizes));

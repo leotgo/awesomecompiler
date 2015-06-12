@@ -26,6 +26,7 @@ ADD_EXECUTABLE(main
   src/cc_iloc_mode.c
   src/cc_iloc_parser.c
   src/cc_bb_graph.c
+  src/cc_call_stack.c
 )
 TARGET_LINK_LIBRARIES(main ${FLEX_LIBRARIES})
 
