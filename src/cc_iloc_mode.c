@@ -66,8 +66,41 @@ void generate_instr_array() {
 	- How will it be organized?
 	- What data structure will be used? */
 
-dom_tree_t* generate_dom_tree(bb_node_t* node) {
+void generate_dom_tree() {
+
+	bb_node_t* starting_node = bb_graph->nodes[0];
+	bb_node_t* current_node;
+	dom_tree_t** tree = (dom_tree_t**) malloc(sizeof(dom_tree_t) * bb_graph->num_nodes);
 	
+	int i;
+	for(i = 0; i < bb_graph->num_nodes; i++)
+	{
+		int num_children = 0;
+		current_node = bb_graph->nodes[i];
+		tree[i]->block = current_node;
+		
+		int j;
+		// Define how many nodes this node dominates
+		for(j = 0; j < bb_graph->num_nodes; j++)
+			if(i != j)
+				if(find_dominator(bb_graph->nodes[j], bb_graph->nodes[j], starting_node) == current_node)
+					num_children ++;
+		tree[i]->num_children = num_children;
+		
+		tree[i]->children = (dom_tree_t**) malloc(sizeof(dom_tree_t*) * num_children);
+
+		int n = 0;
+		for(j = 0; j < bb_graph->num_nodes; j++)
+			if(i != j)
+				if(find_dominator(bb_graph->nodes[j], bb_graph->nodes[j], starting_node) == current_node)
+				{
+					tree[i]->children[n] = tree[j];
+					n++;
+				}
+	}
+
+	dom_tree = tree[0];
+
 }
 
 bb_node_t* find_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
@@ -79,7 +112,8 @@ bb_node_t* find_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
 	else
 	{
 		bb_node_t* dominator = NULL;
-		for(int i = 0; i < current->num_previous; i++)
+		int i;
+		for(i = 0; i < current->num_previous; i++)
 			dominator = find_dominator(node, current->previous[i], start);
 		return dominator;
 	}
@@ -94,7 +128,8 @@ int is_dominated_by(bb_node_t* current, bb_node_t* target, bb_node_t* start)
 	else
 	{
 		int on_path = 1;
-		for(int i = 0; i < current->num_previous; i++)
+		int i;
+		for(i = 0; i < current->num_previous; i++)
 			on_path = on_path && is_dominated_by(current->previous[i], target, start);
 		return on_path;
 	}

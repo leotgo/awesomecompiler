@@ -17,7 +17,7 @@ typedef struct bb_graph_t {
 
 typedef struct dom_tree_t {
 	bb_node_t* block;
-	dom_tree_t** children;
+	struct dom_tree_t** children;
 	int num_children;
 } dom_tree_t;
 
