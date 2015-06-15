@@ -4,6 +4,7 @@
 instruction* iloc_mode_instr_list = NULL;
 instruction* instr_array = NULL;
 bb_graph_t* bb_graph = NULL;
+dom_tree_t* dom_tree = NULL;
 int num_instr = 0;
 
 int compare_marked_instr(const void* a, const void* b) {
@@ -61,7 +62,35 @@ void generate_instr_array() {
 	}
 }
 
+/* Dominators tree:
+	- How will it be organized?
+	- What data structure will be used? */
 
+void generate_dom_tree(bb_graph_t* g) {
+	/* For each node:
+		-> Search every next node to see if has only one previous
+		-> If it has, then it is a dominating node */
+	int i;
+	bb_node_t* current_block;
+	for(i = 0; i < g->num_nodes; i++)
+	{
+		current_block = g->nodes[i];
+		int num_next = current_block->num_next;
+	
+		int n;
+		bb_node_t* next_block;
+		for(n = 0; n < num_next; n++)
+		{
+			next_block = current_block->next[n];
+			// Check if next_node has only one previous node. 
+			// If so, then it is dominated by current_node.
+			if(next_block->num_previous == 1)
+			{
+					
+			}
+		}
+	}
+}
 
 void generate_bb_graph() {
 	int i, j, k;

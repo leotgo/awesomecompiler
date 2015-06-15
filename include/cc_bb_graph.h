@@ -15,6 +15,12 @@ typedef struct bb_graph_t {
 	int num_nodes;
 } bb_graph_t;
 
+typedef struct dom_tree_t {
+	bb_node_t* block;
+	dom_tree_t** children;
+	int num_children;
+} dom_tree_t;
+
 void free_bb_graph(bb_graph_t* g);
 
 #endif 
