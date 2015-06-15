@@ -66,29 +66,37 @@ void generate_instr_array() {
 	- How will it be organized?
 	- What data structure will be used? */
 
-void generate_dom_tree(bb_graph_t* g) {
-	/* For each node:
-		-> Search every next node to see if has only one previous
-		-> If it has, then it is a dominating node */
-	int i;
-	bb_node_t* current_block;
-	for(i = 0; i < g->num_nodes; i++)
-	{
-		current_block = g->nodes[i];
-		int num_next = current_block->num_next;
+dom_tree_t* generate_dom_tree(bb_node_t* node) {
 	
-		int n;
-		bb_node_t* next_block;
-		for(n = 0; n < num_next; n++)
-		{
-			next_block = current_block->next[n];
-			// Check if next_node has only one previous node. 
-			// If so, then it is dominated by current_node.
-			if(next_block->num_previous == 1)
-			{
-					
-			}
-		}
+}
+
+bb_node_t* find_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
+{
+	if( is_dominated_by( node, current, start ) )
+		return current;
+	else if( current == start )
+		return NULL;
+	else
+	{
+		bb_node_t* dominator = NULL;
+		for(int i = 0; i < current->num_previous; i++)
+			dominator = find_dominator(node, current->previous[i], start);
+		return dominator;
+	}
+}
+
+int is_dominated_by(bb_node_t* current, bb_node_t* target, bb_node_t* start)
+{
+	if(current == target)
+		return 1;
+	else if(current == start)
+		return 0;
+	else
+	{
+		int on_path = 1;
+		for(int i = 0; i < current->num_previous; i++)
+			on_path = on_path && is_dominated_by(current->previous[i], target, start);
+		return on_path;
 	}
 }
 
