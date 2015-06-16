@@ -5,6 +5,7 @@ instruction* iloc_mode_instr_list = NULL;
 instruction* instr_array = NULL;
 bb_graph_t* bb_graph = NULL;
 dom_tree_t* dom_tree = NULL;
+dom_tree_t** tree = NULL;
 int num_instr = 0;
 
 int compare_marked_instr(const void* a, const void* b) {
@@ -20,16 +21,46 @@ int iloc_mode(FILE* f) {
 
 	generate_instr_array();
 
-	generate_bb_graph();		
+	generate_bb_graph();
+
+	generate_dom_tree();
 
 	for (i = 0; i < num_instr; ++i) {
 		printf("%d  ", i + 1);
 		print_instruction(&instr_array[i]);
 	}
 
-	free_bb_graph(bb_graph);
+	printf("\n\nDominators tree:\n");
+	print_dom_tree(dom_tree, 0);
 
+	free_dom_tree();
+	free_bb_graph(bb_graph);
+	
 	return 0;
+}
+
+void print_dom_tree(dom_tree_t* t, int level)
+{
+	int l;
+	for(l = 0; l < level; l++)
+		printf("\t");
+
+	print_instruction(&instr_array[ t->block->first_instr_index ]);
+	printf("\n");
+
+	int c;
+	for(c = 0; c < t->num_children; c++)
+		print_dom_tree(t->children[c], level + 1);
+}
+
+void free_dom_tree()
+{
+	int i;
+	for(i = 0; i < bb_graph->num_nodes; i++)
+		free(tree[i]->children);	
+
+	free(tree);
+	free(dom_tree);
 }
 
 void generate_instr_array() {
@@ -70,7 +101,12 @@ void generate_dom_tree() {
 
 	bb_node_t* starting_node = bb_graph->nodes[0];
 	bb_node_t* current_node;
-	dom_tree_t** tree = (dom_tree_t**) malloc(sizeof(dom_tree_t) * bb_graph->num_nodes);
+	tree = (dom_tree_t**) malloc(sizeof(dom_tree_t*) * bb_graph->num_nodes);
+	tree[0] = (dom_tree_t*) malloc(sizeof(dom_tree_t) * bb_graph->num_nodes);
+
+	int alloc = 0;
+	for (alloc = 1; alloc < bb_graph->num_nodes; ++alloc) 
+		tree[alloc] = tree[alloc - 1] + 1;
 	
 	int i;
 	for(i = 0; i < bb_graph->num_nodes; i++)
@@ -85,8 +121,9 @@ void generate_dom_tree() {
 			if(i != j)
 				if(find_dominator(bb_graph->nodes[j], bb_graph->nodes[j], starting_node) == current_node)
 					num_children ++;
+
+		printf("Num children: %d\n", num_children);
 		tree[i]->num_children = num_children;
-		
 		tree[i]->children = (dom_tree_t**) malloc(sizeof(dom_tree_t*) * num_children);
 
 		int n = 0;
@@ -105,8 +142,10 @@ void generate_dom_tree() {
 
 bb_node_t* find_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
 {
-	if( is_dominated_by( node, current, start ) )
+	if( node != current && is_dominated_by( node, current, start ) )
+	{
 		return current;
+	}
 	else if( current == start )
 		return NULL;
 	else
