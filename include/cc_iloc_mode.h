@@ -28,5 +28,6 @@ void generate_dom_tree();
 bb_node_t* find_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start);
 int is_dominated_by(bb_node_t* current, bb_node_t* target, bb_node_t* start);
 void print_dom_tree(dom_tree_t* t, int level);
+bb_node_t* node_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start);
 
 #endif

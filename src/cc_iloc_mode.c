@@ -105,10 +105,13 @@ void generate_dom_tree() {
 	tree[0] = (dom_tree_t*) malloc(sizeof(dom_tree_t) * bb_graph->num_nodes);
 
 	int alloc = 0;
-	for (alloc = 1; alloc < bb_graph->num_nodes; ++alloc) 
+	for (alloc = 1; alloc < bb_graph->num_nodes; ++alloc)
 		tree[alloc] = tree[alloc - 1] + 1;
 	
 	int i;
+	for(i = 0; i < bb_graph->num_nodes; i++)
+		bb_graph->nodes[i]->visited = 0;
+
 	for(i = 0; i < bb_graph->num_nodes; i++)
 	{
 		int num_children = 0;
@@ -119,7 +122,7 @@ void generate_dom_tree() {
 		// Define how many nodes this node dominates
 		for(j = 0; j < bb_graph->num_nodes; j++)
 			if(i != j)
-				if(find_dominator(bb_graph->nodes[j], bb_graph->nodes[j], starting_node) == current_node)
+				if(node_dominator(bb_graph->nodes[j], bb_graph->nodes[j], starting_node) == current_node)
 					num_children ++;
 
 		printf("Num children: %d\n", num_children);
@@ -129,7 +132,7 @@ void generate_dom_tree() {
 		int n = 0;
 		for(j = 0; j < bb_graph->num_nodes; j++)
 			if(i != j)
-				if(find_dominator(bb_graph->nodes[j], bb_graph->nodes[j], starting_node) == current_node)
+				if(node_dominator(bb_graph->nodes[j], bb_graph->nodes[j], starting_node) == current_node)
 				{
 					tree[i]->children[n] = tree[j];
 					n++;
@@ -140,6 +143,16 @@ void generate_dom_tree() {
 
 }
 
+bb_node_t* node_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
+{
+	int i;
+
+	for(i = 0; i < bb_graph->num_nodes; i++)
+		bb_graph->nodes[i]->visited = 0;	
+
+	return find_dominator(node, current, start);
+}
+
 bb_node_t* find_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
 {
 	if( node != current && is_dominated_by( node, current, start ) )
@@ -147,13 +160,22 @@ bb_node_t* find_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
 		return current;
 	}
 	else if( current == start )
+	{
 		return NULL;
+	}
 	else
 	{
 		bb_node_t* dominator = NULL;
 		int i;
+		current->visited = 1;
 		for(i = 0; i < current->num_previous; i++)
-			dominator = find_dominator(node, current->previous[i], start);
+		{
+			if(current->previous[i]->visited == 0)
+			{
+				current->previous[i]->visited = 1;
+				dominator = find_dominator(node, current->previous[i], start);
+			}
+		}
 		return dominator;
 	}
 }
@@ -161,15 +183,26 @@ bb_node_t* find_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
 int is_dominated_by(bb_node_t* current, bb_node_t* target, bb_node_t* start)
 {
 	if(current == target)
+	{
 		return 1;
+	}
 	else if(current == start)
+	{
 		return 0;
+	}
 	else
 	{
 		int on_path = 1;
 		int i;
+		current->visited = 1;
 		for(i = 0; i < current->num_previous; i++)
-			on_path = on_path && is_dominated_by(current->previous[i], target, start);
+		{
+			if(current->previous[i]->visited == 0)
+			{
+				current->previous[i]->visited = 1;
+				on_path = on_path && is_dominated_by(current->previous[i], target, start);
+			}
+		}
 		return on_path;
 	}
 }

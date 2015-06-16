@@ -8,6 +8,7 @@ typedef struct bb_node_t {
 	struct bb_node_t** previous;
 	int num_next;
 	int num_previous;
+	int visited;
 } bb_node_t;
 
 typedef struct bb_graph_t {
