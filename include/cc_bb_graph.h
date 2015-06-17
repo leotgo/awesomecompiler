@@ -23,8 +23,7 @@ typedef struct bb_graph_t {
 typedef struct bb_loop_t {
 	bb_node_t* start_block;
 	bb_node_t* jump_block;
-	bb_node_t** exit_blocks;
-	int num_exits;
+	bb_node_t* exit_block;
 } bb_loop_t;
 
 typedef struct dom_tree_t {

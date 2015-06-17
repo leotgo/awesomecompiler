@@ -124,8 +124,16 @@ void loop_optimization()
 				bb_loop_t* detected_loop = (bb_loop_t*) malloc(sizeof(bb_loop_t));
 				detected_loop->start_block = node->next[j];
 				detected_loop->jump_block = node;
-				detected_loop->exit_blocks = node->next;
-				detected_loop->num_exits = node->num_next;
+
+				if(detected_loop->jump_block->num_next == 1) 	// While type of loop
+				{
+					detected_loop->exit_block = detected_loop->start_block->next[1];
+				}
+				else				// Do-While type of loop
+				{
+					detected_loop->exit_block = detected_loop->jump_block->next[1];
+				}
+
 				print_loop(detected_loop);
 				optimize_loop(detected_loop);
 				free(detected_loop);
@@ -140,18 +148,9 @@ void print_loop(bb_loop_t* loop)
 	print_instruction(&instr_array[loop->start_block->first_instr_index]);
 	printf("\nLoop end:\n");
 	print_instruction(&instr_array[loop->jump_block->last_instr_index]);
-	
-	printf("\nLoop exits ( %d ) :\n", loop->num_exits);
-	int i;
-	for(i = 0; i < loop->num_exits; i++)
-	{
-		if(loop->exit_blocks[i] != loop->start_block)
-		{
-			printf("Exit %d : ", i);
-			print_instruction(&instr_array[loop->exit_blocks[i]->first_instr_index]);
-			printf("\n");
-		}
-	}
+	printf("Loop exit: ");
+	print_instruction(&instr_array[loop->exit_block->first_instr_index]);
+	printf("\n");
 	printf("=======================\n");
 }
 
