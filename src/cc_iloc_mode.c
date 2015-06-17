@@ -6,6 +6,7 @@ instruction* instr_array = NULL;
 bb_graph_t* bb_graph = NULL;
 dom_tree_t* dom_tree = NULL;
 dom_tree_t** tree = NULL;
+loop_list* loops = NULL;
 
 int num_instr = 0;
 
@@ -34,8 +35,14 @@ int iloc_mode(FILE* f) {
 	printf("\n\nDominators tree:\n");
 	print_dom_tree(dom_tree, 0);
 
-	print_graph();
+	//print_graph();
 	loop_optimization();
+
+	printf("\nOptimized instructions:\n===============\n");
+	for (i = 0; i < num_instr; ++i) {
+		printf("%d  ", i + 1);
+		print_instruction(&instr_array[i]);
+	}
 
 	free_dom_tree();
 	free_bb_graph(bb_graph);
@@ -109,6 +116,50 @@ void generate_instr_array() {
 	}
 }
 
+void add_to_loop_list(bb_loop_t* loop)
+{
+	loop_list* new_ele = (loop_list*) malloc(sizeof(bb_loop_t));
+	new_ele->loop = loop;
+	new_ele->next = NULL;
+
+	loop_list* current = loops;
+
+	if(loops == NULL)
+	{
+		loops = new_ele;
+		return;
+	}
+	else if(loops->loop->jump_block->last_instr_index > new_ele->loop->jump_block->last_instr_index)
+	{
+		new_ele->next = loops;
+		loops = new_ele;
+		return;
+	}
+
+	while(current->next != NULL)
+	{
+		if(current->next->loop->jump_block->last_instr_index < new_ele->loop->jump_block->last_instr_index)
+		{
+			new_ele->next = current->next;
+			current->next = new_ele;
+			return;
+		}	
+		else
+		{
+			current = current->next;
+		}
+	}
+
+	current->next = new_ele;
+}
+
+void pop_from_loop_list()
+{
+	loop_list* nxt = loops->next;
+	free(loops);
+	loops = nxt;
+}
+
 void loop_optimization()
 {
 	printf("\nLoops detected:\n\n");
@@ -127,14 +178,21 @@ void loop_optimization()
 
 				if(detected_loop->jump_block->num_next == 1) 	// While type of loop
 					detected_loop->exit_block = detected_loop->start_block->next[1];
-				else				// Do-While type of loop
+				else // Do-While type of loop
 					detected_loop->exit_block = detected_loop->jump_block->next[1];
 
 				print_loop(detected_loop);
-				optimize_loop(detected_loop);
-				free(detected_loop);
+				add_to_loop_list(detected_loop);
+				
 			}
 		}
+	}
+
+	loop_list* current = loops;
+	while(current != NULL)
+	{
+		optimize_loop(loops->loop);
+		current = current->next;
 	}
 }
 
@@ -194,11 +252,121 @@ void optimize_loop(bb_loop_t* loop)
 				bb_node_t* destination_block = tree_node->parent->block;
 
 				printf("No other attribution/uses and dominates exit!\n");
-				char* reg = instr_array[i].src_op_1;
+				char* attr_reg = instr_array[i].src_op_1;
+				reg_list* reglist = add_to_reg_list(NULL, attr_reg);
+				int start_index =  find_last_mention_index(i, -1, reglist);
+				int size = i-start_index + 1;
+
+				int new_index = destination_block->last_instr_index + 1;
+				move_instruction_set(start_index, size, new_index);
 			}
 			printf("\n");
 		}
 	}
+}
+
+void move_instruction_set(int start, int size, int destination)
+{
+	// Update instruction array
+	instruction* new_array = (instruction*) malloc(sizeof(instruction) * num_instr);
+	int i;
+	for(i = 0; i < num_instr; i++)
+	{
+		if(i < destination)
+			new_array[i] = instr_array[i];
+		else if(i >= destination && i < destination + size)
+			new_array[i] = instr_array[start + (i - destination)];
+		else if(i < start + size)
+			new_array[i] = instr_array[i - size];
+		else
+			new_array[i] = instr_array[i];
+	}
+
+	free(instr_array);
+	instr_array = new_array;
+
+	// Update block indices
+	// TO DO
+}
+
+int find_last_mention_index(int start_index, int inc, reg_list* list)
+{
+	int i = start_index;
+	while(list != NULL)
+	{
+		i--;
+		if(find_in_reg_list(list, instr_array[i].tgt_op_1))
+		{
+			int* dummy = (int*) malloc(sizeof(int));
+			list = remove_from_reg_list(list, instr_array[i].tgt_op_1);
+			printf("Will move instruction %d: ", i);
+			print_instruction(&instr_array[i]);
+
+			if(instr_array[i].src_op_1 != NULL)
+				if(sscanf(instr_array[i].src_op_1, "r%d", dummy) > 0)
+					list = add_to_reg_list(list, instr_array[i].src_op_1);
+			
+			if(instr_array[i].src_op_2 != NULL)
+				if(sscanf(instr_array[i].src_op_2, "r%d", dummy) > 0)
+					list = add_to_reg_list(list, instr_array[i].src_op_2);
+
+			free(dummy);
+		}
+	}
+	free(list);
+	return i;
+}
+
+int find_in_reg_list(reg_list* list, char* reg)
+{
+	reg_list* current = list;
+	while(current != NULL)
+	{
+		if(strcmp(current->reg, reg) == 0)
+			return 1;
+		current = current->next;
+	}
+	return 0;
+}
+
+reg_list* add_to_reg_list(reg_list* list, char* reg)
+{
+	reg_list* new_ele = NULL;
+	if(find_in_reg_list(list, reg))
+		return list;
+	else
+	{
+		new_ele = (reg_list*) malloc(sizeof(reg_list));
+		new_ele->reg = reg;
+		new_ele->next = list;
+		free(list);
+		return new_ele;
+	}
+}
+
+reg_list* remove_from_reg_list(reg_list* list, char* reg)
+{
+	reg_list* current = list;
+	if(current == NULL)
+		return NULL;
+	else if(strcmp(current->reg, reg) == 0)
+	{
+		list = current->next;
+		free(current);
+		return list;
+	}
+	while(current->next != NULL)
+	{
+		if(strcmp(current->next->reg, reg) == 0)
+		{
+			reg_list* temp = current->next;
+			current->next = temp->next;
+			free(temp);
+			return list;
+		}
+		current = current->next;
+	}
+	return 0;
 }
 
 int get_variable_stores(char* offset, int first_index, int last_index)

@@ -26,12 +26,22 @@ typedef struct bb_loop_t {
 	bb_node_t* exit_block;
 } bb_loop_t;
 
+typedef struct loop_list {
+	bb_loop_t* loop;
+	struct loop_list* next;
+} loop_list;
+
 typedef struct dom_tree_t {
 	bb_node_t* block;
 	struct dom_tree_t* parent;
 	struct dom_tree_t** children;
 	int num_children;
 } dom_tree_t;
+
+typedef struct reg_list {
+	char* reg;
+	struct reg_list* next;
+} reg_list;
 
 void free_bb_graph(bb_graph_t* g);
 

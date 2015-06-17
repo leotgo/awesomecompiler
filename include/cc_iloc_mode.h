@@ -40,4 +40,10 @@ int node_list_contains(bb_node_list_t* list, bb_node_t* node);
 int get_variable_loads(char* offset, int first_index, int last_index);
 int get_variable_stores(char* offset, int first_index, int last_index);
 
+int find_in_reg_list(reg_list* list, char* reg);
+reg_list* add_to_reg_list(reg_list* list, char* reg);
+reg_list* remove_from_reg_list(reg_list* list, char* reg);
+
+void move_instruction_set(int start, int size, int destination);
+
 #endif
