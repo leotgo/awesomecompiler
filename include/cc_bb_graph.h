@@ -16,6 +16,12 @@ typedef struct bb_graph_t {
 	int num_nodes;
 } bb_graph_t;
 
+typedef struct bb_loop_t {
+	bb_node_t* start_block;
+	bb_node_t* jump_block;
+	bb_node_t** exit_blocks;
+} bb_loop_t;
+
 typedef struct dom_tree_t {
 	bb_node_t* block;
 	struct dom_tree_t** children;
