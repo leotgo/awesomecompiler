@@ -8,8 +8,12 @@ typedef struct bb_node_t {
 	struct bb_node_t** previous;
 	int num_next;
 	int num_previous;
-	int visited;
 } bb_node_t;
+
+typedef struct bb_node_list_t {
+	bb_node_t* node;
+	struct bb_node_list_t* next;
+} bb_node_list_t;
 
 typedef struct bb_graph_t {
 	bb_node_t** nodes;
@@ -20,6 +24,7 @@ typedef struct bb_loop_t {
 	bb_node_t* start_block;
 	bb_node_t* jump_block;
 	bb_node_t** exit_blocks;
+	int num_exits;
 } bb_loop_t;
 
 typedef struct dom_tree_t {

@@ -26,8 +26,6 @@ int iloc_mode(FILE* f) {
 
 	generate_dom_tree();
 
-	loop_optimization();
-
 	for (i = 0; i < num_instr; ++i) {
 		printf("%d  ", i + 1);
 		print_instruction(&instr_array[i]);
@@ -36,10 +34,25 @@ int iloc_mode(FILE* f) {
 	printf("\n\nDominators tree:\n");
 	print_dom_tree(dom_tree, 0);
 
+	print_graph();
+	loop_optimization();
+
 	free_dom_tree();
 	free_bb_graph(bb_graph);
 	
 	return 0;
+}
+
+void print_graph()
+{
+	printf("\n\nGraph:\n");
+	int i;
+	for(i = 0; i < bb_graph->num_nodes; i++)
+	{
+		printf("Node: ");
+		print_instruction(&instr_array[bb_graph->nodes[i]->first_instr_index]);
+		printf("\n");
+	}
 }
 
 void print_dom_tree(dom_tree_t* t, int level)
@@ -98,6 +111,7 @@ void generate_instr_array() {
 
 void loop_optimization()
 {
+	printf("\nLoop optimization:\n\n");
 	int i;
 	int j;
 	for(i = 0; i < bb_graph->num_nodes; i++)
@@ -111,11 +125,34 @@ void loop_optimization()
 				detected_loop->start_block = node->next[j];
 				detected_loop->jump_block = node;
 				detected_loop->exit_blocks = node->next;
+				detected_loop->num_exits = node->num_next;
+				print_loop(detected_loop);
 				optimize_loop(detected_loop);
 				free(detected_loop);
 			}
 		}
 	}
+}
+
+void print_loop(bb_loop_t* loop)
+{
+	printf("Loop start:\n");
+	print_instruction(&instr_array[loop->start_block->first_instr_index]);
+	printf("\nLoop end:\n");
+	print_instruction(&instr_array[loop->jump_block->last_instr_index]);
+	
+	printf("\nLoop exits ( %d ) :\n", loop->num_exits);
+	int i;
+	for(i = 0; i < loop->num_exits; i++)
+	{
+		if(loop->exit_blocks[i] != loop->start_block)
+		{
+			printf("Exit %d : ", i);
+			print_instruction(&instr_array[loop->exit_blocks[i]->first_instr_index]);
+			printf("\n");
+		}
+	}
+	printf("=======================\n");
 }
 
 void optimize_loop(bb_loop_t* loop)
@@ -165,9 +202,6 @@ void generate_dom_tree() {
 	
 	int i;
 	for(i = 0; i < bb_graph->num_nodes; i++)
-		bb_graph->nodes[i]->visited = 0;
-
-	for(i = 0; i < bb_graph->num_nodes; i++)
 	{
 		int num_children = 0;
 		current_node = bb_graph->nodes[i];
@@ -176,66 +210,72 @@ void generate_dom_tree() {
 		int j;
 		// Define how many nodes this node dominates
 		for(j = 0; j < bb_graph->num_nodes; j++)
-			if(i != j)
-				if(node_dominator(bb_graph->nodes[j], bb_graph->nodes[j], starting_node) == current_node)
-					num_children ++;
+		{
+			if( i!=j )
+			{
+				if(is_dominated_by(bb_graph->nodes[j], bb_graph->nodes[i], bb_graph->nodes[0], NULL))
+				{
+					int found = 0;
+				
+					int k;
+					for(k = 0; k < bb_graph->num_nodes; k++)
+						if(i != j && j != k && i != k)
+							if(is_dominated_by(bb_graph->nodes[j], bb_graph->nodes[k], bb_graph->nodes[0], NULL) &&
+								is_dominated_by(bb_graph->nodes[k], bb_graph->nodes[i], bb_graph->nodes[0], NULL) )
+									found = 1;
+					if(found == 0)
+						num_children ++;
+				}
+			}
+		}
 
-		printf("Num children: %d\n", num_children);
 		tree[i]->num_children = num_children;
 		tree[i]->children = (dom_tree_t**) malloc(sizeof(dom_tree_t*) * num_children);
 
 		int n = 0;
 		for(j = 0; j < bb_graph->num_nodes; j++)
+		{
 			if(i != j)
-				if(node_dominator(bb_graph->nodes[j], bb_graph->nodes[j], starting_node) == current_node)
+			{
+				if(is_dominated_by(bb_graph->nodes[j], bb_graph->nodes[i], bb_graph->nodes[0], NULL))
 				{
-					tree[i]->children[n] = tree[j];
-					n++;
+					int found = 0;
+
+					int k;
+					for(k = 0; k < bb_graph->num_nodes; k++)
+						if(j != k && i != k)
+							if(is_dominated_by(bb_graph->nodes[j], bb_graph->nodes[k], bb_graph->nodes[0], NULL) &&
+							   is_dominated_by(bb_graph->nodes[k], bb_graph->nodes[i], bb_graph->nodes[0], NULL) )
+								found = 1;
+
+					if(found == 0)
+					{
+						tree[i]->children[n] = tree[j];
+						n++;
+					}
 				}
+			}
+		}
 	}
 
 	dom_tree = tree[0];
 
 }
 
-bb_node_t* node_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
+int node_list_contains(bb_node_list_t* list, bb_node_t* node)
 {
-	int i;
+	bb_node_list_t* current = list;
+	while(current != NULL)
+	{
+		if(current->node == node)
+			return 1;
 
-	for(i = 0; i < bb_graph->num_nodes; i++)
-		bb_graph->nodes[i]->visited = 0;	
-
-	return find_dominator(node, current, start);
+		current = current->next;
+	}
+	return 0;
 }
 
-bb_node_t* find_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start)
-{
-	if( node != current && is_dominated_by( node, current, start ) )
-	{
-		return current;
-	}
-	else if( current == start )
-	{
-		return NULL;
-	}
-	else
-	{
-		bb_node_t* dominator = NULL;
-		int i;
-		current->visited = 1;
-		for(i = 0; i < current->num_previous; i++)
-		{
-			if(current->previous[i]->visited == 0)
-			{
-				current->previous[i]->visited = 1;
-				dominator = find_dominator(node, current->previous[i], start);
-			}
-		}
-		return dominator;
-	}
-}
-
-int is_dominated_by(bb_node_t* current, bb_node_t* target, bb_node_t* start)
+int is_dominated_by(bb_node_t* current, bb_node_t* target, bb_node_t* start, bb_node_list_t* visited)
 {
 	if(current == target)
 	{
@@ -248,16 +288,26 @@ int is_dominated_by(bb_node_t* current, bb_node_t* target, bb_node_t* start)
 	else
 	{
 		int on_path = 1;
+		
+		bb_node_list_t* new_ele = (bb_node_list_t*) malloc(sizeof(bb_node_list_t));
+		new_ele->node = current;
+		new_ele->next = visited;
+
 		int i;
-		current->visited = 1;
 		for(i = 0; i < current->num_previous; i++)
 		{
-			if(current->previous[i]->visited == 0)
+			if( !node_list_contains(new_ele, current->previous[i] ) )
 			{
-				current->previous[i]->visited = 1;
-				on_path = on_path && is_dominated_by(current->previous[i], target, start);
+				bb_node_list_t* new_ele_p = (bb_node_list_t*) malloc(sizeof(bb_node_list_t));
+				new_ele_p->node = current->previous[i];
+				new_ele_p->next = new_ele;
+				on_path = on_path && is_dominated_by(current->previous[i], target, start, new_ele_p);
+				free(new_ele_p);
 			}
 		}
+		
+		free(new_ele);
+
 		return on_path;
 	}
 }
