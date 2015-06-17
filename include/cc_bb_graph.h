@@ -28,6 +28,7 @@ typedef struct bb_loop_t {
 
 typedef struct dom_tree_t {
 	bb_node_t* block;
+	struct dom_tree_t* parent;
 	struct dom_tree_t** children;
 	int num_children;
 } dom_tree_t;

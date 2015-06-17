@@ -111,7 +111,7 @@ void generate_instr_array() {
 
 void loop_optimization()
 {
-	printf("\nLoop optimization:\n\n");
+	printf("\nLoops detected:\n\n");
 	int i;
 	int j;
 	for(i = 0; i < bb_graph->num_nodes; i++)
@@ -126,13 +126,9 @@ void loop_optimization()
 				detected_loop->jump_block = node;
 
 				if(detected_loop->jump_block->num_next == 1) 	// While type of loop
-				{
 					detected_loop->exit_block = detected_loop->start_block->next[1];
-				}
 				else				// Do-While type of loop
-				{
 					detected_loop->exit_block = detected_loop->jump_block->next[1];
-				}
 
 				print_loop(detected_loop);
 				optimize_loop(detected_loop);
@@ -157,6 +153,78 @@ void print_loop(bb_loop_t* loop)
 void optimize_loop(bb_loop_t* loop)
 {
 	// TO BE CONTINUED
+	int i;
+	for(i = loop->start_block->first_instr_index; i < loop->jump_block->last_instr_index; i++)
+	{
+		if(instr_array[i].opcode == OP_STORE_A_O)
+		{
+			printf("Detected attribution at %d:", i);
+			print_instruction(&instr_array[i]);
+			// Figure out the containing block for attribution
+			bb_node_t* containing_block = loop->start_block;
+			int j;
+			for(j = 0; j < bb_graph->num_nodes; j++)
+			{
+				if(bb_graph->nodes[j]->first_instr_index > containing_block->first_instr_index &&
+				   bb_graph->nodes[j]->last_instr_index < loop->jump_block->last_instr_index)
+					containing_block = bb_graph->nodes[j];
+			}
+
+			int dominates_exit = check_node_domination(containing_block, loop->exit_block);
+			
+			int number_of_stores =	
+				get_variable_stores(instr_array[i-2].src_op_1, loop->start_block->first_instr_index, loop->jump_block->last_instr_index);
+			int no_other_attribution = (number_of_stores <= 1);
+			printf("Stores: %d\n", number_of_stores);
+			
+			int number_of_uses = 
+				get_variable_loads(instr_array[i-2].src_op_1, loop->start_block->first_instr_index, loop->jump_block->last_instr_index);
+			int no_other_uses = (number_of_uses <= 1);
+			printf("Loads: %d\n", number_of_uses);
+			
+			// Start searching for attribution scope
+			if(dominates_exit && no_other_attribution && no_other_uses)
+			{
+				dom_tree_t* tree_node;
+				int m;
+				for(m = 0; m < bb_graph->num_nodes; m++)
+					if(tree[m]->block == loop->start_block)
+						tree_node = tree[m];					
+
+				bb_node_t* destination_block = tree_node->parent->block;
+
+				printf("No other attribution/uses and dominates exit!\n");
+				char* reg = instr_array[i].src_op_1;
+			}
+			printf("\n");
+		}
+	}
+}
+
+int get_variable_stores(char* offset, int first_index, int last_index)
+{
+	int uses = 0;
+	int i;
+
+	for(i = first_index; i < last_index; i++)
+		if(instr_array[i].opcode == OP_STORE_A_O)
+			if(strcmp(offset, instr_array[i-2].src_op_1) == 0)
+				uses ++;
+
+	return uses;
+}
+
+int get_variable_loads(char* offset, int first_index, int last_index)
+{
+	int loads = 0;
+	int i;
+
+	for(i = first_index; i < last_index; i++)
+		if(instr_array[i].opcode == OP_LOAD_A_I)
+			if(strcmp(offset, instr_array[i].src_op_2) == 0)
+				loads ++;
+
+	return loads;
 }
 
 int check_node_domination(bb_node_t* dominator, bb_node_t* dominated)
@@ -249,6 +317,7 @@ void generate_dom_tree() {
 
 					if(found == 0)
 					{
+						tree[j]->parent = tree[i];
 						tree[i]->children[n] = tree[j];
 						n++;
 					}

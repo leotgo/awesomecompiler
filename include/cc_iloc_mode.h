@@ -37,4 +37,7 @@ int check_node_in_tree(dom_tree_t* root, bb_node_t* node);
 
 int node_list_contains(bb_node_list_t* list, bb_node_t* node);
 
+int get_variable_loads(char* offset, int first_index, int last_index);
+int get_variable_stores(char* offset, int first_index, int last_index);
+
 #endif
