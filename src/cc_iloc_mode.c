@@ -6,6 +6,7 @@ instruction* instr_array = NULL;
 bb_graph_t* bb_graph = NULL;
 dom_tree_t* dom_tree = NULL;
 dom_tree_t** tree = NULL;
+
 int num_instr = 0;
 
 int compare_marked_instr(const void* a, const void* b) {
@@ -24,6 +25,8 @@ int iloc_mode(FILE* f) {
 	generate_bb_graph();
 
 	generate_dom_tree();
+
+	loop_optimization();
 
 	for (i = 0; i < num_instr; ++i) {
 		printf("%d  ", i + 1);
@@ -90,6 +93,58 @@ void generate_instr_array() {
 		instr_array[i] = *tmp;
 		tmp = tmp->next;
 		--i;
+	}
+}
+
+void loop_optimization()
+{
+	int i;
+	int j;
+	for(i = 0; i < bb_graph->num_nodes; i++)
+	{
+		bb_node_t* node = bb_graph->nodes[i];
+		for(j = 0; j < node->num_next; j++)
+		{
+			if(check_node_domination(node->next[j], node))
+			{
+				bb_loop_t* detected_loop = (bb_loop_t*) malloc(sizeof(bb_loop_t));
+				detected_loop->start_block = node->next[j];
+				detected_loop->jump_block = node;
+				detected_loop->exit_blocks = node->next;
+				optimize_loop(detected_loop);
+				free(detected_loop);
+			}
+		}
+	}
+}
+
+void optimize_loop(bb_loop_t* loop)
+{
+	// TO BE CONTINUED
+}
+
+int check_node_domination(bb_node_t* dominator, bb_node_t* dominated)
+{
+	int i;
+	for(i = 0; i < bb_graph->num_nodes; i++)
+		if(tree[i]->block == dominator)
+			return check_node_in_tree(tree[i], dominated);
+	return 0;
+}
+
+int check_node_in_tree(dom_tree_t* root, bb_node_t* node)
+{
+	if(root->block == node)
+	{
+		return 1;
+	}
+	else
+	{
+		int found = 0;
+		int i;
+		for(i = 0; i < root->num_children; i++)
+			found = found || check_node_in_tree(root->children[i], node);
+		return found;
 	}
 }
 

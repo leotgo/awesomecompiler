@@ -30,4 +30,9 @@ int is_dominated_by(bb_node_t* current, bb_node_t* target, bb_node_t* start);
 void print_dom_tree(dom_tree_t* t, int level);
 bb_node_t* node_dominator(bb_node_t* node, bb_node_t* current, bb_node_t* start);
 
+void loop_optimization();
+void optimize_loop(bb_loop_t* loop);
+int check_node_domination(bb_node_t* dominator, bb_node_t* dominated);
+int check_node_in_tree(dom_tree_t* root, bb_node_t* node);
+
 #endif
