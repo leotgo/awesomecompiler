@@ -15,7 +15,7 @@ void iloc_parse(FILE* f) {
 		char* src2 = str_pool_add((char*)malloc(100 * sizeof(char)));
 		char* tgt1 = str_pool_add((char*)malloc(100 * sizeof(char)));
 		char* tgt2 = str_pool_add((char*)malloc(100 * sizeof(char)));
-		
+
 		instruction* ins = NULL;
 		instruction_list_add(&ins);
 
@@ -62,9 +62,6 @@ void iloc_parse(FILE* f) {
 		} else if (sscanf(buf, " %s ", buf2) == 1) {
 			/* nop */
 			ins->opcode = OP_NOP;
-		} else {
-			printf("Error: ill-formed ILOC input file. Aborting.\n");
-			exit(-1);
 		}
 
 		iloc_mode_instr_list = instruction_list_merge(&iloc_mode_instr_list, &ins);
